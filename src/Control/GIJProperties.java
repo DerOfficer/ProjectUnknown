@@ -11,7 +11,7 @@ import java.awt.*;
  */
 public class GIJProperties {
 
-    private MainFrame frame;
+    private MainFrame frame;//
 
     public GIJProperties(){
         this.frame = new MainFrame("Fische sind dezent",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);

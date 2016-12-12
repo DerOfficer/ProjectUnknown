@@ -21,7 +21,6 @@ public class Button extends AbstractEventInteractionObject{
 
 
     public Button(int x, int y, int width, int height,String s){
-
         this.x = x;
         this.y = y;
         this.width = width;
@@ -55,8 +54,9 @@ public class Button extends AbstractEventInteractionObject{
 
     @Override
     public Shape getBounds() {
-        return new Rectangle(x,y,width,height);
+        return rectangle;
     }
+
 
     public int getX(){
         return x;
