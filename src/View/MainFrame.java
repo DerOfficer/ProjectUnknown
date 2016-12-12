@@ -47,9 +47,9 @@ public class MainFrame extends JFrame {
      * F�gt dem DrawWindow ein neues DrawingBoard hinzu. Dieses wird nicht zum
      * aktuellen DrawingBoard!
      */
-    public void addNewDrawingPanel(){
-        DrawingPanel tempDB = new DrawingPanel();
-        panels.add(tempDB);
+    public void addNewDrawingPanel(DrawingPanel p){
+        panels.add(p);
+        setActiveDrawingPanel(panels.size()-1);
     }
 
     /**

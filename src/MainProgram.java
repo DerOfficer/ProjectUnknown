@@ -1,7 +1,9 @@
 import Control.GIJProperties;
+import View.DrawingPanel;
 import View.MainFrame;
 
 import javax.swing.*;
+import Model.Start;
 
 /**
  * Created by Jean-Pierre on 15.11.2016.

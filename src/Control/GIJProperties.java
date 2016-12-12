@@ -1,5 +1,7 @@
 package Control;
 
+import Model.Start;
+import View.DrawingPanel;
 import View.MainFrame;
 
 import java.awt.*;
@@ -14,6 +16,9 @@ public class GIJProperties {
     public GIJProperties(){
         this.frame = new MainFrame("Fische sind dezent",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
 
+        DrawingPanel start = new Start();
+
+        frame.addNewDrawingPanel(start);
     }
 
     public MainFrame getFrame(){
