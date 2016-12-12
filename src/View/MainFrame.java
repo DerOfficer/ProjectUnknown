@@ -1,6 +1,8 @@
 package View;
 
 import Control.ProjectUnknownProperties;
+import Model.Settings;
+import Model.Start;
 
 import javax.swing.*;
 import java.util.ArrayList;
@@ -16,6 +18,11 @@ public class MainFrame extends JFrame {
     private DrawingPanel activePanel;
     private ArrayList<DrawingPanel> panels;
 
+
+
+    private Start start;
+    private Settings settings;
+
     /**
      * Konstruktor
      * @param name Der Titel des Fensters
@@ -28,6 +35,10 @@ public class MainFrame extends JFrame {
         panels = new ArrayList<>();
         activePanel = new DrawingPanel(pup);
         panels.add(activePanel);
+
+        start = new Start(pup);
+        settings = new Settings(pup);
+
         add(activePanel);
         addKeyListener(activePanel);
         setLocation(x,y);
@@ -51,6 +62,7 @@ public class MainFrame extends JFrame {
      * aktuellen DrawingBoard!
      */
     public void addNewDrawingPanel(DrawingPanel p){
+        panels.clear();
         panels.add(p);
         setActiveDrawingPanel(panels.size()-1);
     }
@@ -71,5 +83,13 @@ public class MainFrame extends JFrame {
 
             revalidate();
         }
+    }
+
+    public Start getStart() {
+        return start;
+    }
+
+    public Settings getSettings() {
+        return settings;
     }
 }

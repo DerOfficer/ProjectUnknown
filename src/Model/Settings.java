@@ -1,6 +1,7 @@
 package Model;
 
 import Control.ProjectUnknownProperties;
+import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
 
 import java.awt.*;
@@ -16,7 +17,7 @@ public class Settings extends DrawingPanel{
     private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 
-    private Button jump = new Button(x,screenHeight/10*4,150,150,"W");
+    private Button jump = new Button(x,screenHeight/10*4-150,150,150,"W");
     private Button crouch = new Button(x,screenHeight/10*5,150,150,"S");
     private Button left = new Button(x-150-screenHeight/10,screenHeight/10*5,150,150,"A");
     private Button right = new Button(x+150+screenHeight/10,screenHeight/10*5,150,150,"D");
@@ -35,6 +36,10 @@ public class Settings extends DrawingPanel{
         addObject(minus);
         addObject(plus);
         addObject(back);
+
+        back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getFrame().addNewDrawingPanel(properties.getFrame().getStart());
+        });
 
     }
 
