@@ -1,5 +1,7 @@
 package Model;
 
+import Control.ProjectUnknownProperties;
+import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -18,11 +20,24 @@ public class Start extends DrawingPanel {
 
 
 
-    public Start(){
+    public Start(ProjectUnknownProperties properties){
+        super(properties);
        // addObject(background);
         addObject(startButton);
         addObject(settingsButton);
         addObject(exitButton);
+
+        startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+
+        });
+
+        settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+
+        });
+
+        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            System.exit(0);
+        });
 
     }
 }

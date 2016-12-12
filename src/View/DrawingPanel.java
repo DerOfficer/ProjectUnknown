@@ -1,5 +1,6 @@
 package View;
 
+import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Abstraction.IInteractableObject;
@@ -23,19 +24,22 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
     private ArrayList<IDrawableObject> drawableObjects;
 
     private Graphics2D graphics;
+
+    protected ProjectUnknownProperties properties;
     /**
      * Konstruktor
      */
-    public DrawingPanel(){
+    public DrawingPanel(ProjectUnknownProperties properties){
         super();
         addMouseListener(this);
         setDoubleBuffered(true);
+
+        this.properties = properties;
 
         drawableObjects = new ArrayList<>();
         lastLoop = System.nanoTime();
         javax.swing.Timer timer = new javax.swing.Timer(17, this);
         timer.start();
-
     }
 
     /**
