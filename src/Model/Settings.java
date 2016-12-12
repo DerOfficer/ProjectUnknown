@@ -12,20 +12,22 @@ import java.awt.*;
 public class Settings extends DrawingPanel{
 
     private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private int x = (screenWidth/2)-(150/2);
+    private int x = (screenWidth/2);
 
     private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
 
-    private Button jump = new Button(x,screenHeight/10*4-150,150,150,"W");
-    private Button crouch = new Button(x,screenHeight/10*5,150,150,"S");
-    private Button left = new Button(x-150-screenHeight/10,screenHeight/10*5,150,150,"A");
-    private Button right = new Button(x+150+screenHeight/10,screenHeight/10*5,150,150,"D");
+    private Button jump = new Button(x-75,screenHeight/10*4-150,150,150,"W");
+    private Button crouch = new Button(x-75,screenHeight/10*5,150,150,"S");
+    private Button left = new Button(x-225-screenHeight/10,screenHeight/10*5,150,150,"A");
+    private Button right = new Button(x+225+screenHeight/10,screenHeight/10*5,150,150,"D");
 
     private Button minus = new Button(screenWidth/8*5,screenHeight/10*9,75,75,"-");
     private Button plus = new Button(screenWidth/8*7,screenHeight/10*9,75,75,"+");
 
-    private Button back = new Button(x/4,screenHeight/10*9,75,75,"← Back");
+    private Button back = new Button(x/5,screenHeight/10*9,75,75,"← Back");
+    private Label headline = new Label("SETTINGS", x-)
+
 
     public Settings(ProjectUnknownProperties properties){
         super(properties);
@@ -36,6 +38,7 @@ public class Settings extends DrawingPanel{
         addObject(minus);
         addObject(plus);
         addObject(back);
+
 
         back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getFrame().addNewDrawingPanel(properties.getFrame().getStart());

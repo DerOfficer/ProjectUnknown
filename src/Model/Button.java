@@ -34,7 +34,7 @@ public class Button extends AbstractEventInteractionObject{
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        g2d.setColor(new Color(255, 191, 124));
+        g2d.setColor(new Color(255, 112, 227));
         g2d.fill(rectangle);
         g2d.setColor(new Color(0,0,0));
         int textWidth = g2d.getFontMetrics().stringWidth(s);

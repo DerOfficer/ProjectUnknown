@@ -24,4 +24,9 @@ public class ProjectUnknownProperties {
     public MainFrame getFrame() {
         return frame;
     }
+
+    /*public VolumeManager getVolumeManager(){
+
+    }
+    */
 }
