@@ -32,7 +32,7 @@ public class Start extends DrawingPanel {
         });
 
         settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-
+            properties.getFrame().addNewDrawingPanel(new Settings(properties));
         });
 
         exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {

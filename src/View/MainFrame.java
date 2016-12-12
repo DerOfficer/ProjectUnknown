@@ -1,5 +1,7 @@
 package View;
 
+import Control.ProjectUnknownProperties;
+
 import javax.swing.*;
 import java.util.ArrayList;
 
@@ -22,9 +24,9 @@ public class MainFrame extends JFrame {
      * @param width Die Breite des Fensters
      * @param height Die Höhe des Fensters
      */
-    public MainFrame(String name, int x, int y, int width, int height) {
+    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties pup) {
         panels = new ArrayList<>();
-        activePanel = new DrawingPanel();
+        activePanel = new DrawingPanel(pup);
         panels.add(activePanel);
         add(activePanel);
         addKeyListener(activePanel);

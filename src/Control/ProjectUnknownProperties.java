@@ -14,7 +14,7 @@ public class ProjectUnknownProperties {
     private MainFrame frame;//
 
     public ProjectUnknownProperties(){
-        this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height);
+        this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height, this);
 
         DrawingPanel start = new Start(this);
 
