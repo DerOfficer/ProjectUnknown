@@ -55,7 +55,7 @@ public class Button extends AbstractEventInteractionObject{
 
     @Override
     public Shape getBounds() {
-        return null;
+        return new Rectangle(x,y,width,height);
     }
 
     public int getX(){

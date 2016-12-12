@@ -32,6 +32,7 @@ public class MainFrame extends JFrame {
         setSize(width,height);
         setTitle(name);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setUndecorated(true);
         setVisible(true);
     }
 
