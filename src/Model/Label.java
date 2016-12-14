@@ -14,7 +14,7 @@ public class Label implements IDrawableObject{
     private int y;
     private String label;
     private ICanvas canvas;
-    private
+    private int length;
 
     public Label(int x, int y,String label){
         this.label = label;
@@ -25,8 +25,9 @@ public class Label implements IDrawableObject{
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        (int) FontMetrics length = g2d.getFontMetrics();
-        g2d.drawString(label,x-length,y);
+        //(int) FontMetrics length = g2d.getFontMetrics();
+        length = label.length();
+        g2d.drawString(label,x-(length/2),y);
 
     }
 
@@ -37,7 +38,7 @@ public class Label implements IDrawableObject{
 
     @Override
     public void provideCanvas(ICanvas canvas) {
-
+        this.canvas = canvas;
     }
 
     @Override

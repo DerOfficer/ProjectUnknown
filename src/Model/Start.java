@@ -41,3 +41,12 @@ public class Start extends DrawingPanel {
 
     }
 }
+
+
+/**
+            ____
+            |  | --|   BAUMWOLLE mit einer IF-Schleife
+            |__| --|
+
+              |_____
+ **/

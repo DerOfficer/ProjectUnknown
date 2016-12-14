@@ -4,7 +4,6 @@ import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -40,7 +39,6 @@ public class Button extends AbstractEventInteractionObject{
         int textWidth = g2d.getFontMetrics().stringWidth(s);
         int textHeight = g2d.getFontMetrics().getHeight();
         g2d.drawString(s,this.x+(this.width/2)-(textWidth/2),this.y+(this.height/2)+(textHeight/2)-2);
-        //g2d.drawRect(rectangle);
     }
 
     @Override
