@@ -3,7 +3,7 @@ package Model;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
-
+import Model.VolumeManager;
 import java.awt.*;
 
 /**
@@ -44,6 +44,16 @@ public class Settings extends DrawingPanel{
         back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getFrame().addNewDrawingPanel(properties.getFrame().getStart());
         });
+
+
+        minus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getVolumeManager().decrease();
+        });
+        plus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getVolumeManager().increase();
+        });
+
+
 
     }
 
