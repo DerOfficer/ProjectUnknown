@@ -1,6 +1,5 @@
 package Model;
 
-
 public class VolumeManager{
     private double volume;
 

@@ -2,9 +2,6 @@ import Control.ProjectUnknownProperties;
 
 import javax.swing.*;
 
-/**
- * Created by Jean-Pierre on 15.11.2016.
- */
 public class MainProgram {
 
     public static void main (String[] args){
