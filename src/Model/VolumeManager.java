@@ -1,27 +1,35 @@
 package Model;
 
-/**
- * Created by 204g03 on 12.12.2016.
- */
-public class VolumeManager {
-    double volume;
+
+public class VolumeManager{
+    private double volume;
 
     public VolumeManager(){
-        volume = 1;
+        volume = 0;
     }
 
     public void increase(){
-        if(checkBounds()) {
-            volume = volume + 0.01;
+        if(volume < 1) {
+            volume = volume + 0.1;
         }
     }
     public void decrease(){
-        if(checkBounds()) {
-            volume = volume - 0.01;
+        if(volume > 0) {
+            volume = volume - 0.1;
         }
     }
 
-    public boolean checkBounds(){
-        return (volume > 0 && volume < 1);
+    public void setVolume(double newVolume){
+        volume = newVolume/10;
+        if(volume > 1){
+            volume = 1;
+        }
+        if(volume < 0){
+            volume = 0;
+        }
+    }
+
+    public double getVolume(){
+        return volume;
     }
 }

@@ -3,41 +3,22 @@ package View;
 import Control.ProjectUnknownProperties;
 import Model.Settings;
 import Model.Start;
-
 import javax.swing.*;
 import java.util.ArrayList;
 
-/**
- * Created by Jean-Pierre on 15.11.2016.
- */
 public class MainFrame extends JFrame {
 
-    // Attribute
-
-    // Referenzen
     private DrawingPanel activePanel;
     private ArrayList<DrawingPanel> panels;
-
-
-
     private Start start;
     private Settings settings;
 
-    /**
-     * Konstruktor
-     * @param name Der Titel des Fensters
-     * @param x Die obere linke x-Koordinate des Fensters bzgl. des Bildschirms
-     * @param y Die obere linke y-Koordinaite des Fensters bzgl. des Bildschirms
-     * @param width Die Breite des Fensters
-     * @param height Die Höhe des Fensters
-     */
-    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties pup) {
+    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) {
         panels = new ArrayList<>();
-        activePanel = new DrawingPanel(pup);
+        activePanel = new DrawingPanel(properties);
+        start = new Start(properties);
+        settings = new Settings(properties);
         panels.add(activePanel);
-
-        start = new Start(pup);
-        settings = new Settings(pup);
 
         add(activePanel);
         addKeyListener(activePanel);
@@ -49,38 +30,23 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    /**
-     * Liefert das aktuell vom DrawWindow angezeigte DrawingBoard zur�ck
-     * @return Das aktuelle DrawingBoard
-     */
     public DrawingPanel getActiveDrawingPanel(){
         return activePanel;
     }
 
-    /**
-     * F�gt dem DrawWindow ein neues DrawingBoard hinzu. Dieses wird nicht zum
-     * aktuellen DrawingBoard!
-     */
     public void addNewDrawingPanel(DrawingPanel p){
         panels.clear();
         panels.add(p);
         setActiveDrawingPanel(panels.size()-1);
     }
 
-    /**
-     * �ndert das aktuell vom DrawWindow gezeigte DrawingBoard.
-     * @param index Der Index des neuen zu zeigenden DrawingBoards (angefangen bei 0).
-     */
     public void setActiveDrawingPanel(int index){
         if (index < panels.size()){
             remove(activePanel);
             removeKeyListener(activePanel);
-
             activePanel = panels.get(index);
-
             add(activePanel);
             addKeyListener(activePanel);
-
             revalidate();
         }
     }

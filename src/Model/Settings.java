@@ -3,34 +3,29 @@ package Model;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
-import Model.VolumeManager;
 import java.awt.*;
 
-/**
- * Created by 204g03 on 12.12.2016.
- */
 public class Settings extends DrawingPanel{
 
-    private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private int x = (screenWidth/2);
+    private int sHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private int sWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private int x = (sWidth/2);
 
-    private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private Button jump = new Button(x-75,sHeight/10*4-150,150,150,"W");
+    private Button crouch = new Button(x-75,sHeight/10*5,150,150,"S");
+    private Button left = new Button(x-225-sHeight/10,sHeight/10*5,150,150,"A");
+    private Button right = new Button(x+75+sHeight/10,sHeight/10*5,150,150,"D");
 
+    private Button minus = new Button(sWidth/8*6-sWidth/25,sHeight/10*9,sWidth/25,sWidth/25,"-");
+    private Button plus = new Button(sWidth/8*7+(sWidth/8/20),sHeight/10*9,sWidth/25,sWidth/25,"+");
 
-    private Button jump = new Button(x-75,screenHeight/10*4-150,150,150,"W");
-    private Button crouch = new Button(x-75,screenHeight/10*5,150,150,"S");
-    private Button left = new Button(x-225-screenHeight/10,screenHeight/10*5,150,150,"A");
-    private Button right = new Button(x+75+screenHeight/10,screenHeight/10*5,150,150,"D");
-
-    private Button minus = new Button(screenWidth/8*5,screenHeight/10*9,75,75,"-");
-    private Button plus = new Button(screenWidth/8*7,screenHeight/10*9,75,75,"+");
-
-    private Button back = new Button(x/5,screenHeight/10*9,75,75,"← Back");
-    private Label headline = new Label(x,screenHeight/10*2,"SETTINGS",150);
-
+    private Button back = new Button(x/7,sHeight/10*9,100,50,"← Back");
+    private Label headline = new Label(x,sHeight/10*2,"SETTINGS",150);
+    private Button[] volumeButtons = new Button[10];
 
     public Settings(ProjectUnknownProperties properties){
         super(properties);
+        createVolButtons();
         addObject(jump);
         addObject(crouch);
         addObject(left);
@@ -40,22 +35,40 @@ public class Settings extends DrawingPanel{
         addObject(back);
         addObject(headline);
 
-
         back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getFrame().addNewDrawingPanel(properties.getFrame().getStart());
         });
 
-
         minus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getVolumeManager().decrease();
+            System.out.println(properties.getVolumeManager().getVolume());
         });
+
         plus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getVolumeManager().increase();
+            System.out.println(properties.getVolumeManager().getVolume());
         });
 
-
-
+        for(int i = 0; i < volumeButtons.length; i++){
+            volHandlers(i);
+        }
     }
 
+    public void createVolButtons(){
+        int x = sWidth/160;
+        int height = sWidth/25/10;
+        for(int i = 0; i < volumeButtons.length; i++) {
+            volumeButtons[i] = new Button(sWidth/8*6+x, sHeight/10*9+sWidth/25-height, sWidth/8/20, height, "");
+            x = x+sWidth/8/10;
+            height = height+sWidth/25/10;
+            addObject(volumeButtons[i]);
+        }
+    }
 
+    public void volHandlers(int i){
+        volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getVolumeManager().setVolume((double) (i+1));
+            System.out.println(properties.getVolumeManager().getVolume());
+        });
+    }
 }

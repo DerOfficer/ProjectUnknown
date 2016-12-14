@@ -15,20 +15,12 @@ import java.util.ArrayList;
  */
 public class DrawingPanel extends JPanel implements ActionListener, KeyListener, MouseListener, ICanvas {
 
-    //Attribute
     private long lastLoop, elapsedTime;
-
     private boolean graphicsLock;
-
-    // Referenzen
     private ArrayList<IDrawableObject> drawableObjects;
-
     private Graphics2D graphics;
-
     protected ProjectUnknownProperties properties;
-    /**
-     * Konstruktor
-     */
+
     public DrawingPanel(ProjectUnknownProperties properties){
         super();
         addMouseListener(this);
@@ -42,9 +34,6 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
         timer.start();
     }
 
-    /**
-     * Zeichnen aller registrierten Objekte
-     */
     @Override
     public void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -61,22 +50,12 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
         graphicsLock = false;
     }
 
-    /**
-     * Diese Methode fügt ein neues Objekt zum Zeichnen hinzu. Die
-     * Klasse des Objekts muss mindestens das Interface IDrawableObject implementieren.
-     * @param d Das ab sofort zu zeichnende Objekt
-     */
     @Override
     public void addObject(IDrawableObject d){
         drawableObjects.add(d);
         d.provideCanvas(this);
     }
 
-    /**
-     * Diese Methode entfernt ein Objekt aus der Menge der zu zeichnenden Objekte. Die
-     * Klasse des Objekts muss mindestens das Interface IDrawableObject implementieren.
-     * @param d Das ab sofort nicht mehr zu zeichnende Objekt
-     */
     @Override
     public void removeObject(IDrawableObject d){
         drawableObjects.remove(d);
@@ -92,33 +71,21 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
         return graphicsLock;
     }
 
-    /**
-     * Timer-Repaint
-     */
     @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
 
-    /**
-     * Unbenutzt bis auf Weiteres
-     */
     public void keyTyped(KeyEvent e){
 
     }
 
-    /**
-     * Weitergabe an Zeichnungsobjekte.
-     */
     public void keyPressed(KeyEvent e){
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .forEach(tempDO -> ((IInteractableObject) tempDO).keyPressed(e.getKeyCode()));
     }
 
-    /**
-     * Weitergabe an Zeichnungsobjekte.
-     */
     public void keyReleased(KeyEvent e){
 
         drawableObjects.stream()
@@ -127,9 +94,6 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
 
     }
 
-    /**
-     * Unbenutzt bis auf Weiteres
-     */
     public void mousePressed(MouseEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
@@ -137,9 +101,6 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
                 .forEach(tempDO -> ((IInteractableObject) tempDO).mousePressed(e));
     }
 
-    /**
-     * Unbenutzt bis auf Weiteres
-     */
     public void mouseReleased(MouseEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
@@ -147,21 +108,12 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
                 .forEach(tempDO -> ((IInteractableObject)tempDO).mouseReleased(e));
     }
 
-    /**
-     * Unbenutzt bis auf Weiteres
-     */
     public void mouseEntered(MouseEvent e) {
     }
 
-    /**
-     * Unbenutzt bis auf Weiteres
-     */
     public void mouseExited(MouseEvent e) {
     }
 
-    /**
-     * Weitergabe an Zeichnungsobjekte.
-     */
     public void mouseClicked(MouseEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)

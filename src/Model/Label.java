@@ -2,12 +2,8 @@ package Model;
 
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
-
 import java.awt.*;
 
-/**
- * Created by 204g03 on 12.12.2016.
- */
 public class Label implements IDrawableObject{
 
     private int x;
@@ -30,12 +26,10 @@ public class Label implements IDrawableObject{
         g2d.setFont(new Font(g2d.getFont().getName(), Font.BOLD, fontSize));
         length = g2d.getFontMetrics().stringWidth(label);
         g2d.drawString(label,(x-(length/2)),y);
-
     }
 
     @Override
     public void update(double dt) {
-
     }
 
     @Override

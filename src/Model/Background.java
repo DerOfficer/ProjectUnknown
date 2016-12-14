@@ -2,22 +2,15 @@ package Model;
 
 import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
-
 import java.awt.*;
 
-
-/**
- * Created by 204g03 on 09.12.2016.
- */
 public class Background extends AbstractEventInteractionObject{
-
 
     private ICanvas canvas;
     private Image background = Toolkit.getDefaultToolkit().getImage("super-mario-world-wallpaper.png");
 
     public Background(){
     }
-
 
     @Override
     public void draw() {
@@ -29,7 +22,6 @@ public class Background extends AbstractEventInteractionObject{
 
     @Override
     public void update(double dt) {
-
     }
 
     @Override
@@ -41,5 +33,4 @@ public class Background extends AbstractEventInteractionObject{
     public Shape getBounds() {
         return canvas.getBounds();
     }
-
 }
