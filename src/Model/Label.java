@@ -15,19 +15,21 @@ public class Label implements IDrawableObject{
     private String label;
     private ICanvas canvas;
     private int length;
+    private int fontSize;
 
-    public Label(int x, int y,String label){
+    public Label(int x, int y,String label, int fontSize){
         this.label = label;
         this.x = x;
         this.y = y;
+        this.fontSize = fontSize;
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        //(int) FontMetrics length = g2d.getFontMetrics();
-        length = label.length();
-        g2d.drawString(label,x-(length/2),y);
+        g2d.setFont(new Font(g2d.getFont().getName(), Font.BOLD, fontSize));
+        length = g2d.getFontMetrics().stringWidth(label);
+        g2d.drawString(label,(x-(length/2)),y);
 
     }
 

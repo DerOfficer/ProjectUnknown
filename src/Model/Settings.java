@@ -26,7 +26,7 @@ public class Settings extends DrawingPanel{
     private Button plus = new Button(screenWidth/8*7,screenHeight/10*9,75,75,"+");
 
     private Button back = new Button(x/5,screenHeight/10*9,75,75,"← Back");
-    private Label headline = new Label(x,screenHeight/10*1,"SETTINGS");
+    private Label headline = new Label(x,screenHeight/10*2,"SETTINGS",150);
 
 
     public Settings(ProjectUnknownProperties properties){
