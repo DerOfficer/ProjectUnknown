@@ -10,9 +10,6 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-/**
- * Created by Jean-Pierre on 15.11.2016.
- */
 public class DrawingPanel extends JPanel implements ActionListener, KeyListener, MouseListener, ICanvas {
 
     private long lastLoop, elapsedTime;
