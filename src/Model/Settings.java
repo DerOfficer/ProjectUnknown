@@ -36,7 +36,7 @@ public class Settings extends DrawingPanel{
         addObject(headline);
 
         back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getFrame().addNewDrawingPanel(properties.getFrame().getStart());
+            properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
         });
 
         minus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {

@@ -13,7 +13,7 @@ public class ProjectUnknownProperties {
         this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height, this);
 
         volumeManager = new VolumeManager();
-        frame.addNewDrawingPanel(frame.getStart());
+        frame.setDrawingPanel(frame.getStart());
     }
 
     public MainFrame getFrame() {

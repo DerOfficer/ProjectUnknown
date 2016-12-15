@@ -26,10 +26,14 @@ public class Start extends DrawingPanel {
         });
 
         settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getFrame().addNewDrawingPanel(properties.getFrame().getSettings());
+            properties.getFrame().setDrawingPanel(properties.getFrame().getSettings());
         });
 
         exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            System.exit(0);
+        });
+
+        exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, event -> {
             System.exit(0);
         });
     }

@@ -84,7 +84,6 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
     }
 
     public void keyReleased(KeyEvent e){
-
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .forEach(tempDO -> ((IInteractableObject)tempDO).keyReleased(e.getKeyCode()));

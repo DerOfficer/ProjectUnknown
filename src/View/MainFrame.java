@@ -8,20 +8,22 @@ import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
 
-    private DrawingPanel activePanel;
-    private ArrayList<DrawingPanel> panels;
+    private DrawingPanel currentPanel;
+
+    //private DrawingPanel activePanel;
+    //private ArrayList<DrawingPanel> panels;
     private Start start;
     private Settings settings;
 
     public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) {
-        panels = new ArrayList<>();
-        activePanel = new DrawingPanel(properties);
+        //panels = new ArrayList<>();
+        //activePanel = new DrawingPanel(properties);
         start = new Start(properties);
         settings = new Settings(properties);
-        panels.add(activePanel);
+        //panels.add(activePanel);
 
-        add(activePanel);
-        addKeyListener(activePanel);
+        //add(activePanel);
+        //addKeyListener(activePanel);
         setLocation(x,y);
         setSize(width,height);
         setTitle(name);
@@ -30,17 +32,36 @@ public class MainFrame extends JFrame {
         setVisible(true);
     }
 
-    public DrawingPanel getActiveDrawingPanel(){
-        return activePanel;
-    }
+    /*public DrawingPanel getActiveDrawingPanel(){
+        return currentPanel;
+    }*/
 
-    public void addNewDrawingPanel(DrawingPanel p){
-        panels.clear();
+    public void setDrawingPanel(DrawingPanel p){
+        if(p == null)
+            throw new NullPointerException();
+        registerDrawingPanel(p);
+        if(currentPanel != null)
+            unregisterDrawingPanel(currentPanel);
+        currentPanel = p;
+        revalidate();
+        /*panels.clear();
         panels.add(p);
-        setActiveDrawingPanel(panels.size()-1);
+        setActiveDrawingPanel(panels.size()-1);*/
     }
 
-    public void setActiveDrawingPanel(int index){
+    private void unregisterDrawingPanel(DrawingPanel p){
+        remove(p);
+        removeKeyListener(p);
+        //removeMouseListener(p);
+    }
+
+    private void registerDrawingPanel(DrawingPanel p){
+        add(p);
+        addKeyListener(p);
+        //addMouseListener(p);
+    }
+
+    /*public void setActiveDrawingPanel(int index){
         if (index < panels.size()){
             remove(activePanel);
             removeKeyListener(activePanel);
@@ -49,7 +70,7 @@ public class MainFrame extends JFrame {
             addKeyListener(activePanel);
             revalidate();
         }
-    }
+    }*/
 
     public Start getStart() {
         return start;
