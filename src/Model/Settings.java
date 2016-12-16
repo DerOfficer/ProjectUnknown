@@ -11,24 +11,20 @@ import java.awt.event.KeyEvent;
 
 public class Settings extends DrawingPanel{
 
-    private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-    private int x = (screenWidth/2);
+    private int sHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+    private int sWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    private int x = (sWidth/2);
 
-    private int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
+    private Button jump = new Button(x-75,sHeight/10*4-150,150,150,"W");
+    private Button crouch = new Button(x-75,sHeight/10*5,150,150,"S");
+    private Button left = new Button(x-225-sHeight/10,sHeight/10*5,150,150,"A");
+    private Button right = new Button(x+75+sHeight/10,sHeight/10*5,150,150,"D");
 
-    private Button jump = new Button(x-75,screenHeight/10*4-150,150,150,"W");
-    private Button crouch = new Button(x-75,screenHeight/10*5,150,150,"S");
-    private Button left = new Button(x-225-screenHeight/10,screenHeight/10*5,150,150,"A");
-    private Button right = new Button(x+75+screenHeight/10,screenHeight/10*5,150,150,"D");
+    private Button minus = new Button(sWidth/8*6-sWidth/25,sHeight/10*9,sWidth/25,sWidth/25,"-");
+    private Button plus = new Button(sWidth/8*7+(sWidth/8/20),sHeight/10*9,sWidth/25,sWidth/25,"+");
 
-    private Button minus = new Button(screenWidth/8*5,screenHeight/10*9,75,75,"-");
-    private Button plus = new Button(screenWidth/8*7,screenHeight/10*9,75,75,"+");
-
-    private Button back = new Button(x/5,screenHeight/10*9,75,75,"← Back");
-    private Label headline = new Label(x,screenHeight/10*2,"SETTINGS",150);
-
-    private Button doTheFlop = new Button(screenWidth-125, screenHeight/10*5,80,50,"Easter Egg");
+    private Button doTheFlop = new Button(sWidth-125, sHeight/10*5,80,50,"Easter Egg");
 
     boolean turned = false;
 
@@ -55,10 +51,8 @@ public class Settings extends DrawingPanel{
 
         back.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
-                properties.getFrame().addNewDrawingPanel(properties.getFrame().getStart());
+                properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
         });
-
-
 
         minus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getVolumeManager().decrease();
@@ -72,11 +66,11 @@ public class Settings extends DrawingPanel{
             SwingUtilities.invokeLater(() -> {
                 if(!turned) {
                     removeObject(headline);
-                    headline = new Label(x, screenHeight / 10 * 2, "IF-SCHLEIFE", 150);
+                    headline = new Label(x, sHeight / 10 * 2, "IF-SCHLEIFE", 150);
                     addObject(headline);
                 }else{
                     removeObject(headline);
-                    headline = new Label(x, screenHeight / 10 * 2, "SETTINGS", 150);
+                    headline = new Label(x, sHeight / 10 * 2, "SETTINGS", 150);
                     addObject(headline);
                 }
                 turned = !turned;
