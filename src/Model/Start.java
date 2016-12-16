@@ -4,6 +4,7 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 
 /**
@@ -37,6 +38,11 @@ public class Start extends DrawingPanel {
 
         exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             System.exit(0);
+        });
+
+        exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+            if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
+                System.exit(0);
         });
 
     }

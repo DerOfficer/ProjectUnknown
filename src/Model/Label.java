@@ -30,7 +30,7 @@ public class Label implements IDrawableObject{
         g2d.setFont(new Font(g2d.getFont().getName(), Font.BOLD, fontSize));
         length = g2d.getFontMetrics().stringWidth(label);
         g2d.drawString(label,(x-(length/2)),y);
-
+        g2d.setFont(new Font(g2d.getFont().getName(), Font.PLAIN, 11));
     }
 
     @Override
