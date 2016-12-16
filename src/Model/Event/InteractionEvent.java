@@ -4,9 +4,6 @@ import Model.Abstraction.IEventInteractableObject;
 
 import java.awt.event.MouseEvent;
 
-/**
- * Created by jardu on 11/24/2016.
- */
 public class InteractionEvent {
     private int srcKey;
     private MouseEvent srcMouseEvent;

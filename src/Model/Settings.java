@@ -9,9 +9,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 
-/**
- * Created by 204g03 on 12.12.2016.
- */
 public class Settings extends DrawingPanel{
 
     private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
@@ -35,9 +32,13 @@ public class Settings extends DrawingPanel{
 
     boolean turned = false;
 
+    private Button back = new Button(x/7,sHeight/10*9,100,50,"← Back");
+    private Label headline = new Label(x,sHeight/10*2,"SETTINGS",150);
+    private Button[] volumeButtons = new Button[10];
 
     public Settings(ProjectUnknownProperties properties){
         super(properties);
+        createVolButtons();
         addObject(jump);
         addObject(crouch);
         addObject(left);
@@ -48,9 +49,8 @@ public class Settings extends DrawingPanel{
         addObject(headline);
         addObject(doTheFlop);
 
-
         back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getFrame().addNewDrawingPanel(properties.getFrame().getStart());
+            properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
         });
 
         back.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
@@ -63,6 +63,7 @@ public class Settings extends DrawingPanel{
         minus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getVolumeManager().decrease();
         });
+
         plus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getVolumeManager().increase();
         });
@@ -82,9 +83,26 @@ public class Settings extends DrawingPanel{
             });
         });
 
-
-
+        for(int i = 0; i < volumeButtons.length; i++){
+            volHandlers(i);
+        }
     }
 
+    public void createVolButtons(){
+        int x = sWidth/160;
+        int height = sWidth/25/10;
+        for(int i = 0; i < volumeButtons.length; i++) {
+            volumeButtons[i] = new Button(sWidth/8*6+x, sHeight/10*9+sWidth/25-height, sWidth/8/20, height, "");
+            x = x+sWidth/8/10;
+            height = height+sWidth/25/10;
+            addObject(volumeButtons[i]);
+        }
+    }
 
+    public void volHandlers(int i){
+        volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getVolumeManager().setVolume((double) (i+1));
+            System.out.println(properties.getVolumeManager().getVolume());
+        });
+    }
 }

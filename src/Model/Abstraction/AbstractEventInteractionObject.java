@@ -9,9 +9,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-/**
- * Created by jardu on 11/24/2016.
- */
 public abstract class AbstractEventInteractionObject implements IEventInteractableObject {
 
     private Map<EventType, List<IEventHandler>> eventHandlerMapping;

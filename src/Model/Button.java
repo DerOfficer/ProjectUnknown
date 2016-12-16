@@ -2,23 +2,18 @@ package Model;
 
 import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-/**
- * Created by 204g03 on 09.12.2016.
- */
 public class Button extends AbstractEventInteractionObject{
+
     private String s;
     private int width;
     private int height;
     private int x;
     private int y;
     private Rectangle2D rectangle;
-
     private ICanvas canvas;
-
 
     public Button(int x, int y, int width, int height,String s){
         this.x = x;
@@ -28,7 +23,6 @@ public class Button extends AbstractEventInteractionObject{
         this.s = s;
         rectangle = new Rectangle2D.Double(this.x, this.y, this.width, this.height);
     }
-
 
     @Override
     public void draw() {
@@ -43,7 +37,6 @@ public class Button extends AbstractEventInteractionObject{
 
     @Override
     public void update(double dt) {
-
     }
 
     @Override
@@ -55,8 +48,6 @@ public class Button extends AbstractEventInteractionObject{
     public Shape getBounds() {
         return rectangle;
     }
-
-
 
     public int getX(){
         return x;

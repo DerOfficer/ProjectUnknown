@@ -1,9 +1,5 @@
 package Model.Abstraction;
 
-/**
- * Created by Jean-Pierre on 15.11.2016.
- */
-
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
