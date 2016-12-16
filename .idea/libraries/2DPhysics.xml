@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="2DPhysics">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/2DPhysics.jar!/" />
+      <root url="jar://$PROJECT_DIR$/SimpleScriptedAnimation.jar!/" />
+      <root url="jar://$PROJECT_DIR$/SimpleSideScroller.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
