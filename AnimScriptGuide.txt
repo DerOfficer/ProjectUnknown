@@ -1,0 +1,88 @@
+# Zeilen die mit # anfangen sind Kommentare
+animation <name> target <object|compound>
+# Signatur einer Animationsdeklaration. 
+# <name> ist der Name der Animation, über welchen in Java mit AnimationList.getAnimationByName(String) der Zugriff möglich ist.
+# target <object|compound> gibt die Art des Objektes an, auf der die Animation später durchgeführt wird. 
+# "object" definitiert die Animation als nur mit Subklassen von com.SSA.Animation.AnimationObject nutzbar.
+# "compound" definitiert die Animation als nur mit Subklassen von com.SSA.Animation.AnimationCompound nutzbar.
+# Animationen die für AnimationObjects geschreiben sind, können nur mit den Attributen der Klasse interagieren. 
+# Animationen die für AnimationCompounds geschreiben sind, können zusätzlich noch mit AnimationObjects, die mit AnimationObject.addChild(AnimationObject) dem compound hinzugefügt worden sind interagieren.
+# Damit ein Attribut vom der AnimationEngine animiert werden kann, muss es mit der com.SSA.Animation.Annotation.Animatable Annotation markiert sein.
+# Dieser muss eine String übergeben werden, welche den Namen einer Parameterlosen Methode innerhalb der Klasse des Attributs abgibt. 
+# Diese Methode wird immer aufgerufen, wenn die Animationengine den Wert des Attributs verändert.
+
+animation end
+# Diese Zeile definitiert das ende einer Animation
+
+animation ObjectDummy target object
+	<AnimationTarget> <Value> <Time>
+	# AnimationTarget ist der Name des Attributs, welches Animiert werden soll.
+	# Value ist der Wert, auf welchen das Attribut gesetzt werden soll. Es ist möglich, eine + oder - vor den Wert zu setzen, was eine veränderung um den gegebenen Wert angibt.
+	# Time gibt die den Zeitraum in Millisekunden an, über welchen die Animation stattfinden soll
+	# Es ist möglich, jeden Wert, der eine Zahl verlang, durch eine Laufzeitabfrage zu ersetzen.
+	# Dies ermöglicht es, Werte vom Attributen dynamisch immer dann abzufragen, wenn die Animation stattfindet.
+	# Das Attribut, vom welchem der Wert abgefragt werden soll, muss dabei ein Zahlen-Type sein(z.B. int, double, byte, etc.), und muss sich in der selben Klasse befinden, wie das Attribut das animiert wird.
+	# Die Syntax für einen solchen Aufruf lautet: runtimevalue:<Attributs Name>
+	# Beispiel:
+	x 300 runtimevalue:time
+	# Dies setzt die Variable x, des AnimationObjects auf den die Animation ausgeführt wird, auf 300, in einem Zeitraum, der im Attribut "time" gespeichert ist.
+	
+	# Es ist möglich, verschiedene Animations-Schritte gleichzeitig ablaufen zu lassen. Dazu wird vor den jeweiligen Schritt, der gleichzeitig mit dem vorherigen ablaufen soll, das Schlüsselwort "concurrent" geschrieben
+	# Beispiel
+	x 300 runtimevalue:time
+	concurrent y 400 runtimevalue:time
+	# Dies setzt x auf 300 und gleichzeitig y auf 400.
+	# Es ist möglich, theoretisch unendlich viele Aufrufe gleichzeitig ablaufen zu lassen.
+	
+	# Es ist möglich, andere Animation Aufzurufen(wie Methoden).
+	call <AnimationName> [loop <count>]
+	# AnimationName ist der Name der Animation, die Aufgerufen werden soll. 
+	# der loop <count> Teil kann weggelassen werden. Wenn dies passiert interpretiert die Engine den Aufruf implizit als "call <AnimationName> loop 1"
+	# das loop schlüssel wort gibt an, dass die Animation mehrfach aufgerufen werden soll.
+	# count gibt an, wie häufig die Animation aufgerufen werden soll.
+	# Beispiel
+	call ObjectDummy2 loop 5
+	# Ruft die Animation ObjectDummy2 5 mal auf
+	# Aufrufen an andere Methoden können auch concurrent sein, allerdings ist es NICHT möglich, durch die loop anordnung eine Animation count-mal gleichzeitig auszuführen
+	
+	# Es ist möglich, Java methoden aufzurufen, sofern diese keine Parameter erwarten.
+	intcall <MethodName>
+	# MethodName gibt dabei den Namen der Java methode an, die Aufgerufen werden soll.
+	# intcall Befehle haben keine loop anweisung.
+	# intcall Befehle können wie alle Anweisungen concurrent sein.
+	
+	# es ist möglich, simple IF-SCHLEIFEN zu bauen. Diese heißen dann "Konditional-Befehle"
+	cond <value1> <conditionType> <value2>
+		# value1 und value2 sind dabei Zahlen, die auch runtimevalues sein dürfen.
+		# conditionType ist die Art des Vergleiches, die durchgeführt werden soll. 
+		# Möglich sind: 
+		# "eg" für "equals", d.h. gleichheit(Java-Operator "=="), 
+		# "neq" für "not equals", d.h. ungleichheit(Java-Operator "!=")
+		# "st" für "smaller than"(Java-Operator "<")
+		# "gt" für "greater than"(Java-Operator ">")
+		# Alle Animations Befehle, die zwischen der "cond"-Zeile und der "condend"-Zeile stehen, werden nur ausgeführt, wenn die Bedingung "value1 conditionType value2" 'true' ergibt.
+		# Konditional-Befehle können verschachtelt werden
+		# Konditional-Befehle können concurrent sein, was allerdings NICHT heißt, das jeder Befehle in Konditionsblock gleichzeitig ausgeführt wird, sondern, dass ihr ausführung gleichzeitig mit der Ausführung des vorhergehenden Befehls beginnt.	
+	condend
+	# Beispiel:
+	cond 5 eq 5
+		x 500 100
+	condend
+	# Animiert den Wert vom x auf 500, aber nur, wenn 5 == 5 ist.	
+animation end
+
+# Das Schlüsselwort "procedure" macht es umöglich, eine Animation aus Java heraus über com.SSA.Animation.AbstractAnimatable.animation(Animation) aufzurufen. Die Animation kann dann nur noch intern über call aufrufe ausgeführt werden.
+procedure animation ObjectDummy2 target object
+	x 500 100
+animation end
+
+# Animation, die nur auf com.SSA.Animation.AnimationCompound Objekted ausgeführt werden kann
+animation CompoundDummy target compound
+	# Um Attribute des Compound Objektes zu animieren, ist die syntax identisch zu der Syntax bei AnimationObject Objekten, allerdings muss vor den Attribut namen ein "self" gesetzt werden.
+	self x 500 100
+	# Um die AnimationObject Objekte zu animieren, welche dem Compount über addChild(AnimationObject) hinzugefügt worden sind, muss "self" mit dem Namen des AnimationObjects ersetzt werden(AnimationObjects kriegen ihren Namen im Konstruktor übergeben)
+	childObject x 500 100
+	# Sollten Werte mit runtimevalues bestimmt sein, werden die Attribute, welche as runtimevalue angegeben wurden, IN DER KLASSE DER ZU ANIMIERENDEN OBJEKTES gesucht. 
+	# d.h. wenn man eine Child-Objekt animiert, werden die runtimevalues in den Child-Objekt gesucht. Wenn man den Compound mit "self" selber animiert, werden die Attribute in der Compound Klasse gesucht
+	
+animation end
