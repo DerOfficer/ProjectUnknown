@@ -1,4 +1,5 @@
 import Control.ProjectUnknownProperties;
+import com.SideScroller.SideScrollingPhysicsWorld;
 
 import javax.swing.*;
 

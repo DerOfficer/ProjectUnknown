@@ -39,6 +39,7 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
         int dt = (int) ((elapsedTime / 1000000L)+0.5);
         if ( dt == 0 ) dt = 1;
         graphics = (Graphics2D)g;
+        graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphicsLock = true;
         for(IDrawableObject tempDO : drawableObjects){
             tempDO.draw();

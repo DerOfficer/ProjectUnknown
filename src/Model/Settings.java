@@ -82,7 +82,7 @@ public class Settings extends DrawingPanel{
         }
     }
 
-    public void createVolButtons(){
+    private void createVolButtons(){
         int x = sWidth/160;
         int height = sWidth/25/10;
         for(int i = 0; i < volumeButtons.length; i++) {
@@ -93,7 +93,7 @@ public class Settings extends DrawingPanel{
         }
     }
 
-    public void volHandlers(int i){
+    private void volHandlers(int i){
         volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getVolumeManager().setVolume((double) (i+1));
             System.out.println(properties.getVolumeManager().getVolume());
