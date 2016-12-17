@@ -100,6 +100,10 @@ public class Settings extends DrawingPanel{
         }
     }
 
+    public String getSetting(String key){
+        return settingsParser.getSetting(key);
+    }
+
     private void createVolButtons(){
         volumeButtons = new Button[10];
         int x = screenWidth/160;
