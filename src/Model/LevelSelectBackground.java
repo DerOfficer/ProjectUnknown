@@ -29,8 +29,7 @@ public class LevelSelectBackground implements IDrawableObject {
     }
 
     @Override
-    public void update(double dt) {
-    }
+    public void update(double dt) { }
 
     @Override
     public void provideCanvas(ICanvas canvas) {

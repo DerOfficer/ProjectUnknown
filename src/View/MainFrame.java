@@ -2,7 +2,7 @@ package View;
 
 import Control.ProjectUnknownProperties;
 import Model.UI.Screen.LevelSelect;
-import Model.Settings;
+import Model.UI.Screen.Settings;
 import Model.UI.Screen.Start;
 import javax.swing.*;
 
