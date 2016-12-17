@@ -15,8 +15,6 @@ import java.io.IOException;
  * Created by 204g03 on 16.12.2016.
  */
 public class LevelSelect extends DrawingPanel {
-
-
     private int y = Toolkit.getDefaultToolkit().getScreenSize().height;
 
     private Image earth;

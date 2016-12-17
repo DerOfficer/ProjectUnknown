@@ -7,7 +7,6 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 
 public class Start extends DrawingPanel {
-    private int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int buttonX;
 
     private Button startButton;

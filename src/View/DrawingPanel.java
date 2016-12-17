@@ -16,10 +16,15 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
     private boolean graphicsLock;
     private ArrayList<IDrawableObject> drawableObjects;
     private Graphics2D graphics;
+
     protected ProjectUnknownProperties properties;
+
+    protected static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    protected static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
     public DrawingPanel(ProjectUnknownProperties properties){
         super();
+
         addMouseListener(this);
         setDoubleBuffered(true);
 
