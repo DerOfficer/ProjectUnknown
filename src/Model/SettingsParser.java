@@ -3,6 +3,7 @@ package Model;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -34,9 +35,12 @@ public class SettingsParser {
         map.put(key, value);
 
         try {
-            List<String> temp = Files.readAllLines(path);
-            temp.addAll(Arrays.asList(key+":"+value));
-            Files.write(path,temp);
+            ArrayList<String> tempMap = new ArrayList<String>();
+            for( String tempKey: map.keySet() ) {
+                tempMap.add(tempKey+":"+map.get(tempKey));
+            }
+
+            Files.write(path,tempMap);
         } catch (IOException e) {
             e.printStackTrace();
         }
