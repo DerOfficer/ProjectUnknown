@@ -2,6 +2,8 @@ package Model;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Physics.GrassBlock;
+import Model.Physics.Level;
 import View.DrawingPanel;
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -24,16 +26,19 @@ public class Start extends DrawingPanel {
         addObject(exitButton);
 
         startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-
+            Level level = new Level(9.81, properties);
+            level.addObject(new GrassBlock(100, 100, 100, 100));
+            properties.getFrame().setDrawingPanel(level.getRenderer());
+            level.scrollTo(400, 400);
         });
 
-        settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getFrame().setDrawingPanel(properties.getFrame().getSettings());
-        });
+        settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
+                properties.getFrame().setDrawingPanel(properties.getFrame().getSettings())
+        );
 
-        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            System.exit(0);
-        });
+        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
+                System.exit(0)
+        );
 
         exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
@@ -44,10 +49,10 @@ public class Start extends DrawingPanel {
 }
 
 
-/**
+/*
             ____
             |  | --|   BAUMWOLLE mit einer IF-Schleife
             |__| --|
 
               |_____
- **/
+ */
