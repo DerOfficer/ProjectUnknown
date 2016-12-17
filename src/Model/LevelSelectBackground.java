@@ -20,12 +20,12 @@ public class LevelSelectBackground implements IDrawableObject {
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        g2d.drawImage(image,0,(int)(canvas.getBounds().getHeight()/2 - image.getHeight(null)/2),null);
+        g2d.drawImage(image,(int)(canvas.getBounds().getWidth()/2 - image.getWidth(null)/2),(int)(canvas.getBounds().getHeight()/2 - image.getHeight(null)/2),null);
     }
 
     @Override
     public Shape getBounds() {
-        return null;
+        return new Rectangle((int)(canvas.getBounds().getWidth()/2 - image.getWidth(null)/2),(int)(canvas.getBounds().getHeight()/2 - image.getHeight(null)/2), image.getWidth(null), image.getHeight(null));
     }
 
     @Override

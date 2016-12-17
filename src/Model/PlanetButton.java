@@ -9,7 +9,7 @@ import java.awt.geom.Ellipse2D;
 /**
  * Created by 204g03 on 16.12.2016.
  */
-public class Planet extends AbstractEventInteractionObject {
+public class PlanetButton extends AbstractEventInteractionObject {
 
     private Image image;
     private int x;
@@ -17,7 +17,7 @@ public class Planet extends AbstractEventInteractionObject {
 
     private ICanvas canvas;
 
-    public Planet(Image image,int x, int y){
+    public PlanetButton(Image image, int x, int y){
         this.image = image;
         this.x = x;
         this.y = y;

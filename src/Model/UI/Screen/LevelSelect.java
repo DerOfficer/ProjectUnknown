@@ -3,7 +3,7 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.LevelSelectBackground;
-import Model.Planet;
+import Model.PlanetButton;
 import Model.UI.Button;
 import View.DrawingPanel;
 
@@ -29,14 +29,14 @@ public class LevelSelect extends DrawingPanel {
     private BufferedImage background;
 
     private LevelSelectBackground sunSystem;
-    private Planet planetMercury;
-    private Planet planetVenus;
-    private Planet planetEarth;
-    private Planet planetMars;
-    private Planet planetJupiter;
-    private Planet planetSaturn;
-    private Planet planetUranus;
-    private Planet planetNeptune;
+    private PlanetButton planetMercury;
+    private PlanetButton planetVenus;
+    private PlanetButton planetEarth;
+    private PlanetButton planetMars;
+    private PlanetButton planetJupiter;
+    private PlanetButton planetSaturn;
+    private PlanetButton planetUranus;
+    private PlanetButton planetNeptune;
 
     private Button buttonBack;
 
@@ -97,21 +97,21 @@ public class LevelSelect extends DrawingPanel {
     private void initImages(){
         try {
             mercury = ImageIO.read(new File("Images/mercury.png"));
-            planetMercury  = new Planet(mercury,400,(screenHeight/2)-(mercury.getHeight(this)/2));
+            planetMercury  = new PlanetButton(mercury,400,(screenHeight/2)-(mercury.getHeight(this)/2));
             venus = ImageIO.read(new File("Images/venus.png"));
-            planetVenus  = new Planet(venus,500,(screenHeight/2)-(venus.getHeight(this)/2));
+            planetVenus  = new PlanetButton(venus,500,(screenHeight/2)-(venus.getHeight(this)/2));
             earth = ImageIO.read(new File("Images/earth.png"));
-            planetEarth  = new Planet(earth,600,(screenHeight/2)-(earth.getHeight(this)/2));
+            planetEarth  = new PlanetButton(earth,600,(screenHeight/2)-(earth.getHeight(this)/2));
             mars = ImageIO.read(new File("Images/mars.png"));
-            planetMars  = new Planet(mars,700,(screenHeight/2)-(mars.getHeight(this)/2));
+            planetMars  = new PlanetButton(mars,700,(screenHeight/2)-(mars.getHeight(this)/2));
             jupiter = ImageIO.read(new File("Images/jupiter.png"));
-            planetJupiter  = new Planet(jupiter,800,(screenHeight/2)-(jupiter.getHeight(this)/2));
+            planetJupiter  = new PlanetButton(jupiter,800,(screenHeight/2)-(jupiter.getHeight(this)/2));
             saturn = ImageIO.read(new File("Images/saturn.png"));
-            planetSaturn  = new Planet(saturn,1000,(screenHeight/2)-(saturn.getHeight(this)/2));
+            planetSaturn  = new PlanetButton(saturn,1000,(screenHeight/2)-(saturn.getHeight(this)/2));
             uranus = ImageIO.read(new File("Images/uranus.png"));
-            planetUranus  = new Planet(uranus,1300,(screenHeight/2)-(uranus.getHeight(this)/2));
+            planetUranus  = new PlanetButton(uranus,1300,(screenHeight/2)-(uranus.getHeight(this)/2));
             neptune = ImageIO.read(new File("Images/neptune.png"));
-            planetNeptune  = new Planet(neptune,1450,(screenHeight/2)-(neptune.getHeight(this)/2));
+            planetNeptune  = new PlanetButton(neptune,1450,(screenHeight/2)-(neptune.getHeight(this)/2));
             background = ImageIO.read(new File("Images/background.png"));
             sunSystem  = new LevelSelectBackground(background);
         } catch (IOException e) {
