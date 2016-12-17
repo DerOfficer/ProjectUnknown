@@ -3,7 +3,6 @@ package Model;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
-import Model.VolumeManager;
 
 import javax.swing.*;
 import java.awt.*;
@@ -17,22 +16,22 @@ public class Settings extends DrawingPanel{
     private int sWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     private int x = (sWidth/2);
 
-    private Button[] controlButtons = new Button[5];
+    private Model.UI.Button[] controlButtons = new Model.UI.Button[5];
     private String[] kot = new String[]{"Forward","Left","Right","Interact","Shoot"};
 
-    private Button minus = new Button(sWidth/8*6-sWidth/25,sHeight/10*9,sWidth/25,sWidth/25,"-");
-    private Button plus = new Button(sWidth/8*7+(sWidth/8/20),sHeight/10*9,sWidth/25,sWidth/25,"+");
+    private Model.UI.Button minus = new Model.UI.Button(sWidth/8*6-sWidth/25,sHeight/10*9,sWidth/25,sWidth/25,"-");
+    private Model.UI.Button plus = new Model.UI.Button(sWidth/8*7+(sWidth/8/20),sHeight/10*9,sWidth/25,sWidth/25,"+");
 
-    private Button doTheFlop = new Button(sWidth-125, sHeight/10*5,80,50,"Easter Egg");
+    private Model.UI.Button doTheFlop = new Model.UI.Button(sWidth-125, sHeight/10*5,80,50,"Easter Egg");
 
     boolean turned = false;
 
     private SettingsParser settingsParser;
 
-    private Button back = new Button(x/7,sHeight/10*9,100,50,"← Back");
-    private Label headline = new Label(x,sHeight/10*2,"SETTINGS",150);
-    private Label[] controlLabels = new Label[controlButtons.length];
-    private Button[] volumeButtons = new Button[10];
+    private Model.UI.Button back = new Model.UI.Button(x/7,sHeight/10*9,100,50,"← Back");
+    private Model.UI.Label headline = new Model.UI.Label(x,sHeight/10*2,"SETTINGS",150);
+    private Model.UI.Label[] controlLabels = new Model.UI.Label[controlButtons.length];
+    private Model.UI.Button[] volumeButtons = new Model.UI.Button[10];
 
     public Settings(ProjectUnknownProperties properties){
         super(properties);
@@ -74,11 +73,11 @@ public class Settings extends DrawingPanel{
             SwingUtilities.invokeLater(() -> {
                 if(!turned) {
                     removeObject(headline);
-                    headline = new Label(x, sHeight / 10 * 2, "IF-SCHLEIFE", 150);
+                    headline = new Model.UI.Label(x, sHeight / 10 * 2, "IF-SCHLEIFE", 150);
                     addObject(headline);
                 }else{
                     removeObject(headline);
-                    headline = new Label(x, sHeight / 10 * 2, "SETTINGS", 150);
+                    headline = new Model.UI.Label(x, sHeight / 10 * 2, "SETTINGS", 150);
                     addObject(headline);
                 }
                 turned = !turned;
@@ -94,7 +93,7 @@ public class Settings extends DrawingPanel{
         int x = sWidth/160;
         int height = sWidth/250;
         for(int i = 0; i < volumeButtons.length; i++) {
-            volumeButtons[i] = new Button(sWidth/8*6+x, sHeight/10*9+sWidth/25-height, sWidth/160, height, "");
+            volumeButtons[i] = new Model.UI.Button(sWidth/8*6+x, sHeight/10*9+sWidth/25-height, sWidth/160, height, "");
             x = x+sWidth/80;
             height = height+sWidth/250;
             addObject(volumeButtons[i]);
@@ -114,8 +113,8 @@ public class Settings extends DrawingPanel{
         int side = sWidth/30;
         int letter;
         for(int i = 0; i < controlButtons.length; i++){
-            controlButtons[i] = new Button(x,y,side,side,"kot");
-            controlLabels[i] = new Label(x+sWidth/3,y+(side/2),kot[i],20);
+            controlButtons[i] = new Model.UI.Button(x,y,side,side,"kot");
+            controlLabels[i] = new Model.UI.Label(x+sWidth/3,y+(side/2),kot[i],20);
             y = y+side+sHeight/30;
             addObject(controlButtons[i]);
             addObject(controlLabels[i]);

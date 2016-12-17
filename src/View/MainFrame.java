@@ -1,11 +1,10 @@
 package View;
 
 import Control.ProjectUnknownProperties;
-import Model.LevelSelect;
+import Model.UI.Screen.LevelSelect;
 import Model.Settings;
-import Model.Start;
+import Model.UI.Screen.Start;
 import javax.swing.*;
-import java.util.ArrayList;
 
 public class MainFrame extends JFrame {
 

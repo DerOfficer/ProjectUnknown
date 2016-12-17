@@ -1,7 +1,10 @@
-package Model;
+package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.LevelSelectBackground;
+import Model.Planet;
+import Model.UI.Button;
 import View.DrawingPanel;
 
 import javax.imageio.ImageIO;

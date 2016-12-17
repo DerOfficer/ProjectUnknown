@@ -1,4 +1,4 @@
-package Model;
+package Model.UI;
 
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
