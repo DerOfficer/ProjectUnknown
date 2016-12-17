@@ -18,6 +18,7 @@ public class Settings extends DrawingPanel{
     private int x = (sWidth/2);
 
     private Button[] controlButtons = new Button[5];
+    private String[] kot = new String[]{"Forward","Left","Right","Interact","Shoot"};
 
     private Button minus = new Button(sWidth/8*6-sWidth/25,sHeight/10*9,sWidth/25,sWidth/25,"-");
     private Button plus = new Button(sWidth/8*7+(sWidth/8/20),sHeight/10*9,sWidth/25,sWidth/25,"+");
@@ -111,12 +112,11 @@ public class Settings extends DrawingPanel{
         int x = sWidth/5;
         int y = sHeight/10*3;
         int side = sWidth/30;
-        int kot = side+sHeight/30;
         int letter;
         for(int i = 0; i < controlButtons.length; i++){
             controlButtons[i] = new Button(x,y,side,side,"kot");
-            controlLabels[i] = new Label(x,y+side,"kot",20);
-            y = y+kot;
+            controlLabels[i] = new Label(x+sWidth/3,y+(side/2),kot[i],20);
+            y = y+side+sHeight/30;
             addObject(controlButtons[i]);
             addObject(controlLabels[i]);
         }
