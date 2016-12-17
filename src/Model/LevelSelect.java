@@ -41,7 +41,7 @@ public class LevelSelect extends DrawingPanel {
 
 
         mercury.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
-                System.out.println("merury")
+                System.out.println("mercury")
         );
         venus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 System.out.println("venus")
