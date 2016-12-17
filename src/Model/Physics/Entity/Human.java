@@ -3,6 +3,7 @@ package Model.Physics.Entity;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Abstraction.IInteractableObject;
+import Model.SpriteSheetHandler;
 import com.Physics2D.Entity;
 import com.SSA.Animation.Animation;
 import com.SSA.Animation.AnimationObject;
@@ -31,6 +32,7 @@ public class Human extends Entity implements IDrawableObject {
 
     public Human(int x, int y, int width, int height, BufferedImage image){
         super(x, y, width, height);
+        humanModel = new SpriteSheetHandler(new int[]{0, 41, 38, 31, 25}, image).getSprites();
         //initImageModel(image);
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));
         walk = animList.getAnimationByName("walk");
