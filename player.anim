@@ -1,0 +1,11 @@
+animation walk target object
+    leg1x +5 50
+    concurrent leg2x -5 50
+    leg1x -10 50
+    concurrent leg2x +10 50
+    leg1x +5 50
+    concurrent leg2x -5 50
+    cond runtimevalue:walking eq 1
+        call walk
+    condend
+animation end

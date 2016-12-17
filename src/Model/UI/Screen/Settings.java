@@ -34,6 +34,11 @@ public class Settings extends DrawingPanel{
 
     public Settings(ProjectUnknownProperties properties){
         super(properties);
+
+        controlButtons = new Button[5];
+        controlLabels = new Label[controlButtons.length];
+        kot = new String[]{"Forward","Left","Right","Interact","Shoot"};
+
         createVolButtons();
         createConSettings();
 
@@ -93,9 +98,6 @@ public class Settings extends DrawingPanel{
         for(int i = 0; i < volumeButtons.length; i++){
             volHandlers(i);
         }
-        controlButtons = new Button[5];
-        controlLabels = new Label[controlButtons.length];
-        kot = new String[]{"Forward","Left","Right","Interact","Shoot"};
     }
 
     private void createVolButtons(){
