@@ -46,6 +46,6 @@ public class Planet extends AbstractEventInteractionObject {
 
     @Override
     public Shape getBounds() {
-        return null;
+        return new Rectangle(x,y, image.getWidth(null), image.getHeight(null));
     }
 }
