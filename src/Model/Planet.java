@@ -11,28 +11,57 @@ import java.awt.geom.Ellipse2D;
  */
 public class Planet extends AbstractEventInteractionObject {
 
+    private String name;
     private int x;
     private int y;
-    private int radius;
-    private Color color;
 
-    private Ellipse2D world;
+    private Image earth = Toolkit.getDefaultToolkit().getImage("earth.png");
+    private Image jupiter = Toolkit.getDefaultToolkit().getImage("jupiter.png");
+    private Image mars = Toolkit.getDefaultToolkit().getImage("mars.png");
+    private Image mercury = Toolkit.getDefaultToolkit().getImage("mercury.png");
+    private Image neptune = Toolkit.getDefaultToolkit().getImage("neptune.png");
+    private Image saturn = Toolkit.getDefaultToolkit().getImage("saturn.png");
+    private Image uranus = Toolkit.getDefaultToolkit().getImage("uranus.png");
+    private Image venus = Toolkit.getDefaultToolkit().getImage("venus.png");
+
+
+
     private ICanvas canvas;
 
-    public Planet(int x, int y, int radius, Color color){
+    public Planet(String name,int x, int y){
+        this.name = name;
         this.x = x;
         this.y = y;
-        this.radius = radius;
-        this.color = color;
-        world = new Ellipse2D.Double(this.x,this.y,this.radius,this.radius);
+
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        g2d.setColor(color);
-        g2d.fill(world);
-
+        if (name.equals("earth")){
+            g2d.drawImage(earth,x,y,null);
+        }
+        if (name.equals("jupiter")){
+            g2d.drawImage(jupiter,x,y,null);
+        }
+        if (name.equals("mars")){
+            g2d.drawImage(mars,x,y,null);
+        }
+        if (name.equals("mercury")){
+            g2d.drawImage(mercury,x,y,null);
+        }
+        if (name.equals("neptune")){
+            g2d.drawImage(neptune,x,y,null);
+        }
+        if (name.equals("saturn")){
+            g2d.drawImage(saturn,x,y,null);
+        }
+        if (name.equals("uranus")){
+            g2d.drawImage(uranus,x,y,null);
+        }
+        if (name.equals("venus")){
+            g2d.drawImage(venus,x,y,null);
+        }
     }
 
     @Override

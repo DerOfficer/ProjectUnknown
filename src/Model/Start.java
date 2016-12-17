@@ -28,12 +28,14 @@ public class Start extends DrawingPanel {
         addObject(exitButton);
         addObject(label);
 
-        startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            Level level = new Level(9.81, properties);
+        /* Level level = new Level(9.81, properties);
             level.addObject(new GrassBlock(100, 100, 100, 100));
             properties.getFrame().setDrawingPanel(level.getRenderer());
-            level.scrollTo(400, 400);
-        });
+            level.scrollTo(400, 400);*/
+
+        startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
+            properties.getFrame().setDrawingPanel(properties.getFrame().getLevelSelect())
+        );
 
         settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 properties.getFrame().setDrawingPanel(properties.getFrame().getSettings())

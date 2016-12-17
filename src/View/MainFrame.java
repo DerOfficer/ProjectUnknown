@@ -1,6 +1,7 @@
 package View;
 
 import Control.ProjectUnknownProperties;
+import Model.LevelSelect;
 import Model.Settings;
 import Model.Start;
 import javax.swing.*;
@@ -14,12 +15,14 @@ public class MainFrame extends JFrame {
     //private ArrayList<DrawingPanel> panels;
     private Start start;
     private Settings settings;
+    private LevelSelect levelSelect;
 
     public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) {
         //panels = new ArrayList<>();
         //activePanel = new DrawingPanel(properties);
         start = new Start(properties);
         settings = new Settings(properties);
+        levelSelect = new LevelSelect(properties);
         //panels.add(activePanel);
 
         //add(activePanel);
@@ -79,4 +82,6 @@ public class MainFrame extends JFrame {
     public Settings getSettings() {
         return settings;
     }
+
+    public LevelSelect getLevelSelect(){return levelSelect;}
 }
