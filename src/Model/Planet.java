@@ -71,7 +71,7 @@ public class Planet extends AbstractEventInteractionObject {
 
     @Override
     public void provideCanvas(ICanvas canvas) {
-
+        this.canvas = canvas;
     }
 
     @Override
