@@ -6,10 +6,16 @@ import Model.Physics.Entity.Human;
 import Model.UI.Button;
 import View.DrawingPanel;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 public class Start extends DrawingPanel {
-    private int buttonX;
+
+
 
     private Button startButton;
     private Button settingsButton;
@@ -18,7 +24,7 @@ public class Start extends DrawingPanel {
     public Start(ProjectUnknownProperties properties) {
         super(properties);
 
-        buttonX = (screenWidth / 2) - (300 / 2);
+        int buttonX = (screenWidth / 2) - (300 / 2);
 
         startButton = new Button(buttonX, 300, 300, 30, "Start");
         settingsButton = new Button(buttonX, 400, 300, 30, "Settings");
@@ -28,6 +34,26 @@ public class Start extends DrawingPanel {
         addObject(settingsButton);
         addObject(exitButton);
 
+        initEventHandler();
+        drawStars();
+    }
+
+    private void drawStars() {
+        try {
+            BufferedImage img = ImageIO.read(new File("Images/star.png"));
+            int amount = 30;
+            for (int i = 0; i < amount; i++) {
+                int x = (int) (screenWidth/30)*i;
+                int y = (int) (screenHeight*Math.random());
+                getPencil().drawImage(img,x,y,null);
+            }
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void initEventHandler() {
         startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 properties.getFrame().setDrawingPanel(properties.getFrame().getLevelSelect())
         );
@@ -44,15 +70,5 @@ public class Start extends DrawingPanel {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
                 System.exit(0);
         });
-
     }
 }
-
-
-/**
-            ____
-            |  | --|   BAUMWOLLE mit einer IF-Schleife
-            |__| --|
-
-              |_____
- **/

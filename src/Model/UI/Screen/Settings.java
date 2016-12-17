@@ -29,7 +29,7 @@ public class Settings extends DrawingPanel{
     private Button doTheFlop;
     private Button back;
 
-    private boolean turned = false;
+    private boolean turned;
 
 
     public Settings(ProjectUnknownProperties properties){
@@ -80,6 +80,7 @@ public class Settings extends DrawingPanel{
             properties.getVolumeManager().increase();
         });
 
+        turned = false;
         doTheFlop.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             SwingUtilities.invokeLater(() -> {
                 if(!turned) {
