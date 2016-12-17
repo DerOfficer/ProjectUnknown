@@ -31,7 +31,7 @@ public class Planet extends AbstractEventInteractionObject {
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-            g2d.drawImage(image,x,y,null);
+        g2d.drawImage(image,x,y,null);
     }
 
     @Override
