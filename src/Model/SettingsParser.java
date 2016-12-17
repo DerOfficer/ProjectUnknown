@@ -11,11 +11,17 @@ import java.util.List;
 public class SettingsParser {
     private HashMap<String, String> map;
     private Path path;
+
     public SettingsParser(Path path) throws IOException {
         this.path = path;
         List<String> lines = Files.readAllLines(path);
         map = new HashMap<>();
-
+        Runtime.getRuntime().addShutdownHook(new Thread(){
+            @Override
+            public void run(){
+                writeSettings();
+            }
+        });
         parseLines(lines);
     }
 
@@ -26,16 +32,13 @@ public class SettingsParser {
         }
     }
 
-    public HashMap getMap(){
+    public HashMap<String,String> getMap(){
         return map;
-
     }
 
-    public void writeSetting(String key, String value){
-        map.put(key, value);
-
+    public void writeSettings(){
         try {
-            ArrayList<String> tempMap = new ArrayList<String>();
+            List<String> tempMap = new ArrayList<>();
             for( String tempKey: map.keySet() ) {
                 tempMap.add(tempKey+":"+map.get(tempKey));
             }
