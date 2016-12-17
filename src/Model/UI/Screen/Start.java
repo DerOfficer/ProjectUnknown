@@ -2,6 +2,7 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Physics.Entity.Human;
 import Model.UI.Button;
 import View.DrawingPanel;
 
@@ -28,7 +29,7 @@ public class Start extends DrawingPanel {
         addObject(exitButton);
 
         startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
-            properties.getFrame().setDrawingPanel(properties.getFrame().getLevelSelect())
+                properties.getFrame().setDrawingPanel(properties.getFrame().getLevelSelect())
         );
 
         settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->

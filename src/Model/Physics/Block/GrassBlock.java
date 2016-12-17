@@ -1,7 +1,8 @@
-package Model.Physics;
+package Model.Physics.Block;
 
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
+import Model.Physics.AbstractRenderablePhysicsObject;
 import com.Physics2D.PhysicsObject;
 
 import java.awt.*;

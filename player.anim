@@ -7,5 +7,17 @@ animation walk target object
     concurrent leg2x -5 50
     cond runtimevalue:walking eq 1
         call walk
-    condend
+    cond end
+animation end
+
+animation armWalk target object
+    arm1x +5 50
+    concurrent arm2x -5 50
+    arm1x -10 50
+    concurrent arm2x +10 50
+    arm1x +5 50
+    concurrent arm2x -5 50
+    cond runtimevalue:walking eq 1
+        call armWalk
+    cond end
 animation end

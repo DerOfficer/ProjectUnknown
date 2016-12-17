@@ -3,6 +3,7 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.LevelSelectBackground;
+import Model.Physics.Entity.Human;
 import Model.PlanetButton;
 import Model.UI.Button;
 import View.DrawingPanel;
@@ -71,8 +72,11 @@ public class LevelSelect extends DrawingPanel {
         planetMars.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 System.out.println("mars")
         );
-        planetJupiter.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
-                System.out.println("jupiter")
+        planetJupiter.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+
+            Human human = new Human(10,10,10,10, jupiter);
+                    System.out.println("jupiter");
+                }
         );
         planetSaturn.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 System.out.println("saturn")
