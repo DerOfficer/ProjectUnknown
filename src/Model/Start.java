@@ -3,7 +3,8 @@ package Model;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
-import java.awt.*;
+
+import java.awt.Toolkit;
 import java.awt.event.KeyEvent;
 import java.awt.geom.Rectangle2D;
 
@@ -13,8 +14,9 @@ public class Start extends DrawingPanel {
     private Button startButton = new Button(x, 300, 300, 30, "Start");
     private Button settingsButton = new Button(x, 400, 300, 30, "Settings");
     private Button exitButton = new Button(x, 500, 300, 30, "Exit");
-    private Background background = new Background();
 
+
+    private Label label = new Label(404,100,"Planet sun = new Button()", 20);
 
     public Start(ProjectUnknownProperties properties) {
         super(properties);
@@ -22,6 +24,7 @@ public class Start extends DrawingPanel {
         addObject(startButton);
         addObject(settingsButton);
         addObject(exitButton);
+        addObject(label);
 
         startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
 
@@ -44,10 +47,232 @@ public class Start extends DrawingPanel {
 }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /**
             ____
-            |  | --|   BAUMWOLLE mit einer IF-Schleife
-            |__| --|
+            |  | --|   BAUMWOLLE mit einer IF-Schleife(루프의 경우)
+            |__| --|        면면면면면면면면면면면면면면면면면면면면면면면면면면
 
               |_____
  **/
