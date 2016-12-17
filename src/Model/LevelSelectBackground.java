@@ -11,16 +11,16 @@ import java.awt.*;
 public class LevelSelectBackground implements IDrawableObject {
 
     private ICanvas canvas;
-    private Image background = Toolkit.getDefaultToolkit().getImage("background.png");
+    private Image image;
 
-    public LevelSelectBackground(){
-
+    public LevelSelectBackground(Image image){
+        this.image = image;
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        g2d.drawImage(background,0,0,null);
+        g2d.drawImage(image,0,0,null);
     }
 
     @Override

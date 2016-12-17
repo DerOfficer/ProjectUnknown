@@ -17,32 +17,36 @@ import java.io.IOException;
 public class LevelSelect extends DrawingPanel {
 
 
-    private Image earth = Toolkit.getDefaultToolkit().getImage("earth.png");
-    private Image jupiter = Toolkit.getDefaultToolkit().getImage("jupiter.png");
+    private int y = Toolkit.getDefaultToolkit().getScreenSize().height;
+
+    private Image earth;
+    private Image jupiter;
     private Image mars;
-    private Image mercury = Toolkit.getDefaultToolkit().getImage("mercury.png");
-    private Image neptune = Toolkit.getDefaultToolkit().getImage("neptune.png");
-    private Image saturn = Toolkit.getDefaultToolkit().getImage("saturn.png");
-    private Image uranus = Toolkit.getDefaultToolkit().getImage("uranus.png");
-    private Image venus = Toolkit.getDefaultToolkit().getImage("venus.png");
+    private Image mercury;
+    private Image neptune;
+    private Image saturn;
+    private Image uranus;
+    private Image venus;
+    private Image background;
 
-    private LevelSelectBackground sunSystem = new LevelSelectBackground();
-    private Planet planetMercury = new Planet(mercury,200,200);
-    private Planet planetVenus = new Planet(venus,300,200);
-    private Planet planetEarth = new Planet(earth,400,200);
+    private LevelSelectBackground sunSystem;
+    private Planet planetMercury;
+    private Planet planetVenus;
+    private Planet planetEarth;
     private Planet planetMars;
-    private Planet planetJupiter = new Planet(jupiter,600,200);
-    private Planet planetSaturn = new Planet(saturn,700,200);
-    private Planet planetUranus = new Planet(uranus,800,200);
-    private Planet planetNeptune = new Planet(neptune,900,200);
+    private Planet planetJupiter;
+    private Planet planetSaturn;
+    private Planet planetUranus;
+    private Planet planetNeptune;
 
-    private Model.Button back = new Model.Button(200,800,100,50,"← Back");
+    private Model.Button back = new Model.Button(200,974,100,50,"← Back");
 
 
 
     public LevelSelect(ProjectUnknownProperties properties){
         super(properties);
         initImages();
+        addObject(sunSystem);
         addObject(planetMercury);
         addObject(planetVenus);
         addObject(planetEarth);
@@ -52,6 +56,7 @@ public class LevelSelect extends DrawingPanel {
         addObject(planetUranus);
         addObject(planetNeptune);
         addObject(back);
+
 
 
         planetMercury.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
@@ -91,8 +96,64 @@ public class LevelSelect extends DrawingPanel {
 
     private void initImages(){
         try {
+            mercury = ImageIO.read(new File("Images/mercury.png"));
+            planetMercury  = new Planet(mercury,400,(y/2)-(mercury.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            venus = ImageIO.read(new File("Images/venus.png"));
+            planetVenus  = new Planet(venus,500,(y/2)-(venus.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            earth = ImageIO.read(new File("Images/earth.png"));
+            planetEarth  = new Planet(earth,600,(y/2)-(earth.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
             mars = ImageIO.read(new File("Images/mars.png"));
-            planetMars  = new Planet(mars,500,200);
+            planetMars  = new Planet(mars,700,(y/2)-(mars.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            jupiter = ImageIO.read(new File("Images/jupiter.png"));
+            planetJupiter  = new Planet(jupiter,800,(y/2)-(jupiter.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            saturn = ImageIO.read(new File("Images/saturn.png"));
+            planetSaturn  = new Planet(saturn,1000,(y/2)-(saturn.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            uranus = ImageIO.read(new File("Images/uranus.png"));
+            planetUranus  = new Planet(uranus,1300,(y/2)-(uranus.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            neptune = ImageIO.read(new File("Images/neptune.png"));
+            planetNeptune  = new Planet(neptune,1450,(y/2)-(neptune.getHeight(this)/2));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            background = ImageIO.read(new File("Images/background.png"));
+            sunSystem  = new LevelSelectBackground(background);
         } catch (IOException e) {
             e.printStackTrace();
         }
