@@ -13,7 +13,7 @@ import java.awt.event.KeyEvent;
  */
 public class LevelSelect extends DrawingPanel {
 
-    private Background sunSystem = new Background();
+    private LevelSelectBackground sunSystem = new LevelSelectBackground();
     private Planet mercury = new Planet("mercury",200,200);
     private Planet venus = new Planet("venus",300,200);
     private Planet earth = new Planet("earth",400,200);
