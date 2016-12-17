@@ -36,6 +36,18 @@ public class SettingsParser {
         return map;
     }
 
+    public void addSetting(String key, String value){
+        map.put(key, value);
+    }
+
+    public String getSetting(String key){
+        return map.get(key);
+    }
+
+    public void overrideSetting(String key, String newValue){
+        addSetting(key, newValue);
+    }
+
     public void writeSettings(){
         try {
             List<String> tempMap = new ArrayList<>();
