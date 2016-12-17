@@ -29,7 +29,7 @@ public class MultiDrawingPanel extends DrawingPanel {
         for (DrawingPanelZLayerWrapper drawingPanelZLayerWrapper : panels) {
             if(panel == drawingPanelZLayerWrapper.drawingPanel){
                 panels.remove(panel);
-                break; //maybe this prevents the ConcurrentModificationexception? Needs testing
+                break; //TODO maybe this prevents the ConcurrentModificationException? Needs testing
             }
         }
     }

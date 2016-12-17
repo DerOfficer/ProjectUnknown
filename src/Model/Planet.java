@@ -15,17 +15,12 @@ public class Planet extends AbstractEventInteractionObject {
     private int x;
     private int y;
 
-
-
-
-
     private ICanvas canvas;
 
     public Planet(Image image,int x, int y){
         this.image = image;
         this.x = x;
         this.y = y;
-
     }
 
     @Override

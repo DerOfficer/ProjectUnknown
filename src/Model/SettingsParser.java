@@ -35,7 +35,7 @@ public class SettingsParser {
 
         try {
             List<String> temp = Files.readAllLines(path);
-            temp.addAll(Arrays.asList(new String[] {key+":"+value}));
+            temp.addAll(Arrays.asList(key+":"+value));
             Files.write(path,temp);
         } catch (IOException e) {
             e.printStackTrace();
