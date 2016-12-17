@@ -98,64 +98,25 @@ public class LevelSelect extends DrawingPanel {
         try {
             mercury = ImageIO.read(new File("Images/mercury.png"));
             planetMercury  = new Planet(mercury,400,(y/2)-(mercury.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             venus = ImageIO.read(new File("Images/venus.png"));
             planetVenus  = new Planet(venus,500,(y/2)-(venus.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             earth = ImageIO.read(new File("Images/earth.png"));
             planetEarth  = new Planet(earth,600,(y/2)-(earth.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             mars = ImageIO.read(new File("Images/mars.png"));
             planetMars  = new Planet(mars,700,(y/2)-(mars.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             jupiter = ImageIO.read(new File("Images/jupiter.png"));
             planetJupiter  = new Planet(jupiter,800,(y/2)-(jupiter.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             saturn = ImageIO.read(new File("Images/saturn.png"));
             planetSaturn  = new Planet(saturn,1000,(y/2)-(saturn.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             uranus = ImageIO.read(new File("Images/uranus.png"));
             planetUranus  = new Planet(uranus,1300,(y/2)-(uranus.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             neptune = ImageIO.read(new File("Images/neptune.png"));
             planetNeptune  = new Planet(neptune,1450,(y/2)-(neptune.getHeight(this)/2));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        try {
             background = ImageIO.read(new File("Images/background.png"));
             sunSystem  = new LevelSelectBackground(background);
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 }
