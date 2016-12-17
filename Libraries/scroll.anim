@@ -3,8 +3,3 @@ animation scrollto target object
     concurrent yOffset runtimevalue:yOffsetTarget 1500
     intcall animationDone
 animation end
-
-animation quickScroll target object
-    xOffset runtimevalue:xOffsetTarget 1
-    concurrent yOffset runtimevalue:yOffsetTarget 1
-animation end

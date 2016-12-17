@@ -3,8 +3,8 @@ package Model;
 public class VolumeManager{
     private double volume;
 
-    public VolumeManager(){
-        volume = 0;
+    public VolumeManager(double volume){
+        this.volume = volume;
     }
 
     public void increase(){
