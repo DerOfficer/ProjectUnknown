@@ -2,6 +2,7 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Physics.Entity.Player;
 import Model.UI.ImageButton;
 import Model.BackgroundRenderer;
 import Model.Physics.Block.GrassBlock;
@@ -72,10 +73,12 @@ public class LevelSelect extends DrawingPanel {
         planetJupiter.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
 
             try {
-                Human human = new Human(10,10,10,10, ImageIO.read(new File("Images/character_sprite.png")));
+                Human human = new Player(screenWidth/2,screenHeight/2,10, 10, ImageIO.read(new File("Images/character_sprite.png")), properties);
                 Level level = new Level(24.79, properties);
                 level.focusWithoutScrolling(human);
-                level.addObject(new GrassBlock(0,700,200,200));
+                level.addObject(new GrassBlock(0,700,900,200));
+                level.addObject(new GrassBlock(0, 600, 100,100));
+                level.addObject(new GrassBlock(0, 590, 100, 10));
                 properties.getFrame().setDrawingPanel(level.getRenderer());
                 level.addObject(human);
             } catch (IOException e) {

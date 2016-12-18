@@ -2,6 +2,7 @@ package Model.Physics.Entity;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
+import Model.KeyManager;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
@@ -21,18 +22,30 @@ public class Player extends Human implements IInteractableObject{
 
     @Override
     public void keyPressed(int key) {
-        char cKey = (char) key;
-        String sKey = Character.toString(cKey);
+        /*char cKey = (char) key;
+        if(key == KeyEvent.VK_D){
+            accelerate(1);
+            //sideWayVelocity = 2;
+        }else if(key == KeyEvent.VK_A){
+            accelerate(-1);
+            //sideWayVelocity = -2;
+        }
+        System.out.println(sideWayVelocity);
+        String sKey = Character.toString(cKey);*/
     }
 
     @Override
     public void keyReleased(int key) {
-        char cKey = (char) key;
+        /*char cKey = (char) key;
+        if(key == KeyEvent.VK_W){
+            if(downwardVelocity == 0)
+                downwardVelocity = -5;
+        }
         if(Character.toString(cKey).equals(properties.getFrame().getSettings().getSetting("jump"))){
             if(downwardVelocity == 0) {
                 downwardVelocity = -20;
             }
-        }
+        }*/
     }
 
     @Override
@@ -48,5 +61,19 @@ public class Player extends Human implements IInteractableObject{
     @Override
     public void mousePressed(MouseEvent e) {
 
+    }
+
+    @Override
+    public void update(double dt){
+        super.update(dt);
+        if(KeyManager.isKeyPressed(KeyEvent.VK_A)){
+            accelerate(-0.5);
+        }
+        if(KeyManager.isKeyPressed(KeyEvent.VK_D)){
+            accelerate(0.5);
+        }
+        if(KeyManager.isKeyPressed(KeyEvent.VK_W) && downwardVelocity == 0){
+            downwardVelocity = -2;
+        }
     }
 }

@@ -1,6 +1,7 @@
 package View;
 
 import Control.ProjectUnknownProperties;
+import Model.KeyManager;
 import Model.UI.Screen.LevelSelect;
 import Model.UI.Screen.Settings;
 import Model.UI.Screen.Start;
@@ -23,6 +24,8 @@ public class MainFrame extends JFrame {
         settings = new Settings(properties);
         levelSelect = new LevelSelect(properties);
         //panels.add(activePanel);
+
+        addKeyListener(KeyManager.getInstance());
 
         //add(activePanel);
         //addKeyListener(activePanel);
