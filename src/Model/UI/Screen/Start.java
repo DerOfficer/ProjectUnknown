@@ -54,7 +54,7 @@ public class Start extends DrawingPanel {
                 //addObject(new ImageButton(img,x,y));
             }
             bgRenderer = new BackgroundRenderer(backgroundImg);
-            setBackground(new Color(0, 1, 15));
+            setBackground(new Color(0, 0, 0));
         } catch (IOException e) {
             e.printStackTrace();
         }
