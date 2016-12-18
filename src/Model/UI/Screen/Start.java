@@ -15,8 +15,6 @@ import java.io.IOException;
 
 public class Start extends DrawingPanel {
 
-
-
     private Button startButton;
     private Button settingsButton;
     private Button exitButton;
@@ -45,7 +43,7 @@ public class Start extends DrawingPanel {
             for (int i = 0; i < amount; i++) {
                 int x = (int) (screenWidth/30)*i;
                 int y = (int) (screenHeight*Math.random());
-                getPencil().drawImage(img,x,y,null);
+                this.getPencil().drawImage(img,x,y,null);
             }
 
         } catch (IOException e) {
