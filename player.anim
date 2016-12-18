@@ -1,13 +1,13 @@
 animation walk target object
-    leg1x +3 200
-    concurrent leg2x -3 200
-    leg1x -6 400
-    concurrent leg2x +6 400
-    leg1x +3 200
-    concurrent leg2x -3 200
     cond runtimevalue:walking eq 1
-        call walk
+        leg1x +3 200
+        concurrent leg2x -3 200
+        leg1x -6 400
+        concurrent leg2x +6 400
+        leg1x +3 200
+        concurrent leg2x -3 200
     cond end
+    call walk
 animation end
 
 animation armWalk target object
@@ -19,6 +19,5 @@ animation armWalk target object
         arm1x -3 200
         concurrent arm2x +3 200
     cond end
-
     call armWalk
 animation end

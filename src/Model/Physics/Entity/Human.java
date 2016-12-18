@@ -37,6 +37,8 @@ public class Human extends Entity implements IDrawableObject {
         walk = animList.getAnimationByName("walk");
         armWalk = animList.getAnimationByName("armWalk");
         animationObject = new HumanAnimationObject("human");
+        animationObject.animate(armWalk);
+        animationObject.animate(walk);
     }
 
     /*private void initImageModel(BufferedImage image) {
@@ -86,7 +88,9 @@ public class Human extends Entity implements IDrawableObject {
             canvas.getPencil().drawImage(humanModel[i],null,i*50,100);
         }*/
         if(sideWayVelocity < 0){
+            g2d.translate(getX(), 0);
             g2d.scale(-1,1);
+            g2d.translate(-getX(), 0);
         }
     }
 
@@ -129,8 +133,6 @@ public class Human extends Entity implements IDrawableObject {
             super(name);
         }
 
-        private void dummy(){
-            System.out.println("ji");
-        }
+        private void dummy(){ }
     }
 }
