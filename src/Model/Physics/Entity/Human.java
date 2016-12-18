@@ -130,7 +130,7 @@ public class Human extends Entity implements IDrawableObject {
         }
 
         private void dummy(){
-
+            System.out.println("ji");
         }
     }
 }

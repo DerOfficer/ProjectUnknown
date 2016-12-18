@@ -47,6 +47,13 @@ public class Settings extends DrawingPanel{
         labels = new String[]{"Forward","Left","Right","Interact","Shoot"};
         controls = new String[]{"forward","left","right","interact","shoot"};
 
+
+        try {
+            settingsParser = new SettingsParser(Paths.get("game.settings"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
         createVolButtons();
         createConSettings();
 
@@ -55,12 +62,6 @@ public class Settings extends DrawingPanel{
         addObject(back);
         addObject(headline);
         addObject(doTheFlop);
-
-        try {
-            settingsParser = new SettingsParser(Paths.get("game.settings"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
         if(!setting) {
             back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
