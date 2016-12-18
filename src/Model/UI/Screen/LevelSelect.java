@@ -8,8 +8,7 @@ import Model.BackgroundRenderer;
 import Model.Physics.Block.GrassBlock;
 import Model.Physics.Entity.Human;
 import Model.Physics.Level;
-import Model.UI.Button;
-import View.DrawingPanel;
+import Model.UI.TextButton;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
@@ -20,7 +19,7 @@ import java.io.IOException;
 /**
  * Created by 204g03 on 16.12.2016.
  */
-public class LevelSelect extends DrawingPanel {
+public class LevelSelect extends ScreenPanel {
 
     private BufferedImage earth;
     private BufferedImage jupiter;
@@ -37,12 +36,12 @@ public class LevelSelect extends DrawingPanel {
                         planetMars,planetJupiter,planetSaturn,
                         planetUranus,planetNeptune;
 
-    private Button buttonBack;
+    private TextButton textButtonBack;
 
     public LevelSelect(ProjectUnknownProperties properties){
         super(properties);
 
-        buttonBack = new Button(200, 974, 100, 50, "← Back");
+        textButtonBack = new TextButton(200, 974, 100,100,12f, "← Back");
 
         initImages();
         addObject(sunSystem);
@@ -54,7 +53,7 @@ public class LevelSelect extends DrawingPanel {
         addObject(planetSaturn);
         addObject(planetUranus);
         addObject(planetNeptune);
-        addObject(buttonBack);
+        addObject(textButtonBack);
 
         planetMercury.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 System.out.println("mercury")
@@ -95,11 +94,11 @@ public class LevelSelect extends DrawingPanel {
                 System.out.println("neptune")
         );
 
-        buttonBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+        textButtonBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
         });
 
-        buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+        textButtonBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
                 properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
         });
