@@ -25,6 +25,8 @@ public class Start extends DrawingPanel {
 
         int buttonX = (screenWidth / 2) - (300 / 2);
 
+        drawGalaxy();
+
         startButton = new Button(buttonX, 300, 300, 30, "Start");
         settingsButton = new Button(buttonX, 400, 300, 30, "Settings");
         exitButton = new Button(buttonX, 500, 300, 30, "Exit");
@@ -34,12 +36,12 @@ public class Start extends DrawingPanel {
         addObject(exitButton);
 
         initEventHandler();
-        drawStars();
     }
 
-    private void drawStars() {
+    private void drawGalaxy() {
         try {
-            BufferedImage img = ImageIO.read(new File("Images/star.png"));
+            BufferedImage img = ImageIO.read(new File("Images/star-50px.png"));
+
             int amount = 30;
             for (int i = 0; i < amount; i++) {
                 int x = (int) (screenWidth/30)*i;
@@ -47,6 +49,7 @@ public class Start extends DrawingPanel {
                 addObject(new ImageButton(img,x,y));
             }
 
+            setBackground(new Color(0, 1, 15));
         } catch (IOException e) {
             e.printStackTrace();
         }
