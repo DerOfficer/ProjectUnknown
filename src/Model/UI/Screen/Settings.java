@@ -33,10 +33,8 @@ public class Settings extends DrawingPanel{
 
     private boolean turned;
 
-
     public Settings(ProjectUnknownProperties properties){
         super(properties);
-
 
         int x = screenWidth/2;
         back = new Button(x/7,screenHeight/10*9,100,50,"← Back");
@@ -47,7 +45,6 @@ public class Settings extends DrawingPanel{
         setting = new boolean[controlButtons.length];
         labels = new String[]{"Jump","Left","Right","Interact","Shoot"};
         controls = new String[]{"jump","left","right","interact","shoot"};
-
 
         try {
             settingsParser = new SettingsParser(Paths.get("game.settings"));
@@ -162,8 +159,8 @@ public class Settings extends DrawingPanel{
 
             }
         });
-
     }
+
     private boolean setting(){
         for (int i = 0; i < setting.length; i++){
            if(setting[i] == true) {

@@ -56,8 +56,6 @@ public class LevelSelect extends DrawingPanel {
         addObject(planetNeptune);
         addObject(buttonBack);
 
-
-
         planetMercury.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 System.out.println("mercury")
         );
@@ -130,6 +128,5 @@ public class LevelSelect extends DrawingPanel {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 }
