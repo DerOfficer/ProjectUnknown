@@ -67,4 +67,8 @@ public class  Button extends AbstractEventInteractionObject{
     public int getHeight(){
         return height;
     }
+
+    public void setText(String s){
+        this.s = s;
+    }
 }

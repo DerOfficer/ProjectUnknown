@@ -14,7 +14,7 @@ import java.nio.file.Paths;
 
 public class Settings extends DrawingPanel{
     private SettingsParser settingsParser;
-    private boolean setting;
+    private boolean[] setting;
 
     private Button[] controlButtons;
     private Button[] volumeButtons;
@@ -37,14 +37,15 @@ public class Settings extends DrawingPanel{
     public Settings(ProjectUnknownProperties properties){
         super(properties);
 
-        setting = false;
+
         int x = screenWidth/2;
         back = new Button(x/7,screenHeight/10*9,100,50,"← Back");
         doTheFlop = new Button(screenWidth-125, screenHeight/10*5,80,50,"Easter Egg");
         headline = new Label(x,screenHeight/10*2,"SETTINGS",150);
         controlButtons = new Button[5];
         controlLabels = new Label[controlButtons.length];
-        labels = new String[]{"Forward","Left","Right","Interact","Shoot"};
+        setting = new boolean[controlButtons.length];
+        labels = new String[]{"Jump","Left","Right","Interact","Shoot"};
         controls = new String[]{"forward","left","right","interact","shoot"};
 
 
@@ -63,7 +64,7 @@ public class Settings extends DrawingPanel{
         addObject(headline);
         addObject(doTheFlop);
 
-        if(!setting) {
+        if(!setting()) {
             back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
             });
@@ -101,9 +102,11 @@ public class Settings extends DrawingPanel{
                 properties.getVolumeManager().increase();
             });
         }
-        for (int i = 0; i < controlButtons.length; i++) {
-            conHandlers(i);
-        }
+        changeListener(0);
+        changeListener(1);
+        changeListener(2);
+        changeListener(3);
+        changeListener(4);
     }
 
     public String getSetting(String key){
@@ -144,16 +147,25 @@ public class Settings extends DrawingPanel{
         }
     }
 
-    private void conHandlers(int i){
-        controlButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            setting = true;
-            controlButtons[i].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
-                if(setting && e.getSrcKey() != KeyEvent.VK_ESCAPE) {
-                    char temp = (char) e.getSrcKey();
-                    settingsParser.overrideSetting(controls[i], String.valueOf(temp));
-                    setting = false;
+    private void changeListener(int button){
+        controlButtons[button].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            setting[button] = true;
+            controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
+                if(setting[button]) {
+                    settingsParser.overrideSetting(controls[button], String.valueOf((char) e.getSrcKey()));
+                    controlButtons[button].setText(settingsParser.getSetting(controls[button]));
+                    setting[button] = false;
                 }
             });
         });
+
+    }
+    private boolean setting(){
+        for (int i = 0; i < setting.length; i++){
+           if(setting[i] == true) {
+               return true;
+           }
+        }
+        return false;
     }
 }
