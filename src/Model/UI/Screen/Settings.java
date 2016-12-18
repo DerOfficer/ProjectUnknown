@@ -134,9 +134,8 @@ public class Settings extends DrawingPanel{
         int x = screenWidth/5;
         int y = screenHeight/10*3;
         int side = screenWidth/30;
-        int letter;
         for(int i = 0; i < controlButtons.length; i++){
-            controlButtons[i] = new Button(x,y,side,side,"kot");
+            controlButtons[i] = new Button(x,y,side,side,settingsParser.getSetting(controls[i]));
             controlLabels[i] = new Label(x+screenWidth/3,y+(side/2),labels[i],20);
             y = y+side+screenHeight/30;
             addObject(controlButtons[i]);
@@ -151,9 +150,9 @@ public class Settings extends DrawingPanel{
                 if(setting && e.getSrcKey() != KeyEvent.VK_ESCAPE) {
                     char temp = (char) e.getSrcKey();
                     settingsParser.overrideSetting(controls[i], String.valueOf(temp));
+                    setting = false;
                 }
             });
-            setting = false;
         });
     }
 }
