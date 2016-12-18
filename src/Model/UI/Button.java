@@ -5,7 +5,7 @@ import Model.Abstraction.ICanvas;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class Button extends AbstractEventInteractionObject{
+public class  Button extends AbstractEventInteractionObject{
 
     private String s;
 
