@@ -74,7 +74,7 @@ public class Player extends Human implements IInteractableObject{
                 accelerate(0.5);
             }
         }
-        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("forward")) && downwardVelocity == 0){
+        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && downwardVelocity == 0){
             downwardVelocity = -2;
         }
     }

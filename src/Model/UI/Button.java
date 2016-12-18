@@ -23,7 +23,7 @@ public class  Button extends AbstractEventInteractionObject{
         this.y = y;
         this.width = width;
         this.height = height;
-        this.s = s;
+        setText(s);
         bounds = new Rectangle2D.Double(this.x, this.y, this.width, this.height);
     }
 
@@ -68,7 +68,10 @@ public class  Button extends AbstractEventInteractionObject{
         return height;
     }
 
-    public void setText(String s){
-        this.s = s;
+    public void setText(String newS){
+        this.s = newS;
+        if(newS.equals(" ")){
+            this.s = "Space";
+        }
     }
 }

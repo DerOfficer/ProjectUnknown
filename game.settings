@@ -1,5 +1,5 @@
 left:O
-forward:O
-interact:G
-shoot:L
-right:G
+interact:E
+shoot:W
+right: 
+jump:I

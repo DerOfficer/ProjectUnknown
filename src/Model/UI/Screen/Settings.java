@@ -11,6 +11,7 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
+import java.util.EventListener;
 
 public class Settings extends DrawingPanel{
     private SettingsParser settingsParser;
@@ -46,7 +47,7 @@ public class Settings extends DrawingPanel{
         controlLabels = new Label[controlButtons.length];
         setting = new boolean[controlButtons.length];
         labels = new String[]{"Jump","Left","Right","Interact","Shoot"};
-        controls = new String[]{"forward","left","right","interact","shoot"};
+        controls = new String[]{"jump","left","right","interact","shoot"};
 
 
         try {
@@ -149,14 +150,18 @@ public class Settings extends DrawingPanel{
 
     private void changeListener(int button){
         controlButtons[button].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            setting[button] = true;
-            controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
-                if(setting[button]) {
-                    settingsParser.overrideSetting(controls[button], String.valueOf((char) e.getSrcKey()));
-                    controlButtons[button].setText(settingsParser.getSetting(controls[button]));
-                    setting[button] = false;
-                }
-            });
+            if(!setting()) {
+                setting[button] = true;
+                controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
+                    String temp = String.valueOf((char) e.getSrcKey());
+                    if (setting[button] && !temp.equals(getSetting("left")) && !temp.equals(getSetting("right")) && !temp.equals(getSetting("interact")) && !temp.equals(getSetting("shoot")) && !temp.equals(getSetting("jump"))) {
+                        settingsParser.overrideSetting(controls[button], temp);
+                        controlButtons[button].setText(settingsParser.getSetting(controls[button]));
+                        setting[button] = false;
+                    }
+                });
+
+            }
         });
 
     }
