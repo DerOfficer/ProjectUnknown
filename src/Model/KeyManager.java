@@ -12,14 +12,14 @@ public class KeyManager implements KeyListener {
 
     private static KeyManager instance;
 
-    private List<Integer> pressedKeys;
+    private List<String> pressedKeys;
 
     static{
         instance = new KeyManager();
     }
 
-    public static boolean isKeyPressed(int keyCode){
-        return instance.isKeyPressed0(keyCode);
+    public static boolean isKeyPressed(String key){
+        return instance.isKeyPressed0(key);
     }
 
     public static KeyManager getInstance() {
@@ -35,17 +35,21 @@ public class KeyManager implements KeyListener {
 
     @Override
     public void keyPressed(KeyEvent e) {
-        if(!pressedKeys.contains(e.getKeyCode())){
-            pressedKeys.add(e.getKeyCode());
+        if(!pressedKeys.contains(keyCodeToString(e.getKeyCode()))){
+            pressedKeys.add(keyCodeToString(e.getKeyCode()));
         }
+    }
+
+    private String keyCodeToString(int keyCode){
+        return String.valueOf((char)keyCode).toLowerCase();
     }
 
     @Override
     public void keyReleased(KeyEvent e) {
-        pressedKeys.remove((Integer)e.getKeyCode());
+        pressedKeys.remove(keyCodeToString(e.getKeyCode()));
     }
 
-    private boolean isKeyPressed0(int code){
-        return pressedKeys.contains(code);
+    private boolean isKeyPressed0(String key){
+        return pressedKeys.contains(key);
     }
 }

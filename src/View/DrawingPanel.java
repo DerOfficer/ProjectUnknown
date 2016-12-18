@@ -86,7 +86,6 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
     }
 
     public void keyTyped(KeyEvent e){
-
     }
 
     public void keyPressed(KeyEvent e){
