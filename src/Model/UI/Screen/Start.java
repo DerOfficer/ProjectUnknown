@@ -4,6 +4,7 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.Physics.Entity.Human;
 import Model.UI.Button;
+import Model.UI.ImageButton;
 import View.DrawingPanel;
 
 import javax.imageio.ImageIO;
@@ -43,7 +44,7 @@ public class Start extends DrawingPanel {
             for (int i = 0; i < amount; i++) {
                 int x = (int) (screenWidth/30)*i;
                 int y = (int) (screenHeight*Math.random());
-                this.getPencil().drawImage(img,x,y,null);
+                addObject(new ImageButton(img,x,y));
             }
 
         } catch (IOException e) {
