@@ -11,7 +11,6 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.EventListener;
 
 public class Settings extends DrawingPanel{
     private SettingsParser settingsParser;
