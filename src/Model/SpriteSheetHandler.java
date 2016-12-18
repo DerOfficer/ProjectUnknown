@@ -20,9 +20,9 @@ public class SpriteSheetHandler {
 
     private void subSpriteImage() {
         if (image != null){
-            sprites = new BufferedImage[gaps.length+1];
+            sprites = new BufferedImage[gaps.length];
             int temp = 0;
-            for (int i = 1; i < sprites.length+1; i++){
+            for (int i = 1; i < sprites.length; i++){
                 temp = temp + gaps[i-1];
                 sprites[i] = image.getSubimage(temp,0,gaps[i], image.getHeight());
             }

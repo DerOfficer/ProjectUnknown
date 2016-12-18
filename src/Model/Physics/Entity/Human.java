@@ -2,7 +2,6 @@ package Model.Physics.Entity;
 
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
-import Model.Abstraction.IInteractableObject;
 import Model.SpriteSheetHandler;
 import com.Physics2D.Entity;
 import com.SSA.Animation.Animation;
@@ -12,7 +11,6 @@ import com.SSA.Parsing.AnimParser;
 import com.SSA.Parsing.AnimationList;
 
 import java.awt.*;
-import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
 
@@ -38,11 +36,11 @@ public class Human extends Entity implements IDrawableObject {
         walk = animList.getAnimationByName("walk");
         armWalk = animList.getAnimationByName("armWalk");
         animationObject = new HumanAnimationObject("human");
-        animationObject.animate(walk);
-        animationObject.animate(armWalk);
+        //animationObject.animate(walk);
+        //animationObject.animate(armWalk);
     }
 
-    private void initImageModel(BufferedImage image) {
+    /*private void initImageModel(BufferedImage image) {
         if (image != null){
             humanModel = new BufferedImage[GAPS.length+1];
             int temp = 0;
@@ -51,7 +49,7 @@ public class Human extends Entity implements IDrawableObject {
                 humanModel[i] = image.getSubimage(temp,0,GAPS[i], image.getHeight());
             }
         }
-    }
+    }*/
 
     @Override
     public double getMass() {
@@ -60,19 +58,19 @@ public class Human extends Entity implements IDrawableObject {
 
     @Override
     public void draw() {
-
+        canvas.getPencil().fillRect(getX(), getY(), getWidth(), getHeight());
+        /*for (int i = 0; i < humanModel.length; i++) {
+            canvas.getPencil().drawImage(humanModel[i],null,i*50,100);
+        }*/
     }
 
     @Override
     public void update(double dt) {
-        for (int i = 0; i < humanModel.length; i++) {
-            canvas.getPencil().drawImage(humanModel[i],null,i*50,100);
-        }
     }
 
     @Override
     public void provideCanvas(ICanvas canvas) {
-        canvas = canvas;
+        this.canvas = canvas;
     }
 
     @Override

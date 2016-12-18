@@ -6,6 +6,8 @@ import View.DrawingPanel;
 import com.Physics2D.PhysicsObject;
 import com.SideScroller.SideScrollingPhysicsWorld;
 
+import java.awt.*;
+
 public class Level extends SideScrollingPhysicsWorld {
 
     private LevelRenderer renderer;
@@ -18,10 +20,9 @@ public class Level extends SideScrollingPhysicsWorld {
     @Override
     public void addObject(PhysicsObject o) {
         super.addObject(o);
-        if (o instanceof AbstractRenderablePhysicsObject) {
-            AbstractRenderablePhysicsObject renderablePhysicsObject = (AbstractRenderablePhysicsObject) o;
-            AbstractRenderablePhysicsObject.IPhysicsObjectRenderer objectRenderer = renderablePhysicsObject.getRenderer();
-            renderer.addObject(objectRenderer);
+        if(o instanceof IDrawableObject){
+            IDrawableObject drawableObject = (IDrawableObject)o;
+            renderer.addObject(drawableObject);
         }
     }
 
@@ -30,6 +31,22 @@ public class Level extends SideScrollingPhysicsWorld {
     }
 
     private class LevelRenderer extends DrawingPanel {
+
+
+        @Override
+        public void paint(Graphics g){
+            super.paint(g);
+        }
+
+        @Override
+        public void paintComponent(Graphics g){
+            super.paintComponent(g);
+        }
+
+        @Override
+        protected Point getRenderingOffset(){
+            return new Point(-getRendererXOffset(), -getRendererYOffset());
+        }
 
         public LevelRenderer(ProjectUnknownProperties properties) {
             super(properties);

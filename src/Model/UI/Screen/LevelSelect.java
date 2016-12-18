@@ -78,11 +78,11 @@ public class LevelSelect extends DrawingPanel {
 
             try {
                 Human human = new Human(10,10,10,10, ImageIO.read(new File("Images/character_sprite.png")));
-                Level level = new Level(9.81, properties);
-                level.addObject(human);
+                Level level = new Level(24.79, properties);
                 level.focusWithoutScrolling(human);
-                level.addObject(new GrassBlock(0,200,200,200));
+                level.addObject(new GrassBlock(0,700,200,200));
                 properties.getFrame().setDrawingPanel(level.getRenderer());
+                level.addObject(human);
             } catch (IOException e) {
                 e.printStackTrace();
             }

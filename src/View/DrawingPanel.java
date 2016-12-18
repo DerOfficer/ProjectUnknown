@@ -4,6 +4,7 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Abstraction.IInteractableObject;
+import Model.Physics.Level;
 
 import javax.swing.*;
 import java.awt.*;
@@ -45,12 +46,17 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
         if ( dt == 0 ) dt = 1;
         graphics = (Graphics2D)g;
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+        graphics.translate(getRenderingOffset().getX(), getRenderingOffset().getY());
         graphicsLock = true;
         for(IDrawableObject tempDO : drawableObjects){
             tempDO.draw();
             tempDO.update((double)dt/1000);
         }
         graphicsLock = false;
+    }
+
+    protected Point getRenderingOffset(){
+        return new Point(0,0);
     }
 
     @Override
