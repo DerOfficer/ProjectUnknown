@@ -9,6 +9,7 @@ import com.SSA.Animation.AnimationObject;
 import com.SSA.Annotation.Animatable;
 import com.SSA.Parsing.AnimParser;
 import com.SSA.Parsing.AnimationList;
+import com.SideScroller.SideScrollingPhysicsWorld;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -59,6 +60,9 @@ public class Human extends Entity implements IDrawableObject {
     @Override
     public void draw() {
         canvas.getPencil().fillRect(getX(), getY(), getWidth(), getHeight());
+        //System.out.println("x: "+getX()+" xOffseT: "+((SideScrollingPhysicsWorld)world).getRendererXOffset() + " actual position: "+(getX() - ((SideScrollingPhysicsWorld)world).getRendererXOffset()));
+        //System.out.println("y: "+getY()+" yOffset: "+((SideScrollingPhysicsWorld)world).getRendererYOffset() + " actual position: "+(getY() - ((SideScrollingPhysicsWorld)world).getRendererYOffset()));
+        canvas.getPencil().drawImage(humanModel[0], getX(), getY(), null);
         /*for (int i = 0; i < humanModel.length; i++) {
             canvas.getPencil().drawImage(humanModel[i],null,i*50,100);
         }*/

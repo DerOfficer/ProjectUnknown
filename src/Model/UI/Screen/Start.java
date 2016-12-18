@@ -2,7 +2,7 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
-import Model.Physics.Entity.Human;
+import Model.BackgroundRenderer;
 import Model.UI.Button;
 import Model.UI.ImageButton;
 import View.DrawingPanel;
@@ -20,6 +20,8 @@ public class Start extends DrawingPanel {
     private Button settingsButton;
     private Button exitButton;
 
+    private BackgroundRenderer bgRenderer;
+
     public Start(ProjectUnknownProperties properties) {
         super(properties);
 
@@ -31,6 +33,7 @@ public class Start extends DrawingPanel {
         settingsButton = new Button(buttonX, 400, 300, 30, "Settings");
         exitButton = new Button(buttonX, 500, 300, 30, "Exit");
 
+        addObject(bgRenderer);
         addObject(startButton);
         addObject(settingsButton);
         addObject(exitButton);
@@ -41,14 +44,16 @@ public class Start extends DrawingPanel {
     private void drawGalaxy() {
         try {
             BufferedImage img = ImageIO.read(new File("Images/star-50px.png"));
-
-            int amount = 30;
+            BufferedImage backgroundImg = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics g = backgroundImg.getGraphics();
+            int amount = screenWidth/100;
             for (int i = 0; i < amount; i++) {
-                int x = (int) (screenWidth/30)*i;
+                int x = (int) (screenWidth/amount)*i;
                 int y = (int) (screenHeight*Math.random());
-                addObject(new ImageButton(img,x,y));
+                g.drawImage(img, x, y, this);
+                //addObject(new ImageButton(img,x,y));
             }
-
+            bgRenderer = new BackgroundRenderer(backgroundImg);
             setBackground(new Color(0, 1, 15));
         } catch (IOException e) {
             e.printStackTrace();

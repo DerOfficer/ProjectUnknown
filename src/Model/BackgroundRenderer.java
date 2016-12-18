@@ -8,12 +8,12 @@ import java.awt.*;
 /**
  * Created by Max on 17.12.2016.
  */
-public class LevelSelectBackground implements IDrawableObject {
+public class BackgroundRenderer implements IDrawableObject {
 
     private ICanvas canvas;
     private Image image;
 
-    public LevelSelectBackground(Image image){
+    public BackgroundRenderer(Image image){
         this.image = image;
     }
 

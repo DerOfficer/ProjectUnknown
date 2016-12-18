@@ -33,7 +33,7 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
 
         drawableObjects = new ArrayList<>();
         lastLoop = System.nanoTime();
-        javax.swing.Timer timer = new javax.swing.Timer(17, this);
+        javax.swing.Timer timer = new javax.swing.Timer(30, this);
         timer.start();
     }
 

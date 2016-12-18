@@ -3,7 +3,7 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.UI.ImageButton;
-import Model.LevelSelectBackground;
+import Model.BackgroundRenderer;
 import Model.Physics.Block.GrassBlock;
 import Model.Physics.Entity.Human;
 import Model.Physics.Level;
@@ -31,7 +31,7 @@ public class LevelSelect extends DrawingPanel {
     private BufferedImage venus;
     private BufferedImage background;
 
-    private LevelSelectBackground sunSystem;
+    private BackgroundRenderer sunSystem;
     private ImageButton planetMercury,planetVenus,planetEarth,
                         planetMars,planetJupiter,planetSaturn,
                         planetUranus,planetNeptune;
@@ -123,7 +123,7 @@ public class LevelSelect extends DrawingPanel {
             neptune = ImageIO.read(new File("Images/neptune.png"));
             planetNeptune  = new ImageButton(neptune,1450,(screenHeight/2)-(neptune.getHeight(this)/2));
             background = ImageIO.read(new File("Images/background.png"));
-            sunSystem  = new LevelSelectBackground(background);
+            sunSystem  = new BackgroundRenderer(background);
         } catch (IOException e) {
             e.printStackTrace();
         }
