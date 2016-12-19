@@ -19,7 +19,9 @@ public class KeyManager implements KeyListener {
     }
 
     public static boolean isKeyPressed(String key){
-        return instance.isKeyPressed0(key.toLowerCase());
+        if(key != null)
+            return instance.isKeyPressed0(key.toLowerCase());
+        return false;
     }
 
     public static KeyManager getInstance() {

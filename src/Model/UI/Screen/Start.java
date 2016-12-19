@@ -21,16 +21,17 @@ public class Start extends ScreenPanel {
     public Start(ProjectUnknownProperties properties) {
         super(properties);
 
-        int buttonX = (screenWidth / 2) - (300 / 2);
+        int buttonX = (screenWidth / 2);
 
-        startTextButton = new TextButton(buttonX,((int) (screenHeight*0.45))-40,300,80,40f, "Start");
-        settingsTextButton = new TextButton(buttonX, ((int) (screenHeight*0.65))-40,300,80,40f, "Settings");
-        exitTextButton = new TextButton(buttonX, ((int) (screenHeight*0.85))-40,300,80,40f, "Exit");
+        startTextButton = new TextButton(buttonX,((int) (screenHeight*.45)),300,80,40f, "Start");
+        settingsTextButton = new TextButton(buttonX, ((int) (screenHeight*0.65)),300,80,40f, "Settings");
+        exitTextButton = new TextButton(buttonX, ((int) (screenHeight*0.85)),300,80,40f, "Exit");
 
 
         addObject(startTextButton);
         addObject(settingsTextButton);
         addObject(exitTextButton);
+
         try {
             addObject(new ImageButton(ImageIO.read(new File("Images/logo.png")),(int) (screenWidth / 2 - 275),(int) (screenHeight*0.1)));
         } catch (IOException e) {

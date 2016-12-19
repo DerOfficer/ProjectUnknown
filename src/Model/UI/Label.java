@@ -24,6 +24,7 @@ public class Label implements IDrawableObject{
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
         g2d.setFont(new Font(g2d.getFont().getName(), Font.BOLD, fontSize));
+        g2d.setColor(Color.WHITE);
         length = g2d.getFontMetrics().stringWidth(label);
         g2d.drawString(label,(x-(length/2)),y);
         g2d.setFont(new Font(g2d.getFont().getName(), Font.PLAIN, 11));

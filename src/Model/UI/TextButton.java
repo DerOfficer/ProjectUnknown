@@ -17,7 +17,7 @@ public class TextButton extends AbstractEventInteractionObject{
     private int x;
     private int y;
 
-    private RoundRectangle2D bounds;
+    private Rectangle2D bounds;
     private float fontSize;
     private ICanvas canvas;
     private Font customFont;
@@ -29,12 +29,10 @@ public class TextButton extends AbstractEventInteractionObject{
         this.height = height;
         this.fontSize = fontSize;
         this.s = s;
-        bounds = new RoundRectangle2D.Double(this.x, this.y, this.width, this.height,20,20);
         try {
             customFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")).deriveFont(fontSize);
             GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
             ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")));
-
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
@@ -47,11 +45,13 @@ public class TextButton extends AbstractEventInteractionObject{
         g2d.setColor(new Color(255, 246, 252));
         g2d.setFont(customFont);
 
-        int textWidth = g2d.getFontMetrics().stringWidth(s);
-        int textHeight = g2d.getFontMetrics().getHeight();
-        bounds = new RoundRectangle2D.Double(this.x,this.y,textWidth,textHeight,20,20);
+        FontMetrics fontMetrics = g2d.getFontMetrics();
+        int textWidth = fontMetrics.stringWidth(s);
+        int textHeight = fontMetrics.getHeight();
+        int offset = fontMetrics.getHeight() - fontMetrics.getDescent();
+        bounds = new Rectangle2D.Double(this.x - textWidth / 2, this.y - offset, textWidth, textHeight);
 
-        g2d.drawString(s,this.x-(width/2),this.y-(height/2));
+        g2d.drawString(s, this.x - (textWidth / 2), this.y);
     }
 
     @Override

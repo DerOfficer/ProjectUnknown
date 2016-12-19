@@ -23,7 +23,7 @@ public abstract class ScreenPanel  extends DrawingPanel {
         super(properties);
         drawGalaxy();
         addObject(bgRenderer);
-
+        //setBackground(new Color(100,100,100));
     }
 
     private void drawGalaxy() {
