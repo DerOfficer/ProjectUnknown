@@ -11,7 +11,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.util.ArrayList;
 
-public class DrawingPanel extends JPanel implements ActionListener, KeyListener, MouseListener, ICanvas {
+public class DrawingPanel extends JComponent implements ActionListener, KeyListener, MouseListener, ICanvas {
 
     private long lastLoop, elapsedTime;
     private boolean graphicsLock;
@@ -23,6 +23,8 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
     protected static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     protected static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
+    protected Timer timer;
+
     public DrawingPanel(ProjectUnknownProperties properties){
         super();
 
@@ -33,7 +35,7 @@ public class DrawingPanel extends JPanel implements ActionListener, KeyListener,
 
         drawableObjects = new ArrayList<>();
         lastLoop = System.nanoTime();
-        javax.swing.Timer timer = new javax.swing.Timer(30, this);
+        timer = new Timer(30, this);
         timer.start();
     }
 

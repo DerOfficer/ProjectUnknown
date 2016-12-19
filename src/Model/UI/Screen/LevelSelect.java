@@ -4,7 +4,6 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.Physics.Entity.Player;
 import Model.UI.ImageButton;
-import Model.BackgroundRenderer;
 import Model.Physics.Block.GrassBlock;
 import Model.Physics.Entity.Human;
 import Model.Physics.Level;
@@ -32,7 +31,6 @@ public class LevelSelect extends DrawingPanel {
     private BufferedImage venus;
     private BufferedImage background;
 
-    private BackgroundRenderer sunSystem;
     private ImageButton planetMercury,planetVenus,planetEarth,
                         planetMars,planetJupiter,planetSaturn,
                         planetUranus,planetNeptune;
@@ -42,10 +40,10 @@ public class LevelSelect extends DrawingPanel {
     public LevelSelect(ProjectUnknownProperties properties){
         super(properties);
 
-        buttonBack = new Button(200, 974, 100, 50, "← Back");
+        buttonBack = new Button(200, 974, "← Back", properties.getGameFont());
 
         initImages();
-        addObject(sunSystem);
+        //addObject(sunSystem);
         addObject(planetMercury);
         addObject(planetVenus);
         addObject(planetEarth);
@@ -77,7 +75,8 @@ public class LevelSelect extends DrawingPanel {
                 level.addObject(new GrassBlock(0,700,900,200));
                 level.addObject(new GrassBlock(0, 600, 100,100));
                 level.addObject(new GrassBlock(0, 590, 100, 10));
-                properties.getFrame().setDrawingPanel(level.getRenderer());
+                level.addObject(new GrassBlock(0, 3590, 1000, 10));
+                properties.getFrame().setContentPanel(level.getRenderer());
                 level.addObject(human);
             } catch (IOException e) {
                 e.printStackTrace();
@@ -96,35 +95,36 @@ public class LevelSelect extends DrawingPanel {
         );
 
         buttonBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
+            properties.getFrame().setContentPanel(properties.getFrame().getStart());
         });
 
         buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
-            if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
-                properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
+            if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
+                properties.getFrame().setContentPanel(properties.getFrame().getStart());
+                properties.getFrame().setBackgroundPanel(properties.getFrame().getDefaultBackground());
+            }
         });
     }
 
     private void initImages(){
         try {
             mercury = ImageIO.read(new File("Images/mercury.png"));
-            planetMercury  = new ImageButton(mercury,400,(screenHeight/2)-(mercury.getHeight(this)/2));
             venus = ImageIO.read(new File("Images/venus.png"));
-            planetVenus  = new ImageButton(venus,500,(screenHeight/2)-(venus.getHeight(this)/2));
             earth = ImageIO.read(new File("Images/earth.png"));
-            planetEarth  = new ImageButton(earth,600,(screenHeight/2)-(earth.getHeight(this)/2));
             mars = ImageIO.read(new File("Images/mars.png"));
-            planetMars  = new ImageButton(mars,700,(screenHeight/2)-(mars.getHeight(this)/2));
             jupiter = ImageIO.read(new File("Images/jupiter.png"));
-            planetJupiter  = new ImageButton(jupiter,800,(screenHeight/2)-(jupiter.getHeight(this)/2));
             saturn = ImageIO.read(new File("Images/saturn.png"));
-            planetSaturn  = new ImageButton(saturn,1000,(screenHeight/2)-(saturn.getHeight(this)/2));
             uranus = ImageIO.read(new File("Images/uranus.png"));
-            planetUranus  = new ImageButton(uranus,1300,(screenHeight/2)-(uranus.getHeight(this)/2));
             neptune = ImageIO.read(new File("Images/neptune.png"));
-            planetNeptune  = new ImageButton(neptune,1450,(screenHeight/2)-(neptune.getHeight(this)/2));
             background = ImageIO.read(new File("Images/background.png"));
-            sunSystem  = new BackgroundRenderer(background);
+            planetMercury  = new ImageButton(mercury, (int) (screenWidth*0.2),(screenHeight/2)-(mercury.getHeight(this)/2));
+            planetVenus  = new ImageButton(venus, (int) (screenWidth*0.25),(screenHeight/2)-(venus.getHeight(this)/2));
+            planetEarth  = new ImageButton(earth, (int) (screenWidth*0.3),(screenHeight/2)-(earth.getHeight(this)/2));
+            planetMars  = new ImageButton(mars, (int) (screenWidth*0.35),(screenHeight/2)-(mars.getHeight(this)/2));
+            planetJupiter  = new ImageButton(jupiter, (int) (screenWidth*0.4),(screenHeight/2)-(jupiter.getHeight(this)/2));
+            planetSaturn  = new ImageButton(saturn, (int) (screenWidth*0.55),(screenHeight/2)-(saturn.getHeight(this)/2));
+            planetUranus  = new ImageButton(uranus, (int) (screenWidth*0.75),(screenHeight/2)-(uranus.getHeight(this)/2));
+            planetNeptune  = new ImageButton(neptune, (int) (screenWidth*0.85),(screenHeight/2)-(neptune.getHeight(this)/2));
         } catch (IOException e) {
             e.printStackTrace();
         }

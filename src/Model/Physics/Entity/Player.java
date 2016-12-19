@@ -66,16 +66,18 @@ public class Player extends Human implements IInteractableObject{
     @Override
     public void update(double dt){
         super.update(dt);
-        if(Math.abs(sideWayVelocity) < 3) {
+        if(sideWayVelocity > -3) {
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("left"))) {
                 accelerate(-0.5);
             }
+        }
+        if(sideWayVelocity < 3){
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("right"))) {
                 accelerate(0.5);
             }
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && downwardVelocity == 0){
-            downwardVelocity = -2;
+            downwardVelocity = -5;
         }
     }
 }

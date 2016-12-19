@@ -2,6 +2,9 @@ package Control;
 
 import View.MainFrame;
 import java.awt.*;
+import java.io.File;
+import java.io.IOException;
+
 import Model.VolumeManager;
 
 public class ProjectUnknownProperties {
@@ -9,11 +12,19 @@ public class ProjectUnknownProperties {
     private VolumeManager volumeManager;
     private MainFrame frame;
 
-    public ProjectUnknownProperties(){
+    private Font gameFont;
+
+    public ProjectUnknownProperties() throws IOException {
+        volumeManager = new VolumeManager(1);
+
+        try {
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")).deriveFont(16f);
+        } catch (FontFormatException e) {
+            e.printStackTrace();
+        }
+
         this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height, this);
 
-        volumeManager = new VolumeManager(1);
-        frame.setDrawingPanel(frame.getStart());
     }
 
     public MainFrame getFrame() {
@@ -22,5 +33,9 @@ public class ProjectUnknownProperties {
 
     public VolumeManager getVolumeManager(){
         return  volumeManager;
+    }
+
+    public Font getGameFont(){
+        return new Font("Arial", 1, 16);
     }
 }

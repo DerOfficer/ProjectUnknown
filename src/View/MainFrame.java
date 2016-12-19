@@ -2,80 +2,101 @@ package View;
 
 import Control.ProjectUnknownProperties;
 import Model.KeyManager;
+import Model.UI.Screen.DefaultBackground;
 import Model.UI.Screen.LevelSelect;
 import Model.UI.Screen.Settings;
 import Model.UI.Screen.Start;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.io.File;
+import java.io.IOException;
 
 public class MainFrame extends JFrame {
 
-    private DrawingPanel currentPanel;
+    private JLayeredPane contentPane;
 
-    //private DrawingPanel activePanel;
-    //private ArrayList<DrawingPanel> panels;
+    private DrawingPanel background;
+    private DrawingPanel content;
+    private DrawingPanel foreground;
+
     private Start start;
     private Settings settings;
     private LevelSelect levelSelect;
+    private DefaultBackground defaultBackground;
+    private StaticImageBackgroundPanel levelSelectBackground;
 
-    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) {
-        //panels = new ArrayList<>();
-        //activePanel = new DrawingPanel(properties);
+    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) throws IOException {
+        setLocation(x,y);
+        setSize(width,height);
+
         start = new Start(properties);
         settings = new Settings(properties);
         levelSelect = new LevelSelect(properties);
-        //panels.add(activePanel);
+        defaultBackground = new DefaultBackground(properties);
+        levelSelectBackground = new StaticImageBackgroundPanel(properties, ImageIO.read(new File("Images/background.png")));
+
+        contentPane = new JLayeredPane();
+        contentPane.setSize(getSize());
+        contentPane.setLayout(null);
+
+        setContentPane(contentPane);
+
+        setBackgroundPanel(new DefaultBackground(properties));
+        setContentPanel(start);
 
         addKeyListener(KeyManager.getInstance());
-
-        //add(activePanel);
-        //addKeyListener(activePanel);
-        setLocation(x,y);
-        setSize(width,height);
         setTitle(name);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setUndecorated(true);
         setVisible(true);
     }
 
-    /*public DrawingPanel getActiveDrawingPanel(){
-        return currentPanel;
-    }*/
-
-    public void setDrawingPanel(DrawingPanel p){
+    public void setContentPanel(DrawingPanel p){
         if(p == null)
             throw new NullPointerException();
-        registerDrawingPanel(p);
-        if(currentPanel != null)
-            unregisterDrawingPanel(currentPanel);
-        currentPanel = p;
-        revalidate();
-        /*panels.clear();
-        panels.add(p);
-        setActiveDrawingPanel(panels.size()-1);*/
-    }
-
-    private void unregisterDrawingPanel(DrawingPanel p){
-        remove(p);
-        removeKeyListener(p);
-        //removeMouseListener(p);
-    }
-
-    private void registerDrawingPanel(DrawingPanel p){
-        add(p);
-        addKeyListener(p);
-        //addMouseListener(p);
-    }
-
-    /*public void setActiveDrawingPanel(int index){
-        if (index < panels.size()){
-            remove(activePanel);
-            removeKeyListener(activePanel);
-            activePanel = panels.get(index);
-            add(activePanel);
-            addKeyListener(activePanel);
-            revalidate();
+        p.setSize(getSize());
+        if(content != null){
+            contentPane.remove(content);
+            removeKeyListener(content);
         }
-    }*/
+        content = p;
+        contentPane.add(p);
+        contentPane.setLayer(p, 1);
+        addKeyListener(p);
+        repaint();
+        revalidate();
+    }
+
+    public void setBackgroundPanel(DrawingPanel p){
+        p.setSize(getSize());
+        if(background != null){
+            contentPane.remove(background);
+        }
+        background = p;
+        if(p != null) {
+            contentPane.add(p);
+            contentPane.setLayer(p, 0);
+        }
+        repaint();
+        revalidate();
+    }
+
+    public void setForegroundPanel(DrawingPanel p){
+        p.setSize(getSize());
+        if(foreground != null){
+            contentPane.remove(foreground);
+            removeKeyListener(foreground);
+        }
+        foreground = p;
+        if(p != null) {
+            contentPane.add(p);
+            contentPane.setLayer(p, 2);
+        }
+        addKeyListener(p);
+        repaint();
+        revalidate();
+    }
 
     public Start getStart() {
         return start;
@@ -86,4 +107,12 @@ public class MainFrame extends JFrame {
     }
 
     public LevelSelect getLevelSelect(){return levelSelect;}
+
+    public DefaultBackground getDefaultBackground(){
+        return defaultBackground;
+    }
+
+    public StaticImageBackgroundPanel getLevelSelectBackground(){
+        return levelSelectBackground;
+    }
 }

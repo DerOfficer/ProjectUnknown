@@ -9,8 +9,6 @@ public class  Button extends AbstractEventInteractionObject{
 
     private String s;
 
-    private int width;
-    private int height;
     private int x;
     private int y;
 
@@ -18,24 +16,96 @@ public class  Button extends AbstractEventInteractionObject{
 
     private ICanvas canvas;
 
-    public Button(int x, int y, int width, int height,String s){
-        this.x = x;
-        this.y = y;
+    private Font font;
+
+    private Image img;
+
+    private int width;
+    private int height;
+
+    private Color backgroundColor;
+    private Color foregroundColor;
+
+    public Button(int x, int y, String s, Font font){
+        setLocation(x,y);
+        setText(s);
+        this.font = font;
+        backgroundColor = new Color(0,0,0,0);
+        /*try {
+            font = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")).deriveFont(fontSize);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")));
+
+        } catch (IOException | FontFormatException e) {
+            e.printStackTrace();
+        }*/
+    }
+
+    public Button(int x, int y, int width, int height, String s, Font f){
+        this(x,y,s,f);
         this.width = width;
         this.height = height;
-        setText(s);
-        bounds = new Rectangle2D.Double(this.x, this.y, this.width, this.height);
+    }
+
+    public Button(int x, int y, Image img){
+        setLocation(x,y);
+        this.img = img;
+        backgroundColor = new Color(0,0,0,0);
+    }
+
+    public Button(int x, int y, int width, int height, Color color){
+        setLocation(x,y);
+        this.width = width;
+        this.height = height;
+        this.backgroundColor = color;
+    }
+
+    public void setLocation(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public void setForegroundColor(Color foregroundColor) {
+        this.foregroundColor = foregroundColor;
+    }
+
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    public void setImg(Image img) {
+        this.img = img;
     }
 
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        g2d.setColor(new Color(255, 181, 101));
-        g2d.fill(bounds);
-        g2d.setColor(new Color(0,0,0));
-        int textWidth = g2d.getFontMetrics().stringWidth(s);
-        int textHeight = g2d.getFontMetrics().getHeight();
-        g2d.drawString(s,this.x+(this.width/2)-(textWidth/2),this.y+(this.height/2)+(textHeight/2)-2);
+        int yOffset = 0;
+        g2d.setColor(backgroundColor);
+        g2d.fillRect(x,y, width,height);
+        g2d.setColor(foregroundColor);
+        int realWidth = width;
+        int realHeight = height;
+        if(img != null){
+            g2d.drawImage(img, x - img.getWidth(null)/2 + width/2, y, null);
+            yOffset = img.getHeight(null);
+            realWidth = Math.max(realWidth, img.getWidth(null));
+            realHeight = Math.max(realHeight, img.getHeight(null));
+        }
+        if(s != null){
+            g2d.setFont(font);
+            FontMetrics metrics = g2d.getFontMetrics();
+            int stringWidth = metrics.stringWidth(s);
+            int stringHeight = metrics.getHeight();
+            g2d.drawString(s, x - stringWidth/2 + width/2, y + stringHeight/2 + yOffset + height/2);
+            realWidth = Math.max(realWidth, stringWidth);
+            realHeight = Math.max(realHeight, yOffset + stringHeight + metrics.getDescent());
+        }
+        bounds = new Rectangle2D.Double(x-realWidth/2,y,realWidth, realHeight);
     }
 
     @Override
@@ -58,14 +128,6 @@ public class  Button extends AbstractEventInteractionObject{
 
     public int getY(){
         return y;
-    }
-
-    public int getWidth(){
-        return width;
-    }
-
-    public int getHeight(){
-        return height;
     }
 
     public void setText(String newS){

@@ -8,11 +8,12 @@ import Model.UI.Label;
 import View.DrawingPanel;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Paths;
 
-public class Settings extends DrawingPanel{
+public class Settings extends DrawingPanel {
     private SettingsParser settingsParser;
     private boolean[] setting;
 
@@ -21,84 +22,57 @@ public class Settings extends DrawingPanel{
 
     private Label[] controlLabels;
 
-    private String[] labels;
-    private String[] controls;
+    private String[] controlKeyLabels;
+    private String[] controlKeyIdentifiers;
 
-    private Label headline;
+    private Label lblHeadline;
 
-    private Button minus;
-    private Button plus;
-    private Button doTheFlop;
-    private Button back;
+    private Button btnVolumeMinus;
+    private Button btnVolumePlus;
+    private Button btnEasterEgg;
+    private Button btnBack;
 
     private boolean turned;
 
-    public Settings(ProjectUnknownProperties properties){
+    public Settings(ProjectUnknownProperties properties) throws IOException {
         super(properties);
+        initGenericButtons();
+        initGenericLabels();
 
-        int x = screenWidth/2;
-        back = new Button(x/7,screenHeight/10*9,100,50,"← Back");
-        doTheFlop = new Button(screenWidth-125, screenHeight/10*5,80,50,"Easter Egg");
-        headline = new Label(x,screenHeight/10*2,"SETTINGS",150);
+        initGenericEventHandlers();
+
         controlButtons = new Button[5];
         controlLabels = new Label[controlButtons.length];
-        setting = new boolean[controlButtons.length];
-        labels = new String[]{"Jump","Left","Right","Interact","Shoot"};
-        controls = new String[]{"jump","left","right","interact","shoot"};
 
-        try {
-            settingsParser = new SettingsParser(Paths.get("game.settings"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        setting = new boolean[controlButtons.length];
+
+        controlKeyLabels = new String[]{"Jump", "Left", "Right", "Interact", "Shoot"};
+        controlKeyIdentifiers = new String[]{"jump", "left", "right", "interact", "shoot"};
+
+        settingsParser = new SettingsParser(Paths.get("game.settings"));
 
         createVolButtons();
         createConSettings();
 
-        addObject(minus);
-        addObject(plus);
-        addObject(back);
-        addObject(headline);
-        addObject(doTheFlop);
-
-        if(!setting()) {
-            back.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-                properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
+        btnEasterEgg.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            SwingUtilities.invokeLater(() -> {
+                if (!turned) {
+                    removeObject(lblHeadline);
+                    lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "IF-SCHLEIFE", properties.getGameFont().deriveFont(50f));
+                    addObject(lblHeadline);
+                } else {
+                    removeObject(lblHeadline);
+                    lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "SETTINGS", properties.getGameFont().deriveFont(50f));
+                    addObject(lblHeadline);
+                }
+                turned = !turned;
             });
+        });
 
-            back.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
-                if (event.getSrcKey() == KeyEvent.VK_ESCAPE)
-                    properties.getFrame().setDrawingPanel(properties.getFrame().getStart());
-            });
-
-            turned = false;
-            doTheFlop.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-                SwingUtilities.invokeLater(() -> {
-                    if (!turned) {
-                        removeObject(headline);
-                        headline = new Label(x, screenHeight / 10 * 2, "IF-SCHLEIFE", 150);
-                        addObject(headline);
-                    } else {
-                        removeObject(headline);
-                        headline = new Label(x, screenHeight / 10 * 2, "SETTINGS", 150);
-                        addObject(headline);
-                    }
-                    turned = !turned;
-                });
-            });
-
-            for (int i = 0; i < volumeButtons.length; i++) {
-                volHandlers(i);
-            }
-
-            minus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-                properties.getVolumeManager().decrease();
-            });
-
-            plus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-                properties.getVolumeManager().increase();
-            });
+        for (int i = 0; i < volumeButtons.length; i++) {
+            volHandlers(i);
         }
+
         changeListener(0);
         changeListener(1);
         changeListener(2);
@@ -106,53 +80,101 @@ public class Settings extends DrawingPanel{
         changeListener(4);
     }
 
-    public String getSetting(String key){
+
+    private void initGenericButtons() {
+        btnBack = new Button(screenWidth / 14, screenHeight / 10 * 9, "← Back", properties.getGameFont());
+        btnEasterEgg = new Button(screenWidth - 125, screenHeight / 10 * 5, "Easter Egg", properties.getGameFont());
+        btnVolumeMinus = new Button(screenWidth / 8 * 6 - screenWidth / 25, screenHeight / 10 * 9, screenWidth/25, screenWidth/25, "-", properties.getGameFont());
+        btnVolumePlus = new Button(screenWidth / 8 * 7 + (screenWidth / 8 / 20), screenHeight / 10 * 9, screenWidth/25, screenWidth/25, "+", properties.getGameFont());
+
+        btnBack.setForegroundColor(Color.white);
+        btnEasterEgg.setForegroundColor(Color.white);
+        btnVolumeMinus.setForegroundColor(Color.white);
+        btnVolumePlus.setForegroundColor(Color.white);
+
+        btnVolumePlus.setBackgroundColor(Color.RED);
+        btnVolumeMinus.setBackgroundColor(Color.RED);
+
+        addObject(btnBack);
+        addObject(btnEasterEgg);
+        addObject(btnVolumeMinus);
+        addObject(btnVolumePlus);
+    }
+
+    private void initGenericLabels() {
+        lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "SETTINGS", properties.getGameFont().deriveFont(50f));
+
+        addObject(lblHeadline);
+    }
+
+
+    private void initGenericEventHandlers() {
+        btnBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
+                properties.getFrame().setContentPanel(properties.getFrame().getStart()));
+
+        btnBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+            if (event.getSrcKey() == KeyEvent.VK_ESCAPE)
+                properties.getFrame().setContentPanel(properties.getFrame().getStart());
+        });
+
+        btnVolumeMinus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getVolumeManager().decrease();
+        });
+
+        btnVolumePlus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getVolumeManager().increase();
+        });
+    }
+
+
+    public String getSetting(String key) {
         return settingsParser.getSetting(key);
     }
 
-    private void createVolButtons(){
-        minus = new Button(screenWidth/8*6-screenWidth/25,screenHeight/10*9,screenWidth/25,screenWidth/25,"-");
-        plus = new Button(screenWidth/8*7+(screenWidth/8/20),screenHeight/10*9,screenWidth/25,screenWidth/25,"+");
+    private void createVolButtons() {
         volumeButtons = new Button[10];
-        int x = screenWidth/160;
-        int height = screenWidth/250;
-        for(int i = 0; i < volumeButtons.length; i++) {
-            volumeButtons[i] = new Button(screenWidth/8*6+x, screenHeight/10*9+screenWidth/25-height, screenWidth/160, height, "");
-            x = x+screenWidth/80;
-            height = height+screenWidth/250;
+        int x = screenWidth / 160;
+        int height = screenWidth / 250;
+        for (int i = 0; i < volumeButtons.length; i++) {
+            volumeButtons[i] = new Button(screenWidth/8 *6 + x, screenHeight / 10 * 9 + screenWidth/25-height, screenWidth/160, height, Color.WHITE);
+            //volumeButtons[i] = new ClickButton(screenWidth / 8 * 6 + x, screenHeight / 10 * 9 + screenWidth / 25 - height, screenWidth / 160, height);
+            x = x + screenWidth / 80;
+            height = height + screenWidth / 250;
             addObject(volumeButtons[i]);
         }
     }
 
-    private void volHandlers(int i){
+    private void volHandlers(int i) {
         volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getVolumeManager().setVolume((double) (i+1));
+            properties.getVolumeManager().setVolume((double) (i + 1));
             System.out.println(properties.getVolumeManager().getVolume());
         });
     }
 
-    private void createConSettings(){
-        int x = screenWidth/5;
-        int y = screenHeight/10*3;
-        int side = screenWidth/30;
-        for(int i = 0; i < controlButtons.length; i++){
-            controlButtons[i] = new Button(x,y,side,side,settingsParser.getSetting(controls[i]));
-            controlLabels[i] = new Label(x+screenWidth/3,y+(side/2),labels[i],20);
-            y = y+side+screenHeight/30;
+    private void createConSettings() {
+        int x = screenWidth / 5;
+        int y = screenHeight / 10 * 3;
+        int side = screenWidth / 30;
+        for (int i = 0; i < controlButtons.length; i++) {
+            controlButtons[i] = new Button(x, y, screenWidth/25, screenWidth/25, settingsParser.getSetting(controlKeyIdentifiers[i]), properties.getGameFont());
+            controlButtons[i].setForegroundColor(Color.white);
+            controlButtons[i].setBackgroundColor(Color.RED);
+            controlLabels[i] = new Label(x + screenWidth / 3, y + (side / 2), controlKeyLabels[i], properties.getGameFont().deriveFont(20F));
+            y = y + side + screenHeight / 30;
             addObject(controlButtons[i]);
             addObject(controlLabels[i]);
         }
     }
 
-    private void changeListener(int button){
+    private void changeListener(int button) {
         controlButtons[button].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            if(!setting()) {
+            if (!isExpectingUserInput()) {
                 setting[button] = true;
                 controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
                     String temp = String.valueOf((char) e.getSrcKey());
                     if (setting[button] && !temp.equals(getSetting("left")) && !temp.equals(getSetting("right")) && !temp.equals(getSetting("interact")) && !temp.equals(getSetting("shoot")) && !temp.equals(getSetting("jump"))) {
-                        settingsParser.overrideSetting(controls[button], temp);
-                        controlButtons[button].setText(settingsParser.getSetting(controls[button]));
+                        settingsParser.overrideSetting(controlKeyIdentifiers[button], temp);
+                        controlButtons[button].setText(settingsParser.getSetting(controlKeyIdentifiers[button]));
                         setting[button] = false;
                     }
                 });
@@ -161,11 +183,11 @@ public class Settings extends DrawingPanel{
         });
     }
 
-    private boolean setting(){
-        for (int i = 0; i < setting.length; i++){
-           if(setting[i] == true) {
-               return true;
-           }
+    private boolean isExpectingUserInput() {
+        for (int i = 0; i < setting.length; i++) {
+            if (setting[i]) {
+                return true;
+            }
         }
         return false;
     }
