@@ -9,7 +9,7 @@ import java.awt.geom.Ellipse2D;
 /**
  * Created by 204g03 on 16.12.2016.
  */
-public class ImageButton extends AbstractEventInteractionObject{
+public class ImageButton extends AbstractEventInteractionObject {
 
     private Image image;
     private int x;

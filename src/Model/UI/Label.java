@@ -13,11 +13,11 @@ public class Label implements IDrawableObject{
     private int length;
     private int fontSize;
 
-    public Label(int x, int y,String label, int fontSize) {
+    public Label(int x, int y,String label, int fontSize){
         this.label = label;
         this.x = x;
         this.y = y;
-
+        this.fontSize = fontSize;
     }
 
     @Override
@@ -44,11 +44,3 @@ public class Label implements IDrawableObject{
         return null;
     }
 }
-
-
-
-
-
-
-
-

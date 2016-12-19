@@ -2,8 +2,10 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.BackgroundRenderer;
+import Model.UI.Button;
 import Model.UI.ImageButton;
-import Model.UI.TextButton;
+import View.DrawingPanel;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,51 +14,66 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
-public class Start extends ScreenPanel {
+public class Start extends DrawingPanel {
 
-    private TextButton startTextButton;
-    private TextButton settingsTextButton;
-    private TextButton exitTextButton;
+    private Button startButton;
+    private Button settingsButton;
+    private Button exitButton;
+
+    private BackgroundRenderer bgRenderer;
 
     public Start(ProjectUnknownProperties properties) {
         super(properties);
 
-        int buttonX = (screenWidth / 2);
+        int buttonX = (screenWidth / 2) - (300 / 2);
 
-        startTextButton = new TextButton(buttonX,((int) (screenHeight*.45)),300,80,40f, "Start");
-        settingsTextButton = new TextButton(buttonX, ((int) (screenHeight*0.65)),300,80,40f, "Settings");
-        exitTextButton = new TextButton(buttonX, ((int) (screenHeight*0.85)),300,80,40f, "Exit");
+        drawGalaxy();
 
+        startButton = new Button(buttonX, 300, 300, 30, "Start");
+        settingsButton = new Button(buttonX, 400, 300, 30, "Settings");
+        exitButton = new Button(buttonX, 500, 300, 30, "Exit");
 
-        addObject(startTextButton);
-        addObject(settingsTextButton);
-        addObject(exitTextButton);
-
-        try {
-            addObject(new ImageButton(ImageIO.read(new File("Images/logo.png")),(int) (screenWidth / 2 - 275),(int) (screenHeight*0.1)));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        addObject(bgRenderer);
+        addObject(startButton);
+        addObject(settingsButton);
+        addObject(exitButton);
 
         initEventHandler();
     }
 
-
+    private void drawGalaxy() {
+        try {
+            BufferedImage img = ImageIO.read(new File("Images/star-50px.png"));
+            BufferedImage backgroundImg = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
+            Graphics g = backgroundImg.getGraphics();
+            int amount = screenWidth/100;
+            for (int i = 0; i < amount; i++) {
+                int x = (int) (screenWidth/amount)*i;
+                int y = (int) (screenHeight*Math.random());
+                g.drawImage(img, x, y, this);
+                //addObject(new ImageButton(img,x,y));
+            }
+            bgRenderer = new BackgroundRenderer(backgroundImg);
+            setBackground(new Color(0, 0, 0));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     private void initEventHandler() {
-        startTextButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
+        startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 properties.getFrame().setDrawingPanel(properties.getFrame().getLevelSelect())
         );
 
-        settingsTextButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
+        settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 properties.getFrame().setDrawingPanel(properties.getFrame().getSettings())
         );
 
-        exitTextButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
+        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
                 System.exit(0)
         );
 
-        exitTextButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+        exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
                 System.exit(0);
         });
