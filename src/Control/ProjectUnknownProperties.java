@@ -17,11 +17,11 @@ public class ProjectUnknownProperties {
     public ProjectUnknownProperties() throws IOException {
         volumeManager = new VolumeManager(1);
 
-        try {
+        /*try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")).deriveFont(16f);
         } catch (FontFormatException e) {
             e.printStackTrace();
-        }
+        }*/
 
         this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height, this);
 
