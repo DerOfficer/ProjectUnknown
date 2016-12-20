@@ -55,18 +55,20 @@ public class Settings extends DrawingPanel {
         createConSettings();
 
         btnEasterEgg.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            SwingUtilities.invokeLater(() -> {
-                if (!turned) {
-                    removeObject(lblHeadline);
-                    lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "IF-SCHLEIFE", properties.getGameFont().deriveFont(50f));
-                    addObject(lblHeadline);
-                } else {
-                    removeObject(lblHeadline);
-                    lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "SETTINGS", properties.getGameFont().deriveFont(50f));
-                    addObject(lblHeadline);
-                }
-                turned = !turned;
-            });
+            if (!isExpectingUserInput()) {
+                SwingUtilities.invokeLater(() -> {
+                    if (!turned) {
+                        removeObject(lblHeadline);
+                        lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "IF-SCHLEIFE", properties.getGameFont().deriveFont(50f));
+                        addObject(lblHeadline);
+                    } else {
+                        removeObject(lblHeadline);
+                        lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "SETTINGS", properties.getGameFont().deriveFont(50f));
+                        addObject(lblHeadline);
+                    }
+                    turned = !turned;
+                });
+            }
         });
 
         for (int i = 0; i < volumeButtons.length; i++) {
@@ -109,20 +111,28 @@ public class Settings extends DrawingPanel {
 
 
     private void initGenericEventHandlers() {
-        btnBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
-                properties.getFrame().setContentPanel(properties.getFrame().getStart()));
+        btnBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            if(!isExpectingUserInput()) {
+                properties.getFrame().setContentPanel(properties.getFrame().getStart());
+            }
+        });
 
         btnBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
-            if (event.getSrcKey() == KeyEvent.VK_ESCAPE)
+            if (event.getSrcKey() == KeyEvent.VK_ESCAPE && !isExpectingUserInput()) {
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());
+            }
         });
 
         btnVolumeMinus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getVolumeManager().decrease();
+            if(!isExpectingUserInput()) {
+                properties.getVolumeManager().decrease();
+            }
         });
 
         btnVolumePlus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            if(!isExpectingUserInput()){
             properties.getVolumeManager().increase();
+            }
         });
     }
 
