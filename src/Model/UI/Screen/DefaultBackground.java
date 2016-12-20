@@ -16,7 +16,6 @@ public class DefaultBackground extends StaticImageBackgroundPanel {
     public DefaultBackground(ProjectUnknownProperties properties) {
         super(properties, null);
         image = constructImage();
-        revalidate();
     }
 
     private BufferedImage constructImage() {

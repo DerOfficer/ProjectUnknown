@@ -127,7 +127,7 @@ public class Human extends Entity implements IDrawableObject {
         @Animatable(notificationMethod = "dummy")
         private int arm2x;
 
-        private int walking = 1;
+        private int walking;
 
         public HumanAnimationObject(String name) {
             super(name);

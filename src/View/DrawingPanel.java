@@ -13,9 +13,9 @@ import java.util.ArrayList;
 
 public class DrawingPanel extends JComponent implements ActionListener, KeyListener, MouseListener, ICanvas {
 
-    private long lastLoop, elapsedTime;
+    protected long lastLoop, elapsedTime;
     private boolean graphicsLock;
-    private ArrayList<IDrawableObject> drawableObjects;
+    protected ArrayList<IDrawableObject> drawableObjects;
     private Graphics2D graphics;
 
     protected ProjectUnknownProperties properties;

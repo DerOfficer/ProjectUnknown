@@ -3,6 +3,7 @@ package Model.Physics;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
 import View.DrawingPanel;
+import View.StaticDrawingPanel;
 import com.Physics2D.PhysicsObject;
 import com.SideScroller.SideScrollingPhysicsWorld;
 
@@ -24,24 +25,14 @@ public class Level extends SideScrollingPhysicsWorld {
             IDrawableObject drawableObject = (IDrawableObject)o;
             renderer.addObject(drawableObject);
         }
+        o.addMovementListener((event) -> renderer.forceRepaint());
     }
 
     public LevelRenderer getRenderer() {
         return renderer;
     }
 
-    private class LevelRenderer extends DrawingPanel {
-
-
-        @Override
-        public void paint(Graphics g){
-            super.paint(g);
-        }
-
-        @Override
-        public void paintComponent(Graphics g){
-            super.paintComponent(g);
-        }
+    private class LevelRenderer extends StaticDrawingPanel {
 
         @Override
         protected Point getRenderingOffset(){

@@ -72,9 +72,9 @@ public class LevelSelect extends DrawingPanel {
                 Human human = new Player(screenWidth/2,screenHeight/2,10, 10, ImageIO.read(new File("Images/character_sprite.png")), properties);
                 Level level = new Level(24.79, properties);
                 level.focusWithoutScrolling(human);
-                level.addObject(new GrassBlock(0,700,900,200));
-                level.addObject(new GrassBlock(0, 600, 100,100));
-                level.addObject(new GrassBlock(0, 590, 100, 10));
+                level.addObject(new GrassBlock(0,2700,900,200));
+                level.addObject(new GrassBlock(0, 2600, 100,100));
+                level.addObject(new GrassBlock(0, 2590, 100, 10));
                 level.addObject(new GrassBlock(0, 3590, 1000, 10));
                 properties.getFrame().setContentPanel(level.getRenderer());
                 level.addObject(human);
