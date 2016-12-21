@@ -15,12 +15,9 @@ import java.io.IOException;
 
 public class Start extends DrawingPanel {
 
-
     private Button startButton;
     private Button settingsButton;
     private Button exitButton;
-
-    private StaticImageBackgroundPanel bgRenderer;
 
     public Start(ProjectUnknownProperties properties) {
         super(properties);
@@ -55,22 +52,23 @@ public class Start extends DrawingPanel {
 
     private void initEventHandler() {
         startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-                    properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
+            properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
             properties.getFrame().setBackgroundPanel(properties.getFrame().getLevelSelectBackground());
-                }
-        );
 
-        settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
-                properties.getFrame().setContentPanel(properties.getFrame().getSettings())
-        );
+        });
 
-        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) ->
-                System.exit(0)
-        );
+        settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getFrame().setContentPanel(properties.getFrame().getSettings());
+        });
+
+        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+                System.exit(0);
+        });
 
         exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
-            if(event.getSrcKey() == KeyEvent.VK_ESCAPE)
+            if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
                 System.exit(0);
+            }
         });
     }
 }
