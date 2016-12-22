@@ -32,7 +32,10 @@ public class Human extends Entity implements IDrawableObject {
     public Human(int x, int y, int width, int height, BufferedImage image){
         super(x, y, width, height);
         humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
-        //initImageModel(image);
+        /*humanModel = new SpriteSheetHandler(new Dimension[]{new Dimension(41/2,22),
+                                                            new Dimension(38/2,31),
+                                                            new Dimension(32/2,39),
+                                                            new Dimension(26/2,29)}, image).getSprites();*/
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));
         walk = animList.getAnimationByName("walk");
         armWalk = animList.getAnimationByName("armWalk");
@@ -40,17 +43,6 @@ public class Human extends Entity implements IDrawableObject {
         animationObject.animate(armWalk);
         animationObject.animate(walk);
     }
-
-    /*private void initImageModel(BufferedImage image) {
-        if (image != null){
-            humanModel = new BufferedImage[GAPS.length+1];
-            int temp = 0;
-            for (int i = 1; i < humanModel.length+1; i++){
-                temp = temp + GAPS[i-1];
-                humanModel[i] = image.getSubimage(temp,0,GAPS[i], image.getHeight());
-            }
-        }
-    }*/
 
     @Override
     public double getMass() {
