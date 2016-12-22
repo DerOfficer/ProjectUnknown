@@ -34,8 +34,13 @@ public class Settings extends DrawingPanel {
 
     private boolean turned;
 
+    private Color color;
+
     public Settings(ProjectUnknownProperties properties) throws IOException {
         super(properties);
+
+        color = new Color(109, 115, 255);
+
         initGenericButtons();
         initGenericLabels();
 
@@ -53,6 +58,8 @@ public class Settings extends DrawingPanel {
 
         createVolButtons();
         createConSettings();
+
+
 
         btnEasterEgg.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if (!isExpectingUserInput()) {
@@ -93,9 +100,8 @@ public class Settings extends DrawingPanel {
         btnEasterEgg.setForegroundColor(Color.white);
         btnVolumeMinus.setForegroundColor(Color.white);
         btnVolumePlus.setForegroundColor(Color.white);
-
-        btnVolumePlus.setBackgroundColor(Color.RED);
-        btnVolumeMinus.setBackgroundColor(Color.RED);
+        btnVolumePlus.setBackgroundColor(color);
+        btnVolumeMinus.setBackgroundColor(color);
 
         addObject(btnBack);
         addObject(btnEasterEgg);
@@ -168,7 +174,7 @@ public class Settings extends DrawingPanel {
         for (int i = 0; i < controlButtons.length; i++) {
             controlButtons[i] = new Button(x, y, screenWidth/25, screenWidth/25, settingsParser.getSetting(controlKeyIdentifiers[i]), properties.getGameFont());
             controlButtons[i].setForegroundColor(Color.white);
-            controlButtons[i].setBackgroundColor(Color.RED);
+            controlButtons[i].setBackgroundColor(color);
             controlLabels[i] = new Label(x + screenWidth / 3, y + (side / 2), controlKeyLabels[i], properties.getGameFont().deriveFont(20F));
             y = y + side + screenHeight / 30;
             addObject(controlButtons[i]);

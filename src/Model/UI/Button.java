@@ -4,6 +4,8 @@ import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
+import java.io.File;
+import java.io.IOException;
 
 public class  Button extends AbstractEventInteractionObject{
 
@@ -31,14 +33,7 @@ public class  Button extends AbstractEventInteractionObject{
         setText(s);
         this.font = font;
         backgroundColor = new Color(0,0,0,0);
-        /*try {
-            font = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")).deriveFont(fontSize);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")));
 
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }*/
     }
 
     public Button(int x, int y, int width, int height, String s, Font f){

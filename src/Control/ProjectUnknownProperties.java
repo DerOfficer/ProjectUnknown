@@ -17,11 +17,14 @@ public class ProjectUnknownProperties {
     public ProjectUnknownProperties() throws IOException {
         volumeManager = new VolumeManager(1);
 
-        /*try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\galaxy-font.ttf")).deriveFont(16f);
-        } catch (FontFormatException e) {
+        try {
+            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
+            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")));
+
+        } catch (IOException | FontFormatException e) {
             e.printStackTrace();
-        }*/
+        }
 
         this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height, this);
 
@@ -36,6 +39,7 @@ public class ProjectUnknownProperties {
     }
 
     public Font getGameFont(){
-        return new Font("Arial", 1, 16);
+        //return new Font("Arial", 1, 16);
+        return gameFont;
     }
 }
