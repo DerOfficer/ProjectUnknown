@@ -42,4 +42,8 @@ public class ProjectUnknownProperties {
         //return new Font("Arial", 1, 16);
         return gameFont;
     }
+
+    public static Dimension getScreenDimension(){
+        return Toolkit.getDefaultToolkit().getScreenSize();
+    }
 }

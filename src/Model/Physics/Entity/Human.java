@@ -21,7 +21,6 @@ import java.nio.file.Paths;
 
 public class Human extends Entity implements IDrawableObject {
     private BufferedImage[]humanModel;
-    private final int[]GAPS = {0,41,38,31,25};
     private ICanvas canvas;
 
     private Animation walk;
@@ -46,7 +45,7 @@ public class Human extends Entity implements IDrawableObject {
 
     @Override
     public double getMass() {
-        return 70;
+        return 60;
     }
 
     @Override

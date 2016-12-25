@@ -34,6 +34,8 @@ public class ImageButton extends AbstractEventInteractionObject {
 
     }
 
+
+
     @Override
     public void provideCanvas(ICanvas canvas) {
         this.canvas = canvas;

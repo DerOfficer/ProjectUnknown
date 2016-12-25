@@ -4,9 +4,12 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
 import Model.KeyManager;
 
+import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
 
 /**
  * Created by jardu on 12/17/2016.
@@ -15,8 +18,8 @@ public class Player extends Human {
 
     private ProjectUnknownProperties properties;
 
-    public Player(int x, int y, int width, int height, BufferedImage image, ProjectUnknownProperties properties) {
-        super(x, y, width, height, image);
+    public Player(int x, int y, int width, int height, ProjectUnknownProperties properties) throws IOException {
+        super(x, y, width, height, ImageIO.read(new File("Images/character_sprite.png")));
         this.properties = properties;
     }
 

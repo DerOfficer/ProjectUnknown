@@ -32,6 +32,7 @@ public class GrassBlock extends PhysicsObject implements IDrawableObject {
     @Override
     public void draw() {
         Graphics2D g = canvas.getPencil();
+        g.setColor(new Color(45, 117, 44));
         g.fillRect(getX(), getY(), getWidth(), getHeight());
     }
 

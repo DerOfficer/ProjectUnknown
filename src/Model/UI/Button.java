@@ -1,5 +1,6 @@
 package Model.UI;
 
+import Control.ProjectUnknownProperties;
 import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
 import java.awt.*;
@@ -13,6 +14,7 @@ public class  Button extends AbstractEventInteractionObject{
 
     private int x;
     private int y;
+    private boolean move;
 
     private Rectangle2D bounds;
 
@@ -33,19 +35,21 @@ public class  Button extends AbstractEventInteractionObject{
         setText(s);
         this.font = font;
         backgroundColor = new Color(0,0,0,0);
-
+        move = false;
     }
 
     public Button(int x, int y, int width, int height, String s, Font f){
         this(x,y,s,f);
         this.width = width;
         this.height = height;
+        move = false;
     }
 
     public Button(int x, int y, Image img){
         setLocation(x,y);
         this.img = img;
         backgroundColor = new Color(0,0,0,0);
+        move = false;
     }
 
     public Button(int x, int y, int width, int height, Color color){
@@ -53,28 +57,9 @@ public class  Button extends AbstractEventInteractionObject{
         this.width = width;
         this.height = height;
         this.backgroundColor = color;
+        move = false;
     }
 
-    public void setLocation(int x, int y){
-        this.x = x;
-        this.y = y;
-    }
-
-    public void setBackgroundColor(Color backgroundColor) {
-        this.backgroundColor = backgroundColor;
-    }
-
-    public void setForegroundColor(Color foregroundColor) {
-        this.foregroundColor = foregroundColor;
-    }
-
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
-    public void setImg(Image img) {
-        this.img = img;
-    }
 
     @Override
     public void draw() {
@@ -105,6 +90,12 @@ public class  Button extends AbstractEventInteractionObject{
 
     @Override
     public void update(double dt) {
+        if(move){
+            x = x + 5;
+            if(x > ProjectUnknownProperties.getScreenDimension().width){
+                x = 0;
+            }
+        }
     }
 
     @Override
@@ -131,4 +122,31 @@ public class  Button extends AbstractEventInteractionObject{
             this.s = "Space";
         }
     }
+
+    public void setMovability(){
+
+    }
+
+    public void setLocation(int x, int y){
+        this.x = x;
+        this.y = y;
+    }
+
+    public void setBackgroundColor(Color backgroundColor) {
+        this.backgroundColor = backgroundColor;
+    }
+
+    public void setForegroundColor(Color foregroundColor) {
+        this.foregroundColor = foregroundColor;
+    }
+
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    public void setImg(Image img) {
+        this.img = img;
+    }
+
+
 }

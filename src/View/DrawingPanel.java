@@ -4,7 +4,6 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Abstraction.IInteractableObject;
-import Model.Physics.Level;
 
 import javax.swing.*;
 import java.awt.*;
