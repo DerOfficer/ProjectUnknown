@@ -1,7 +1,7 @@
 package Model.Physics.Level;
 
 import Control.ProjectUnknownProperties;
-import Model.Physics.Block.PlanetBlock;
+import Model.Physics.Block.SolidTerrainBlock;
 import Model.Physics.Entity.Human;
 import Model.Physics.Entity.Player;
 import Model.Planet;
@@ -16,16 +16,18 @@ public class SimplePlanetLevel extends AbstractLevel {
         super(planet.getGravity(), properties);
 
         try {
-            Human human = new Player(ProjectUnknownProperties.getScreenDimension().width/2,ProjectUnknownProperties.getScreenDimension().height/2,10, 10, properties);
+            Human human = new Player((int)(ProjectUnknownProperties.getScreenDimension().width/2),(int)(ProjectUnknownProperties.getScreenDimension().height/2), properties);
             addObject(human);
             focusWithoutScrolling(human);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        addObject(new PlanetBlock(0,2700,900,200,planet));
-        addObject(new PlanetBlock(0, 2600, 100,100,planet));
-        addObject(new PlanetBlock(0, 2590, 100, 10,planet));
-        addObject(new PlanetBlock(0, 3590, 1000, 10,planet));
+        int counter=0;
+        for (int i = 0; i < 10; i++) {
+            addObject(new SolidTerrainBlock(counter,(i*50)+300,200,2000,planet.getTopColor(),planet.getInnerColor()));
+            counter = counter+150;
+        }
+
     }
 }

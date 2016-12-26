@@ -6,7 +6,6 @@ import Model.Physics.Entity.Player;
 import Model.Physics.Level.SimplePlanetLevel;
 import Model.Planet;
 import Model.UI.ImageButton;
-import Model.Physics.Block.GrassBlock;
 import Model.Physics.Entity.Human;
 import Model.Physics.Level.AbstractLevel;
 import Model.UI.Button;
