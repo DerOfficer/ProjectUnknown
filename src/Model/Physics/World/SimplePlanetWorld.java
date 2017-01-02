@@ -1,4 +1,4 @@
-package Model.Physics.Level;
+package Model.Physics.World;
 
 import Control.ProjectUnknownProperties;
 import Model.Physics.Block.SolidTerrainBlock;
@@ -11,8 +11,8 @@ import java.io.IOException;
 /**
  * Created by Amasso on 25.12.2016.
  */
-public class SimplePlanetLevel extends AbstractLevel {
-    public SimplePlanetLevel(Planet planet, ProjectUnknownProperties properties) {
+public class SimplePlanetWorld extends AbstractWorld {
+    public SimplePlanetWorld(Planet planet, ProjectUnknownProperties properties) {
         super(planet.getGravity(), properties);
 
         try {

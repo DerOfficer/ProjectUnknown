@@ -3,17 +3,15 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.Physics.Entity.Player;
-import Model.Physics.Level.SimplePlanetLevel;
+import Model.Physics.World.SimplePlanetWorld;
+import Model.Physics.World.World;
 import Model.Planet;
-import Model.UI.ImageButton;
-import Model.Physics.Entity.Human;
-import Model.Physics.Level.AbstractLevel;
 import Model.UI.Button;
 import View.DrawingPanel;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.io.IOException;
+import java.nio.file.Paths;
 
 /**
  * Created by 204g03 on 16.12.2016.
@@ -35,7 +33,10 @@ public class LevelSelect extends DrawingPanel {
         for (int i = 0; i < btnPlanets.length; i++) {
             int finalI = i;
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-                createLevel(Planet.values()[finalI]);
+
+                World level = new World(Paths.get("Worlds/test.world"), new Player(0,0,properties),properties);
+                properties.getFrame().setContentPanel(level.getRenderer());
+
             });
         }
 
@@ -53,7 +54,7 @@ public class LevelSelect extends DrawingPanel {
     }
 
     private void createLevel(Planet planet){
-            SimplePlanetLevel level = new SimplePlanetLevel(planet, properties);
+            SimplePlanetWorld level = new SimplePlanetWorld(planet, properties);
             properties.getFrame().setContentPanel(level.getRenderer());
     }
 

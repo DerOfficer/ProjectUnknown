@@ -1,19 +1,18 @@
-package Model.Physics.Level;
+package Model.Physics.World;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
-import View.DrawingPanel;
 import View.StaticDrawingPanel;
 import com.Physics2D.PhysicsObject;
 import com.SideScroller.SideScrollingPhysicsWorld;
 
 import java.awt.*;
 
-public abstract class AbstractLevel extends SideScrollingPhysicsWorld {
+public abstract class AbstractWorld extends SideScrollingPhysicsWorld {
 
     private LevelRenderer renderer;
 
-    public AbstractLevel(double gravitationalConstant, ProjectUnknownProperties properties) {
+    public AbstractWorld(double gravitationalConstant, ProjectUnknownProperties properties) {
         super(gravitationalConstant);
         renderer = new LevelRenderer(properties);
     }

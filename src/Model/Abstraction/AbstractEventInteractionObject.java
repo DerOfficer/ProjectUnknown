@@ -4,6 +4,7 @@ import Model.Event.IEventHandler;
 import Model.Event.InteractionEvent;
 
 import java.awt.event.MouseEvent;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -63,7 +64,11 @@ public abstract class AbstractEventInteractionObject implements IEventInteractab
 
     protected void pushEvent(EventType t, InteractionEvent eventObject){
         for(IEventHandler handler : eventHandlerMapping.get(t)){
-            handler.onEvent(eventObject);
+            try {
+                handler.onEvent(eventObject);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 }

@@ -4,8 +4,6 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.Notification;
 import Model.UI.Button;
-import Model.UI.ImageButton;
-import View.StaticImageBackgroundPanel;
 import View.DrawingPanel;
 
 import javax.imageio.ImageIO;
@@ -43,7 +41,7 @@ public class Start extends DrawingPanel {
         setBackground(new Color(0,0,0,0));
 
         try {
-            addObject(new ImageButton(ImageIO.read(new File("Images/logo.png")),(screenWidth / 2 - 275),(int) (screenHeight*0.1)));
+            addObject(new Button((screenWidth / 2 - 275),(int) (screenHeight*0.1),ImageIO.read(new File("Images/logo.png"))));
         } catch (IOException e) {
             e.printStackTrace();
         }

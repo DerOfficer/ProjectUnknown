@@ -21,6 +21,15 @@ public class Player extends Human {
     public Player(int x, int y, ProjectUnknownProperties properties) throws IOException {
         super(x, y, 10, 10, ImageIO.read(new File("Images/character_sprite.png")));
         this.properties = properties;
+
+    }
+
+    public void setX(int x){
+        super.setX(x);
+    }
+
+    public void setY(int y){
+        super.setY(y);
     }
 
     @Override

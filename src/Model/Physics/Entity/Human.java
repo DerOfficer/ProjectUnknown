@@ -60,6 +60,7 @@ public class Human extends Entity implements IDrawableObject {
         int wholeOffset = 10;
         int bodyOffset = 10;
         int headOffset = 18;
+
         //head
         g2d.drawImage(humanModel[1], getX()-3, getY() - humanModel[1].getHeight()-humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset + headOffset, null);
         //leg in the background
