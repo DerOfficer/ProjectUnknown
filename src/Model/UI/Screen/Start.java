@@ -2,6 +2,7 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Notification;
 import Model.UI.Button;
 import Model.UI.ImageButton;
 import View.StaticImageBackgroundPanel;
@@ -54,7 +55,9 @@ public class Start extends DrawingPanel {
         startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
             properties.getFrame().setBackgroundPanel(properties.getFrame().getLevelSelectBackground());
-
+            properties.getNotificationArea().addNotification(new Notification("Congratulations", "You clicked 'Start'"));
+            properties.getNotificationArea().addNotification(new Notification("Yes", "Very Notification\n in 2 lines"));
+            properties.getNotificationArea().addNotification(new Notification("Queueing", "All Notifications were registered at the same time"));
         });
 
         settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {

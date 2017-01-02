@@ -1,0 +1,5 @@
+animation show_notification target object
+    y +200 1000
+    block 5000
+    y -200 1000
+animation end

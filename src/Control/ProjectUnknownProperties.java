@@ -1,5 +1,6 @@
 package Control;
 
+import Model.UI.NotificationArea;
 import View.MainFrame;
 import java.awt.*;
 import java.io.File;
@@ -9,6 +10,8 @@ import Model.VolumeManager;
 
 public class ProjectUnknownProperties {
 
+    private NotificationArea notificationArea;
+
     private VolumeManager volumeManager;
     private MainFrame frame;
 
@@ -16,6 +19,8 @@ public class ProjectUnknownProperties {
 
     public ProjectUnknownProperties() throws IOException {
         volumeManager = new VolumeManager(1);
+
+        notificationArea = new NotificationArea();
 
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
@@ -36,6 +41,10 @@ public class ProjectUnknownProperties {
 
     public VolumeManager getVolumeManager(){
         return  volumeManager;
+    }
+
+    public NotificationArea getNotificationArea() {
+        return notificationArea;
     }
 
     public Font getGameFont(){

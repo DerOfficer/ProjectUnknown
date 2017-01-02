@@ -9,10 +9,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * A base class for objects that manage {@link IEventHandler}s. When overriding any method from this class, super must be called.
+ */
 public abstract class AbstractEventInteractionObject implements IEventInteractableObject {
 
     private Map<EventType, List<IEventHandler>> eventHandlerMapping;
 
+    /**
+     * Constructs a neq {@link AbstractEventInteractionObject} object
+     */
     protected  AbstractEventInteractionObject(){
         eventHandlerMapping = new HashMap<>();
         for(EventType t : EventType.values()){

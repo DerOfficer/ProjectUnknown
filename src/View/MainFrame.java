@@ -14,6 +14,8 @@ import java.io.IOException;
 
 public class MainFrame extends JFrame {
 
+    private ProjectUnknownProperties properties;
+
     private JLayeredPane contentPane;
 
     private DrawingPanel background;
@@ -27,6 +29,8 @@ public class MainFrame extends JFrame {
     private StaticImageBackgroundPanel levelSelectBackground;
 
     public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) throws IOException {
+        this.properties = properties;
+
         setLocation(x,y);
         setSize(width,height);
 
@@ -53,6 +57,7 @@ public class MainFrame extends JFrame {
     }
 
     public void setContentPanel(DrawingPanel p){
+        p.addObject(properties.getNotificationArea());
         if(p == null)
             throw new NullPointerException();
         p.setSize(getSize());
