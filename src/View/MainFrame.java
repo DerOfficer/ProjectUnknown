@@ -2,10 +2,7 @@ package View;
 
 import Control.ProjectUnknownProperties;
 import Model.KeyManager;
-import Model.UI.Screen.DefaultBackground;
-import Model.UI.Screen.LevelSelect;
-import Model.UI.Screen.Settings;
-import Model.UI.Screen.Start;
+import Model.UI.Screen.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -27,6 +24,7 @@ public class MainFrame extends JFrame {
     private LevelSelect levelSelect;
     private DefaultBackground defaultBackground;
     private StaticImageBackgroundPanel levelSelectBackground;
+    private WorldEditor worldEditor;
 
     public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) throws IOException {
         this.properties = properties;
@@ -39,6 +37,7 @@ public class MainFrame extends JFrame {
         levelSelect = new LevelSelect(properties);
         defaultBackground = new DefaultBackground(properties);
         levelSelectBackground = new StaticImageBackgroundPanel(properties, ImageIO.read(new File("Images/background.png")));
+        worldEditor = new WorldEditor(properties);
 
         contentPane = new JLayeredPane();
         contentPane.setSize(getSize());
@@ -119,5 +118,9 @@ public class MainFrame extends JFrame {
 
     public StaticImageBackgroundPanel getLevelSelectBackground(){
         return levelSelectBackground;
+    }
+
+    public WorldEditor getWorldEditor() {
+        return worldEditor;
     }
 }

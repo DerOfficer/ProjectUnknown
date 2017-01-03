@@ -70,6 +70,10 @@ public class Start extends DrawingPanel {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
                 System.exit(0);
             }
+
+            if(event.getSrcKey() == KeyEvent.VK_INSERT) {
+                properties.getFrame().setContentPanel(properties.getFrame().getWorldEditor());
+            }
         });
     }
 }
