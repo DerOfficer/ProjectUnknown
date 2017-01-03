@@ -41,7 +41,7 @@ public class Start extends DrawingPanel {
         setBackground(new Color(0,0,0,0));
 
         try {
-            addObject(new Button((screenWidth / 2 - 275),(int) (screenHeight*0.1),ImageIO.read(new File("Images/logo.png"))));
+            addObject(new Button((screenWidth / 2),(int) (screenHeight*0.1),ImageIO.read(new File("Images/logo.png"))));
         } catch (IOException e) {
             e.printStackTrace();
         }

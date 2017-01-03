@@ -32,34 +32,31 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             for (int i = 0; i < (int)(screenWidth/50)+1; i++) {
                 g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
             }
-
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
-        int key = e.getKeyCode();
-
-        if (key == KeyEvent.VK_LEFT) {
+        int k = e.getKeyCode();
+        if (k == KeyEvent.VK_LEFT) {
             camX = camX + 50;
             realX = realX -50;
         }
-
-        if (key == KeyEvent.VK_RIGHT) {
+        if (k == KeyEvent.VK_RIGHT) {
             camX = camX - 50;
             realX = realX + 50;
         }
-
-        if (key == KeyEvent.VK_UP) {
+        if (k == KeyEvent.VK_UP) {
             camY = camY + 50;
             realY = realY - 50;
         }
-
-        if (key == KeyEvent.VK_DOWN) {
+        if (k == KeyEvent.VK_DOWN) {
             camY = camY - 50;
             realY = realY + 50;
         }
 
+        if(e.getKeyChar() == 'a'){
 
+        }
     }
 
 

@@ -24,7 +24,7 @@ public class World extends AbstractWorld{
             this.player = player;
             addObject(player);
             createWorld(lines);
-
+            focusWithoutScrolling(player);
         } catch (IOException e) {
             System.out.println("Error: World doesn't exist...");
         }
