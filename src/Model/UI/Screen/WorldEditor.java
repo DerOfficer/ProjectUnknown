@@ -22,8 +22,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
 
     @Override
     public void paintComponent(Graphics g){
+        g.setColor(Color.white);
         g.translate(camX,camY);
-            super.paintComponent(g);
             makeGrid(g);
         g.translate(-camX,-camY);
     }
