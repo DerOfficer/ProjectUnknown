@@ -18,7 +18,7 @@ public class World extends AbstractWorld{
     private Player player;
 
     public World(Path path, Player player, ProjectUnknownProperties projectUnknownProperties){
-        super(20.00,projectUnknownProperties);
+        super(-20.00,projectUnknownProperties);
         try {
             List<String> lines = Files.readAllLines(path);
             this.player = player;
