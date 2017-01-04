@@ -15,18 +15,17 @@ public class SimplePlanetWorld extends AbstractWorld {
     public SimplePlanetWorld(Planet planet, ProjectUnknownProperties properties) {
         super(planet.getGravity(), properties);
 
-        try {
-            Human human = new Player((int)(ProjectUnknownProperties.getScreenDimension().width/2),(int)(ProjectUnknownProperties.getScreenDimension().height/2), properties);
-            addObject(human);
-            focusWithoutScrolling(human);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
         int counter=0;
         for (int i = 0; i < 10; i++) {
             addObject(new SolidTerrainBlock(counter,(i*50)+300,200,2000,planet.getTopColor(),planet.getInnerColor()));
             counter = counter+150;
+        }
+        try {
+            Human human = new Player(ProjectUnknownProperties.getScreenDimension().width/2,(int)(ProjectUnknownProperties.getScreenDimension().height/2), properties);
+            addObject(human);
+            focusWithoutScrolling(human);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
 
     }

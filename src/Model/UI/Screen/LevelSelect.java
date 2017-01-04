@@ -33,8 +33,8 @@ public class LevelSelect extends DrawingPanel {
         for (int i = 0; i < btnPlanets.length; i++) {
             int finalI = i;
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-
-                World level = new World(Paths.get("Worlds/test.world"), new Player(0,0,properties),properties);
+                //SimplePlanetWorld level = new SimplePlanetWorld(Planet.JUPITER, properties);
+                World level = new World(Paths.get("Worlds/test.world"), new Player(ProjectUnknownProperties.getScreenDimension().width/2,(int)(ProjectUnknownProperties.getScreenDimension().height/2),properties),properties);
                 properties.getFrame().setContentPanel(level.getRenderer());
 
             });
@@ -53,10 +53,10 @@ public class LevelSelect extends DrawingPanel {
         });
     }
 
-    private void createLevel(Planet planet){
+   /* private void createLevel(Planet planet){
             SimplePlanetWorld level = new SimplePlanetWorld(planet, properties);
             properties.getFrame().setContentPanel(level.getRenderer());
-    }
+    }*/
 
     private void initImages(){
         btnPlanets = new Button[Planet.values().length];

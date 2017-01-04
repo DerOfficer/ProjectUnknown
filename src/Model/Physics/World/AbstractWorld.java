@@ -24,7 +24,10 @@ public abstract class AbstractWorld extends SideScrollingPhysicsWorld {
             IDrawableObject drawableObject = (IDrawableObject)o;
             renderer.addObject(drawableObject);
         }
-        o.addMovementListener((event) -> renderer.forceRepaint());
+        o.addMovementListener((event) ->{
+            renderer.forceRepaint();
+            System.out.println("y-offset: "+renderer.getRenderingOffset().y+ " y position: "+o.getY());
+        });
     }
 
     public LevelRenderer getRenderer() {

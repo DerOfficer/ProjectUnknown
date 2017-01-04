@@ -32,6 +32,7 @@ public class StaticDrawingPanel extends DrawingPanel {
     public void update(Graphics g){
         if(repaintForced){
             super.update(g);
+            repaintForced = false;
         }
     }
 

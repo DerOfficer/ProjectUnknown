@@ -80,19 +80,7 @@ public class NotificationArea implements IDrawableObject{
                 int msgWidth = fm.stringWidth(msgArr[i]);
                 g.drawString(msgArr[i], 400/2 - msgWidth/2, wrapper.y + 40 + 40/2 - msgHeight*msgArr.length/2 + i*msgHeight + fm.getHeight());
             }
-
-            int msgWidth = getStringWidthIntelligently(currentNotification.getMessage(), fm);
-
         }
-    }
-
-    private int getStringWidthIntelligently(String s, FontMetrics fm){
-        String[] arr = s.split("\n");
-        int width = 0;
-        for(String sub : arr){
-            width = Math.max(width, fm.stringWidth(sub));
-        }
-        return width;
     }
 
     @Override
@@ -124,6 +112,7 @@ public class NotificationArea implements IDrawableObject{
         }
 
         private void onFinished(){
+            System.out.println(y);
             if(y == -200) {
                 currentlyAnimating = false;
                 if (notificationQueue.peek() != null) { //implicit null = false W H E N
