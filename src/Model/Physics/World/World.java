@@ -24,7 +24,6 @@ public class World extends AbstractWorld{
             this.player = player;
             addObject(player);
             createWorld(lines);
-            focusWithoutScrolling(player);
         } catch (IOException e) {
             System.out.println("Error: World doesn't exist...");
         }
@@ -38,9 +37,7 @@ public class World extends AbstractWorld{
                     BlockType blockType = BlockType.valueOf(values[1]);
                     int x = Integer.parseInt(values[2]);
                     int y = Integer.parseInt(values[3]);
-                    int w = Integer.parseInt(values[4]);
-                    int h = Integer.parseInt(values[5]);
-                    addObject(new SolidTerrainBlock(x,y,w,h,blockType.getColor()));
+                    addObject(new SolidTerrainBlock(x,y,blockType));
                     break;
                 case "PLAYER":
                     x = Integer.parseInt(values[1]);

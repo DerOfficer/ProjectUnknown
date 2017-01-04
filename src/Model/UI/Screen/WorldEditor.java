@@ -1,17 +1,26 @@
 package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
+import Model.Physics.Block.BlockType;
+import Model.Physics.Block.SolidTerrainBlock;
 import View.DrawingPanel;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseListener;
+import java.io.*;
+import java.lang.reflect.Array;
+import java.util.ArrayList;
 
 /**
  * Created by Amasso on 03.01.2017.
  */
 public class WorldEditor extends DrawingPanel implements KeyListener {
     private int camX,camY,realX,realY;
+    private int indexOfBlockType;
+    private ArrayList<SolidTerrainBlock> blocks;
 
     public WorldEditor(ProjectUnknownProperties properties) {
         super(properties);
@@ -19,7 +28,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
         camY = 0;
         realX = 0;
         realY = 0;
-
+        indexOfBlockType = 0;
+        blocks = new ArrayList<>();
     }
 
     @Override
@@ -32,6 +42,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             for (int i = 0; i < (int)(screenWidth/50)+1; i++) {
                 g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
             }
+            super.paintComponent(g);
     }
 
     @Override
@@ -54,10 +65,68 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             realY = realY + 50;
         }
 
-        if(e.getKeyChar() == 'a'){
-
+        if(k == KeyEvent.VK_SPACE){
+            indexOfBlockType++;
+            if(indexOfBlockType >= BlockType.values().length){
+                indexOfBlockType = 0;
+            }
+        }
+        if (e.getKeyChar() == 'd') {
+            removeBlock();
+        }
+        if (e.getKeyChar() == 's'){
+            String file = JOptionPane.showInputDialog(properties.getFrame(), "How do you want to name your world?");
+            if(file != null){
+                saveWorld(file);
+            }
+        }
+        if (e.getKeyChar() == 'a') {
+            createBlock();
         }
     }
 
+    private void createBlock() {
+        int x = ((int)((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
+        int y = ((int)((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+        boolean isBlockThere = true;
+        for(SolidTerrainBlock block: blocks){
+            if(block.getX() == x && block.getY() == y){
+                isBlockThere = false;
+            }
+        }
+        if (isBlockThere == true) {
+            SolidTerrainBlock temp = new SolidTerrainBlock(x, y, BlockType.values()[indexOfBlockType]);
+            blocks.add(temp);
+            super.addObject(temp);
+        }
+    }
 
+    private void removeBlock(){
+        int x = ((int)((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
+        int y = ((int)((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+        SolidTerrainBlock temp;
+        for(SolidTerrainBlock block: blocks){
+            if(block.getX() == x && block.getY() == y){
+                temp = block;
+                blocks.remove(temp);
+                super.removeObject(temp);
+                break;
+            }
+        }
+    }
+
+    private void saveWorld(String text){
+        try{
+            PrintWriter writer = new PrintWriter(new File("Worlds/"+text+".world"));
+            for(SolidTerrainBlock block: blocks){
+                int x = block.getX();
+                int y = block.getY();
+                writer.println("BLOCK "+block.getBlockType().toString()+" "+x+" "+y);
+            }
+            writer.close();
+            properties.getFrame().setContentPanel(properties.getFrame().getStart());
+        } catch (IOException e) {
+
+        }
+    }
 }
