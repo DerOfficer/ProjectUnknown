@@ -29,6 +29,7 @@ public class World extends AbstractWorld{
             focusWithoutScrolling(player);
             player.setX((int) spawnPoint.getX());
             player.setY((int) spawnPoint.getY());
+
         } catch (IOException e) {
             System.out.println("Error: World doesn't exist...");
         }

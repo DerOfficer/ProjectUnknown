@@ -9,6 +9,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.*;
 import java.lang.reflect.Array;
@@ -20,9 +21,10 @@ import java.util.List;
 /**
  * Created by Amasso on 03.01.2017.
  */
-public class WorldEditor extends DrawingPanel implements KeyListener {
+public class WorldEditor extends DrawingPanel implements KeyListener,MouseListener {
     private int camX,camY,realX,realY;
     private Point spawnPoint;
+    private Point pos1,pos2;
     private int indexOfBlockType;
     private ArrayList<SolidTerrainBlock> blocks;
 
@@ -35,6 +37,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
         indexOfBlockType = 0;
         spawnPoint = new Point(0,0);
         blocks = new ArrayList<>();
+
+        this.addMouseListener(this);
     }
 
     @Override
@@ -48,11 +52,21 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
                 g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
             }
             g.drawString("P",(int) spawnPoint.getX()+25,(int) spawnPoint.getY()+25);
+            if(pos1 != null){
+                g.setColor(Color.BLUE);
+                g.drawRect((int)pos1.getX(),(int)pos1.getY(),50,50);
+            }
+            if(pos2 != null){
+                g.setColor(Color.BLUE);
+                g.drawRect((int)pos2.getX(),(int)pos2.getY(),50,50);
+            }
             super.paintComponent(g);
     }
 
     @Override
     public void keyPressed(KeyEvent e) {
+        int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
+        int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
         int k = e.getKeyCode();
         if (k == KeyEvent.VK_LEFT) {
             camX = camX + 50;
@@ -87,7 +101,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             }
         }
         if (e.getKeyChar() == 'a') {
-            createBlock();
+            createBlock(x,y);
         }
         if (e.getKeyChar() == 'l') {
             String file = JOptionPane.showInputDialog(properties.getFrame(), "Which world do you want to load?");
@@ -96,9 +110,34 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             }
         }
         if(e.getKeyChar() == 'p'){
-            int x = ((int)((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
-            int y = ((int)((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
             spawnPoint.move(x,y);
+        }
+        if(e.getKeyChar()=='1'){
+            pos1 = new Point(x,y);
+        }
+        if(e.getKeyChar()=='2'){
+            pos2 = new Point(x,y);
+        }
+        if(e.getKeyChar()=='f'){
+            fillSpace();
+        }
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        if(e.getButton() == MouseEvent.BUTTON1){
+            int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
+            int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+            createBlock(x,y);
+        }
+        if(e.getButton() == MouseEvent.BUTTON2){
+            indexOfBlockType++;
+            if(indexOfBlockType >= BlockType.values().length){
+                indexOfBlockType = 0;
+            }
+        }
+        if(e.getButton() == MouseEvent.BUTTON3){
+            removeBlock();
         }
     }
 
@@ -108,8 +147,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             for (SolidTerrainBlock block:blocks) {
                 super.removeObject(block);
             }
-
-            ArrayList<SolidTerrainBlock>blocks = new ArrayList<>();
+            blocks = new ArrayList<>();
             for(String line: lines){
                 String[] values = line.split(" ");
                 switch (values[0]){
@@ -133,9 +171,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
 
     }
 
-    private void createBlock() {
-        int x = ((int)((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
-        int y = ((int)((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+    private void createBlock(int x, int y) {
         boolean isBlockThere = true;
         for(SolidTerrainBlock block: blocks){
             if(block.getX() == x && block.getY() == y){
@@ -176,6 +212,21 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         } catch (IOException e) {
 
+        }
+    }
+
+    private void fillSpace(){
+        if(pos1 != null && pos2 != null){
+            int width = (int) (pos2.getX() - pos1.getX());
+            int height = (int) (pos2.getY() - pos1.getY());
+
+            for (int i = 0; i < 1+(height/50); i++) {
+                for (int j= 0; j < 1+(width/50); j++) {
+                    createBlock((int)pos1.getX()+j*50,(int)pos1.getY()+i*50);
+                }
+            }
+            pos1 = null;
+            pos2 = null;
         }
     }
 }
