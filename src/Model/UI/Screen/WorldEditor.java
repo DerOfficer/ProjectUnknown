@@ -12,13 +12,17 @@ import java.awt.event.KeyListener;
 import java.awt.event.MouseListener;
 import java.io.*;
 import java.lang.reflect.Array;
-import java.util.ArrayList;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Amasso on 03.01.2017.
  */
 public class WorldEditor extends DrawingPanel implements KeyListener {
     private int camX,camY,realX,realY;
+    private Point spawnPoint;
     private int indexOfBlockType;
     private ArrayList<SolidTerrainBlock> blocks;
 
@@ -29,6 +33,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
         realX = 0;
         realY = 0;
         indexOfBlockType = 0;
+        spawnPoint = new Point(0,0);
         blocks = new ArrayList<>();
     }
 
@@ -42,6 +47,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
             for (int i = 0; i < (int)(screenWidth/50)+1; i++) {
                 g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
             }
+            g.drawString("P",(int) spawnPoint.getX()+25,(int) spawnPoint.getY()+25);
             super.paintComponent(g);
     }
 
@@ -83,6 +89,48 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
         if (e.getKeyChar() == 'a') {
             createBlock();
         }
+        if (e.getKeyChar() == 'l') {
+            String file = JOptionPane.showInputDialog(properties.getFrame(), "Which world do you want to load?");
+            if(file != null){
+                loadWorld(file);
+            }
+        }
+        if(e.getKeyChar() == 'p'){
+            int x = ((int)((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
+            int y = ((int)((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+            spawnPoint.move(x,y);
+        }
+    }
+
+    private void loadWorld(String file) {
+        try {
+            List<String> lines = Files.readAllLines(Paths.get("Worlds/"+file+".world"));
+            for (SolidTerrainBlock block:blocks) {
+                super.removeObject(block);
+            }
+
+            ArrayList<SolidTerrainBlock>blocks = new ArrayList<>();
+            for(String line: lines){
+                String[] values = line.split(" ");
+                switch (values[0]){
+                    case "BLOCK":
+                        BlockType blockType = BlockType.valueOf(values[1]);
+                        int x = Integer.parseInt(values[2]);
+                        int y = Integer.parseInt(values[3]);
+                        SolidTerrainBlock temp = new SolidTerrainBlock(x,y,blockType);
+                        blocks.add(temp);
+                        super.addObject(temp);
+                        break;
+                    case "PLAYER":
+                        int xS = Integer.parseInt(values[1]);
+                        int yS = Integer.parseInt(values[2]);
+                        spawnPoint.move(xS,yS);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     private void createBlock() {
@@ -94,7 +142,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
                 isBlockThere = false;
             }
         }
-        if (isBlockThere == true) {
+        if (isBlockThere) {
             SolidTerrainBlock temp = new SolidTerrainBlock(x, y, BlockType.values()[indexOfBlockType]);
             blocks.add(temp);
             super.addObject(temp);
@@ -123,6 +171,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener {
                 int y = block.getY();
                 writer.println("BLOCK "+block.getBlockType().toString()+" "+x+" "+y);
             }
+            writer.println("PLAYER "+(int)spawnPoint.getX()+" "+(int)spawnPoint.getY());
             writer.close();
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         } catch (IOException e) {

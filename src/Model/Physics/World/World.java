@@ -5,6 +5,7 @@ import Model.Physics.Block.BlockType;
 import Model.Physics.Block.SolidTerrainBlock;
 import Model.Physics.Entity.Player;
 
+import java.awt.*;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -16,15 +17,18 @@ import java.util.List;
 public class World extends AbstractWorld{
 
     private Player player;
+    private Point spawnPoint;
 
     public World(Path path, Player player, ProjectUnknownProperties projectUnknownProperties){
         super(20.00,projectUnknownProperties);
         try {
             List<String> lines = Files.readAllLines(path);
             this.player = player;
-            addObject(player);
             createWorld(lines);
+            addObject(player);
             focusWithoutScrolling(player);
+            player.setX((int) spawnPoint.getX());
+            player.setY((int) spawnPoint.getY());
         } catch (IOException e) {
             System.out.println("Error: World doesn't exist...");
         }
@@ -43,8 +47,7 @@ public class World extends AbstractWorld{
                 case "PLAYER":
                     x = Integer.parseInt(values[1]);
                     y = Integer.parseInt(values[2]);
-                    player.setX(x);
-                    player.setY(y);
+                    spawnPoint = new Point(x,y);
             }
 
         }
