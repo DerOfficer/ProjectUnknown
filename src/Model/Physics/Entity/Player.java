@@ -19,7 +19,7 @@ public class Player extends Human {
     private ProjectUnknownProperties properties;
 
     public Player(int x, int y, ProjectUnknownProperties properties) throws IOException {
-        super(x, y, 10, 10, ImageIO.read(new File("Images/character_sprite.png")));
+        super(x, y, 15, 36, ImageIO.read(new File("Images/character_sprite.png")));
         this.properties = properties;
 
     }

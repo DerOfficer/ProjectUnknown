@@ -35,21 +35,19 @@ public class  Button extends AbstractEventInteractionObject{
         setText(s);
         this.font = font;
         backgroundColor = new Color(0,0,0,0);
-        move = false;
     }
 
     public Button(int x, int y, int width, int height, String s, Font f){
         this(x,y,s,f);
         this.width = width;
         this.height = height;
-        move = false;
     }
 
     public Button(int x, int y, Image img){
         setLocation(x,y);
         this.img = img;
         backgroundColor = new Color(0,0,0,0);
-        move = false;
+        bounds = new Rectangle2D.Double(x, y, img.getWidth(null), img.getHeight(null));
     }
 
     public Button(int x, int y, int width, int height, Color color){
@@ -57,7 +55,6 @@ public class  Button extends AbstractEventInteractionObject{
         this.width = width;
         this.height = height;
         this.backgroundColor = color;
-        move = false;
     }
 
 
@@ -121,10 +118,6 @@ public class  Button extends AbstractEventInteractionObject{
         if(newS.equals(" ")){
             this.s = "Space";
         }
-    }
-
-    public void setMovability(){
-
     }
 
     public void setLocation(int x, int y){

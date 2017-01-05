@@ -6,10 +6,12 @@ import Model.UI.Screen.*;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements MouseListener {
 
     private ProjectUnknownProperties properties;
 
@@ -47,6 +49,8 @@ public class MainFrame extends JFrame {
 
         setBackgroundPanel(new DefaultBackground(properties));
         setContentPanel(start);
+        //a dummy panel to make the notification area work
+        setForegroundPanel(new DrawingPanel(properties));
 
         addKeyListener(KeyManager.getInstance());
         setTitle(name);
@@ -56,7 +60,6 @@ public class MainFrame extends JFrame {
     }
 
     public void setContentPanel(DrawingPanel p){
-        p.addObject(properties.getNotificationArea());
         if(p == null)
             throw new NullPointerException();
         p.setSize(getSize());
@@ -91,11 +94,15 @@ public class MainFrame extends JFrame {
         if(foreground != null){
             contentPane.remove(foreground);
             removeKeyListener(foreground);
+            foreground.removeObject(properties.getNotificationArea());
+            foreground.removeMouseListener(this);
         }
         foreground = p;
         if(p != null) {
             contentPane.add(p);
             contentPane.setLayer(p, 2);
+            p.addObject(properties.getNotificationArea());
+            p.addMouseListener(this);
         }
         addKeyListener(p);
         repaint();
@@ -122,5 +129,31 @@ public class MainFrame extends JFrame {
 
     public WorldEditor getWorldEditor() {
         return worldEditor;
+    }
+
+    //Since we have a foreground panel, its impossible for the contentpanel to get click events. Thus we need to delegate them form the foreground panel
+    @Override
+    public void mouseClicked(MouseEvent e) {
+        content.mouseClicked(e);
+    }
+
+    @Override
+    public void mousePressed(MouseEvent e) {
+        content.mousePressed(e);
+    }
+
+    @Override
+    public void mouseReleased(MouseEvent e) {
+        content.mouseReleased(e);
+    }
+
+    @Override
+    public void mouseEntered(MouseEvent e) {
+        content.mouseEntered(e);
+    }
+
+    @Override
+    public void mouseExited(MouseEvent e) {
+        content.mouseExited(e);
     }
 }
