@@ -49,4 +49,8 @@ public class Player extends Human {
             downwardVelocity = -5;
         }
     }
+
+    public double getHealthInPercent() {
+        return 0.6;
+    }
 }
