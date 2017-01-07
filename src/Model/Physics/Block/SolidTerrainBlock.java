@@ -44,7 +44,7 @@ public class SolidTerrainBlock extends PhysicsObject implements IDrawableObject 
 
     @Override
     public double getFrictionConstant() {
-        return 30;
+        return 0.1;
     }
 
     @Override
