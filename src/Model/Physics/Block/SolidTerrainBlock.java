@@ -44,20 +44,20 @@ public class SolidTerrainBlock extends PhysicsObject implements IDrawableObject 
 
     @Override
     public double getFrictionConstant() {
-        return 0.1;
+        return 1;
     }
 
     @Override
     public void draw() {
         Graphics2D g = canvas.getPencil();
         if(img != null){
-            g.drawImage(img,getX(),getY(),null);
+            g.drawImage(img, (int)getX(), (int)getY(),null);
         }else {
             g.setColor(topColor);
-            g.fillRect(getX(), getY(), getWidth(), getHeight());
+            g.fillRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
             if (innerColor != null) {
                 g.setColor(innerColor);
-                g.fillRect(getX(), getY() + (int) (getHeight() * 0.05), getWidth(), (int) (getHeight() * 0.95));
+                g.fillRect((int)getX(), (int)getY() + (int) (getHeight() * 0.05), (int)getWidth(), (int) (getHeight() * 0.95));
             }
         }
     }

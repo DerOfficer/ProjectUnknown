@@ -3,6 +3,7 @@ package Model.Physics.Entity;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
 import Model.KeyManager;
+import Model.Physics.World.AbstractWorld;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
@@ -34,18 +35,18 @@ public class Player extends Human {
     @Override
     public void update(double dt){
         super.update(dt);
-        if(getVelocity() > -30) {
+        if(getVelocity() > -5 * AbstractWorld.PIXEL_TO_METER) {
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("left"))) {
-                accelerate(-4);
+                accelerate(-.4 * AbstractWorld.PIXEL_TO_METER);
             }
         }
-        if(getVelocity() < 30){
+        if(getVelocity() < 5 * AbstractWorld.PIXEL_TO_METER){
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("right"))) {
-                accelerate(4);
+                accelerate(.4 * AbstractWorld.PIXEL_TO_METER);
             }
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
-            accelerateUpward(-50d);
+            accelerateUpward(-10 * AbstractWorld.PIXEL_TO_METER);
         }
     }
 

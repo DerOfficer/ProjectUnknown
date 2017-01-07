@@ -12,10 +12,12 @@ import java.util.*;
 
 public abstract class AbstractWorld extends SideScrollingPhysicsWorld {
 
+    public static final int PIXEL_TO_METER = 50;
+
     private LevelRenderer renderer;
 
     public AbstractWorld(double gravitationalConstant, ProjectUnknownProperties properties) {
-        super(gravitationalConstant);
+        super(gravitationalConstant * PIXEL_TO_METER);
         renderer = new LevelRenderer(properties);
     }
 
