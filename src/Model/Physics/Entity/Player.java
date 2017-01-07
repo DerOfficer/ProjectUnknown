@@ -34,18 +34,18 @@ public class Player extends Human {
     @Override
     public void update(double dt){
         super.update(dt);
-        if(sideWayVelocity > -3) {
+        if(getVelocity() > -10) {
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("left"))) {
-                accelerate(-0.5);
+                accelerate(-1);
             }
         }
-        if(sideWayVelocity < 3){
+        if(getVelocity() < 10){
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("right"))) {
-                accelerate(0.5);
+                accelerate(1);
             }
         }
-        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && downwardVelocity == 0){
-            downwardVelocity = -5;
+        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
+            accelerateUpward(-10d);
         }
     }
 

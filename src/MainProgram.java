@@ -21,7 +21,7 @@ public class MainProgram {
 
     private static void setup() throws IOException {
         new ProjectUnknownProperties();
-        TIMER_CONSTANT = 10;
+        TIMER_CONSTANT = 30;
     }
 
     public synchronized strictfp static final void CRASH(){
