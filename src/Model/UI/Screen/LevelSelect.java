@@ -40,7 +40,6 @@ public class LevelSelect extends DrawingPanel {
             });
         }
 
-
         buttonBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         });

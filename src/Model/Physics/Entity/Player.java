@@ -3,7 +3,6 @@ package Model.Physics.Entity;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
 import Model.KeyManager;
-import Model.Physics.Projectile;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
@@ -35,26 +34,22 @@ public class Player extends Human {
     @Override
     public void update(double dt){
         super.update(dt);
-        if(getVelocity() > -10) {
+        if(getVelocity() > -30) {
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("left"))) {
-                accelerate(-1);
+                accelerate(-4);
             }
         }
-        if(getVelocity() < 10){
+        if(getVelocity() < 30){
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("right"))) {
-                accelerate(1);
+                accelerate(4);
             }
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
-            accelerateUpward(-20d);
-        }
-        if (KeyManager.isKeyPressed("l")) {
-            doStuff();
+            accelerateUpward(-50d);
         }
     }
 
-    private void doStuff(){
-        canvas.addObject(new Projectile(Projectile.Type.TEST,this));
+    public double getHealthInPercent() {
+        return 0.6;
     }
-
 }

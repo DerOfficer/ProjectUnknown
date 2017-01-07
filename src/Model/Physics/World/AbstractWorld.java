@@ -7,6 +7,8 @@ import com.Physics2D.PhysicsObject;
 import com.SideScroller.SideScrollingPhysicsWorld;
 
 import java.awt.*;
+import java.awt.List;
+import java.util.*;
 
 public abstract class AbstractWorld extends SideScrollingPhysicsWorld {
 
