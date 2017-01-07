@@ -31,10 +31,12 @@ public class World extends AbstractWorld{
             System.out.println("Error: World doesn't exist...");
         }
         this.player = player;
-        addObject(player);
-        focusWithoutScrolling(player);
         player.setX((int) spawnPoint.getX());
         player.setY((int) spawnPoint.getY());
+        addObject(player);
+        setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2));
+        setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2));
+        focusWithoutScrolling(player);
         gui = new GraphicalUserInterface(player, projectUnknownProperties);
         projectUnknownProperties.getFrame().setForegroundPanel(gui);
     }
