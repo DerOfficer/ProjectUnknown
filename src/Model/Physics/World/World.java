@@ -37,6 +37,7 @@ public class World extends AbstractWorld{
         player.setY((int) spawnPoint.getY());
         gui = new GraphicalUserInterface(player, projectUnknownProperties);
         projectUnknownProperties.getFrame().setForegroundPanel(gui);
+
     }
 
     private void createWorld(List<String> lines) {

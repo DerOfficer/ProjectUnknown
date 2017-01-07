@@ -19,9 +19,9 @@ import java.nio.file.Paths;
  * Created by Amasso on 16.12.2016.
  */
 
-public class Human extends Entity implements IDrawableObject {
+public class Human extends Creature {
     private BufferedImage[]humanModel;
-    private ICanvas canvas;
+    protected ICanvas canvas;
 
     private Animation walk;
     private Animation armWalk;
