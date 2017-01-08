@@ -203,8 +203,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         try{
             PrintWriter writer = new PrintWriter(new File("Worlds/"+text+".world"));
             for(SolidTerrainBlock block: blocks){
-                int x = block.getX();
-                int y = block.getY();
+                int x = (int)block.getX();
+                int y = (int)block.getY();
                 writer.println("BLOCK "+block.getBlockType().toString()+" "+x+" "+y);
             }
             writer.println("PLAYER "+(int)spawnPoint.getX()+" "+(int)spawnPoint.getY());

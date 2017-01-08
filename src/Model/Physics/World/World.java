@@ -8,6 +8,7 @@ import View.DrawingPanel;
 import View.MainFrame;
 
 import java.awt.*;
+import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -31,10 +32,12 @@ public class World extends AbstractWorld{
             System.out.println("Error: World doesn't exist...");
         }
         this.player = player;
-        addObject(player);
-        focusWithoutScrolling(player);
         player.setX((int) spawnPoint.getX());
         player.setY((int) spawnPoint.getY());
+        addObject(player);
+        setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2)-50);
+        setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2)-10);
+        focusWithoutScrolling(player);
         gui = new GraphicalUserInterface(player, projectUnknownProperties);
         projectUnknownProperties.getFrame().setForegroundPanel(gui);
 
@@ -59,23 +62,5 @@ public class World extends AbstractWorld{
         }
     }
 
-    private class GraphicalUserInterface extends DrawingPanel{
 
-        private Dimension healthbar_dimension;
-        private Player player;
-        private Rectangle rectangle;
-
-        public GraphicalUserInterface(Player player,ProjectUnknownProperties properties) {
-            super(properties);
-            healthbar_dimension = new Dimension((int) (screenWidth*0.7), (int)(screenHeight*0.05));
-            rectangle = new Rectangle((int)((screenWidth/2)-(healthbar_dimension.getWidth()/2)),(int)(screenHeight*0.9),(int)(healthbar_dimension.getWidth()*player.getHealthInPercent()),(int)(healthbar_dimension.getHeight()));
-        }
-
-        @Override
-        public void paintComponent(Graphics g){
-            g.setColor(Color.green);
-            Graphics2D g2d = (Graphics2D) g;
-            g2d.fill(rectangle);
-        }
-    }
 }

@@ -53,20 +53,20 @@ public class Projectile implements IDrawableObject {
     private Type type;
     private Creature creature;
     private ICanvas canvas;
-    private int x,y,movement;
+    private double x,y,movement;
 
     public Projectile(Type type, Creature creature){
         this.type = type;
         this.creature = creature;
         x = creature.getX();
         y = creature.getY();
-        movement = (int)(creature.getSideWayVelocity()*type.getSpeedModifier());
+        movement = creature.getSideWayVelocity()*type.getSpeedModifier();
     }
 
     @Override
     public void draw() {
         Graphics g = canvas.getPencil();
-        g.drawImage(type.getImage(),x,y,null);
+        g.drawImage(type.getImage(),(int) x,(int) y,null);
     }
 
     @Override
@@ -81,6 +81,6 @@ public class Projectile implements IDrawableObject {
 
     @Override
     public Shape getBounds() {
-        return new Rectangle(x,y,type.getImage().getWidth(),type.getImage().getHeight());
+        return new Rectangle((int)x,(int)y,type.getImage().getWidth(),type.getImage().getHeight());
     }
 }

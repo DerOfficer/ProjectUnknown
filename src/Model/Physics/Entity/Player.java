@@ -3,6 +3,7 @@ package Model.Physics.Entity;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
 import Model.KeyManager;
+import Model.Physics.World.AbstractWorld;
 
 import javax.imageio.ImageIO;
 import java.awt.event.KeyEvent;
@@ -17,10 +18,13 @@ import java.io.IOException;
 public class Player extends Human {
 
     private ProjectUnknownProperties properties;
+    private int level;
 
-    public Player(int x, int y, ProjectUnknownProperties properties) throws IOException {
-        super(x, y, 15, 36, ImageIO.read(new File("Images/character_sprite.png")));
+    public Player(ProjectUnknownProperties properties) throws IOException {
+        super(0, 0, 15, 36, ImageIO.read(new File("Images/character_sprite.png")),100,100);
         this.properties = properties;
+        setActualHealth(50);
+        level = 1;
     }
 
     public void setX(int x){
@@ -34,22 +38,26 @@ public class Player extends Human {
     @Override
     public void update(double dt){
         super.update(dt);
-        if(getVelocity() > -30) {
+        if(getVelocity() > -5 * AbstractWorld.PIXEL_TO_METER) {
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("left"))) {
-                accelerate(-4);
+                accelerate(-.4 * AbstractWorld.PIXEL_TO_METER);
             }
         }
-        if(getVelocity() < 30){
+        if(getVelocity() < 5 * AbstractWorld.PIXEL_TO_METER){
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("right"))) {
-                accelerate(4);
+                accelerate(.4 * AbstractWorld.PIXEL_TO_METER);
             }
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
-            accelerateUpward(-50d);
+            accelerateUpward(-10 * AbstractWorld.PIXEL_TO_METER);
         }
     }
 
     public double getHealthInPercent() {
         return 0.6;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

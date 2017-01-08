@@ -28,8 +28,8 @@ public class Human extends Creature {
 
     private HumanAnimationObject animationObject;
 
-    public Human(int x, int y, int width, int height, BufferedImage image){
-        super(x, y, width, 82);
+    public Human(int x, int y, int width, int height, BufferedImage image, int health, int mana){
+        super(x, y, width, 82, health, mana);
         humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
         /*humanModel = new SpriteSheetHandler(new Dimension[]{new Dimension(41/2,22),
                                                             new Dimension(38/2,31),
@@ -62,27 +62,27 @@ public class Human extends Creature {
         int headOffset = 20;
 
         //head
-        g2d.drawImage(humanModel[1], getX()-3, getY(), null);
+        g2d.drawImage(humanModel[1], (int)getX()-3, (int)getY(), null);
         //g2d.drawImage(humanModel[1], getX()-3, getY() - humanModel[1].getHeight()-humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset + headOffset, null);
         //leg in the background
-        g2d.drawImage(humanModel[3], getX()+animationObject.leg2x, getY() + headOffset + bodyOffset, null);
+        g2d.drawImage(humanModel[3], (int)getX()+animationObject.leg2x, (int)getY() + headOffset + bodyOffset, null);
         //g2d.drawImage(humanModel[3], getX()+animationObject.leg2x, getY() + humanModel[1].getHeight() - 2, null);
         //g2d.drawImage(humanModel[3], getX()+animationObject.leg2x, getY() - humanModel[3].getHeight() + wholeOffset, null);
         //arm in the background
-        g2d.drawImage(humanModel[4], getX() + animationObject.arm2x, getY() + headOffset, null);
+        g2d.drawImage(humanModel[4], (int)getX() + animationObject.arm2x, (int)getY() + headOffset, null);
         //g2d.drawImage(humanModel[4], getX() + animationObject.arm2x, getY() - humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset, null);
         //body
-        g2d.drawImage(humanModel[2], getX()-3, getY() + headOffset, null);
+        g2d.drawImage(humanModel[2], (int) getX()-3, (int)getY() + headOffset, null);
         //g2d.drawImage(humanModel[2], getX()-3, getY() - humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset, null);
         //leg in the foreground
-        g2d.drawImage(humanModel[3], getX()+animationObject.leg1x, getY() + headOffset + bodyOffset, null);
+        g2d.drawImage(humanModel[3], (int)getX()+animationObject.leg1x, (int)getY() + headOffset + bodyOffset, null);
         //g2d.drawImage(humanModel[3], getX()+animationObject.leg1x, getY() - humanModel[3].getHeight() + wholeOffset, null);
         //arm in the foreground
-        g2d.drawImage(humanModel[4], getX() + animationObject.arm1x, getY() + headOffset, null);
+        g2d.drawImage(humanModel[4], (int)getX() + animationObject.arm1x, (int)getY() + headOffset, null);
         //g2d.drawImage(humanModel[4], getX() + animationObject.arm1x, getY() - humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset, null);
         //System.out.println("x: "+getX()+" xOffseT: "+((SideScrollingPhysicsWorld)world).getRendererXOffset() + " actual position: "+(getX() - ((SideScrollingPhysicsWorld)world).getRendererXOffset()));
         //System.out.println("y: "+getY()+" yOffset: "+((SideScrollingPhysicsWorld)world).getRendererYOffset() + " actual position: "+(getY() - ((SideScrollingPhysicsWorld)world).getRendererYOffset()));
-        canvas.getPencil().drawImage(humanModel[0], getX(), getY(), null);
+        canvas.getPencil().drawImage(humanModel[0], (int)getX(), (int)getY(), null);
         /*for (int i = 0; i < humanModel.length; i++) {
             canvas.getPencil().drawImage(humanModel[i],null,i*50,100);
         }*/

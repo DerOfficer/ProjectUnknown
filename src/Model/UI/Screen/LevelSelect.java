@@ -34,7 +34,7 @@ public class LevelSelect extends DrawingPanel {
             int finalI = i;
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 //SimplePlanetWorld level = new SimplePlanetWorld(Planet.JUPITER, properties);
-                World level = new World(Paths.get("Worlds/test.world"), new Player(ProjectUnknownProperties.getScreenDimension().width/2, ProjectUnknownProperties.getScreenDimension().height/6,properties),properties);
+                World level = new World(Paths.get("Worlds/test.world"), new Player(properties),properties);
                 properties.getFrame().setContentPanel(level.getRenderer());
 
             });

@@ -1,5 +1,6 @@
 package Control;
 
+import Model.SoundManager;
 import Model.UI.NotificationArea;
 import View.MainFrame;
 import java.awt.*;
@@ -11,7 +12,7 @@ import Model.VolumeManager;
 public class ProjectUnknownProperties {
 
     private NotificationArea notificationArea;
-
+    private SoundManager soundManager;
     private VolumeManager volumeManager;
     private MainFrame frame;
 
@@ -19,7 +20,7 @@ public class ProjectUnknownProperties {
 
     public ProjectUnknownProperties() throws IOException {
         volumeManager = new VolumeManager(1);
-
+        soundManager = new SoundManager();
         notificationArea = new NotificationArea();
 
         try {
