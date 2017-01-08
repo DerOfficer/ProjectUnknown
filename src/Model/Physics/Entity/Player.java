@@ -23,6 +23,7 @@ public class Player extends Human {
     public Player(ProjectUnknownProperties properties) throws IOException {
         super(0, 0, 15, 36, ImageIO.read(new File("Images/character_sprite.png")),100,100);
         this.properties = properties;
+        setActualHealth(50);
         level = 1;
     }
 
