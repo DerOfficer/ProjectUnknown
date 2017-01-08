@@ -1,5 +1,6 @@
 package Control;
 
+import Model.SoundManager;
 import Model.UI.NotificationArea;
 import View.MainFrame;
 import java.awt.*;
