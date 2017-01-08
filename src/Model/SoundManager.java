@@ -28,7 +28,7 @@ public class SoundManager {
             }
         }
 
-        addSound(Main.class.getResource("/space.wav"),0);
+        addSound(Main.class.getResource("/space2.wav"),0);
         startSound(0);
     }
 
