@@ -18,10 +18,12 @@ import java.io.IOException;
 public class Player extends Human {
 
     private ProjectUnknownProperties properties;
+    private int level;
 
-    public Player(int x, int y, ProjectUnknownProperties properties) throws IOException {
-        super(x, y, 15, 36, ImageIO.read(new File("Images/character_sprite.png")));
+    public Player(ProjectUnknownProperties properties) throws IOException {
+        super(0, 0, 15, 36, ImageIO.read(new File("Images/character_sprite.png")),100,100);
         this.properties = properties;
+        level = 1;
     }
 
     public void setX(int x){
@@ -52,5 +54,9 @@ public class Player extends Human {
 
     public double getHealthInPercent() {
         return 0.6;
+    }
+
+    public int getLevel() {
+        return level;
     }
 }

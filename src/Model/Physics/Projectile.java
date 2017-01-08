@@ -60,7 +60,7 @@ public class Projectile implements IDrawableObject {
         this.creature = creature;
         x = creature.getX();
         y = creature.getY();
-        movement = (int)(creature.getSideWayVelocity()*type.getSpeedModifier());
+        movement = creature.getSideWayVelocity()*type.getSpeedModifier();
     }
 
     @Override

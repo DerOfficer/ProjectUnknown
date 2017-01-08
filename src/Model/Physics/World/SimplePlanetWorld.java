@@ -21,7 +21,7 @@ public class SimplePlanetWorld extends AbstractWorld {
             counter = counter+150;
         }
         try {
-            Human human = new Player(ProjectUnknownProperties.getScreenDimension().width/2,(int)(ProjectUnknownProperties.getScreenDimension().height/2), properties);
+            Human human = new Player(properties);
             addObject(human);
             focusWithoutScrolling(human);
         } catch (IOException e) {
