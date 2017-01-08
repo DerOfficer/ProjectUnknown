@@ -3,6 +3,7 @@ package Model.Physics.Entity;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
 import Model.KeyManager;
+import Model.Physics.Projectile;
 import Model.Physics.World.AbstractWorld;
 
 import javax.imageio.ImageIO;
@@ -18,6 +19,7 @@ import java.io.IOException;
 public class Player extends Human {
 
     private ProjectUnknownProperties properties;
+    private AbstractWorld abstractWorld;
     private int level;
 
     public Player(ProjectUnknownProperties properties) throws IOException {
@@ -51,6 +53,13 @@ public class Player extends Human {
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
             accelerateUpward(-10 * AbstractWorld.PIXEL_TO_METER);
         }
+        if(KeyManager.isKeyPressed("l")){
+            shoot();
+        }
+    }
+
+    private void shoot(){
+        properties.getCurrentWorld().addObject(new Projectile(Projectile.Type.TEST,this));
     }
 
     public double getHealthInPercent() {

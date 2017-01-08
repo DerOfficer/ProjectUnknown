@@ -1,5 +1,6 @@
 package Control;
 
+import Model.Physics.World.AbstractWorld;
 import Model.SoundManager;
 import Model.UI.NotificationArea;
 import View.MainFrame;
@@ -15,8 +16,9 @@ public class ProjectUnknownProperties {
     private SoundManager soundManager;
     private VolumeManager volumeManager;
     private MainFrame frame;
-
     private Font gameFont;
+
+    private AbstractWorld currentWorld;
 
     public ProjectUnknownProperties() throws IOException {
         volumeManager = new VolumeManager(1);
@@ -55,5 +57,13 @@ public class ProjectUnknownProperties {
 
     public static Dimension getScreenDimension(){
         return Toolkit.getDefaultToolkit().getScreenSize();
+    }
+
+    public void setCurrentWorld(AbstractWorld world){
+        this.currentWorld = world;
+    }
+
+    public AbstractWorld getCurrentWorld(){
+        return currentWorld;
     }
 }

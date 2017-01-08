@@ -3,6 +3,7 @@ package Model.Physics;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.Entity.Creature;
+import com.Physics2D.GravitationalObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -13,20 +14,20 @@ import java.io.IOException;
 /**
  * Created by Oussama on 07.01.2017.
  */
-public class Projectile implements IDrawableObject {
+public class Projectile extends GravitationalObject implements IDrawableObject {
 
     public enum Type{
-        TEST("star.png",1.00,2.00,0);
+        TEST("fireball.png",1.00,1,50);
 
         String imageName;
         double speedModifier,attackModifier;
-        int stamina;
+        int mana;
 
-        Type(String imageName,double speedModifier, double attackModifier, int stamina){
+        Type(String imageName,double speedModifier, double attackModifier, int mana){
             this.imageName = imageName;
             this.speedModifier = speedModifier;
             this.attackModifier = attackModifier;
-            this.stamina = stamina;
+            this.mana = mana;
         }
 
         public BufferedImage getImage() {
@@ -45,33 +46,34 @@ public class Projectile implements IDrawableObject {
             return attackModifier;
         }
 
-        public int getStamina() {
-            return stamina;
+        public int getMana() {
+            return mana;
         }
     }
 
     private Type type;
     private Creature creature;
     private ICanvas canvas;
-    private double x,y,movement;
+    private double movement;
 
     public Projectile(Type type, Creature creature){
+        super(creature.getX(),creature.getY(),type.getImage().getWidth(),type.getImage().getHeight());
         this.type = type;
         this.creature = creature;
-        x = creature.getX();
-        y = creature.getY();
-        movement = creature.getSideWayVelocity()*type.getSpeedModifier();
+        int temp = (int)(creature.getSideWayVelocity()/creature.getSideWayVelocity())+3;
+        movement = temp*type.getSpeedModifier();
+        creature.setActualMana(creature.getActualMana()-type.getMana());
     }
 
     @Override
     public void draw() {
         Graphics g = canvas.getPencil();
-        g.drawImage(type.getImage(),(int) x,(int) y,null);
+        g.drawImage(type.getImage(),(int)getX(),(int)getY(),null);
     }
 
     @Override
     public void update(double dt) {
-        x = x + movement;
+        setX(getX()+movement);
     }
 
     @Override
@@ -81,6 +83,22 @@ public class Projectile implements IDrawableObject {
 
     @Override
     public Shape getBounds() {
-        return new Rectangle((int)x,(int)y,type.getImage().getWidth(),type.getImage().getHeight());
+        return new Rectangle((int)getX(),(int)getY(),type.getImage().getWidth(),type.getImage().getHeight());
+    }
+
+
+    @Override
+    public double getMass() {
+        return 1000;
+    }
+
+    @Override
+    public boolean isSolid() {
+        return true;
+    }
+
+    @Override
+    public double getFrictionConstant() {
+        return 1;
     }
 }
