@@ -6,7 +6,6 @@ import javax.sound.sampled.*;
 import java.io.IOException;
 import java.net.URL;
 
-
 public class SoundManager {
 
     private Mixer mixer;
@@ -29,10 +28,8 @@ public class SoundManager {
             }
         }
 
-
         addSound(Main.class.getResource("/space.wav"),0);
-        clips[0].start();
-
+        startSound(0);
     }
 
     private void addSound(URL soundUrl, int pos){
@@ -45,5 +42,10 @@ public class SoundManager {
         catch(UnsupportedAudioFileException uafe) { uafe.printStackTrace();}
         catch(IOException ioe){ ioe.printStackTrace();}
     }
-
+    
+    public void startSound(int pos){
+        if (!clips[pos].isActive()){
+            clips[pos].start();
+        }
+    }
 }
