@@ -123,10 +123,12 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     public void mouseClicked(MouseEvent e) {
-        drawableObjects.stream()
-                .filter(tempDO -> tempDO instanceof IInteractableObject)
-                .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
-                .forEach(tempDO -> ((IInteractableObject)tempDO).mouseClicked(e));
+        try {
+            drawableObjects.stream()
+                    .filter(tempDO -> tempDO instanceof IInteractableObject)
+                    .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
+                    .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
+        }catch(Throwable t){}
     }
 
     @Override
