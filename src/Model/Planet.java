@@ -11,14 +11,14 @@ import java.io.IOException;
  */
 public enum Planet {
 
-    MERCURY("mercury",new Color(0,0,0), new Color(0,0,0), 20.0),
-    VENUS("venus", new Color(0,0,0), new Color(0,0,0), 20),
-    EARTH("earth", new Color(0,0,0), new Color(0,0,0), 20),
-    MARS("mars", new Color(0,0,0), new Color(0,0,0), 20),
+    MERCURY("mercury",new Color(0,0,0), new Color(0,0,0), 3.7),
+    VENUS("venus", new Color(0,0,0), new Color(0,0,0), 8.87),
+    EARTH("earth", new Color(0,0,0), new Color(0,0,0), 9.81),
+    MARS("mars", new Color(0,0,0), new Color(0,0,0), 3.69),
     JUPITER("jupiter",new Color(140,130,70), new Color(165,160,95), 24.79),
-    SATURN("saturn", new Color(0,0,0), new Color(0,0,0), 20),
-    URANUS("uranus", new Color(0,0,0), new Color(0,0,0),20),
-    NEPTUNE("neptune", new Color(0,0,0), new Color(0,0,0), 20);
+    SATURN("saturn", new Color(0,0,0), new Color(0,0,0), 10.44),
+    URANUS("uranus", new Color(0,0,0), new Color(0,0,0),8.87),
+    NEPTUNE("neptune", new Color(0,0,0), new Color(0,0,0), 11.15);
 
     private Color topColor, innerColor;
     private double gravity;
@@ -52,6 +52,15 @@ public enum Planet {
              return ImageIO.read(new File("Images/Planets/"+this.getName()+".png"));
         }catch (IOException e) {
             e.printStackTrace();
+        }
+        return null;
+    }
+
+    public static Planet getPlanetByName(String name){
+        for(Planet p : Planet.values()){
+            if(p.name.equals(name)){
+                return p;
+            }
         }
         return null;
     }

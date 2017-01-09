@@ -51,7 +51,7 @@ public class Player extends Human {
             }
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
-            accelerateUpward(-10 * AbstractWorld.PIXEL_TO_METER);
+            accelerateUpward(-6 * AbstractWorld.PIXEL_TO_METER);
         }
         if(KeyManager.isKeyPressed("l")){
             shoot();

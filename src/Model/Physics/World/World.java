@@ -4,6 +4,7 @@ import Control.ProjectUnknownProperties;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.SolidTerrainBlock;
 import Model.Physics.Entity.Player;
+import Model.Planet;
 import Model.UI.Overlay.GraphicalUserInterface;
 
 import java.awt.*;
@@ -21,8 +22,8 @@ public class World extends AbstractWorld{
     private Point spawnPoint;
     private GraphicalUserInterface gui;
 
-    public World(Path path, Player player, ProjectUnknownProperties projectUnknownProperties){
-        super(20.00,projectUnknownProperties);
+    public World(Path path, Player player, ProjectUnknownProperties projectUnknownProperties, Planet p){
+        super(p.getGravity(),projectUnknownProperties);
         try {
             List<String> lines = Files.readAllLines(path);
             createWorld(lines);
