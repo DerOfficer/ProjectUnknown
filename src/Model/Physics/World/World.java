@@ -40,6 +40,7 @@ public class World extends AbstractWorld{
         focusWithoutScrolling(player);
         gui = new GraphicalUserInterface(player, projectUnknownProperties);
         projectUnknownProperties.getFrame().setForegroundPanel(gui);
+
     }
 
     private void createWorld(List<String> lines) {

@@ -21,7 +21,7 @@ import java.nio.file.Paths;
 
 public class Human extends Creature {
     private BufferedImage[]humanModel;
-    private ICanvas canvas;
+    protected ICanvas canvas;
 
     private Animation walk;
     private Animation armWalk;
