@@ -132,13 +132,13 @@ public class Settings extends DrawingPanel {
 
         btnVolumeMinus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if(!isExpectingUserInput()) {
-                properties.getVolumeManager().decrease();
+                properties.getSoundManager().decrease();
             }
         });
 
         btnVolumePlus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if(!isExpectingUserInput()){
-            properties.getVolumeManager().increase();
+            properties.getSoundManager().increase();
             }
         });
     }
@@ -154,7 +154,6 @@ public class Settings extends DrawingPanel {
         int height = screenWidth / 250;
         for (int i = 0; i < volumeButtons.length; i++) {
             volumeButtons[i] = new Button(screenWidth/8 *6 + x, screenHeight / 10 * 9 + screenWidth/25-height, screenWidth/160, height, Color.WHITE);
-            //volumeButtons[i] = new ClickButton(screenWidth / 8 * 6 + x, screenHeight / 10 * 9 + screenWidth / 25 - height, screenWidth / 160, height);
             x = x + screenWidth / 80;
             height = height + screenWidth / 250;
             addObject(volumeButtons[i]);
@@ -163,8 +162,7 @@ public class Settings extends DrawingPanel {
 
     private void volHandlers(int i) {
         volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getVolumeManager().setVolume((double) (i + 1));
-            System.out.println(properties.getVolumeManager().getVolume());
+            properties.getSoundManager().setVolume(i);
         });
     }
 

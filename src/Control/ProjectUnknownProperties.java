@@ -8,20 +8,17 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 
-import Model.VolumeManager;
 
 public class ProjectUnknownProperties {
 
     private NotificationArea notificationArea;
     private SoundManager soundManager;
-    private VolumeManager volumeManager;
     private MainFrame frame;
     private Font gameFont;
 
     private AbstractWorld currentWorld;
 
     public ProjectUnknownProperties() throws IOException {
-        volumeManager = new VolumeManager(1);
         soundManager = new SoundManager();
         notificationArea = new NotificationArea();
 
@@ -40,10 +37,6 @@ public class ProjectUnknownProperties {
 
     public MainFrame getFrame() {
         return frame;
-    }
-
-    public VolumeManager getVolumeManager(){
-        return  volumeManager;
     }
 
     public NotificationArea getNotificationArea() {
