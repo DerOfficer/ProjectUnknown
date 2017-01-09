@@ -3,8 +3,11 @@ package Model;
 import sun.applet.Main;
 
 import javax.sound.sampled.*;
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.nio.file.Paths;
 
 public class SoundManager {
 
@@ -28,11 +31,11 @@ public class SoundManager {
             }
         }
 
-        addSound(Main.class.getResource("/space2.wav"),0);
+        addSound(Paths.get("Sound/space2.wav").toFile(),0);
         startSound(0);
     }
 
-    private void addSound(URL soundUrl, int pos){
+    private void addSound(File soundUrl, int pos){
         try
         {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundUrl);
