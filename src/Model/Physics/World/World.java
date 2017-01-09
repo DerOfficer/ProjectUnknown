@@ -4,11 +4,9 @@ import Control.ProjectUnknownProperties;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.SolidTerrainBlock;
 import Model.Physics.Entity.Player;
-import View.DrawingPanel;
-import View.MainFrame;
+import Model.UI.Overlay.GraphicalUserInterface;
 
 import java.awt.*;
-import java.awt.geom.RoundRectangle2D;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -29,7 +27,7 @@ public class World extends AbstractWorld{
             List<String> lines = Files.readAllLines(path);
             createWorld(lines);
         } catch (IOException e) {
-            System.out.println("Error: World doesn't exist...");
+            System.err.println("Error: World doesn't exist...");
         }
         this.player = player;
         player.setX((int) spawnPoint.getX());
