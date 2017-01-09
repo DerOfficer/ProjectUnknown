@@ -63,6 +63,7 @@ public class Settings extends DrawingPanel {
 
         btnEasterEgg.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if (!isExpectingUserInput()) {
+                properties.getSoundManager().startSound(1);
                 SwingUtilities.invokeLater(() -> {
                     if (!turned) {
                         removeObject(lblHeadline);
@@ -185,6 +186,7 @@ public class Settings extends DrawingPanel {
     private void changeListener(int button) {
         controlButtons[button].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if (!isExpectingUserInput()) {
+                properties.getSoundManager().startSound(2);
                 setting[button] = true;
                 controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
                     String temp = String.valueOf((char) e.getSrcKey());
