@@ -2,6 +2,7 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Physics.Block.Teleporter;
 import Model.Physics.Entity.Player;
 import Model.Physics.World.SimplePlanetWorld;
 import Model.Physics.World.World;
@@ -9,6 +10,7 @@ import Model.Planet;
 import Model.UI.Button;
 import View.DrawingPanel;
 
+import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
@@ -35,8 +37,15 @@ public class LevelSelect extends DrawingPanel {
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 //SimplePlanetWorld level = new SimplePlanetWorld(Planet.JUPITER, properties);
                 World level = new World(Paths.get("Worlds/test.world"), new Player(properties),properties, Planet.values()[finalI]);
+                Teleporter t1 = new Teleporter(properties, 0,400,100,100, Color.RED);
+                Teleporter t2 = new Teleporter(properties, 1000,400,100,100, Color.RED);
+                //t1.link(t2);
+                t2.link(t1);
+                level.addObject(t1);
+                level.addObject(t2);
                 properties.getFrame().setContentPanel(level.getRenderer());
                 properties.setCurrentWorld(level);
+
             });
         }
 

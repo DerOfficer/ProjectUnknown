@@ -62,7 +62,7 @@ public class SoundManager {
     public void setVolume(int newVolume){
         for(int i = 0; i < control.length; i++){
             float kot = (control[i].getMaximum() - control[i].getMinimum()) / 10;
-            control[i].setValue(control[i].getMinimum() + rnewVolume*kot);
+            control[i].setValue(control[i].getMinimum() + newVolume*kot);
         }
         volume = newVolume;
     }
