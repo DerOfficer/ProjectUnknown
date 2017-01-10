@@ -60,9 +60,9 @@ public class SoundManager {
     }
 
     public void setVolume(int newVolume){
-        Float kot = control[0].getMaximum()+(control[0].getMinimum()*-1)/10;
         for(int i = 0; i < control.length; i++){
-            control[i].setValue(newVolume*kot);
+            float kot = (control[i].getMaximum() - control[i].getMinimum()) / 10;
+            control[i].setValue(control[i].getMinimum() + rnewVolume*kot);
         }
         volume = newVolume;
     }
