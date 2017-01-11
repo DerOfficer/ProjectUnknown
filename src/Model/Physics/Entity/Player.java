@@ -22,6 +22,7 @@ public class Player extends Human implements IInteractableObject{
 
     private ProjectUnknownProperties properties;
     private int level,exp,maxExp;
+    private ManaCast.Type currentCast;
 
     public Player(ProjectUnknownProperties properties) throws IOException {
         super(0, 0, ImageIO.read(new File("Images/character_sprite.png")),1,properties);
@@ -29,6 +30,7 @@ public class Player extends Human implements IInteractableObject{
         level = 1;
         exp = 0;
         maxExp = 100;
+
     }
 
     public void setX(int x){
@@ -71,6 +73,13 @@ public class Player extends Human implements IInteractableObject{
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
             conjure(ManaCast.Type.LIGHT_BALL);
         }
+        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("interact"))){
+            for(PhysicsObject o : world.getIntersecting(new Rectangle2D.Double(getX() - 10, getY() - 10, getWidth() + 20, getHeight() + 20))){
+                if(o instanceof IPlayerInteractable){
+                    ((IPlayerInteractable) o).onInteractWith(this);
+                }
+            }
+        }
     }
 
     public int getLevel() {
@@ -84,13 +93,7 @@ public class Player extends Human implements IInteractableObject{
 
     @Override
     public void keyPressed(int key) {
-        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("interact"))){
-            for(PhysicsObject o : world.getIntersecting(new Rectangle2D.Double(getX() - 10, getY() - 10, getWidth() + 20, getHeight() + 20))){
-                if(o instanceof IPlayerInteractable){
-                    ((IPlayerInteractable) o).onInteractWith(this);
-                }
-            }
-        }
+
     }
 
     @Override

@@ -3,9 +3,7 @@ package Model.Physics;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.Entity.Creature;
-import Model.Physics.World.AbstractWorld;
 import com.Physics2D.Entity;
-import com.Physics2D.GravitationalObject;
 import com.Physics2D.PhysicsObject;
 
 import javax.imageio.ImageIO;
@@ -13,9 +11,8 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.nio.Buffer;
 import java.util.*;
-import java.util.List;
+
 
 /**
  * Created by Oussama on 07.01.2017.
@@ -78,7 +75,6 @@ public class ManaCast extends Entity implements IDrawableObject {
         img = type.getImage();
         movement = type.getSpeedModifier()*creature.getDirection()*15;
         setGravityAffection(false);
-
 
         timer = new Timer();
         Entity entity = this;

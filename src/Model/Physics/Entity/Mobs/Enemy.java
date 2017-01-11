@@ -79,7 +79,6 @@ public class Enemy extends Human{
         if(isDead()){
             player.earnExp(type.getLevel());
             world.removeObject(this);
-            System.out.println("Enemy health: "+getActualHealth());
         }
     }
 }

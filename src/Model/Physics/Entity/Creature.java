@@ -135,7 +135,7 @@ public abstract class Creature extends Entity implements  IDrawableObject {
     }
 
     public int getDirection(){
-        if(getSideWayVelocity() >= 0){
+        if(getVelocity() >= 0){
             return 1;
         }else{
             return -1;
