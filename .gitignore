@@ -1,4 +1,5 @@
 /out/*
 /.idea/*
+/game.settings/
 .gitignore
 ProjectUnknown.iml

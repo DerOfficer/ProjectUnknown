@@ -8,9 +8,10 @@ import java.nio.file.Paths;
 public class SoundManager {
 
     private Mixer mixer;
-    private Clip[] clips;
+    private Clip[] clips; // 0 = Hintergrundmusik_Menü, 1 = EasterEggButtonSound, 2 = Settings_changeKeySound
     private FloatControl[] control;
     private int volume;
+    int runningTitle;
 
     public SoundManager(){
 
@@ -39,7 +40,7 @@ public class SoundManager {
         setVolume(10);
         volume = 10;
 
-        startSound(0);
+        //startSound(0);
     }
 
     private void addSound(File soundUrl, int pos){
@@ -54,8 +55,9 @@ public class SoundManager {
     }
     
     public void startSound(int pos){
-        if (!clips[pos].isActive()){
+        if (!clips[pos].isRunning()){
             clips[pos].start();
+            runningTitle = pos;
         }
     }
 
@@ -77,5 +79,27 @@ public class SoundManager {
         if(volume > 0){
             setVolume(volume-1);
         }
+    }
+
+    public int getVolume(){
+        return this.volume;
+    }
+
+    public void changeMusic(int newMusic){
+        if(!clips[newMusic].isRunning()){
+            clips[newMusic].start();
+            clips[runningTitle].stop();
+            runningTitle = newMusic;
+        }
+    }
+
+    public void resetClip(int pos){
+        clips[pos].stop();
+        clips[pos].flush();
+        clips[pos].setFramePosition(0);
+    }
+
+    public Clip getClip(int pos){
+        return clips[pos];
     }
 }
