@@ -1,5 +1,6 @@
 package Control;
 
+import Model.Physics.Entity.Player;
 import Model.Physics.World.AbstractWorld;
 import Model.SoundManager;
 import Model.UI.NotificationArea;
@@ -15,12 +16,13 @@ public class ProjectUnknownProperties {
     private SoundManager soundManager;
     private MainFrame frame;
     private Font gameFont;
-
+    private Player player;
     private AbstractWorld currentWorld;
 
     public ProjectUnknownProperties() throws IOException {
         soundManager = new SoundManager();
         notificationArea = new NotificationArea();
+        player = new Player(this);
 
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
@@ -62,5 +64,9 @@ public class ProjectUnknownProperties {
 
     public SoundManager getSoundManager(){
         return this.soundManager;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 }

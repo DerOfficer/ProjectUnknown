@@ -16,7 +16,7 @@ import java.nio.Buffer;
 /**
  * Created by Oussama on 07.01.2017.
  */
-public class Projectile extends Entity implements IDrawableObject {
+public class ManaCast extends Entity implements IDrawableObject {
 
     public enum Type{
         TEST("fireball.png",1.00,1,50);
@@ -34,7 +34,7 @@ public class Projectile extends Entity implements IDrawableObject {
 
         public BufferedImage getImage() {
             try {
-                return ImageIO.read(new File("Images/Projectile/"+imageName));
+                return ImageIO.read(new File("Images/ManaCast/"+imageName));
             }catch (IOException e) {
                 return null;
             }
@@ -59,14 +59,13 @@ public class Projectile extends Entity implements IDrawableObject {
     private double movement;
     private BufferedImage img;
 
-    public Projectile(Type type, Creature creature){
+    public ManaCast(Type type, Creature creature){
         super(creature.getX(),creature.getY(),type.getImage().getWidth(),type.getImage().getHeight());
         this.type = type;
         this.creature = creature;
         img = type.getImage();
         movement = type.getSpeedModifier()*creature.getDirection()*15;
         setGravityAffection(false);
-        System.out.println("Mana: "+creature.getActualMana()+"        "+creature.getManaInPercent());
     }
 
     @Override

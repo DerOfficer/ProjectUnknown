@@ -6,7 +6,7 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
 import Model.Abstraction.IPlayerInteractable;
 import Model.KeyManager;
-import Model.Physics.Projectile;
+import Model.Physics.ManaCast;
 import Model.Physics.World.AbstractWorld;
 
 import javax.imageio.ImageIO;
@@ -21,13 +21,11 @@ import java.io.IOException;
 public class Player extends Human implements IInteractableObject{
 
     private ProjectUnknownProperties properties;
-    private AbstractWorld abstractWorld;
     private int level;
 
     public Player(ProjectUnknownProperties properties) throws IOException {
-        super(0, 0, 15, 36, ImageIO.read(new File("Images/character_sprite.png")),100,100,properties);
+        super(0, 0, ImageIO.read(new File("Images/character_sprite.png")),1,properties);
         this.properties = properties;
-        setActualHealth(50);
         level = 1;
     }
 
@@ -56,13 +54,8 @@ public class Player extends Human implements IInteractableObject{
             accelerateUpward(-6 * AbstractWorld.PIXEL_TO_METER);
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
-            conjure(Projectile.Type.TEST);
+            conjure(ManaCast.Type.TEST);
         }
-    }
-
-
-    public double getHealthInPercent() {
-        return 0.6;
     }
 
     public int getLevel() {

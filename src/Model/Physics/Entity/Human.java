@@ -29,13 +29,9 @@ public class Human extends Creature {
 
     private HumanAnimationObject animationObject;
 
-    public Human(int x, int y, int width, int height, BufferedImage image, int health, int mana, ProjectUnknownProperties properties){
-        super(x, y, width, 82, health, mana,properties);
+    public Human(int x, int y, BufferedImage image, int level, ProjectUnknownProperties properties){
+        super(x, y, 20, 82,level,properties);
         humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
-        /*humanModel = new SpriteSheetHandler(new Dimension[]{new Dimension(41/2,22),
-                                                            new Dimension(38/2,31),
-                                                            new Dimension(32/2,39),
-                                                            new Dimension(26/2,29)}, image).getSprites();*/
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));
         walk = animList.getAnimationByName("walk");
         armWalk = animList.getAnimationByName("armWalk");

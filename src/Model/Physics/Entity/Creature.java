@@ -2,7 +2,7 @@ package Model.Physics.Entity;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
-import Model.Physics.Projectile;
+import Model.Physics.ManaCast;
 import com.Physics2D.Entity;
 
 import java.util.Timer;
@@ -13,11 +13,12 @@ import java.util.TimerTask;
  */
 public abstract class Creature extends Entity implements  IDrawableObject {
 
-    private int maxHealth,actHealth, maxMana,actMana,counter;
+    private int maxHealth,actHealth, maxMana,actMana,counter,level;
     protected ProjectUnknownProperties properties;
+    private boolean manaReady;
+
     private final int MANA_COOL_DOWN = 3;
     private final int MANA_REGENERATION = 1;
-    private boolean manaReady;
     
     public Creature(int x, int y, int width, int height, int health, int mana, ProjectUnknownProperties properties) {
         super(x, y, width, height);
@@ -26,9 +27,35 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         this.maxMana = mana;
         this.actMana = mana;
         this.properties = properties;
-        this.counter = 0;
+        this.level = interpretStats();
+        startUp();
+    }
 
+
+    public Creature(int x, int y, int width, int height, int level, ProjectUnknownProperties properties) {
+        super(x, y, width, height);
+        this.level = level;
+        this.properties = properties;
+        setStats(level);
+        startUp();
+    }
+
+    protected void setStats(int level){
+        this.maxHealth = level*25+75;
+        this.actHealth = maxHealth;
+        this.maxMana = level*25+75;
+        this.actMana = maxMana;
+    }
+
+    protected int interpretStats(){
+        double temp = (double)maxHealth-75;
+        temp = temp/(double)25;
+        return (int)temp;
+    }
+
+    private void startUp(){
         manaReady = true;
+        this.counter = 0;
 
         Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -53,11 +80,11 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         }
     }
 
-    protected void conjure(Projectile.Type type){
+    protected void conjure(ManaCast.Type type){
         if(manaReady) {
             if (actMana >= type.getMana()) {
                 actMana = actMana - type.getMana();
-                properties.getCurrentWorld().addObject(new Projectile(type, this));
+                properties.getCurrentWorld().addObject(new ManaCast(type, this));
                 manaReady = false;
             }
         }

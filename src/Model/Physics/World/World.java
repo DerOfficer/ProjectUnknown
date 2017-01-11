@@ -3,6 +3,7 @@ package Model.Physics.World;
 import Control.ProjectUnknownProperties;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.SolidTerrainBlock;
+import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
 import Model.UI.Overlay.GraphicalUserInterface;
@@ -39,6 +40,8 @@ public class World extends AbstractWorld{
         focusWithoutScrolling(player);
         gui = new GraphicalUserInterface(player, projectUnknownProperties);
         projectUnknownProperties.getFrame().setForegroundPanel(gui);
+
+        addObject(new Enemy(600,0,Enemy.Type.TEST,projectUnknownProperties));
 
     }
 

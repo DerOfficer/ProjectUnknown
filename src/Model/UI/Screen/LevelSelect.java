@@ -36,10 +36,10 @@ public class LevelSelect extends DrawingPanel {
             int finalI = i;
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 //SimplePlanetWorld level = new SimplePlanetWorld(Planet.JUPITER, properties);
-                World level = new World(Paths.get("Worlds/test.world"), new Player(properties),properties, Planet.values()[finalI]);
+                World level = new World(Paths.get("Worlds/test.world"), properties.getPlayer(),properties, Planet.values()[finalI]);
                 Teleporter t1 = new Teleporter(properties, 0,400,100,100, Color.RED);
                 Teleporter t2 = new Teleporter(properties, 1000,400,100,100, Color.RED);
-                //t1.link(t2);
+                t1.link(t2);
                 t2.link(t1);
                 level.addObject(t1);
                 level.addObject(t2);
