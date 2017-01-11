@@ -77,6 +77,11 @@ public class Player extends Human implements IInteractableObject{
         return level;
     }
 
+    public double getExperienceInPercent() {
+        return (double) exp/maxExp;
+    }
+
+
     @Override
     public void keyPressed(int key) {
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("interact"))){
