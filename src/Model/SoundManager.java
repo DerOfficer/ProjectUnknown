@@ -37,8 +37,6 @@ public class SoundManager {
         control[0] = (FloatControl)clips[0].getControl(FloatControl.Type.MASTER_GAIN);
         control[1] = (FloatControl)clips[1].getControl(FloatControl.Type.MASTER_GAIN);
         control[2] = (FloatControl)clips[2].getControl(FloatControl.Type.MASTER_GAIN);
-        setVolume(10);
-        volume = 10;
 
         startSound(0);
     }

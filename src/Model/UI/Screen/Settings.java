@@ -94,6 +94,8 @@ public class Settings extends DrawingPanel {
         changeListener(2);
         changeListener(3);
         changeListener(4);
+        properties.getSoundManager().setVolume(Integer.parseInt(settingsParser.getSetting("volume")));
+        updateVolButtons();
     }
 
 
@@ -172,6 +174,7 @@ public class Settings extends DrawingPanel {
     private void volHandlers(int i) {
         volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getSoundManager().setVolume(i);
+            settingsParser.overrideSetting("volume",Integer.toString(i));
             updateVolButtons();
         });
     }
