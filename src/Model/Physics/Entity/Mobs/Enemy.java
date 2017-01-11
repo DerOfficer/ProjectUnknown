@@ -18,7 +18,8 @@ import java.io.IOException;
 public class Enemy extends Human{
 
     public enum Type{
-        TEST("character_sprite.png",1,ManaCast.Type.TEST);
+        TEST("character_sprite.png",1,ManaCast.Type.TEST),
+        ZOMBIE("zombie_sprite.png",1,ManaCast.Type.TEST);
 
         private String spriteName;
         private int level;

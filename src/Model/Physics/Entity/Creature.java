@@ -84,7 +84,7 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         if(manaReady) {
             if (actMana >= type.getMana()) {
                 actMana = actMana - type.getMana();
-                properties.getCurrentWorld().addObject(new ManaCast(type, this));
+                world.addObject(new ManaCast(type, this));
                 manaReady = false;
             }
         }

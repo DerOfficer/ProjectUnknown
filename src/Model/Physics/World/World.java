@@ -41,7 +41,7 @@ public class World extends AbstractWorld{
         gui = new GraphicalUserInterface(player, projectUnknownProperties);
         projectUnknownProperties.getFrame().setForegroundPanel(gui);
 
-        addObject(new Enemy(600,0,Enemy.Type.TEST,projectUnknownProperties));
+        addObject(new Enemy(600,0,Enemy.Type.ZOMBIE,projectUnknownProperties));
 
     }
 
