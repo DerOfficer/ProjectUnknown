@@ -49,7 +49,7 @@ public abstract class AbstractWorld extends SideScrollingPhysicsWorld{
         super.removeObject(o);
         if(o instanceof IDrawableObject){
             IDrawableObject drawableObject = (IDrawableObject)o;
-            renderer.removeObject(drawableObject);
+            renderer.scheduleRemoveObject(drawableObject);
         }
         o.removeMovementListener(this);
     }
