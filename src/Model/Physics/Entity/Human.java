@@ -1,5 +1,6 @@
 package Model.Physics.Entity;
 
+import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.SpriteSheetHandler;
@@ -28,8 +29,8 @@ public class Human extends Creature {
 
     private HumanAnimationObject animationObject;
 
-    public Human(int x, int y, int width, int height, BufferedImage image, int health, int mana){
-        super(x, y, width, 82, health, mana);
+    public Human(int x, int y, int width, int height, BufferedImage image, int health, int mana, ProjectUnknownProperties properties){
+        super(x, y, width, 82, health, mana,properties);
         humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
         /*humanModel = new SpriteSheetHandler(new Dimension[]{new Dimension(41/2,22),
                                                             new Dimension(38/2,31),

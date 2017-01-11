@@ -10,13 +10,10 @@ import Model.Physics.Projectile;
 import Model.Physics.World.AbstractWorld;
 
 import javax.imageio.ImageIO;
-import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-import java.security.Key;
 
 /**
  * Created by jardu on 12/17/2016.
@@ -28,7 +25,7 @@ public class Player extends Human implements IInteractableObject{
     private int level;
 
     public Player(ProjectUnknownProperties properties) throws IOException {
-        super(0, 0, 15, 36, ImageIO.read(new File("Images/character_sprite.png")),100,100);
+        super(0, 0, 15, 36, ImageIO.read(new File("Images/character_sprite.png")),100,100,properties);
         this.properties = properties;
         setActualHealth(50);
         level = 1;
@@ -58,14 +55,11 @@ public class Player extends Human implements IInteractableObject{
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
             accelerateUpward(-6 * AbstractWorld.PIXEL_TO_METER);
         }
-        if(KeyManager.isKeyPressed("l")){
-            shoot();
+        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
+            conjure(Projectile.Type.TEST);
         }
     }
 
-    private void shoot(){
-        properties.getCurrentWorld().addObject(new Projectile(Projectile.Type.TEST,this));
-    }
 
     public double getHealthInPercent() {
         return 0.6;

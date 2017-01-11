@@ -3,6 +3,7 @@ package Model.Physics;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.Entity.Creature;
+import com.Physics2D.Entity;
 import com.Physics2D.GravitationalObject;
 
 import javax.imageio.ImageIO;
@@ -10,11 +11,12 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.nio.Buffer;
 
 /**
  * Created by Oussama on 07.01.2017.
  */
-public class Projectile extends GravitationalObject implements IDrawableObject {
+public class Projectile extends Entity implements IDrawableObject {
 
     public enum Type{
         TEST("fireball.png",1.00,1,50);
@@ -55,25 +57,27 @@ public class Projectile extends GravitationalObject implements IDrawableObject {
     private Creature creature;
     private ICanvas canvas;
     private double movement;
+    private BufferedImage img;
 
     public Projectile(Type type, Creature creature){
         super(creature.getX(),creature.getY(),type.getImage().getWidth(),type.getImage().getHeight());
         this.type = type;
         this.creature = creature;
-        int temp = (int)(creature.getSideWayVelocity()/creature.getSideWayVelocity())+3;
-        movement = temp*type.getSpeedModifier();
-        creature.setActualMana(creature.getActualMana()-type.getMana());
+        img = type.getImage();
+        movement = type.getSpeedModifier()*creature.getDirection()*15;
+        setGravityAffection(false);
+        System.out.println("Mana: "+creature.getActualMana()+"        "+creature.getManaInPercent());
     }
 
     @Override
     public void draw() {
         Graphics g = canvas.getPencil();
-        g.drawImage(type.getImage(),(int)getX(),(int)getY(),null);
+        g.drawImage(img,(int)getX(),(int)getY(),null);
     }
 
     @Override
     public void update(double dt) {
-        setX(getX()+movement);
+        accelerate(movement);
     }
 
     @Override
@@ -86,19 +90,8 @@ public class Projectile extends GravitationalObject implements IDrawableObject {
         return new Rectangle((int)getX(),(int)getY(),type.getImage().getWidth(),type.getImage().getHeight());
     }
 
-
     @Override
     public double getMass() {
         return 1000;
-    }
-
-    @Override
-    public boolean isSolid() {
-        return true;
-    }
-
-    @Override
-    public double getFrictionConstant() {
-        return 1;
     }
 }
