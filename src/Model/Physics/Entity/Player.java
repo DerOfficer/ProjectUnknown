@@ -69,7 +69,7 @@ public class Player extends Human implements IInteractableObject{
             accelerateUpward(-6 * AbstractWorld.PIXEL_TO_METER);
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
-            conjure(ManaCast.Type.FIREBALL);
+            conjure(ManaCast.Type.LIGHT_BALL);
         }
     }
 

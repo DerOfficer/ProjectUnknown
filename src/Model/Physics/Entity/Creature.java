@@ -13,11 +13,11 @@ import java.util.TimerTask;
  */
 public abstract class Creature extends Entity implements  IDrawableObject {
 
-    private int maxHealth,actHealth, maxMana,actMana,counter,level;
+    private int maxHealth,actHealth, maxMana,actMana,counter,level,manaCoolDown;
     protected ProjectUnknownProperties properties;
     private boolean manaReady;
+    private Timer timer;
 
-    private final int MANA_COOL_DOWN = 3;
     private final int MANA_REGENERATION = 1;
     
     public Creature(int x, int y, int width, int height, int health, int mana, ProjectUnknownProperties properties) {
@@ -28,6 +28,7 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         this.actMana = mana;
         this.properties = properties;
         this.level = interpretStats();
+
         startUp();
     }
 
@@ -57,7 +58,8 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         manaReady = true;
         this.counter = 0;
 
-        Timer timer = new Timer();
+
+        timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
@@ -70,7 +72,7 @@ public abstract class Creature extends Entity implements  IDrawableObject {
     private void runEverySecond() {
         if(!manaReady){
             counter++;
-            if(counter >= MANA_COOL_DOWN){
+            if(counter >= manaCoolDown){
                 manaReady = true;
                 counter = 0;
             }
@@ -85,6 +87,7 @@ public abstract class Creature extends Entity implements  IDrawableObject {
             if (actMana >= type.getMana()) {
                 actMana = actMana - type.getMana();
                 world.addObject(new ManaCast(type, this));
+                manaCoolDown = type.getSpellCoolDown();
                 manaReady = false;
             }
         }
