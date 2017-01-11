@@ -5,8 +5,6 @@ import javax.swing.*;
 
 import java.io.IOException;
 
-import static com.Physics2D.PhysicsWorld.TIMER_CONSTANT;
-
 public class MainProgram {
 
     public static void main (String[] args){
@@ -21,7 +19,6 @@ public class MainProgram {
 
     private static void setup() throws IOException {
         new ProjectUnknownProperties();
-        TIMER_CONSTANT = 30;
     }
 
     public synchronized strictfp static final void CRASH(){
