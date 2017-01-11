@@ -26,12 +26,12 @@ public class GraphicalUserInterface extends DrawingPanel {
     private final Color MANA_COLOR = new Color(71, 102, 227);
     private final Color HEALTH_COLOR = new Color(68, 153, 30);
     private final Color BACKGROUND_COLOR = new Color(31, 11, 15);
-
+    private final Color EXPERIENCE_COLOR = new Color(255, 127,36);
 
     public GraphicalUserInterface(Player player, ProjectUnknownProperties properties) {
         super(properties);
         this.player = player;
-        mainBoard = new RoundRectangle2D.Double(X_POS,Y_POS,WIDTH,HEIGHT,HEIGHT/2,HEIGHT/2);
+        mainBoard = new RoundRectangle2D.Double(X_POS,Y_POS,WIDTH,HEIGHT+screenHeight*0.03,HEIGHT/2,HEIGHT/2);
     }
 
     @Override
@@ -98,6 +98,7 @@ public class GraphicalUserInterface extends DrawingPanel {
         rect = new RoundRectangle2D.Double(xHealth,yHealth,widthHealth,heightHealth,heightHealth,heightHealth);
         g2d.fill(rect);
 
+        //HEALTH TEXT
         g.setColor(Color.WHITE);
         String health = "HEALTH";
         g2d.setFont(properties.getGameFont().deriveFont(20f));
@@ -105,5 +106,30 @@ public class GraphicalUserInterface extends DrawingPanel {
         int stringWidthHealth = metrics.stringWidth(health)/2;
         int stringHeightHealth = metrics.getHeight()/2;
         g2d.drawString(health,(int)(halfWidth-stringWidthHealth),(int)(yHealth+heightHealth/2+stringHeightHealth));
+
+        //EXPERIENCE BACKGROUND
+        g.setColor(BACKGROUND_BAR);
+        double widthExperience = WIDTH*0.6;
+        double heightExperience = HEIGHT*0.2;
+        double xExperience = halfWidth-widthExperience/2;
+        double yExperience = Y_POS+HEIGHT*0.95;
+        rect = new RoundRectangle2D.Double(xExperience,yExperience,widthExperience,heightExperience,heightExperience,heightExperience);
+        g2d.fill(rect);
+
+        //EXPERIENCE
+        g.setColor(EXPERIENCE_COLOR);
+        widthExperience = widthHealth*player.getExperienceInPercent();
+        xExperience = halfWidth-widthExperience/2;
+        rect = new RoundRectangle2D.Double(xExperience,yExperience,widthExperience,heightExperience,heightExperience,heightExperience);
+        g2d.fill(rect);
+
+        //EXPERIENCE TEXT
+        g.setColor(Color.WHITE);
+        String experience = "EXPERIENCE";
+        g2d.setFont(properties.getGameFont().deriveFont(20f));
+        metrics = g2d.getFontMetrics();
+        int stringWidthExperience = metrics.stringWidth(experience)/2;
+        int stringHeightExperience = metrics.getHeight()/2;
+        g2d.drawString(experience,(int)(halfWidth-stringWidthExperience),(int)(yExperience+heightExperience/2+stringHeightExperience));
     }
 }
