@@ -6,6 +6,8 @@ import Model.Abstraction.IEventInteractableObject;
 import View.DrawingPanel;
 import View.StaticDrawingPanel;
 import com.Physics2D.PhysicsObject;
+import com.Physics2D.event.MovementEvent;
+import com.Physics2D.event.MovementListener;
 import com.SideScroller.SideScrollingPhysicsWorld;
 
 import java.awt.*;
@@ -13,7 +15,7 @@ import java.awt.List;
 import java.awt.event.KeyEvent;
 import java.util.*;
 
-public abstract class AbstractWorld extends SideScrollingPhysicsWorld {
+public abstract class AbstractWorld extends SideScrollingPhysicsWorld{
 
     public static final int PIXEL_TO_METER = 50;
 
@@ -39,16 +41,23 @@ public abstract class AbstractWorld extends SideScrollingPhysicsWorld {
             IDrawableObject drawableObject = (IDrawableObject)o;
             renderer.addObject(drawableObject);
         }
-        o.addMovementListener((event) -> renderer.forceRepaint());
+        o.addMovementListener(this);
     }
 
     @Override
     public void removeObject(PhysicsObject o){
+        super.removeObject(o);
         if(o instanceof IDrawableObject){
             IDrawableObject drawableObject = (IDrawableObject)o;
-            renderer.scheduleRemoveObject(drawableObject);
+            renderer.removeObject(drawableObject);
         }
-        super.removeObject(o);
+        o.removeMovementListener(this);
+    }
+
+    @Override
+    public void onMovement(MovementEvent event){
+        super.onMovement(event);
+        renderer.forceRepaint();
     }
 
     public LevelRenderer getRenderer() {
