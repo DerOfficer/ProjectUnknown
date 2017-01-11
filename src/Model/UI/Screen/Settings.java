@@ -3,6 +3,7 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.SettingsParser;
+import Model.SoundManager;
 import Model.UI.Button;
 import Model.UI.Label;
 import View.DrawingPanel;
@@ -38,7 +39,6 @@ public class Settings extends DrawingPanel {
 
     public Settings(ProjectUnknownProperties properties) throws IOException {
         super(properties);
-
         color = new Color(109, 115, 255);
 
         initGenericButtons();
@@ -76,6 +76,12 @@ public class Settings extends DrawingPanel {
                     }
                     turned = !turned;
                 });
+                try {
+                    Thread.sleep(100);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                properties.getSoundManager().resetClip(1);
             }
         });
 
@@ -88,6 +94,8 @@ public class Settings extends DrawingPanel {
         changeListener(2);
         changeListener(3);
         changeListener(4);
+        properties.getSoundManager().setVolume(Integer.parseInt(settingsParser.getSetting("volume")));
+        updateVolButtons();
     }
 
 
@@ -133,12 +141,14 @@ public class Settings extends DrawingPanel {
         btnVolumeMinus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if(!isExpectingUserInput()) {
                 properties.getSoundManager().decrease();
+                updateVolButtons();
             }
         });
 
         btnVolumePlus.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if(!isExpectingUserInput()){
-            properties.getSoundManager().increase();
+                properties.getSoundManager().increase();
+                updateVolButtons();
             }
         });
     }
@@ -158,11 +168,14 @@ public class Settings extends DrawingPanel {
             height = height + screenWidth / 250;
             addObject(volumeButtons[i]);
         }
+        updateVolButtons();
     }
 
     private void volHandlers(int i) {
         volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getSoundManager().setVolume(i);
+            settingsParser.overrideSetting("volume",Integer.toString(i));
+            updateVolButtons();
         });
     }
 
@@ -184,17 +197,17 @@ public class Settings extends DrawingPanel {
     private void changeListener(int button) {
         controlButtons[button].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if (!isExpectingUserInput()) {
-                properties.getSoundManager().startSound(2);
                 setting[button] = true;
                 controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
                     String temp = String.valueOf((char) e.getSrcKey());
                     if (setting[button] && !temp.equals(getSetting("left")) && !temp.equals(getSetting("right")) && !temp.equals(getSetting("interact")) && !temp.equals(getSetting("shoot")) && !temp.equals(getSetting("jump"))) {
                         settingsParser.overrideSetting(controlKeyIdentifiers[button], temp);
                         controlButtons[button].setText(settingsParser.getSetting(controlKeyIdentifiers[button]));
+                        properties.getSoundManager().startSound(2);
                         setting[button] = false;
                     }
                 });
-
+                properties.getSoundManager().resetClip(2);
             }
         });
     }
@@ -206,5 +219,16 @@ public class Settings extends DrawingPanel {
             }
         }
         return false;
+    }
+
+    public void updateVolButtons(){
+        for (int i = 0; i < volumeButtons.length;i++){
+            if(properties.getSoundManager().getVolume() < i){
+                volumeButtons[i].setBackgroundColor(new Color(255,255,255));
+            }
+            else{
+                volumeButtons[i].setBackgroundColor(new Color(0,255,0));
+            }
+        }
     }
 }
