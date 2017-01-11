@@ -40,7 +40,7 @@ public class SoundManager {
         setVolume(10);
         volume = 10;
 
-        //startSound(0);
+        startSound(0);
     }
 
     private void addSound(File soundUrl, int pos){
