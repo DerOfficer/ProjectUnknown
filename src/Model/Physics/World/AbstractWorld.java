@@ -42,6 +42,15 @@ public abstract class AbstractWorld extends SideScrollingPhysicsWorld {
         o.addMovementListener((event) -> renderer.forceRepaint());
     }
 
+    @Override
+    public void removeObject(PhysicsObject o){
+        if(o instanceof IDrawableObject){
+            IDrawableObject drawableObject = (IDrawableObject)o;
+            renderer.scheduleRemoveObject(drawableObject);
+        }
+        super.removeObject(o);
+    }
+
     public LevelRenderer getRenderer() {
         return renderer;
     }

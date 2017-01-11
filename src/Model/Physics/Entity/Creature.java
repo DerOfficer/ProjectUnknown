@@ -36,11 +36,11 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         super(x, y, width, height);
         this.level = level;
         this.properties = properties;
-        setStats(level);
+        setStats();
         startUp();
     }
 
-    protected void setStats(int level){
+    protected void setStats(){
         this.maxHealth = level*25+75;
         this.actHealth = maxHealth;
         this.maxMana = level*25+75;
@@ -137,5 +137,13 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         }else{
             return -1;
         }
+    }
+
+    protected boolean isDead(){
+        return(actHealth <= 0);
+    }
+
+    public double getAttack() {
+        return 50;
     }
 }

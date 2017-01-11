@@ -21,12 +21,14 @@ import java.io.IOException;
 public class Player extends Human implements IInteractableObject{
 
     private ProjectUnknownProperties properties;
-    private int level;
+    private int level,exp,maxExp;
 
     public Player(ProjectUnknownProperties properties) throws IOException {
         super(0, 0, ImageIO.read(new File("Images/character_sprite.png")),1,properties);
         this.properties = properties;
         level = 1;
+        exp = 0;
+        maxExp = 100;
     }
 
     public void setX(int x){
@@ -35,6 +37,19 @@ public class Player extends Human implements IInteractableObject{
 
     public void setY(int y){
         super.setY(y);
+    }
+
+    public void earnExp(int enemyLevel){
+        int earnedExp = 80 +((level- enemyLevel)*10);
+        exp = exp + earnedExp;
+
+        while(exp >= maxExp){
+            exp = exp - maxExp;
+            maxExp = 100 + (level*10);
+            level++;
+        }
+
+        setStats();
     }
 
     @Override
@@ -54,7 +69,7 @@ public class Player extends Human implements IInteractableObject{
             accelerateUpward(-6 * AbstractWorld.PIXEL_TO_METER);
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
-            conjure(ManaCast.Type.TEST);
+            conjure(ManaCast.Type.FIREBALL);
         }
     }
 

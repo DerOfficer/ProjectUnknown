@@ -3,8 +3,10 @@ package Model.Physics;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.Entity.Creature;
+import Model.Physics.World.AbstractWorld;
 import com.Physics2D.Entity;
 import com.Physics2D.GravitationalObject;
+import com.Physics2D.PhysicsObject;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -12,6 +14,8 @@ import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 import java.nio.Buffer;
+import java.util.*;
+import java.util.List;
 
 /**
  * Created by Oussama on 07.01.2017.
@@ -19,17 +23,18 @@ import java.nio.Buffer;
 public class ManaCast extends Entity implements IDrawableObject {
 
     public enum Type{
-        TEST("fireball.png",1.00,1,50);
+        FIREBALL("fireball.png",1.00,1.00,20, 3.0);
 
         String imageName;
-        double speedModifier,attackModifier;
+        double speedModifier,attackModifier,time;
         int mana;
 
-        Type(String imageName,double speedModifier, double attackModifier, int mana){
+        Type(String imageName,double speedModifier, double attackModifier, int mana, double time){
             this.imageName = imageName;
             this.speedModifier = speedModifier;
             this.attackModifier = attackModifier;
             this.mana = mana;
+            this.time = time;
         }
 
         public BufferedImage getImage() {
@@ -51,6 +56,8 @@ public class ManaCast extends Entity implements IDrawableObject {
         public int getMana() {
             return mana;
         }
+
+        public double getTime(){return time;}
     }
 
     private Type type;
@@ -66,6 +73,17 @@ public class ManaCast extends Entity implements IDrawableObject {
         img = type.getImage();
         movement = type.getSpeedModifier()*creature.getDirection()*15;
         setGravityAffection(false);
+
+        Timer timer = new Timer();
+        Entity entity = this;
+        TimerTask timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                world.removeObject(entity);
+            }
+        };
+
+        timer.scheduleAtFixedRate(timerTask,(int)(type.getTime()*1000),1000);
     }
 
     @Override
@@ -77,6 +95,13 @@ public class ManaCast extends Entity implements IDrawableObject {
     @Override
     public void update(double dt) {
         accelerate(movement);
+        for(PhysicsObject object: world.getIntersecting(this)){
+            if(object instanceof Creature && object != creature){
+                Creature enemy = (Creature) object;
+                enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
+                world.removeObject(this);
+            }
+        }
     }
 
     @Override
