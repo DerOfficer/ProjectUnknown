@@ -125,7 +125,7 @@ public class GraphicalUserInterface extends DrawingPanel {
 
         //EXPERIENCE TEXT
         g.setColor(Color.WHITE);
-        String experience = "EXPERIENCE";
+        String experience = "EXP";
         g2d.setFont(properties.getGameFont().deriveFont(20f));
         metrics = g2d.getFontMetrics();
         int stringWidthExperience = metrics.stringWidth(experience)/2;

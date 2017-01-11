@@ -40,7 +40,7 @@ public class Player extends Human implements IInteractableObject{
     }
 
     public void earnExp(int enemyLevel){
-        int earnedExp = 80 +((level- enemyLevel)*10);
+        int earnedExp = 30 +((enemyLevel)*10);
         exp = exp + earnedExp;
 
         while(exp >= maxExp){
