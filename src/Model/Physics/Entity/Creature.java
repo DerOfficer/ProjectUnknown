@@ -49,7 +49,7 @@ public abstract class Creature extends Entity implements  IDrawableObject {
             }
         }
         if(actMana <= maxMana){
-            actMana++;
+            actMana = actMana + MANA_REGENERATION;
         }
     }
 
