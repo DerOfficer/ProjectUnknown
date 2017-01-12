@@ -5,11 +5,11 @@ import java.awt.*;
 /**
  * Created by jardu on 1/10/2017.
  */
-public class InconsitentStateBlock extends SolidTerrainBlock {
+public class InconsistentStateBlock extends SolidTerrainBlock {
 
     private boolean state = true;
 
-    public InconsitentStateBlock(int x, int y, BlockType blockType) {
+    public InconsistentStateBlock(int x, int y, BlockType blockType) {
         super(x, y, blockType);
     }
 

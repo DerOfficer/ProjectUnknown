@@ -67,7 +67,7 @@ public class Player extends Humanoid implements IInteractableObject{
                 accelerate(.4 * World.PIXEL_TO_METER);
             }
         }
-        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
+        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0 && world.getObjectBelow(this) != null){
             accelerateUpward(-6 * World.PIXEL_TO_METER);
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
@@ -77,7 +77,6 @@ public class Player extends Humanoid implements IInteractableObject{
             if(KeyManager.isKeyPressed(String.valueOf(i+1))){
                 if(i <= ManaCast.Type.values().length) {
                     currentCast = ManaCast.Type.values()[i];
-                    System.out.println(currentCast);
                 }
             }
         }

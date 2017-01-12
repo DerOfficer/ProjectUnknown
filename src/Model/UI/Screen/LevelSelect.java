@@ -3,7 +3,7 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.Physics.Block.BlockType;
-import Model.Physics.Block.InconsitentStateBlock;
+import Model.Physics.Block.InconsistentStateBlock;
 import Model.Physics.Block.Lever;
 import Model.Physics.Block.Teleporter;
 import Model.Physics.World.World;
@@ -23,7 +23,7 @@ public class LevelSelect extends DrawingPanel {
     private BufferedImage background;
 
     private Button buttonBack;
-    private Button[]btnPlanets;
+    private Button[] btnPlanets;
 
     public LevelSelect(ProjectUnknownProperties properties){
         super(properties);
@@ -41,7 +41,7 @@ public class LevelSelect extends DrawingPanel {
                 Teleporter t2 = new Teleporter(properties, 1000,400);
                 t2.link(t1);
                 t1.link(t2);
-                InconsitentStateBlock toggleable = new InconsitentStateBlock(300, 350, BlockType.EARTH);
+                InconsistentStateBlock toggleable = new InconsistentStateBlock(300, 350, BlockType.EARTH);
                 Lever lever = new Lever(200, 400, 50,50, (isOn) -> toggleable.toggleSolidity());
                 level.addObject(lever);
                 level.addObject(toggleable);
@@ -56,7 +56,7 @@ public class LevelSelect extends DrawingPanel {
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         });
 
-        buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+        buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());
                 properties.getFrame().setBackgroundPanel(properties.getFrame().getDefaultBackground());

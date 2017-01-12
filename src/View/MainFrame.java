@@ -2,14 +2,16 @@ package View;
 
 import Control.ProjectUnknownProperties;
 import Model.Managing.KeyManager;
+import Model.Managing.SpriteManager;
 import Model.UI.Screen.*;
 
-import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.File;
 import java.io.IOException;
+
+import static Model.Managing.SpriteManager.BACKGROUND;
+import static Model.Managing.SpriteManager.BACKGROUND_LEVEL_SELECT;
 
 public class MainFrame extends JFrame implements MouseListener {
 
@@ -28,7 +30,7 @@ public class MainFrame extends JFrame implements MouseListener {
     private StaticImageBackgroundPanel levelSelectBackground;
     private WorldEditor worldEditor;
 
-    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) throws IOException {
+    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties){
         this.properties = properties;
 
         setLocation(x,y);
@@ -38,7 +40,7 @@ public class MainFrame extends JFrame implements MouseListener {
         settings = new Settings(properties);
         levelSelect = new LevelSelect(properties);
         defaultBackground = new DefaultBackground(properties);
-        levelSelectBackground = new StaticImageBackgroundPanel(properties, ImageIO.read(new File("Images/background.png")));
+        levelSelectBackground = new StaticImageBackgroundPanel(properties, SpriteManager.SPRITES[BACKGROUND][BACKGROUND_LEVEL_SELECT]);
         worldEditor = new WorldEditor(properties);
 
         contentPane = new JLayeredPane();
