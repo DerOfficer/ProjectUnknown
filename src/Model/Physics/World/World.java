@@ -51,7 +51,7 @@ public class World extends SideScrollingPhysicsWorld{
         try {
             List<String> lines = Files.readAllLines(path);
             createWorld(lines);
-            player = new Player(properties);
+            player = new Player(properties,properties.getLevel());
         } catch (IOException e) {
             ProjectUnknownProperties.raiseException(e);
         }
@@ -60,9 +60,9 @@ public class World extends SideScrollingPhysicsWorld{
         setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2)-10);
         gui = new GraphicalUserInterface(player, properties);
         properties.getFrame().setForegroundPanel(gui);
-        addObject(new Enemy(600,0, Enemy.Type.ZOMBIE,properties));
         focusWithoutScrolling(player);
         addObject(player);
+        createEnemies(p);
     }
 
     @Override
@@ -158,6 +158,35 @@ public class World extends SideScrollingPhysicsWorld{
                 properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
                 properties.getFrame().setForegroundPanel(new DrawingPanel(properties));
             }
+        }
+    }
+
+    private void createEnemies(Planet planet){
+        switch (planet){
+            case MERCURY:
+                break;
+            case VENUS:
+                break;
+            case EARTH:
+                addObject(new Enemy(6700,-6450, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(4800,1050, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(4300,-1650, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(5000,-1850, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(4250,-2750, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(-2450,-1000, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(550,-200, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(1900,0, Enemy.Type.ZOMBIE,properties));
+                break;
+            case MARS:
+                break;
+            case JUPITER:
+                break;
+            case SATURN:
+                break;
+            case URANUS:
+                break;
+            case NEPTUNE:
+                break;
         }
     }
 }

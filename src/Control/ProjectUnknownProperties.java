@@ -18,11 +18,12 @@ public class ProjectUnknownProperties {
     private MainFrame frame;
     private Font gameFont;
     private World currentWorld;
+    private int level;
 
     public ProjectUnknownProperties() throws IOException {
         soundManager = new SoundManager();
         notificationArea = new NotificationArea();
-
+        level = 1;
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
             //GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
@@ -72,5 +73,13 @@ public class ProjectUnknownProperties {
                 "Severe Error", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
         System.exit(-1);
+    }
+
+    public int getLevel() {
+        return level;
+    }
+
+    public void setLevel(int level) {
+        this.level = level;
     }
 }

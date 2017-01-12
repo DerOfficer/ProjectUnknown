@@ -28,10 +28,9 @@ public class Player extends Humanoid implements IInteractableObject{
      * constructs player
      * @param properties
      */
-    public Player(ProjectUnknownProperties properties){
-        super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER],1,properties);
+    public Player(ProjectUnknownProperties properties, int level){
+        super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER],level,properties);
         this.properties = properties;
-        level = 1;
         exp = 0;
         maxExp = 100;
         currentCast = ManaCast.Type.LIGHT_BALL;
@@ -56,6 +55,7 @@ public class Player extends Humanoid implements IInteractableObject{
         while(exp >= maxExp){
             exp = exp - maxExp;
             maxExp = 100 + (level*10);
+            properties.setLevel(properties.getLevel()+1);
             level++;
         }
 

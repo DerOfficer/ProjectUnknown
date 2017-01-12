@@ -64,14 +64,16 @@ public class Enemy extends Humanoid {
     public void update(double dt){
         super.update(dt);
         int distance = (int) (getX() - getPlayer().getX());
-        if(distance < 0){
-            accelerate(type.getSpeed() * World.PIXEL_TO_METER);
-        }
-        if(distance > 0) {
-            accelerate(-type.getSpeed() * World.PIXEL_TO_METER);
-        }
-        if(getDownwardVelocity() == 0) {
-            accelerateUpward(-3 * World.PIXEL_TO_METER);
+        if(distance < 500) {
+            if (distance < 0) {
+                accelerate(type.getSpeed() * World.PIXEL_TO_METER);
+            }
+            if (distance > 0) {
+                accelerate(-type.getSpeed() * World.PIXEL_TO_METER);
+            }
+            if (getDownwardVelocity() == 0) {
+                accelerateUpward(-3 * World.PIXEL_TO_METER);
+            }
         }
 
         conjure(type.getManaSpell());

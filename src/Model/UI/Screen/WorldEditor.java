@@ -54,6 +54,10 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
     @Override
     public void paintComponent(Graphics g){
         g.setColor(Color.white);
+        int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
+        int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+        g.drawString(x+"/"+y,(int)(screenWidth*0.9),(int)(screenHeight*0.05));
+
         g.translate(camX,camY);
             for (int i = 0; i < (int)(screenHeight/50)+1; i++) {
                 g.drawLine(realX , realY+i*50 , realX+screenWidth, realY+i*50);
@@ -62,6 +66,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                 g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
             }
             g.drawString("P",(int) spawnPoint.getX()+25,(int) spawnPoint.getY()+25);
+
             if(pos1 != null){
                 g.setColor(Color.BLUE);
                 g.drawRect((int)pos1.getX(),(int)pos1.getY(),50,50);
