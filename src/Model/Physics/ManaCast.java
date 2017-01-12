@@ -105,12 +105,14 @@ public class ManaCast extends Entity implements IDrawableObject {
     @Override
     public void update(double dt) {
         accelerate(movement);
-        for(PhysicsObject object: world.getIntersecting(this)){
-            if(object instanceof Creature && object != creature){
-                Creature enemy = (Creature) object;
-                enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
-                world.removeObject(this);
-                timer.cancel();
+        if( world.getIntersecting(this) != null) {
+            for (PhysicsObject object : world.getIntersecting(this)) {
+                if (object instanceof Creature && object != creature) {
+                    Creature enemy = (Creature) object;
+                    enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
+                    world.removeObject(this);
+                    timer.cancel();
+                }
             }
         }
     }
