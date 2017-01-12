@@ -2,6 +2,7 @@ package Model.Physics.World;
 
 import Control.ProjectUnknownProperties;
 import Model.Physics.Block.BlockType;
+import Model.Physics.Block.InconsitentStateBlock;
 import Model.Physics.Block.SolidTerrainBlock;
 import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
@@ -53,7 +54,7 @@ public class World extends AbstractWorld{
                     BlockType blockType = BlockType.valueOf(values[1]);
                     int x = Integer.parseInt(values[2]);
                     int y = Integer.parseInt(values[3]);
-                    addObject(new SolidTerrainBlock(x,y,blockType));
+                    addObject(new InconsitentStateBlock(x,y,blockType));
                     break;
                 case "PLAYER":
                     x = Integer.parseInt(values[1]);

@@ -12,10 +12,8 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Amasso on 26.12.2016.
  */
-public class SolidTerrainBlock extends PhysicsObject implements IDrawableObject {
+public class SolidTerrainBlock extends DrawablePhysicsObject implements IDrawableObject {
 
-
-    private ICanvas canvas;
     private Color topColor, innerColor;
     private BufferedImage img;
     private BlockType blockType;
@@ -65,16 +63,6 @@ public class SolidTerrainBlock extends PhysicsObject implements IDrawableObject 
     @Override
     public void update(double dt) {
 
-    }
-
-    @Override
-    public void provideCanvas(ICanvas canvas) {
-        this.canvas = canvas;
-    }
-
-    @Override
-    public Shape getBounds() {
-        return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
     }
 
     public BlockType getBlockType(){

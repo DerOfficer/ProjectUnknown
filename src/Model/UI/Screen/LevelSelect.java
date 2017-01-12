@@ -2,6 +2,9 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Physics.Block.BlockType;
+import Model.Physics.Block.InconsitentStateBlock;
+import Model.Physics.Block.Lever;
 import Model.Physics.Block.Teleporter;
 import Model.Physics.Entity.Player;
 import Model.Physics.World.SimplePlanetWorld;
@@ -40,9 +43,13 @@ public class LevelSelect extends DrawingPanel {
                 Teleporter t1 = new Teleporter(properties, -1000,400,100,100, Color.RED);
                 Teleporter t2 = new Teleporter(properties, 1000,400,100,100, Color.RED);
                 t2.link(t1);
+                t1.link(t2);
+                InconsitentStateBlock toggleable = new InconsitentStateBlock(300, 350, BlockType.EARTH);
+                Lever lever = new Lever(200, 400, 50,50, (isOn) -> toggleable.toggleSolidity());
+                level.addObject(lever);
+                level.addObject(toggleable);
                 level.addObject(t1);
                 level.addObject(t2);
-                t1.link(t2);
                 properties.getFrame().setContentPanel(level.getRenderer());
                 properties.setCurrentWorld(level);
 

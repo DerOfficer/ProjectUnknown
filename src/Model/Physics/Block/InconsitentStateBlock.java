@@ -5,9 +5,9 @@ import java.awt.*;
 /**
  * Created by jardu on 1/10/2017.
  */
-public abstract class InconsitentStateBlock extends SolidTerrainBlock {
+public class InconsitentStateBlock extends SolidTerrainBlock {
 
-    private boolean state;
+    private boolean state = true;
 
     public InconsitentStateBlock(int x, int y, int width, int height, Color color) {
         super(x, y, width, height, color);
@@ -28,5 +28,15 @@ public abstract class InconsitentStateBlock extends SolidTerrainBlock {
     @Override
     public boolean isSolid(){
         return state;
+    }
+
+    @Override
+    public void draw(){
+        super.draw();
+        if(!isSolid()) {
+            Graphics2D g = canvas.getPencil();
+            g.setColor(new Color(0, 0, 0, 100));
+            g.fill(getBounds());
+        }
     }
 }
