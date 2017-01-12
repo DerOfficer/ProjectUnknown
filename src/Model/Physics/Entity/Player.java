@@ -73,13 +73,6 @@ public class Player extends Human implements IInteractableObject{
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
             conjure(ManaCast.Type.LIGHT_BALL);
         }
-        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("interact"))){
-            for(PhysicsObject o : world.getIntersecting(new Rectangle2D.Double(getX() - 10, getY() - 10, getWidth() + 20, getHeight() + 20))){
-                if(o instanceof IPlayerInteractable){
-                    ((IPlayerInteractable) o).onInteractWith(this);
-                }
-            }
-        }
     }
 
     public int getLevel() {
@@ -93,7 +86,13 @@ public class Player extends Human implements IInteractableObject{
 
     @Override
     public void keyPressed(int key) {
-
+        if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("interact"))){
+            for(PhysicsObject o : world.getIntersecting(new Rectangle2D.Double(getX() - 10, getY() - 10, getWidth() + 20, getHeight() + 20))){
+                if(o instanceof IPlayerInteractable){
+                    ((IPlayerInteractable) o).onInteractWith(this);
+                }
+            }
+        }
     }
 
     @Override

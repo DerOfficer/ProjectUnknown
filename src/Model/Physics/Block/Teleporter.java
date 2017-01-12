@@ -44,6 +44,6 @@ public class Teleporter extends SolidTerrainBlock implements IPlayerInteractable
             properties.getNotificationArea().addNotification(new Notification("This Teleporter doesnt work!", "Maybe there's something you can do about this?"));
             return;
         }
-        actor.setPosition(link.getWidth() / 2 - actor.getWidth() / 2, link.getY() - actor.getHeight());
+        actor.setPosition(link.getX() + link.getWidth() / 2 - actor.getWidth() / 2, link.getY() - actor.getHeight());
     }
 }
