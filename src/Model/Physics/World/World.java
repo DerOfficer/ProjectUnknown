@@ -46,7 +46,7 @@ public class World extends SideScrollingPhysicsWorld{
         } catch (IOException e) {
             ProjectUnknownProperties.raiseException(e);
         }
-        //player.setPosition(spawnPoint.getX(), spawnPoint.getY());
+        player.setPosition(spawnPoint.getX(), spawnPoint.getY());
         setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2)-50);
         setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2)-10);
         gui = new GraphicalUserInterface(player, properties);
@@ -102,18 +102,16 @@ public class World extends SideScrollingPhysicsWorld{
                         x = Integer.parseInt(values[1]);
                         y = Integer.parseInt(values[2]);
                         spawnPoint = new Point(x, y);
+                        break;
                     case "TP1":
-                        blockType = BlockType.valueOf(values[1]);
                         x = Integer.parseInt(values[2]);
                         y = Integer.parseInt(values[3]);
-                        Teleporter temp = new Teleporter(properties, x, y);
-                        addObject(temp);
-                        tempTeleporter = temp;
+                        tempTeleporter = new Teleporter(properties, x, y);
+                        addObject(tempTeleporter);
                         break;
                 }
             }else{
                 if(values[0].equals("TP2")){
-                    BlockType blockType = BlockType.valueOf(values[1]);
                     int x = Integer.parseInt(values[2]);
                     int y = Integer.parseInt(values[3]);
                     Teleporter temp = new Teleporter(properties,x, y);
@@ -121,7 +119,6 @@ public class World extends SideScrollingPhysicsWorld{
                     tempTeleporter.link(temp);
                     addObject(temp);
                     tempTeleporter = null;
-                    break;
                 }
             }
         }
