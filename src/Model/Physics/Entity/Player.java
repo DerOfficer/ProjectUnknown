@@ -30,7 +30,6 @@ public class Player extends Human implements IInteractableObject{
         level = 1;
         exp = 0;
         maxExp = 100;
-
     }
 
     public void setX(int x){

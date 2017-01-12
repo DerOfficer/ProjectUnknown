@@ -7,7 +7,6 @@ import Model.Physics.Block.InconsitentStateBlock;
 import Model.Physics.Block.Lever;
 import Model.Physics.Block.Teleporter;
 import Model.Physics.Entity.Player;
-import Model.Physics.World.SimplePlanetWorld;
 import Model.Physics.World.World;
 import Model.Planet;
 import Model.UI.Button;

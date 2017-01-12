@@ -26,6 +26,7 @@ public class World extends AbstractWorld{
 
     public World(Path path, Player player, ProjectUnknownProperties projectUnknownProperties, Planet p){
         super(p.getGravity(),projectUnknownProperties);
+        projectUnknownProperties.setPlayer(player);
         try {
             List<String> lines = Files.readAllLines(path);
             createWorld(lines);
