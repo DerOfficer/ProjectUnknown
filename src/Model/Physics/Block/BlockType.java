@@ -7,7 +7,8 @@ import java.awt.image.BufferedImage;
 import static Model.Managing.SpriteManager.BLOCK;
 
 /**
- * Created by Amasso on 02.01.2017.
+ * BlockType contains every block type with his texture
+ * Created by Oussama on 02.01.2017.
  */
 public enum BlockType {
     EARTH,

@@ -21,7 +21,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Amasso on 03.01.2017.
+ * Created by Oussama on 03.01.2017.
  */
 public class WorldEditor extends DrawingPanel implements KeyListener,MouseListener {
     private int camX,camY,realX,realY;
@@ -30,6 +30,10 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
     private int indexOfBlockType;
     private ArrayList<SolidTerrainBlock> blocks;
 
+    /**
+     * constructs a drawing panel which contains a grid. You can load, save and edit every .world-data.
+     * @param properties
+     */
     public WorldEditor(ProjectUnknownProperties properties) {
         super(properties);
         camX = 0;
@@ -43,6 +47,10 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         this.addMouseListener(this);
     }
 
+    /**
+     * draws grid and current world on it
+     * @param g
+     */
     @Override
     public void paintComponent(Graphics g){
         g.setColor(Color.white);
@@ -65,6 +73,19 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             super.paintComponent(g);
     }
 
+
+    /**
+     * with arrows you can move free through the current world
+     * with space you can switch your current block
+     * with 'd' you can remove a block on the current mouse position
+     * with 's' you can save your world in a .world document and give it a name
+     * with 'a' you can place a block on the current mouse position
+     * with 'l' you can load a world from the Worlds folder (type in the name)
+     * with 'p' you can set the spawn point of your player
+     * with '1'&'2' you can mark two points which are getting filled with the current block by pressing 'f'
+     * with 't' you can place a tp block, but you have to place two ot them
+     * @param e
+     */
     @Override
     public void keyPressed(KeyEvent e) {
         int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
@@ -94,7 +115,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             }
         }
         if (e.getKeyChar() == 'd') {
-            removeBlock();
+            removeBlock(x,y);
         }
         if (e.getKeyChar() == 's'){
             String file = JOptionPane.showInputDialog(properties.getFrame(), "How do you want to name your world?");
@@ -130,9 +151,11 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
 
     @Override
     public void mousePressed(MouseEvent e) {
+        int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
+        int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+
         if(e.getButton() == MouseEvent.BUTTON1){
-            int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
-            int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+
             createBlock(x,y);
         }
         if(e.getButton() == MouseEvent.BUTTON2){
@@ -142,10 +165,14 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             }
         }
         if(e.getButton() == MouseEvent.BUTTON3){
-            removeBlock();
+            removeBlock(x, y);
         }
     }
 
+    /**
+     * loads the world based on the given file name
+     * @param file - world name
+     */
     private void loadWorld(String file) {
         try {
             List<String> lines = Files.readAllLines(Paths.get("Worlds/"+file+".world"));
@@ -201,6 +228,11 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
 
     }
 
+    /**
+     * creates a teleport block on the position and checks for existing block on this position
+     * @param x - x position
+     * @param y - y position
+     */
     private void createTeleporter(int x, int y){
         boolean noBlock = true;
         for(SolidTerrainBlock block: blocks){
@@ -221,6 +253,11 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
 
     }
 
+    /**
+     * creates a block with the current block type on the position and checks for existing block on this position
+     * @param x - x position
+     * @param y - y position
+     */
     private void createBlock(int x, int y) {
         boolean noBlock = true;
         for(SolidTerrainBlock block: blocks){
@@ -235,9 +272,12 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         }
     }
 
-    private void removeBlock(){
-        int x = ((int)((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
-        int y = ((int)((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+    /**
+     * removes  block if existing
+     * @param x - x position
+     * @param y - y position
+     */
+    private void removeBlock(int x,int y){
         SolidTerrainBlock temp;
         for(SolidTerrainBlock block: blocks){
             if(block.getX() == x && block.getY() == y){
@@ -249,6 +289,10 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         }
     }
 
+    /**
+     * translates the current world in a world document and saves it with the given String
+     * @param text - name of world
+     */
     private void saveWorld(String text){
         try{
             PrintWriter writer = new PrintWriter(new File("Worlds/"+text+".world"));
@@ -275,6 +319,9 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         }
     }
 
+    /**
+     * fill space between blue-marked position with current block type
+     */
     private void fillSpace(){
         if(pos1 != null && pos2 != null){
             int width = (int) (pos2.getX() - pos1.getX());

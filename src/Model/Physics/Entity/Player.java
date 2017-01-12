@@ -24,6 +24,10 @@ public class Player extends Humanoid implements IInteractableObject{
     private int level, exp, maxExp;
     private ManaCast.Type currentCast;
 
+    /**
+     * constructs player
+     * @param properties
+     */
     public Player(ProjectUnknownProperties properties){
         super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER],1,properties);
         this.properties = properties;
@@ -41,6 +45,10 @@ public class Player extends Humanoid implements IInteractableObject{
         super.setY(y);
     }
 
+    /**
+     * earns xp and calculate max exp if level up
+     * @param enemyLevel
+     */
     public void earnExp(int enemyLevel){
         int earnedExp = 30 +((enemyLevel)*10);
         exp = exp + earnedExp;

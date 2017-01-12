@@ -35,18 +35,7 @@ public class LevelSelect extends DrawingPanel {
         for (int i = 0; i < btnPlanets.length; i++) {
             int finalI = i;
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-                //SimplePlanetWorld level = new SimplePlanetWorld(Planet.JUPITER, properties);
-                World level = new World(Paths.get("Worlds/test.world"), properties, Planet.values()[finalI]);
-                Teleporter t1 = new Teleporter(properties, -1000,400);
-                Teleporter t2 = new Teleporter(properties, 1000,400);
-                t2.link(t1);
-                t1.link(t2);
-                InconsitentStateBlock toggleable = new InconsitentStateBlock(300, 350, BlockType.EARTH);
-                Lever lever = new Lever(200, 400, 50,50, (isOn) -> toggleable.toggleSolidity());
-                level.addObject(lever);
-                level.addObject(toggleable);
-                level.addObject(t1);
-                level.addObject(t2);
+                World level = new World(Paths.get("Worlds/"+Planet.values()[finalI].toString().toLowerCase()+".world"), properties, Planet.values()[finalI]);
                 properties.getFrame().setContentPanel(level.getRenderer());
                 properties.setCurrentWorld(level);
             });

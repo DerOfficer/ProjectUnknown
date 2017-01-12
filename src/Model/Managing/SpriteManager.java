@@ -36,14 +36,16 @@ public class SpriteManager {
     public static final int PLANET_URANUS = 6;
     public static final int PLANET_NEPTUNE = 7;
 
-    public static final int MANA_CAST_FIREBALL = 0;
-    public static final int MANA_CAST_LIGHTBALL = 1;
+    public static final int MANA_CAST_FIRE_BALL = 0;
+    public static final int MANA_CAST_LIGHT_BALL = 1;
+    public static final int MANA_CAST_METAL_BALL = 2;
+    public static final int MANA_CAST_RAINBOW_BALL = 3;
 
     public static final BufferedImage[][] SPRITES = new BufferedImage[][]{
         {readImageSave(Paths.get("Images/Blocks/earth.png")), readImageSave(Paths.get("Images/Blocks/grass.png")), readImageSave(Paths.get("Images/Blocks/stone_brick.png")), readImageSave(Paths.get("Images/Blocks/crystal_stone_brick.png"))},
         {readImageSave(Paths.get("Images/character_sprite.png")), readImageSave(Paths.get("Images/zombie_sprite.png"))},
         {readImageSave(Paths.get("Images/Planets/mercury.png")), readImageSave(Paths.get("Images/Planets/venus.png")), readImageSave(Paths.get("Images/Planets/earth.png")), readImageSave(Paths.get("Images/Planets/mars.png")), readImageSave(Paths.get("Images/Planets/jupiter.png")), readImageSave(Paths.get("Images/Planets/saturn.png")), readImageSave(Paths.get("Images/Planets/uranus.png")), readImageSave(Paths.get("Images/Planets/neptune.png"))},
-        {readImageSave(Paths.get("Images/ManaCast/fireball.png")), readImageSave(Paths.get("Images/ManaCast/lightball.png"))},
+        {readImageSave(Paths.get("Images/ManaCast/fireball.png")), readImageSave(Paths.get("Images/ManaCast/lightball.png")),readImageSave(Paths.get("Images/ManaCast/metalball.png")),readImageSave(Paths.get("Images/ManaCast/rainbowball.png"))},
     };
 
     private static BufferedImage readImageSave(Path path){

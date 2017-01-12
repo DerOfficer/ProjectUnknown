@@ -22,6 +22,9 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
+/**
+ * Created and edited by Oussama and Patrick on 03.01.2017.
+ */
 public class World extends SideScrollingPhysicsWorld{
 
     public static final int PIXEL_TO_METER = 50;
@@ -30,11 +33,15 @@ public class World extends SideScrollingPhysicsWorld{
     private Point spawnPoint;
 
     private GraphicalUserInterface gui;
-
     private LevelRenderer renderer;
-
     private ProjectUnknownProperties properties;
 
+    /**
+     * constructs a new world object dependent on planet and the world file
+     * @param path - world file
+     * @param properties
+     * @param p - selected Planet
+     */
     public World(Path path, ProjectUnknownProperties properties, Planet p) {
         super(p.getGravity() * PIXEL_TO_METER);
         this.properties = properties;
@@ -86,6 +93,10 @@ public class World extends SideScrollingPhysicsWorld{
         return renderer;
     }
 
+    /**
+     * interpret world file and creates the world
+     * @param lines
+     */
     private void createWorld(List<String> lines) {
         Teleporter tempTeleporter = null;
         for(String line: lines){
@@ -127,6 +138,7 @@ public class World extends SideScrollingPhysicsWorld{
     public Player getPlayer(){
         return player;
     }
+
     private class LevelRenderer extends StaticDrawingPanel {
 
         @Override

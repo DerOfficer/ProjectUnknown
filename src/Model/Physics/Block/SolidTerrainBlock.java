@@ -6,18 +6,25 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 
 /**
- * Created by Amasso on 26.12.2016.
+ * Created by Oussama on 26.12.2016.
  */
 public class SolidTerrainBlock extends DrawablePhysicsObject implements IDrawableObject {
 
     private BufferedImage img;
     private BlockType blockType;
 
+    /**
+     * constructs a solid block which can be added to a world. block type defines the texture.
+     * @param x
+     * @param y
+     * @param blockType
+     */
     public SolidTerrainBlock(int x, int y, BlockType blockType){
         super(x,y,50,50);
         this.blockType = blockType;
         img = blockType.getImage();
     }
+
     @Override
     public boolean isSolid() {
         return true;

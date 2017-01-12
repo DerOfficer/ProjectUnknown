@@ -20,17 +20,20 @@ import static Model.Managing.SpriteManager.MANA_CAST;
  */
 public class ManaCast extends Entity implements IDrawableObject {
 
+    /**
+     * defines different mana types
+     */
     public enum Type{
-        FIRE_BALL("fireball.png",1.00,1.00,20, 3,3),
-        LIGHT_BALL("lightball.png",2.00,0.9,10,5,1);
+        FIRE_BALL(1.00,1.00,20,2,3),
+        LIGHT_BALL(2.00,0.9,10,5,1),
+        METAL_BALL(0.5,2.00,40,5,6),
+        RAINBOW_BALL(3.00,1.5,80,10,10);
 
-        private String imageName;
         private double speedModifier, attackModifier;
         private int mana, timeSpell, timeCoolDown;
         private BufferedImage image;
 
-        Type(String imageName,double speedModifier, double attackModifier, int mana, int timeSpell, int timeCoolDown){
-            this.imageName = imageName;
+        Type(double speedModifier, double attackModifier, int mana, int timeSpell, int timeCoolDown){
             this.speedModifier = speedModifier;
             this.attackModifier = attackModifier;
             this.mana = mana;
@@ -67,6 +70,11 @@ public class ManaCast extends Entity implements IDrawableObject {
     private BufferedImage img;
     private Timer timer;
 
+    /**
+     * constructs new mana casts and get instantly shoot from the creatures position
+     * @param type
+     * @param creature
+     */
     public ManaCast(Type type, Creature creature){
         super(creature.getX(),creature.getY(),type.getImage().getWidth(),type.getImage().getHeight());
         this.type = type;

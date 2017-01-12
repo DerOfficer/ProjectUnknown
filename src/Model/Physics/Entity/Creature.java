@@ -19,7 +19,17 @@ public abstract class Creature extends Entity implements  IDrawableObject {
     private Timer timer;
 
     private final int MANA_REGENERATION = 1;
-    
+
+    /**
+     * standard creature contains x position, y position, health and mana.
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param health
+     * @param mana
+     * @param properties
+     */
     public Creature(int x, int y, int width, int height, int health, int mana, ProjectUnknownProperties properties) {
         super(x, y, width, height);
         this.maxHealth = health;
@@ -33,6 +43,15 @@ public abstract class Creature extends Entity implements  IDrawableObject {
     }
 
 
+    /**
+     * standard which gets define by his level
+     * @param x
+     * @param y
+     * @param width
+     * @param height
+     * @param level
+     * @param properties
+     */
     public Creature(int x, int y, int width, int height, int level, ProjectUnknownProperties properties) {
         super(x, y, width, height);
         this.level = level;
@@ -41,6 +60,9 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         startUp();
     }
 
+    /**
+     * set stats depended on the current level
+     */
     protected void setStats(){
         this.maxHealth = level*25+75;
         this.actHealth = maxHealth;
@@ -48,12 +70,19 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         this.actMana = maxMana;
     }
 
+    /**
+     * interpret all stats and returns a level
+     * @return level of creature
+     */
     protected int interpretStats(){
         double temp = (double)maxHealth-75;
         temp = temp/(double)25;
         return (int)temp;
     }
 
+    /**
+     * start up for different constructors
+     */
     private void startUp(){
         manaReady = true;
         this.counter = 0;
@@ -68,7 +97,10 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         };
         timer.scheduleAtFixedRate(timerTask,1000,1000);
     }
-    
+
+    /**
+     * is running every second
+     */
     private void runEverySecond() {
         if(!manaReady){
             counter++;
@@ -82,6 +114,10 @@ public abstract class Creature extends Entity implements  IDrawableObject {
         }
     }
 
+    /**
+     * conjures a mana cast and subtracts the mana cost
+     * @param type
+     */
     protected void conjure(ManaCast.Type type){
         if(manaReady) {
             if (actMana >= type.getMana()) {
@@ -147,6 +183,6 @@ public abstract class Creature extends Entity implements  IDrawableObject {
     }
 
     public double getAttack() {
-        return 50;
+        return (level*20)+20;
     }
 }
