@@ -17,6 +17,8 @@ public class SpriteManager {
     public static final int ENTITY = 1;
     public static final int PLANET = 2;
     public static final int MANA_CAST = 3;
+    public static final int BACKGROUND = 4;
+    public static final int MISC = 5;
 
     public static final int BLOCK_EARTH = 0;
     public static final int BLOCK_GRASS = 1;
@@ -50,7 +52,7 @@ public class SpriteManager {
         {readImageSave(Paths.get("Images/Blocks/earth.png")), readImageSave(Paths.get("Images/Blocks/grass.png")), readImageSave(Paths.get("Images/Blocks/stone_brick.png")), readImageSave(Paths.get("Images/Blocks/crystal_stone_brick.png"))},
         {readImageSave(Paths.get("Images/Entity/player_spritesheet.png")), readImageSave(Paths.get("Images/Entity/zombie_spritesheet.png"))},
         {readImageSave(Paths.get("Images/Planets/mercury.png")), readImageSave(Paths.get("Images/Planets/venus.png")), readImageSave(Paths.get("Images/Planets/earth.png")), readImageSave(Paths.get("Images/Planets/mars.png")), readImageSave(Paths.get("Images/Planets/jupiter.png")), readImageSave(Paths.get("Images/Planets/saturn.png")), readImageSave(Paths.get("Images/Planets/uranus.png")), readImageSave(Paths.get("Images/Planets/neptune.png"))},
-        {readImageSave(Paths.get("Images/ManaCast/fireball.png")), readImageSave(Paths.get("Images/ManaCast/lightball.png"))},
+        {readImageSave(Paths.get("Images/ManaCast/fireball.png")), readImageSave(Paths.get("Images/ManaCast/lightball.png")),readImageSave(Paths.get("Images/ManaCast/metalball.png")),readImageSave(Paths.get("Images/ManaCast/rainbowball.png"))},
         {readImageSave(Paths.get("Images/background.png"))},
         {readImageSave(Paths.get("Images/logo.png")), readImageSave(Paths.get("Images/star.png"))}
     };

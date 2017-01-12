@@ -3,8 +3,8 @@ package Model.Physics.World;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.Block.BlockType;
-import Model.Physics.Block.InconsitentStateBlock;
 import Model.Physics.Block.Teleporter;
+import Model.Physics.Block.InconsistentStateBlock;
 import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
@@ -109,7 +109,7 @@ public class World extends SideScrollingPhysicsWorld{
                         BlockType blockType = BlockType.valueOf(values[1]);
                         int x = Integer.parseInt(values[2]);
                         int y = Integer.parseInt(values[3]);
-                        addObject(new InconsitentStateBlock(x, y, blockType));
+                        addObject(new InconsistentStateBlock(x, y, blockType));
                         break;
                     case "PLAYER":
                         x = Integer.parseInt(values[1]);

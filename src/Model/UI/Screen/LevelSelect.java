@@ -2,10 +2,6 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
-import Model.Physics.Block.BlockType;
-import Model.Physics.Block.InconsitentStateBlock;
-import Model.Physics.Block.Lever;
-import Model.Physics.Block.Teleporter;
 import Model.Physics.World.World;
 import Model.Planet;
 import Model.UI.Button;
