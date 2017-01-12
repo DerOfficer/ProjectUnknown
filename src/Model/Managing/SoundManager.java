@@ -3,12 +3,13 @@ package Model.Managing;
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
+import java.nio.FloatBuffer;
 import java.nio.file.Paths;
 
 public class SoundManager {
 
     private Mixer mixer;
-    private Clip[] clips; // 0 = Hintergrundmusik_Menü, 1 = EasterEggButtonSound, 2 = Settings_changeKeySound
+    private Clip[] clips; // 0 Hintergrundmusik_Menü, 1 EasterEggButtonSound, 2 Settings_changeKeySound, 3 notificationSound, 4 DefileButtonSound, 5 StartButton
     private FloatControl[] control;
     private int volume;
     int runningTitle;
@@ -18,8 +19,8 @@ public class SoundManager {
         Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
         mixer = AudioSystem.getMixer(mixerInfos[0]);
         DataLine.Info dataInfo = new DataLine.Info(Clip.class, null);
-        clips = new Clip[3];
-        control = new FloatControl[3];
+        clips = new Clip[6];
+        control = new FloatControl[6];
 
         for(int i = 0; i < clips.length; i++) {
             try
@@ -32,11 +33,11 @@ public class SoundManager {
         }
 
         addSound(Paths.get("Sound/space2.wav").toFile(),0);
-        addSound(Paths.get("Sound/button_1.wav").toFile(),1);
-        addSound(Paths.get("Sound/button_2.wav").toFile(),2);
-        control[0] = (FloatControl)clips[0].getControl(FloatControl.Type.MASTER_GAIN);
-        control[1] = (FloatControl)clips[1].getControl(FloatControl.Type.MASTER_GAIN);
-        control[2] = (FloatControl)clips[2].getControl(FloatControl.Type.MASTER_GAIN);
+        addSound(Paths.get("Sound/plop2.wav").toFile(),1);
+        addSound(Paths.get("Sound/buttonclickon.wav").toFile(),2);
+        addSound(Paths.get("Sound/notification.wav").toFile(),3);
+        addSound(Paths.get("Sound/plop.wav").toFile(),4);
+        addSound(Paths.get("Sound/startbuttonspace.wav").toFile(),5);
 
         startSound(0);
     }
@@ -50,10 +51,12 @@ public class SoundManager {
         catch(LineUnavailableException lue) { lue.printStackTrace();}
         catch(UnsupportedAudioFileException uafe) { uafe.printStackTrace();}
         catch(IOException ioe){ ioe.printStackTrace();}
+        control[pos] = (FloatControl)clips[pos].getControl(FloatControl.Type.MASTER_GAIN);
     }
     
     public void startSound(int pos){
         if (!clips[pos].isRunning()){
+            resetClip(pos);
             clips[pos].start();
             runningTitle = pos;
         }
