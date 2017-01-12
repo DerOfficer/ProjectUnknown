@@ -4,7 +4,6 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.InconsitentStateBlock;
-import Model.Physics.Block.SolidTerrainBlock;
 import Model.Physics.Block.Teleporter;
 import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
@@ -34,8 +33,11 @@ public class World extends SideScrollingPhysicsWorld{
 
     private LevelRenderer renderer;
 
+    private ProjectUnknownProperties properties;
+
     public World(Path path, ProjectUnknownProperties properties, Planet p) {
         super(p.getGravity() * PIXEL_TO_METER);
+        this.properties = properties;
         renderer = new LevelRenderer(properties);
         try {
             List<String> lines = Files.readAllLines(path);
@@ -44,7 +46,7 @@ public class World extends SideScrollingPhysicsWorld{
         } catch (IOException e) {
             ProjectUnknownProperties.raiseException(e);
         }
-        player.setPosition(spawnPoint.getX(), spawnPoint.getY());
+        //player.setPosition(spawnPoint.getX(), spawnPoint.getY());
         setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2)-50);
         setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2)-10);
         gui = new GraphicalUserInterface(player, properties);
@@ -74,8 +76,6 @@ public class World extends SideScrollingPhysicsWorld{
         o.removeMovementListener(this);
     }
 
-    private void createWorld(List<String> lines) {
-        Teleporter tempTeleporter = null;
     @Override
     public void onMovement(MovementEvent event){
         super.onMovement(event);
@@ -86,7 +86,8 @@ public class World extends SideScrollingPhysicsWorld{
         return renderer;
     }
 
-    private void createWorld(java.util.List<String> lines) {
+    private void createWorld(List<String> lines) {
+        Teleporter tempTeleporter = null;
         for(String line: lines){
             String[] values = line.split(" ");
             if(tempTeleporter == null){
@@ -105,7 +106,7 @@ public class World extends SideScrollingPhysicsWorld{
                         blockType = BlockType.valueOf(values[1]);
                         x = Integer.parseInt(values[2]);
                         y = Integer.parseInt(values[3]);
-                        Teleporter temp = new Teleporter(pUP, x, y, blockType);
+                        Teleporter temp = new Teleporter(properties, x, y);
                         addObject(temp);
                         tempTeleporter = temp;
                         break;
@@ -115,7 +116,7 @@ public class World extends SideScrollingPhysicsWorld{
                     BlockType blockType = BlockType.valueOf(values[1]);
                     int x = Integer.parseInt(values[2]);
                     int y = Integer.parseInt(values[3]);
-                    Teleporter temp = new Teleporter(pUP,x, y, blockType);
+                    Teleporter temp = new Teleporter(properties,x, y);
                     temp.link(tempTeleporter);
                     tempTeleporter.link(temp);
                     addObject(temp);

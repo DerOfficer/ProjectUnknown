@@ -12,11 +12,12 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.*;
-import java.lang.reflect.Array;
+import java.io.File;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.Paths;
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -173,7 +174,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                             blockType = BlockType.valueOf(values[1]);
                             x = Integer.parseInt(values[2]);
                             y = Integer.parseInt(values[3]);
-                            temp = new Teleporter(properties, x, y, blockType);
+                            temp = new Teleporter(properties, x, y);
                             blocks.add(temp);
                             super.addObject(temp);
                             tpBlock = true;
@@ -184,7 +185,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                         BlockType blockType = BlockType.valueOf(values[1]);
                         int x = Integer.parseInt(values[2]);
                         int y = Integer.parseInt(values[3]);
-                        Teleporter temp = new Teleporter(properties,x, y, blockType);
+                        Teleporter temp = new Teleporter(properties,x, y);
                         temp.link((Teleporter)blocks.get(blocks.size()));
                         blocks.add(temp);
                         super.addObject(temp);
@@ -208,7 +209,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             }
         }
         if(noBlock){
-            Teleporter teleporter = new Teleporter(properties,x,y,BlockType.values()[indexOfBlockType]);
+            Teleporter teleporter = new Teleporter(properties,x,y);
             if(blocks.get(blocks.size()-1) instanceof Teleporter){
                 Teleporter temp = (Teleporter)blocks.get(blocks.size()-1);
                 teleporter.link(temp);

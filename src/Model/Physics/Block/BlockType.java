@@ -13,11 +13,11 @@ public enum BlockType {
     EARTH,
     GRASS,
     STONE_BRICK,
-    CRYSTAL_STONE_BRICK;
+    CRYSTAL_STONE_BRICK,;
 
     private BufferedImage image;
 
-    BlockType(String text){
+    BlockType(){
         image = SpriteManager.SPRITES[BLOCK][ordinal()];
     }
 
