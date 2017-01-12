@@ -68,12 +68,12 @@ public class World extends SideScrollingPhysicsWorld{
 
     @Override
     public void removeObject(PhysicsObject o){
-        super.removeObject(o);
         if(o instanceof IDrawableObject){
             IDrawableObject drawableObject = (IDrawableObject)o;
             renderer.scheduleRemoveObject(drawableObject);
         }
         o.removeMovementListener(this);
+        super.removeObject(o);
     }
 
     @Override
