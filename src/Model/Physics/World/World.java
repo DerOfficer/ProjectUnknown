@@ -24,16 +24,15 @@ public class World extends AbstractWorld{
     private Point spawnPoint;
     private GraphicalUserInterface gui;
 
-    public World(Path path, Player player, ProjectUnknownProperties projectUnknownProperties, Planet p){
+    public World(Path path, ProjectUnknownProperties projectUnknownProperties, Planet p){
         super(p.getGravity(),projectUnknownProperties);
-        projectUnknownProperties.setPlayer(player);
         try {
             List<String> lines = Files.readAllLines(path);
             createWorld(lines);
+            player = new Player(projectUnknownProperties);
         } catch (IOException e) {
             System.err.println("Error: World doesn't exist...");
         }
-        this.player = player;
         player.setX((int) spawnPoint.getX());
         player.setY((int) spawnPoint.getY());
         setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2)-50);
@@ -62,9 +61,10 @@ public class World extends AbstractWorld{
                     y = Integer.parseInt(values[2]);
                     spawnPoint = new Point(x,y);
             }
-
         }
     }
 
-
+    public Player getPlayer(){
+        return player;
+    }
 }

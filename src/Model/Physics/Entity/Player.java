@@ -18,7 +18,7 @@ import java.io.IOException;
 /**
  * Created by jardu on 12/17/2016.
  */
-public class Player extends Human implements IInteractableObject{
+public class Player extends Humanoid implements IInteractableObject{
 
     private ProjectUnknownProperties properties;
     private int level,exp,maxExp;

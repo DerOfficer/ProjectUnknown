@@ -16,13 +16,13 @@ public class ProjectUnknownProperties {
     private SoundManager soundManager;
     private MainFrame frame;
     private Font gameFont;
-    private Player player;
+    //private Player player;
     private AbstractWorld currentWorld;
 
     public ProjectUnknownProperties() throws IOException {
         soundManager = new SoundManager();
         notificationArea = new NotificationArea();
-        player = new Player(this);
+        //player = new Player(this);
 
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
@@ -66,14 +66,7 @@ public class ProjectUnknownProperties {
         return this.soundManager;
     }
 
-    public Player getPlayer() {
+    /*public Player getPlayer() {
         return player;
-    }
-
-
-    public void setPlayer(Player player) {
-        this.player = player;
-    }
-
-
+    }*/
 }

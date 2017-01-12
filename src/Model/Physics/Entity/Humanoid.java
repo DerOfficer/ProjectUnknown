@@ -20,7 +20,7 @@ import java.nio.file.Paths;
  * Created by Amasso on 16.12.2016.
  */
 
-public class Human extends Creature {
+public class Humanoid extends Creature {
     private BufferedImage[]humanModel;
     protected ICanvas canvas;
 
@@ -29,7 +29,7 @@ public class Human extends Creature {
 
     private HumanAnimationObject animationObject;
 
-    public Human(int x, int y, BufferedImage image, int level, ProjectUnknownProperties properties){
+    public Humanoid(int x, int y, BufferedImage image, int level, ProjectUnknownProperties properties){
         super(x, y, 20, 82,level,properties);
         humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));

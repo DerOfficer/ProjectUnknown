@@ -1,10 +1,11 @@
 package Model.Physics.Entity.Mobs;
 
 import Control.ProjectUnknownProperties;
-import Model.Physics.Entity.Human;
+import Model.Physics.Entity.Humanoid;
 import Model.Physics.Entity.Player;
 import Model.Physics.ManaCast;
 import Model.Physics.World.AbstractWorld;
+import Model.Physics.World.World;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -14,7 +15,7 @@ import java.io.IOException;
 /**
  * Created by Oussama on 11.01.2017.
  */
-public class Enemy extends Human{
+public class Enemy extends Humanoid {
 
     public enum Type{
         ZOMBIE("zombie_sprite.png", 1, ManaCast.Type.FIRE_BALL, 0.08);
@@ -56,7 +57,7 @@ public class Enemy extends Human{
     public Enemy(int x, int y,Type type, ProjectUnknownProperties properties) {
         super(x, y,type.getSpriteImage(), type.getLevel(), properties);
         this.type = type;
-        this.player = properties.getPlayer();
+        this.player = ((World)world).getPlayer();
     }
 
 
