@@ -169,6 +169,7 @@ public class World extends SideScrollingPhysicsWorld{
                 break;
             case EARTH:
                 addObject(new Enemy(6700,-6450, Enemy.Type.ZOMBIE,properties));
+                addObject(new Enemy(6700,-6450, Enemy.Type.MEGA_ZOMBIE,properties));
                 addObject(new Enemy(4800,1050, Enemy.Type.ZOMBIE,properties));
                 addObject(new Enemy(4300,-1650, Enemy.Type.ZOMBIE,properties));
                 addObject(new Enemy(5000,-1850, Enemy.Type.ZOMBIE,properties));

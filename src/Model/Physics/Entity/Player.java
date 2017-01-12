@@ -5,6 +5,7 @@ import Model.Abstraction.IInteractableObject;
 import Model.Abstraction.IPlayerInteractable;
 import Model.Managing.KeyManager;
 import Model.Managing.SpriteManager;
+import Model.Notification;
 import Model.Physics.ManaCast;
 import Model.Physics.World.World;
 import com.Physics2D.PhysicsObject;
@@ -33,6 +34,7 @@ public class Player extends Humanoid implements IInteractableObject{
         this.properties = properties;
         exp = 0;
         maxExp = 100;
+        this.level = level;
         currentCast = ManaCast.Type.LIGHT_BALL;
     }
 
@@ -55,7 +57,9 @@ public class Player extends Humanoid implements IInteractableObject{
         while(exp >= maxExp){
             exp = exp - maxExp;
             maxExp = 100 + (level*10);
-            properties.setLevel(properties.getLevel()+1);
+            level++;
+            properties.setLevel(level);
+            properties.getNotificationArea().addNotification(new Notification("Player level up!","Your are now on level "+level+"!"));
             level++;
         }
 

@@ -18,7 +18,8 @@ import static Model.Managing.SpriteManager.ENTITY_ZOMBIE;
 public class Enemy extends Humanoid {
 
     public enum Type{
-        ZOMBIE(1, ManaCast.Type.FIRE_BALL, 0.08);
+        ZOMBIE(1, ManaCast.Type.FIRE_BALL, 0.08),
+        MEGA_ZOMBIE(4,ManaCast.Type.METAL_BALL , 0.04);
 
         private String spriteName;
         private int level;
