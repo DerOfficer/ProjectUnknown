@@ -34,14 +34,14 @@ public class World extends AbstractWorld{
         this.player = player;
         player.setX((int) spawnPoint.getX());
         player.setY((int) spawnPoint.getY());
-        addObject(player);
         setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2)-50);
         setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2)-10);
         focusWithoutScrolling(player);
+        addObject(player);
         gui = new GraphicalUserInterface(player, projectUnknownProperties);
         projectUnknownProperties.getFrame().setForegroundPanel(gui);
 
-        addObject(new Enemy(600,0,Enemy.Type.ZOMBIE,projectUnknownProperties));
+        //addObject(new Enemy(600,0,Enemy.Type.ZOMBIE,projectUnknownProperties));
 
     }
 

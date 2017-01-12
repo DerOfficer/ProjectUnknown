@@ -5,7 +5,7 @@ animation scrollto target object
 animation end
 
 animation scrolltofast target object
-    xOffset runtimevalue:xOffsetTarget 100
-    concurrent yOffset runtimevalue:yOffsetTarget 100
+    xOffset runtimevalue:xOffsetTarget 400
+    concurrent yOffset runtimevalue:yOffsetTarget 400
     intcall animationDone
 animation end

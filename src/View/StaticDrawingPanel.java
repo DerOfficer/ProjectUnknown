@@ -36,7 +36,7 @@ public class StaticDrawingPanel extends DrawingPanel {
         }
     }
 
-    //We no longer want the timer to repaint. We only want it to call update(long) now
+    //We no longer want the timer to repaint. We only want it to call update(double) now
     @Override
     public void actionPerformed(ActionEvent event){
         elapsedTime = System.nanoTime() - lastLoop;
