@@ -209,8 +209,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         }
         if(noBlock){
             Teleporter teleporter = new Teleporter(properties,x,y,BlockType.values()[indexOfBlockType]);
-            if(blocks.get(blocks.size()) instanceof Teleporter){
-                Teleporter temp = (Teleporter)blocks.get(blocks.size());
+            if(blocks.get(blocks.size()-1) instanceof Teleporter){
+                Teleporter temp = (Teleporter)blocks.get(blocks.size()-1);
                 teleporter.link(temp);
                 temp.link(teleporter);
             }

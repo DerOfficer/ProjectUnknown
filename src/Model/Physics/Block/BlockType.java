@@ -12,7 +12,9 @@ import java.nio.Buffer;
  */
 public enum BlockType {
     EARTH(new Color(118, 54, 33),"earth.png"),
-    GRASS(new Color(10, 149, 34),"grass.png");
+    GRASS(new Color(10, 149, 34),"grass.png"),
+    STONE_BRICK(new Color(0,0,0),"stone_brick.png"),
+    CRYSTAL_STONE_BRICK(new Color(0,0,0),"crystal_stone_brick.png");
 
     private Color color;
     private BufferedImage image;
