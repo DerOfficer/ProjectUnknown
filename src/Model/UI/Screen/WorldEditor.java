@@ -217,7 +217,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                         blocks.add(temp);
                         super.addObject(temp);
                         tpBlock = false;
-                        break;
+                        //break;
                     }
                 }
 

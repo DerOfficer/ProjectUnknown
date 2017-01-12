@@ -2,15 +2,16 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Managing.SpriteManager;
 import Model.Notification;
 import Model.UI.Button;
 import View.DrawingPanel;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.File;
-import java.io.IOException;
+
+import static Model.Managing.SpriteManager.MISC;
+import static Model.Managing.SpriteManager.MISC_LOGO;
 
 public class Start extends DrawingPanel {
 
@@ -40,11 +41,8 @@ public class Start extends DrawingPanel {
 
         setBackground(new Color(0,0,0,0));
 
-        try {
-            addObject(new Button((screenWidth / 2),(int) (screenHeight*0.1),ImageIO.read(new File("Images/logo.png"))));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+        addObject(new Button((screenWidth / 2),(int) (screenHeight*0.1), SpriteManager.SPRITES[MISC][MISC_LOGO]));
 
         initEventHandler();
     }
@@ -66,7 +64,7 @@ public class Start extends DrawingPanel {
                 System.exit(0);
         });
 
-        exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+        exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
                 System.exit(0);
             }

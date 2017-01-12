@@ -11,7 +11,7 @@ import java.util.TimerTask;
 /**
  * Created by Oussama on 07.01.2017.
  */
-public abstract class Creature extends Entity implements  IDrawableObject {
+public abstract class Creature extends Entity implements IDrawableObject {
 
     private int maxHealth,actHealth, maxMana,actMana,counter,level,manaCoolDown;
     protected ProjectUnknownProperties properties;

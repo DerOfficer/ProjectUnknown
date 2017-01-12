@@ -1,10 +1,11 @@
 package Model;
 
+import Control.ProjectUnknownProperties;
+
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 
@@ -12,9 +13,14 @@ public class SettingsParser {
     private HashMap<String, String> map;
     private Path path;
 
-    public SettingsParser(Path path) throws IOException {
+    public SettingsParser(Path path){
         this.path = path;
-        List<String> lines = Files.readAllLines(path);
+        List<String> lines = null;
+        try {
+            lines = Files.readAllLines(path);
+        } catch (IOException e) {
+            ProjectUnknownProperties.raiseException(e);
+        }
         map = new HashMap<>();
         Runtime.getRuntime().addShutdownHook(new Thread(){
             @Override

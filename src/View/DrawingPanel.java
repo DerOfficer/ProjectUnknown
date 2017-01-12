@@ -77,6 +77,11 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     @Override
+    public void scheduleAddObject(IDrawableObject object) {
+        SwingUtilities.invokeLater(() -> addObject(object));
+    }
+
+    @Override
     public boolean canDraw() {
         return graphicsLock;
     }

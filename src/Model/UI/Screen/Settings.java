@@ -36,7 +36,7 @@ public class Settings extends DrawingPanel {
 
     private Color color;
 
-    public Settings(ProjectUnknownProperties properties) throws IOException {
+    public Settings(ProjectUnknownProperties properties){
         super(properties);
         color = new Color(109, 115, 255);
 

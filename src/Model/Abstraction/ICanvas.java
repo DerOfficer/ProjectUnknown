@@ -37,6 +37,12 @@ public interface ICanvas {
     void scheduleRemoveObject(IDrawableObject object);
 
     /**
+     * Schedules the addition of the given {@link IDrawableObject} into the java.awt.EventLoop
+     * @param object the DrawableObject to add
+     */
+    void scheduleAddObject(IDrawableObject object);
+
+    /**
      * check if a call to {@link ICanvas#getPencil()} is currently valid
      * @return {@code true} if so, {@code false} otherwise
      */

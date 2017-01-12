@@ -33,7 +33,9 @@ public class World extends SideScrollingPhysicsWorld{
     private Point spawnPoint;
 
     private GraphicalUserInterface gui;
+
     private LevelRenderer renderer;
+
     private ProjectUnknownProperties properties;
 
     /**
@@ -138,7 +140,6 @@ public class World extends SideScrollingPhysicsWorld{
     public Player getPlayer(){
         return player;
     }
-
     private class LevelRenderer extends StaticDrawingPanel {
 
         @Override
