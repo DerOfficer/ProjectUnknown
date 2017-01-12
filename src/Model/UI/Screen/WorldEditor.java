@@ -3,6 +3,7 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.SolidTerrainBlock;
+import Model.Physics.Block.Teleporter;
 import View.DrawingPanel;
 
 import javax.swing.*;
@@ -121,6 +122,9 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         if(e.getKeyChar()=='f'){
             fillSpace();
         }
+        if(e.getKeyChar() == 't'){
+            createTeleporter(x,y);
+        }
     }
 
     @Override
@@ -148,22 +152,47 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                 super.removeObject(block);
             }
             blocks = new ArrayList<>();
+            boolean tpBlock = false;
             for(String line: lines){
                 String[] values = line.split(" ");
-                switch (values[0]){
-                    case "BLOCK":
+                if(!tpBlock) {
+                    switch (values[0]) {
+                        case "BLOCK":
+                            BlockType blockType = BlockType.valueOf(values[1]);
+                            int x = Integer.parseInt(values[2]);
+                            int y = Integer.parseInt(values[3]);
+                            SolidTerrainBlock temp = new SolidTerrainBlock(x, y, blockType);
+                            blocks.add(temp);
+                            super.addObject(temp);
+                            break;
+                        case "PLAYER":
+                            int xS = Integer.parseInt(values[1]);
+                            int yS = Integer.parseInt(values[2]);
+                            spawnPoint.move(xS, yS);
+                        case "TP1":
+                            blockType = BlockType.valueOf(values[1]);
+                            x = Integer.parseInt(values[2]);
+                            y = Integer.parseInt(values[3]);
+                            temp = new Teleporter(properties, x, y, blockType);
+                            blocks.add(temp);
+                            super.addObject(temp);
+                            tpBlock = true;
+                            break;
+                    }
+                }else{
+                    if(values[0].equals("TP2")){
                         BlockType blockType = BlockType.valueOf(values[1]);
                         int x = Integer.parseInt(values[2]);
                         int y = Integer.parseInt(values[3]);
-                        SolidTerrainBlock temp = new SolidTerrainBlock(x,y,blockType);
+                        Teleporter temp = new Teleporter(properties,x, y, blockType);
+                        temp.link((Teleporter)blocks.get(blocks.size()));
                         blocks.add(temp);
                         super.addObject(temp);
+                        tpBlock = false;
                         break;
-                    case "PLAYER":
-                        int xS = Integer.parseInt(values[1]);
-                        int yS = Integer.parseInt(values[2]);
-                        spawnPoint.move(xS,yS);
+                    }
                 }
+
             }
         } catch (IOException e) {
             e.printStackTrace();
@@ -171,14 +200,34 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
 
     }
 
-    private void createBlock(int x, int y) {
-        boolean isBlockThere = true;
+    private void createTeleporter(int x, int y){
+        boolean noBlock = true;
         for(SolidTerrainBlock block: blocks){
             if(block.getX() == x && block.getY() == y){
-                isBlockThere = false;
+                noBlock = false;
             }
         }
-        if (isBlockThere) {
+        if(noBlock){
+            Teleporter teleporter = new Teleporter(properties,x,y,BlockType.values()[indexOfBlockType]);
+            if(blocks.get(blocks.size()-1) instanceof Teleporter){
+                Teleporter temp = (Teleporter)blocks.get(blocks.size()-1);
+                teleporter.link(temp);
+                temp.link(teleporter);
+            }
+            blocks.add(teleporter);
+            super.addObject(teleporter);
+        }
+
+    }
+
+    private void createBlock(int x, int y) {
+        boolean noBlock = true;
+        for(SolidTerrainBlock block: blocks){
+            if(block.getX() == x && block.getY() == y){
+                noBlock = false;
+            }
+        }
+        if (noBlock) {
             SolidTerrainBlock temp = new SolidTerrainBlock(x, y, BlockType.values()[indexOfBlockType]);
             blocks.add(temp);
             super.addObject(temp);
@@ -202,10 +251,20 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
     private void saveWorld(String text){
         try{
             PrintWriter writer = new PrintWriter(new File("Worlds/"+text+".world"));
-            for(SolidTerrainBlock block: blocks){
-                int x = (int)block.getX();
-                int y = (int)block.getY();
-                writer.println("BLOCK "+block.getBlockType().toString()+" "+x+" "+y);
+            for (int i = 0; i < blocks.size(); i++) {
+                SolidTerrainBlock block = blocks.get(i);
+                int x = (int) block.getX();
+                int y = (int) block.getY();
+                if (block instanceof Teleporter) {
+                    writer.println("TP1 " + block.getBlockType().toString() + " " + x + " " + y);
+                    i++;
+                    block = blocks.get(i);
+                    x = (int) block.getX();
+                    y = (int) block.getY();
+                    writer.println("TP2 " + block.getBlockType().toString() + " " + x + " " + y);
+                } else {
+                    writer.println("BLOCK " + block.getBlockType().toString() + " " + x + " " + y);
+                }
             }
             writer.println("PLAYER "+(int)spawnPoint.getX()+" "+(int)spawnPoint.getY());
             writer.close();

@@ -10,10 +10,10 @@ import static Model.Managing.SpriteManager.BLOCK;
  * Created by Amasso on 02.01.2017.
  */
 public enum BlockType {
-    EARTH("earth.png"),
-    GRASS("grass.png"),;
-    //TODO Add Teleporter Image!!!
-    //TELEPORTER("grass.png");
+    EARTH,
+    GRASS,
+    STONE_BRICK,
+    CRYSTAL_STONE_BRICK;
 
     private BufferedImage image;
 

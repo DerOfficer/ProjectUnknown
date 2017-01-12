@@ -4,6 +4,8 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.InconsitentStateBlock;
+import Model.Physics.Block.SolidTerrainBlock;
+import Model.Physics.Block.Teleporter;
 import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
@@ -72,6 +74,8 @@ public class World extends SideScrollingPhysicsWorld{
         o.removeMovementListener(this);
     }
 
+    private void createWorld(List<String> lines) {
+        Teleporter tempTeleporter = null;
     @Override
     public void onMovement(MovementEvent event){
         super.onMovement(event);
@@ -85,17 +89,39 @@ public class World extends SideScrollingPhysicsWorld{
     private void createWorld(java.util.List<String> lines) {
         for(String line: lines){
             String[] values = line.split(" ");
-            switch (values[0]){
-                case "BLOCK":
+            if(tempTeleporter == null){
+                switch (values[0]) {
+                    case "BLOCK":
+                        BlockType blockType = BlockType.valueOf(values[1]);
+                        int x = Integer.parseInt(values[2]);
+                        int y = Integer.parseInt(values[3]);
+                        addObject(new InconsitentStateBlock(x, y, blockType));
+                        break;
+                    case "PLAYER":
+                        x = Integer.parseInt(values[1]);
+                        y = Integer.parseInt(values[2]);
+                        spawnPoint = new Point(x, y);
+                    case "TP1":
+                        blockType = BlockType.valueOf(values[1]);
+                        x = Integer.parseInt(values[2]);
+                        y = Integer.parseInt(values[3]);
+                        Teleporter temp = new Teleporter(pUP, x, y, blockType);
+                        addObject(temp);
+                        tempTeleporter = temp;
+                        break;
+                }
+            }else{
+                if(values[0].equals("TP2")){
                     BlockType blockType = BlockType.valueOf(values[1]);
                     int x = Integer.parseInt(values[2]);
                     int y = Integer.parseInt(values[3]);
-                    addObject(new InconsitentStateBlock(x,y,blockType));
+                    Teleporter temp = new Teleporter(pUP,x, y, blockType);
+                    temp.link(tempTeleporter);
+                    tempTeleporter.link(temp);
+                    addObject(temp);
+                    tempTeleporter = null;
                     break;
-                case "PLAYER":
-                    x = Integer.parseInt(values[1]);
-                    y = Integer.parseInt(values[2]);
-                    spawnPoint = new Point(x,y);
+                }
             }
         }
     }

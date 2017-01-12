@@ -30,6 +30,7 @@ public class Player extends Humanoid implements IInteractableObject{
         level = 1;
         exp = 0;
         maxExp = 100;
+        currentCast = ManaCast.Type.FIRE_BALL;
     }
 
     public void setX(int x){
