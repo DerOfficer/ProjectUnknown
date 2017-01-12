@@ -27,7 +27,7 @@ public class Teleporter extends SolidTerrainBlock implements IPlayerInteractable
      * @see Teleporter#link(Teleporter)
      */
     public Teleporter(ProjectUnknownProperties properties, int x, int y) {
-        super(x, y, BlockType.GRASS);
+        super(x, y, BlockType.CRYSTAL_STONE_BRICK);
         this.properties = properties;
     }
 
