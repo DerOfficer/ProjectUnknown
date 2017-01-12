@@ -10,7 +10,6 @@ import View.DrawingPanel;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.io.IOException;
 import java.nio.file.Paths;
 
 public class Settings extends DrawingPanel {
@@ -58,8 +57,6 @@ public class Settings extends DrawingPanel {
         createVolButtons();
         createConSettings();
 
-
-
         btnEasterEgg.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if (!isExpectingUserInput()) {
                 properties.getSoundManager().startSound(1);
@@ -75,12 +72,6 @@ public class Settings extends DrawingPanel {
                     }
                     turned = !turned;
                 });
-                try {
-                    Thread.sleep(100);
-                } catch (InterruptedException e) {
-                    e.printStackTrace();
-                }
-                properties.getSoundManager().resetClip(1);
             }
         });
 
@@ -96,7 +87,6 @@ public class Settings extends DrawingPanel {
         properties.getSoundManager().setVolume(Integer.parseInt(settingsParser.getSetting("volume")));
         updateVolButtons();
     }
-
 
     private void initGenericButtons() {
         btnBack = new Button(screenWidth / 14, screenHeight / 10 * 9, "← Back", properties.getGameFont());
@@ -123,16 +113,17 @@ public class Settings extends DrawingPanel {
         addObject(lblHeadline);
     }
 
-
     private void initGenericEventHandlers() {
         btnBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if(!isExpectingUserInput()) {
+                properties.getSoundManager().startSound(4);
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());
             }
         });
 
         btnBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
             if (event.getSrcKey() == KeyEvent.VK_ESCAPE && !isExpectingUserInput()) {
+                properties.getSoundManager().startSound(4);
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());
             }
         });
@@ -151,7 +142,6 @@ public class Settings extends DrawingPanel {
             }
         });
     }
-
 
     public String getSetting(String key) {
         return settingsParser.getSetting(key);
@@ -206,7 +196,6 @@ public class Settings extends DrawingPanel {
                         setting[button] = false;
                     }
                 });
-                properties.getSoundManager().resetClip(2);
             }
         });
     }
