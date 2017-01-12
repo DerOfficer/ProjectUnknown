@@ -11,9 +11,6 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
 
-/**
- * Created by 204g03 on 16.12.2016.
- */
 public class LevelSelect extends DrawingPanel {
 
     private BufferedImage background;
@@ -38,11 +35,13 @@ public class LevelSelect extends DrawingPanel {
         }
 
         buttonBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getSoundManager().startSound(4);
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         });
 
         buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
+                properties.getSoundManager().startSound(4);
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());
                 properties.getFrame().setBackgroundPanel(properties.getFrame().getDefaultBackground());
             }
