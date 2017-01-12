@@ -49,6 +49,7 @@ public class Start extends DrawingPanel {
 
     private void initEventHandler() {
         startButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getSoundManager().startSound(5);
             properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
             properties.getFrame().setBackgroundPanel(properties.getFrame().getLevelSelectBackground());
             properties.getNotificationArea().addNotification(new Notification("Congratulations", "You clicked 'Start'"));
@@ -57,6 +58,7 @@ public class Start extends DrawingPanel {
         });
 
         settingsButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getSoundManager().startSound(4);
             properties.getFrame().setContentPanel(properties.getFrame().getSettings());
         });
 
