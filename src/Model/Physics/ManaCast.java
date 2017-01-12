@@ -82,6 +82,7 @@ public class ManaCast extends Entity implements IDrawableObject {
             @Override
             public void run() {
                 world.removeObject(entity);
+                timer.cancel();
             }
         };
 
