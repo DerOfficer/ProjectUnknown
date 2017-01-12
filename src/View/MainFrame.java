@@ -1,7 +1,7 @@
 package View;
 
 import Control.ProjectUnknownProperties;
-import Model.KeyManager;
+import Model.Managing.KeyManager;
 import Model.UI.Screen.*;
 
 import javax.imageio.ImageIO;

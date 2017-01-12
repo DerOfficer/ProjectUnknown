@@ -6,13 +6,11 @@ import Model.Physics.Block.BlockType;
 import Model.Physics.Block.InconsitentStateBlock;
 import Model.Physics.Block.Lever;
 import Model.Physics.Block.Teleporter;
-import Model.Physics.Entity.Player;
 import Model.Physics.World.World;
 import Model.Planet;
 import Model.UI.Button;
 import View.DrawingPanel;
 
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
@@ -39,8 +37,8 @@ public class LevelSelect extends DrawingPanel {
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 //SimplePlanetWorld level = new SimplePlanetWorld(Planet.JUPITER, properties);
                 World level = new World(Paths.get("Worlds/test.world"), properties, Planet.values()[finalI]);
-                Teleporter t1 = new Teleporter(properties, -1000,400,100,100, Color.RED);
-                Teleporter t2 = new Teleporter(properties, 1000,400,100,100, Color.RED);
+                Teleporter t1 = new Teleporter(properties, -1000,400);
+                Teleporter t2 = new Teleporter(properties, 1000,400);
                 t2.link(t1);
                 t1.link(t2);
                 InconsitentStateBlock toggleable = new InconsitentStateBlock(300, 350, BlockType.EARTH);

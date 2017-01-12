@@ -1,10 +1,8 @@
 package Model.Physics.Block;
 
-import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Abstraction.IPlayerInteractable;
 import com.Physics2D.Entity;
-import com.Physics2D.PhysicsObject;
 
 import java.awt.*;
 import java.util.function.Consumer;

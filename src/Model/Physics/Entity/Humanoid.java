@@ -2,15 +2,12 @@ package Model.Physics.Entity;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
-import Model.Abstraction.IDrawableObject;
 import Model.SpriteSheetHandler;
-import com.Physics2D.Entity;
 import com.SSA.Animation.Animation;
 import com.SSA.Animation.AnimationObject;
 import com.SSA.Annotation.Animatable;
 import com.SSA.Parsing.AnimParser;
 import com.SSA.Parsing.AnimationList;
-import com.SideScroller.SideScrollingPhysicsWorld;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -48,49 +45,34 @@ public class Humanoid extends Creature {
     @Override
     public void draw() {
         Graphics2D g2d = canvas.getPencil();
-        if(sideWayVelocity < 0){
-            g2d.translate(getX()+getWidth()/2, 0);
-            g2d.scale(-1,1);
-            g2d.translate(-getX()-getWidth()/2, 0);
+        if (sideWayVelocity < 0) {
+            g2d.translate(getX() + getWidth() / 2, 0);
+            g2d.scale(-1, 1);
+            g2d.translate(-getX() - getWidth() / 2, 0);
         }
-        //g2d.fillRect(getX(), getY(), getWidth(), getHeight());
-        int wholeOffset = 10;
+
         int bodyOffset = 25;
         int headOffset = 20;
 
         //head
-        g2d.drawImage(humanModel[1], (int)getX()-3, (int)getY(), null);
-        //g2d.drawImage(humanModel[1], getX()-3, getY() - humanModel[1].getHeight()-humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset + headOffset, null);
+        g2d.drawImage(humanModel[1], (int) getX() - 3, (int) getY(), null);
         //leg in the background
-        g2d.drawImage(humanModel[3], (int)getX()+animationObject.leg2x, (int)getY() + headOffset + bodyOffset, null);
-        //g2d.drawImage(humanModel[3], getX()+animationObject.leg2x, getY() + humanModel[1].getHeight() - 2, null);
-        //g2d.drawImage(humanModel[3], getX()+animationObject.leg2x, getY() - humanModel[3].getHeight() + wholeOffset, null);
+        g2d.drawImage(humanModel[3], (int) getX() + animationObject.leg2x, (int) getY() + headOffset + bodyOffset, null);
         //arm in the background
-        g2d.drawImage(humanModel[4], (int)getX() + animationObject.arm2x, (int)getY() + headOffset, null);
-        //g2d.drawImage(humanModel[4], getX() + animationObject.arm2x, getY() - humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset, null);
+        g2d.drawImage(humanModel[4], (int) getX() + animationObject.arm2x, (int) getY() + headOffset, null);
         //body
-        g2d.drawImage(humanModel[2], (int) getX()-3, (int)getY() + headOffset, null);
-        //g2d.drawImage(humanModel[2], getX()-3, getY() - humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset, null);
+        g2d.drawImage(humanModel[2], (int) getX() - 3, (int) getY() + headOffset, null);
         //leg in the foreground
-        g2d.drawImage(humanModel[3], (int)getX()+animationObject.leg1x, (int)getY() + headOffset + bodyOffset, null);
-        //g2d.drawImage(humanModel[3], getX()+animationObject.leg1x, getY() - humanModel[3].getHeight() + wholeOffset, null);
+        g2d.drawImage(humanModel[3], (int) getX() + animationObject.leg1x, (int) getY() + headOffset + bodyOffset, null);
         //arm in the foreground
-        g2d.drawImage(humanModel[4], (int)getX() + animationObject.arm1x, (int)getY() + headOffset, null);
-        //g2d.drawImage(humanModel[4], getX() + animationObject.arm1x, getY() - humanModel[2].getHeight() - humanModel[3].getHeight() + wholeOffset + bodyOffset, null);
-        //System.out.println("x: "+getX()+" xOffseT: "+((SideScrollingPhysicsWorld)world).getRendererXOffset() + " actual position: "+(getX() - ((SideScrollingPhysicsWorld)world).getRendererXOffset()));
-        //System.out.println("y: "+getY()+" yOffset: "+((SideScrollingPhysicsWorld)world).getRendererYOffset() + " actual position: "+(getY() - ((SideScrollingPhysicsWorld)world).getRendererYOffset()));
-        canvas.getPencil().drawImage(humanModel[0], (int)getX(), (int)getY(), null);
-        /*for (int i = 0; i < humanModel.length; i++) {
-            canvas.getPencil().drawImage(humanModel[i],null,i*50,100);
-        }*/
+        g2d.drawImage(humanModel[4], (int) getX() + animationObject.arm1x, (int) getY() + headOffset, null);
 
-        //g2d.setColor(Color.RED);
-        //g2d.drawRect(getX(), getY(), getWidth(), getHeight());
+        //canvas.getPencil().drawImage(humanModel[0], (int) getX(), (int) getY(), null);
 
-        if(sideWayVelocity < 0){
-            g2d.translate(getX()+getWidth()/2, 0);
-            g2d.scale(-1,1);
-            g2d.translate(-getX()-getWidth()/2, 0);
+        if (sideWayVelocity < 0) {
+            g2d.translate(getX() + getWidth() / 2, 0);
+            g2d.scale(-1, 1);
+            g2d.translate(-getX() - getWidth() / 2, 0);
         }
     }
 
@@ -115,16 +97,16 @@ public class Humanoid extends Creature {
 
     private class HumanAnimationObject extends AnimationObject{
 
-        @Animatable(notificationMethod = "dummy")
+        @Animatable
         private int leg1x;
 
-        @Animatable(notificationMethod = "dummy")
+        @Animatable
         private int leg2x;
 
-        @Animatable(notificationMethod = "dummy")
+        @Animatable
         private int arm1x;
 
-        @Animatable(notificationMethod = "dummy")
+        @Animatable
         private int arm2x;
 
         private int walking;
@@ -132,7 +114,5 @@ public class Humanoid extends Creature {
         public HumanAnimationObject(String name) {
             super(name);
         }
-
-        private void dummy(){ }
     }
 }

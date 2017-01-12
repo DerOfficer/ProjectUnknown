@@ -1,19 +1,19 @@
 package Model.Physics.Entity;
 
-import com.Physics2D.PhysicsObject;
-
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IInteractableObject;
 import Model.Abstraction.IPlayerInteractable;
-import Model.KeyManager;
+import Model.Managing.KeyManager;
+import Model.Managing.SpriteManager;
 import Model.Physics.ManaCast;
-import Model.Physics.World.AbstractWorld;
+import Model.Physics.World.World;
+import com.Physics2D.PhysicsObject;
 
-import javax.imageio.ImageIO;
 import java.awt.event.MouseEvent;
 import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.io.IOException;
+
+import static Model.Managing.SpriteManager.ENTITY;
+import static Model.Managing.SpriteManager.ENTITY_PLAYER;
 
 /**
  * Created by jardu on 12/17/2016.
@@ -21,11 +21,11 @@ import java.io.IOException;
 public class Player extends Humanoid implements IInteractableObject{
 
     private ProjectUnknownProperties properties;
-    private int level,exp,maxExp;
+    private int level, exp, maxExp;
     private ManaCast.Type currentCast;
 
-    public Player(ProjectUnknownProperties properties) throws IOException {
-        super(0, 0, ImageIO.read(new File("Images/character_sprite.png")),1,properties);
+    public Player(ProjectUnknownProperties properties){
+        super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER],1,properties);
         this.properties = properties;
         level = 1;
         exp = 0;
@@ -56,18 +56,18 @@ public class Player extends Humanoid implements IInteractableObject{
     @Override
     public void update(double dt){
         super.update(dt);
-        if(getVelocity() > -5 * AbstractWorld.PIXEL_TO_METER) {
+        if(getVelocity() > -5 * World.PIXEL_TO_METER) {
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("left"))) {
-                accelerate(-.4 * AbstractWorld.PIXEL_TO_METER);
+                accelerate(-.4 * World.PIXEL_TO_METER);
             }
         }
-        if(getVelocity() < 5 * AbstractWorld.PIXEL_TO_METER){
+        if(getVelocity() < 5 * World.PIXEL_TO_METER){
             if (KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("right"))) {
-                accelerate(.4 * AbstractWorld.PIXEL_TO_METER);
+                accelerate(.4 * World.PIXEL_TO_METER);
             }
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("jump")) && getDownwardVelocity() == 0){
-            accelerateUpward(-6 * AbstractWorld.PIXEL_TO_METER);
+            accelerateUpward(-6 * World.PIXEL_TO_METER);
         }
         if(KeyManager.isKeyPressed(properties.getFrame().getSettings().getSetting("shoot"))){
             conjure(currentCast);

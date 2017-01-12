@@ -2,16 +2,17 @@ package Model.Physics;
 
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
+import Model.Managing.SpriteManager;
 import Model.Physics.Entity.Creature;
 import com.Physics2D.Entity;
 import com.Physics2D.PhysicsObject;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
-import java.util.*;
+import java.util.Timer;
+import java.util.TimerTask;
+
+import static Model.Managing.SpriteManager.MANA_CAST;
 
 
 /**
@@ -23,9 +24,10 @@ public class ManaCast extends Entity implements IDrawableObject {
         FIRE_BALL("fireball.png",1.00,1.00,20, 3,3),
         LIGHT_BALL("lightball.png",2.00,0.9,10,5,1);
 
-        String imageName;
-        double speedModifier,attackModifier;
-        int mana,timeSpell,timeCoolDown;
+        private String imageName;
+        private double speedModifier, attackModifier;
+        private int mana, timeSpell, timeCoolDown;
+        private BufferedImage image;
 
         Type(String imageName,double speedModifier, double attackModifier, int mana, int timeSpell, int timeCoolDown){
             this.imageName = imageName;
@@ -34,14 +36,11 @@ public class ManaCast extends Entity implements IDrawableObject {
             this.mana = mana;
             this.timeSpell = timeSpell;
             this.timeCoolDown = timeCoolDown;
+            this.image = SpriteManager.SPRITES[MANA_CAST][ordinal()];
         }
 
         public BufferedImage getImage() {
-            try {
-                return ImageIO.read(new File("Images/ManaCast/"+imageName));
-            }catch (IOException e) {
-                return null;
-            }
+            return image;
         }
 
         public double getSpeedModifier() {

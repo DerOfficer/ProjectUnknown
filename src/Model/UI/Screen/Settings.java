@@ -3,7 +3,6 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
 import Model.SettingsParser;
-import Model.SoundManager;
 import Model.UI.Button;
 import Model.UI.Label;
 import View.DrawingPanel;

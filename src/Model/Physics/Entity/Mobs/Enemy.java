@@ -1,16 +1,16 @@
 package Model.Physics.Entity.Mobs;
 
 import Control.ProjectUnknownProperties;
+import Model.Managing.SpriteManager;
 import Model.Physics.Entity.Humanoid;
 import Model.Physics.Entity.Player;
 import Model.Physics.ManaCast;
-import Model.Physics.World.AbstractWorld;
 import Model.Physics.World.World;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
+
+import static Model.Managing.SpriteManager.ENTITY;
+import static Model.Managing.SpriteManager.ENTITY_ZOMBIE;
 
 /**
  * Created by Oussama on 11.01.2017.
@@ -18,26 +18,24 @@ import java.io.IOException;
 public class Enemy extends Humanoid {
 
     public enum Type{
-        ZOMBIE("zombie_sprite.png", 1, ManaCast.Type.FIRE_BALL, 0.08);
+        ZOMBIE(1, ManaCast.Type.FIRE_BALL, 0.08);
 
         private String spriteName;
         private int level;
         private ManaCast.Type manaSpell;
         private double speed;
 
-        Type(String spriteName, int level, ManaCast.Type manaSpell,double speed){
-            this.spriteName = spriteName;
+        private BufferedImage image;
+
+        Type(int level, ManaCast.Type manaSpell,double speed){
             this.level = level;
             this.manaSpell = manaSpell;
             this.speed = speed;
+            this.image = SpriteManager.SPRITES[ENTITY][ENTITY_ZOMBIE];
         }
 
         public BufferedImage getSpriteImage() {
-            try {
-                return ImageIO.read(new File("Images/"+ spriteName));
-            }catch (IOException e) {
-                return null;
-            }
+            return image;
         }
 
         public double getSpeed(){ return speed; }
@@ -52,33 +50,34 @@ public class Enemy extends Humanoid {
     }
 
     private Type type;
-    private Player player;
 
-    public Enemy(int x, int y,Type type, ProjectUnknownProperties properties) {
+    public Enemy(int x, int y, Type type, ProjectUnknownProperties properties) {
         super(x, y,type.getSpriteImage(), type.getLevel(), properties);
         this.type = type;
-        this.player = ((World)world).getPlayer();
     }
 
+    private Player getPlayer(){
+        return ((World) world).getPlayer();
+    }
 
     @Override
     public void update(double dt){
         super.update(dt);
-        int distance = (int) (getX() - player.getX());
+        int distance = (int) (getX() - getPlayer().getX());
         if(distance < 0){
-            accelerate(type.getSpeed() * AbstractWorld.PIXEL_TO_METER);
+            accelerate(type.getSpeed() * World.PIXEL_TO_METER);
         }
         if(distance > 0) {
-            accelerate(-type.getSpeed() * AbstractWorld.PIXEL_TO_METER);
+            accelerate(-type.getSpeed() * World.PIXEL_TO_METER);
         }
         if(getDownwardVelocity() == 0) {
-            accelerateUpward(-3 * AbstractWorld.PIXEL_TO_METER);
+            accelerateUpward(-3 * World.PIXEL_TO_METER);
         }
 
         conjure(type.getManaSpell());
 
         if(isDead()){
-            player.earnExp(type.getLevel());
+            getPlayer().earnExp(type.getLevel());
             world.removeObject(this);
         }
     }

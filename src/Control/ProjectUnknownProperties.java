@@ -1,10 +1,11 @@
 package Control;
 
-import Model.Physics.Entity.Player;
-import Model.Physics.World.AbstractWorld;
-import Model.SoundManager;
+import Model.Managing.SoundManager;
+import Model.Physics.World.World;
 import Model.UI.NotificationArea;
 import View.MainFrame;
+
+import javax.swing.*;
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
@@ -16,25 +17,21 @@ public class ProjectUnknownProperties {
     private SoundManager soundManager;
     private MainFrame frame;
     private Font gameFont;
-    //private Player player;
-    private AbstractWorld currentWorld;
+    private World currentWorld;
 
     public ProjectUnknownProperties() throws IOException {
         soundManager = new SoundManager();
         notificationArea = new NotificationArea();
-        //player = new Player(this);
 
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
-            GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")));
-
+            //GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
+            //ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")));
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }
 
         this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height, this);
-
     }
 
     public MainFrame getFrame() {
@@ -46,7 +43,6 @@ public class ProjectUnknownProperties {
     }
 
     public Font getGameFont(){
-        //return new Font("Arial", 1, 16);
         return gameFont;
     }
 
@@ -54,11 +50,11 @@ public class ProjectUnknownProperties {
         return Toolkit.getDefaultToolkit().getScreenSize();
     }
 
-    public void setCurrentWorld(AbstractWorld world){
+    public void setCurrentWorld(World world){
         this.currentWorld = world;
     }
 
-    public AbstractWorld getCurrentWorld(){
+    public World getCurrentWorld(){
         return currentWorld;
     }
 
@@ -66,7 +62,15 @@ public class ProjectUnknownProperties {
         return this.soundManager;
     }
 
-    /*public Player getPlayer() {
-        return player;
-    }*/
+    public static final void raiseException(Exception e){
+        String formattedStackTrace = "";
+        for(StackTraceElement element : e.getStackTrace()){
+            formattedStackTrace += element.toString()+"\n";
+        }
+        JOptionPane.showMessageDialog(null,
+                "Due to the following Error, Project Unknown was unable to start/run: \n"+e.getMessage()+"\n\n"+ formattedStackTrace,
+                "Severe Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+        System.exit(-1);
+    }
 }

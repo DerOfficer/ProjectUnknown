@@ -1,52 +1,88 @@
 package Model.Physics.World;
 
 import Control.ProjectUnknownProperties;
+import Model.Abstraction.IDrawableObject;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.InconsitentStateBlock;
-import Model.Physics.Block.SolidTerrainBlock;
 import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
 import Model.UI.Overlay.GraphicalUserInterface;
+import View.DrawingPanel;
+import View.StaticDrawingPanel;
+import com.Physics2D.PhysicsObject;
+import com.Physics2D.event.MovementEvent;
+import com.SideScroller.SideScrollingPhysicsWorld;
 
 import java.awt.*;
+import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.List;
 
-/**
- * Created by Amasso on 02.01.2017.
- */
-public class World extends AbstractWorld{
+public class World extends SideScrollingPhysicsWorld{
+
+    public static final int PIXEL_TO_METER = 50;
 
     private Player player;
     private Point spawnPoint;
+
     private GraphicalUserInterface gui;
 
-    public World(Path path, ProjectUnknownProperties projectUnknownProperties, Planet p){
-        super(p.getGravity(),projectUnknownProperties);
+    private LevelRenderer renderer;
+
+    public World(Path path, ProjectUnknownProperties properties, Planet p) {
+        super(p.getGravity() * PIXEL_TO_METER);
+        renderer = new LevelRenderer(properties);
         try {
             List<String> lines = Files.readAllLines(path);
             createWorld(lines);
-            player = new Player(projectUnknownProperties);
+            player = new Player(properties);
         } catch (IOException e) {
-            System.err.println("Error: World doesn't exist...");
+            ProjectUnknownProperties.raiseException(e);
         }
-        player.setX((int) spawnPoint.getX());
-        player.setY((int) spawnPoint.getY());
+        player.setPosition(spawnPoint.getX(), spawnPoint.getY());
         setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2)-50);
         setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2)-10);
+        gui = new GraphicalUserInterface(player, properties);
+        properties.getFrame().setForegroundPanel(gui);
+        addObject(new Enemy(600,0, Enemy.Type.ZOMBIE,properties));
         focusWithoutScrolling(player);
         addObject(player);
-        gui = new GraphicalUserInterface(player, projectUnknownProperties);
-        projectUnknownProperties.getFrame().setForegroundPanel(gui);
-
-        //addObject(new Enemy(600,0,Enemy.Type.ZOMBIE,projectUnknownProperties));
-
     }
 
-    private void createWorld(List<String> lines) {
+    @Override
+    public void addObject(PhysicsObject o) {
+        super.addObject(o);
+        if(o instanceof IDrawableObject){
+            IDrawableObject drawableObject = (IDrawableObject)o;
+            renderer.addObject(drawableObject);
+        }
+        o.addMovementListener(this);
+    }
+
+    @Override
+    public void removeObject(PhysicsObject o){
+        super.removeObject(o);
+        if(o instanceof IDrawableObject){
+            IDrawableObject drawableObject = (IDrawableObject)o;
+            renderer.scheduleRemoveObject(drawableObject);
+        }
+        o.removeMovementListener(this);
+    }
+
+    @Override
+    public void onMovement(MovementEvent event){
+        super.onMovement(event);
+        renderer.forceRepaint();
+    }
+
+    public LevelRenderer getRenderer() {
+        return renderer;
+    }
+
+    private void createWorld(java.util.List<String> lines) {
         for(String line: lines){
             String[] values = line.split(" ");
             switch (values[0]){
@@ -66,5 +102,25 @@ public class World extends AbstractWorld{
 
     public Player getPlayer(){
         return player;
+    }
+    private class LevelRenderer extends StaticDrawingPanel {
+
+        @Override
+        protected Point getRenderingOffset(){
+            return new Point(-getRendererXOffset(), -getRendererYOffset());
+        }
+
+        public LevelRenderer(ProjectUnknownProperties properties) {
+            super(properties);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent event){
+            super.keyPressed(event);
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
+                properties.getFrame().setForegroundPanel(new DrawingPanel(properties));
+            }
+        }
     }
 }

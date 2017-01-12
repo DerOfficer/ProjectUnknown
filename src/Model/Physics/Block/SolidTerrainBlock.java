@@ -1,12 +1,8 @@
 package Model.Physics.Block;
 
-import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
-import com.Physics2D.PhysicsObject;
-import jdk.nashorn.internal.ir.Block;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 /**
@@ -14,27 +10,14 @@ import java.awt.image.BufferedImage;
  */
 public class SolidTerrainBlock extends DrawablePhysicsObject implements IDrawableObject {
 
-    private Color topColor, innerColor;
     private BufferedImage img;
     private BlockType blockType;
-
-    public SolidTerrainBlock(int x, int y, int width, int height, Color color) {
-        super(x, y, width, height);
-        this.topColor = color;
-    }
 
     public SolidTerrainBlock(int x, int y, BlockType blockType){
         super(x,y,50,50);
         this.blockType = blockType;
         img = blockType.getImage();
     }
-
-    public SolidTerrainBlock(int x, int y, int width, int height, Color topColor, Color innerColor) {
-        super(x, y, width, height);
-        this.topColor = topColor;
-        this.innerColor = innerColor;
-    }
-
     @Override
     public boolean isSolid() {
         return true;
@@ -48,22 +31,11 @@ public class SolidTerrainBlock extends DrawablePhysicsObject implements IDrawabl
     @Override
     public void draw() {
         Graphics2D g = canvas.getPencil();
-        if(img != null){
-            g.drawImage(img, (int)getX(), (int)getY(),null);
-        }else {
-            g.setColor(topColor);
-            g.fillRect((int)getX(), (int)getY(), (int)getWidth(), (int)getHeight());
-            if (innerColor != null) {
-                g.setColor(innerColor);
-                g.fillRect((int)getX(), (int)getY() + (int) (getHeight() * 0.05), (int)getWidth(), (int) (getHeight() * 0.95));
-            }
-        }
+        g.drawImage(img, (int)getX(), (int)getY(),null);
     }
 
     @Override
-    public void update(double dt) {
-
-    }
+    public void update(double dt) { }
 
     public BlockType getBlockType(){
         return blockType;

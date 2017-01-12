@@ -1,13 +1,13 @@
 import Control.ProjectUnknownProperties;
-import com.Physics2D.PhysicsWorld;
+import Model.Managing.SpriteManager;
 
 import javax.swing.*;
-
 import java.io.IOException;
 
 public class MainProgram {
 
     public static void main (String[] args){
+        int dummy = SpriteManager.BLOCK; //some dummy access to load the class and init all the images
         SwingUtilities.invokeLater(() -> {
             try {
                 MainProgram.setup();
