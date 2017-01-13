@@ -95,12 +95,13 @@ public class ManaCast extends Entity implements IDrawableObject {
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                world.removeObject(ManaCast.this);
-                timer.cancel();
+                if(world != null) {
+                    world.removeObject(ManaCast.this);
+                }
             }
         };
 
-        timer.scheduleAtFixedRate(timerTask,type.getTimeSpell()*1000,1000);
+        timer.schedule(timerTask,type.getTimeSpell()*1000,1000);
     }
 
     @Override
@@ -114,10 +115,10 @@ public class ManaCast extends Entity implements IDrawableObject {
         accelerate(movement);
         if (world.getIntersecting(this) != null) {
             for (PhysicsObject object : world.getIntersecting(this)) {
-                if (object instanceof Creature && object != creature) {
+                if (object instanceof Creature && object != creature && !creature.getClass().isInstance(object)) {
+                    //We prevent mobs from killing their own kind by checking that their mana orbs cant hit instances of their own class
                     Creature enemy = (Creature) object;
                     enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
-                    timer.cancel();
                     world.removeObject(this);
                 }
             }

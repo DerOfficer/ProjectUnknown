@@ -75,7 +75,7 @@ public class World extends SideScrollingPhysicsWorld{
         super.addObject(o);
         if(o instanceof IDrawableObject){
             IDrawableObject drawableObject = (IDrawableObject)o;
-            renderer.addObject(drawableObject);
+            renderer.scheduleAddObject(drawableObject);
         }
         o.addMovementListener(this);
     }

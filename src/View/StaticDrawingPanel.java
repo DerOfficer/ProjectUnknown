@@ -5,6 +5,7 @@ import Model.Abstraction.IDrawableObject;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.util.ConcurrentModificationException;
 
 /**
  * Created by jardu on 12/19/2016.
@@ -43,8 +44,14 @@ public class StaticDrawingPanel extends DrawingPanel {
         lastLoop = System.nanoTime();
         int dt = (int) ((elapsedTime / 1000000L)+0.5);
         if ( dt == 0 ) dt = 1;
-        for (IDrawableObject drawableObject : drawableObjects) {
-            drawableObject.update((double)dt/1000);
+        IDrawableObject lastDrawableObject = null;
+        try {
+            for (IDrawableObject drawableObject : drawableObjects) {
+                drawableObject.update((double) dt / 1000);
+                lastDrawableObject = drawableObject;
+            }
+        }catch (ConcurrentModificationException e){
+            e.printStackTrace();
         }
     }
 }

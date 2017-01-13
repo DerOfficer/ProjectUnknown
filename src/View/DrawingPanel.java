@@ -56,6 +56,7 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         graphicsLock = true;
         for (IDrawableObject tempDO : drawableObjects) {
             Rectangle2D bounds = tempDO.getBounds().getBounds();
+            //Dont draw if its not on screen.
             if (bounds.getX() + bounds.getWidth() + getRenderingOffset().getX() < 0 || bounds.getY() + bounds.getHeight() + getRenderingOffset().getY() < 0
                     || bounds.getX() + getRenderingOffset().getX() > screenWidth || bounds.getY() + getRenderingOffset().getY() > screenHeight) {
                 continue;
