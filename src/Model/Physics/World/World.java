@@ -103,36 +103,40 @@ public class World extends SideScrollingPhysicsWorld{
     private void createWorld(List<String> lines) {
         Teleporter tempTeleporter = null;
         for(String line: lines){
-            String[] values = line.split(" ");
-            if(tempTeleporter == null){
-                switch (values[0]) {
-                    case "BLOCK":
-                        BlockType blockType = BlockType.valueOf(values[1]);
+            if(line.equals("stardust .world extension")){
+
+            }else {
+                String[] values = line.split(" ");
+                if (tempTeleporter == null) {
+                    switch (values[0]) {
+                        case "BLOCK":
+                            BlockType blockType = BlockType.valueOf(values[1]);
+                            int x = Integer.parseInt(values[2]);
+                            int y = Integer.parseInt(values[3]);
+                            addObject(new InconsistentStateBlock(x, y, blockType));
+                            break;
+                        case "PLAYER":
+                            x = Integer.parseInt(values[1]);
+                            y = Integer.parseInt(values[2]);
+                            spawnPoint = new Point(x, y);
+                            break;
+                        case "TP1":
+                            x = Integer.parseInt(values[2]);
+                            y = Integer.parseInt(values[3]);
+                            tempTeleporter = new Teleporter(properties, x, y);
+                            addObject(tempTeleporter);
+                            break;
+                    }
+                } else {
+                    if (values[0].equals("TP2")) {
                         int x = Integer.parseInt(values[2]);
                         int y = Integer.parseInt(values[3]);
-                        addObject(new InconsistentStateBlock(x, y, blockType));
-                        break;
-                    case "PLAYER":
-                        x = Integer.parseInt(values[1]);
-                        y = Integer.parseInt(values[2]);
-                        spawnPoint = new Point(x, y);
-                        break;
-                    case "TP1":
-                        x = Integer.parseInt(values[2]);
-                        y = Integer.parseInt(values[3]);
-                        tempTeleporter = new Teleporter(properties, x, y);
-                        addObject(tempTeleporter);
-                        break;
-                }
-            }else{
-                if(values[0].equals("TP2")){
-                    int x = Integer.parseInt(values[2]);
-                    int y = Integer.parseInt(values[3]);
-                    Teleporter temp = new Teleporter(properties,x, y);
-                    temp.link(tempTeleporter);
-                    tempTeleporter.link(temp);
-                    addObject(temp);
-                    tempTeleporter = null;
+                        Teleporter temp = new Teleporter(properties, x, y);
+                        temp.link(tempTeleporter);
+                        tempTeleporter.link(temp);
+                        addObject(temp);
+                        tempTeleporter = null;
+                    }
                 }
             }
         }

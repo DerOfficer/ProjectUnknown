@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Oussama on 26.12.2016.
  */
-public class SolidTerrainBlock extends DrawablePhysicsObject implements IDrawableObject {
+public class Block extends DrawablePhysicsObject implements IDrawableObject {
 
     private BufferedImage img;
     private BlockType blockType;
@@ -19,7 +19,7 @@ public class SolidTerrainBlock extends DrawablePhysicsObject implements IDrawabl
      * @param y
      * @param blockType
      */
-    public SolidTerrainBlock(int x, int y, BlockType blockType){
+    public Block(int x, int y, BlockType blockType){
         super(x,y,50,50);
         this.blockType = blockType;
         img = blockType.getImage();

@@ -2,7 +2,7 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Physics.Block.BlockType;
-import Model.Physics.Block.SolidTerrainBlock;
+import Model.Physics.Block.Block;
 import Model.Physics.Block.Teleporter;
 import View.DrawingPanel;
 
@@ -28,7 +28,9 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
     private Point spawnPoint;
     private Point pos1,pos2;
     private int indexOfBlockType;
-    private ArrayList<SolidTerrainBlock> blocks;
+    private ArrayList<Block> blocks;
+
+    private List<String> extensionLines;
 
     /**
      * constructs a drawing panel which contains a grid. You can load, save and edit every .world-data.
@@ -43,6 +45,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         indexOfBlockType = 0;
         spawnPoint = new Point(0,0);
         blocks = new ArrayList<>();
+        extensionLines = new ArrayList<>();
 
         this.addMouseListener(this);
     }
@@ -181,12 +184,16 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
     private void loadWorld(String file) {
         try {
             List<String> lines = Files.readAllLines(Paths.get("Worlds/"+file+".world"));
-            for (SolidTerrainBlock block:blocks) {
+            for (Block block:blocks) {
                 super.removeObject(block);
             }
             blocks = new ArrayList<>();
             boolean tpBlock = false;
             for(String line: lines){
+                if(line.equals("stadust .world extension")) {
+                    extensionLines = lines.subList(lines.indexOf(line), lines.size());
+                    break;
+                }
                 String[] values = line.split(" ");
                 if(!tpBlock) {
                     switch (values[0]) {
@@ -194,7 +201,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                             BlockType blockType = BlockType.valueOf(values[1]);
                             int x = Integer.parseInt(values[2]);
                             int y = Integer.parseInt(values[3]);
-                            SolidTerrainBlock temp = new SolidTerrainBlock(x, y, blockType);
+                            Block temp = new Block(x, y, blockType);
                             blocks.add(temp);
                             super.addObject(temp);
                             break;
@@ -240,7 +247,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
      */
     private void createTeleporter(int x, int y){
         boolean noBlock = true;
-        for(SolidTerrainBlock block: blocks){
+        for(Block block: blocks){
             if(block.getX() == x && block.getY() == y){
                 noBlock = false;
             }
@@ -265,13 +272,13 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
      */
     private void createBlock(int x, int y) {
         boolean noBlock = true;
-        for(SolidTerrainBlock block: blocks){
+        for(Block block: blocks){
             if(block.getX() == x && block.getY() == y){
                 noBlock = false;
             }
         }
         if (noBlock) {
-            SolidTerrainBlock temp = new SolidTerrainBlock(x, y, BlockType.values()[indexOfBlockType]);
+            Block temp = new Block(x, y, BlockType.values()[indexOfBlockType]);
             blocks.add(temp);
             super.addObject(temp);
         }
@@ -283,8 +290,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
      * @param y - y position
      */
     private void removeBlock(int x,int y){
-        SolidTerrainBlock temp;
-        for(SolidTerrainBlock block: blocks){
+        Block temp;
+        for(Block block: blocks){
             if(block.getX() == x && block.getY() == y){
                 temp = block;
                 blocks.remove(temp);
@@ -302,7 +309,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         try{
             PrintWriter writer = new PrintWriter(new File("Worlds/"+text+".world"));
             for (int i = 0; i < blocks.size(); i++) {
-                SolidTerrainBlock block = blocks.get(i);
+                Block block = blocks.get(i);
                 int x = (int) block.getX();
                 int y = (int) block.getY();
                 if (block instanceof Teleporter) {
@@ -317,6 +324,9 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                 }
             }
             writer.println("PLAYER "+(int)spawnPoint.getX()+" "+(int)spawnPoint.getY());
+            for(String line : extensionLines){
+                writer.println(line);
+            }
             writer.close();
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         } catch (IOException e) {

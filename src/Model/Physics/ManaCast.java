@@ -4,8 +4,6 @@ import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Managing.SpriteManager;
 import Model.Physics.Entity.Creature;
-import Model.Physics.Entity.Mobs.Enemy;
-import Model.Physics.Entity.Player;
 import com.Physics2D.Entity;
 import com.Physics2D.PhysicsObject;
 
@@ -111,11 +109,9 @@ public class ManaCast extends Entity implements IDrawableObject {
             for (PhysicsObject object : world.getIntersecting(this)) {
                 if (object instanceof Creature && object != creature) {
                     Creature enemy = (Creature) object;
-                    if (creature instanceof Enemy && enemy instanceof Enemy) {
-                        enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
-                        world.removeObject(this);
-                        timer.cancel();
-                    }
+                    enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
+                    world.removeObject(this);
+                    timer.cancel();
                 }
             }
         }

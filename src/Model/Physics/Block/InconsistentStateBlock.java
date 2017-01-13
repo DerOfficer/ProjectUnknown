@@ -5,7 +5,7 @@ import java.awt.*;
 /**
  * Created by jardu on 1/10/2017.
  */
-public class InconsistentStateBlock extends SolidTerrainBlock {
+public class InconsistentStateBlock extends Block {
 
     private boolean state = true;
 

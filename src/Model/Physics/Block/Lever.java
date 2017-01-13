@@ -2,10 +2,15 @@ package Model.Physics.Block;
 
 import Model.Abstraction.IDrawableObject;
 import Model.Abstraction.IPlayerInteractable;
+import Model.Managing.SpriteManager;
 import com.Physics2D.Entity;
 
 import java.awt.*;
 import java.util.function.Consumer;
+
+import static Model.Managing.SpriteManager.BLOCK;
+import static Model.Managing.SpriteManager.BLOCK_LEVER_OFF;
+import static Model.Managing.SpriteManager.BLOCK_LEVER_ON;
 
 /**
  * Created by jardu on 1/12/2017.
@@ -31,8 +36,11 @@ public class Lever extends DrawablePhysicsObject implements IPlayerInteractable,
     @Override
     public void draw() {
         Graphics2D g = canvas.getPencil();
-        g.setColor(Color.ORANGE);
-        g.fill(getBounds());
+        if(on){
+            g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_LEVER_ON], (int)getX(), (int)getY(), null);
+        }else{
+            g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_LEVER_OFF], (int)getX(), (int)getY(), null);
+        }
     }
 
     @Override

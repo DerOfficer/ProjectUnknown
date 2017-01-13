@@ -9,7 +9,7 @@ import com.Physics2D.Entity;
  * Class representing Teleporters which allow Entities to teleport to a different Teleporter object via interaction
  * Created by jardu on 1/10/2017.
  */
-public class Teleporter extends SolidTerrainBlock implements IPlayerInteractable{
+public class Teleporter extends Block implements IPlayerInteractable{
 
     /**
      * The Teleporter we teleport to
