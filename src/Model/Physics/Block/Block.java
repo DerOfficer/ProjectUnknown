@@ -8,7 +8,7 @@ import java.awt.image.BufferedImage;
 /**
  * Created by Oussama on 26.12.2016.
  */
-public class Block extends DrawablePhysicsObject implements IDrawableObject {
+public class Block extends AbstractBlock implements IDrawableObject {
 
     private BufferedImage img;
     private BlockType blockType;

@@ -15,7 +15,7 @@ import static Model.Managing.SpriteManager.BLOCK_LEVER_ON;
 /**
  * Created by jardu on 1/12/2017.
  */
-public class Lever extends DrawablePhysicsObject implements IPlayerInteractable, IDrawableObject{
+public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawableObject{
 
     private Consumer<Boolean> onToggle;
 

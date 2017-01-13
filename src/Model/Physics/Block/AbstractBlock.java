@@ -10,7 +10,7 @@ import java.awt.geom.Rectangle2D;
 /**
  * Created by jardu on 1/12/2017.
  */
-public abstract class DrawablePhysicsObject extends PhysicsObject implements IDrawableObject {
+public abstract class AbstractBlock extends PhysicsObject implements IDrawableObject {
 
     protected ICanvas canvas;
 
@@ -23,7 +23,7 @@ public abstract class DrawablePhysicsObject extends PhysicsObject implements IDr
      * @param height the height of the physics object
      */
 
-    protected DrawablePhysicsObject(double x, double y, double width, double height) {
+    protected AbstractBlock(double x, double y, double width, double height) {
         super(x, y, width, height);
     }
 
