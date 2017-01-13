@@ -3,10 +3,9 @@ package Model.UI;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
+
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
-import java.io.File;
-import java.io.IOException;
 
 public class  Button extends AbstractEventInteractionObject{
 
@@ -16,7 +15,7 @@ public class  Button extends AbstractEventInteractionObject{
     private int y;
     private boolean move;
 
-    private Rectangle2D bounds;
+    private Rectangle2D bounds = new Rectangle2D.Double(0,0,0,0);
 
     private ICanvas canvas;
 

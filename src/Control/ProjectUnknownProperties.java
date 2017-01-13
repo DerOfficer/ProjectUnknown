@@ -22,12 +22,10 @@ public class ProjectUnknownProperties {
 
     public ProjectUnknownProperties() throws IOException {
         soundManager = new SoundManager();
-        notificationArea = new NotificationArea();
+        notificationArea = new NotificationArea(this);
         level = 1;
         try {
             gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
-            //GraphicsEnvironment ge = GraphicsEnvironment.getLocalGraphicsEnvironment();
-            //ge.registerFont(Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")));
         } catch (IOException | FontFormatException e) {
             e.printStackTrace();
         }

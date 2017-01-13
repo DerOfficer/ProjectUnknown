@@ -121,7 +121,7 @@ public class Settings extends DrawingPanel {
             }
         });
 
-        btnBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+        btnBack.addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (event) -> {
             if (event.getSrcKey() == KeyEvent.VK_ESCAPE && !isExpectingUserInput()) {
                 properties.getSoundManager().startSound(4);
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());

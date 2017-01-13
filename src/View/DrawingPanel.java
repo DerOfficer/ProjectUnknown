@@ -8,7 +8,9 @@ import Model.Abstraction.IInteractableObject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
+import java.util.ConcurrentModificationException;
 
 public class DrawingPanel extends JComponent implements ActionListener, KeyListener, MouseListener, ICanvas {
 
@@ -49,9 +51,18 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.translate(getRenderingOffset().getX(), getRenderingOffset().getY());
         graphicsLock = true;
-        for(IDrawableObject tempDO : drawableObjects){
-            tempDO.draw();
-            tempDO.update((double)dt/1000);
+        try {
+            for (IDrawableObject tempDO : drawableObjects) {
+                Rectangle2D bounds = tempDO.getBounds().getBounds();
+                if (bounds.getX() + bounds.getWidth() + getRenderingOffset().getX() < 0 || bounds.getY() + bounds.getHeight() + getRenderingOffset().getY() < 0
+                        || bounds.getX() + getRenderingOffset().getX() > screenWidth || bounds.getY() + getRenderingOffset().getY() > screenHeight) {
+                    continue;
+                }
+                tempDO.draw();
+                tempDO.update((double) dt / 1000);
+            }
+        }catch(ConcurrentModificationException e){
+
         }
         graphicsLock = false;
     }

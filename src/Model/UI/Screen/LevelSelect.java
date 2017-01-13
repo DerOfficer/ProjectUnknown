@@ -39,7 +39,7 @@ public class LevelSelect extends DrawingPanel {
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         });
 
-        buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+        buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
                 properties.getSoundManager().startSound(4);
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());
@@ -50,20 +50,8 @@ public class LevelSelect extends DrawingPanel {
         addObject(buttonBack);
     }
 
-   /* private void createLevel(Planet planet){
-            SimplePlanetWorld level = new SimplePlanetWorld(planet, properties);
-            properties.getFrame().setContentPanel(level.getRenderer());
-    }*/
-
     private void initImages(){
         btnPlanets = new Button[Planet.values().length];
-        /*int temp = 100 + (int) (1f / Planet.values().length);
-        for (int i = 0; i < Planet.values().length; i++) {
-            BufferedImage tempImg = Planet.values()[i].getImage();
-            btnPlanets[i] = new Button(temp, (screenHeight/2)-tempImg.getHeight()/2, tempImg);
-            temp = temp + tempImg.getWidth()+50;
-            addObject(btnPlanets[i]);
-        }*/
         Planet[] planets = Planet.values();
         int offset = planets[planets.length-1].getImage().getWidth();
         for(int i = Planet.values().length - 1; i >= 0; --i){

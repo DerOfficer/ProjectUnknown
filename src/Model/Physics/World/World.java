@@ -15,6 +15,7 @@ import com.Physics2D.PhysicsObject;
 import com.Physics2D.event.MovementEvent;
 import com.SideScroller.SideScrollingPhysicsWorld;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
@@ -82,7 +83,7 @@ public class World extends SideScrollingPhysicsWorld{
             renderer.scheduleRemoveObject(drawableObject);
         }
         o.removeMovementListener(this);
-        super.removeObject(o);
+        SwingUtilities.invokeLater(() -> super.removeObject(o));
     }
 
     @Override
@@ -140,6 +141,7 @@ public class World extends SideScrollingPhysicsWorld{
     public Player getPlayer(){
         return player;
     }
+
     private class LevelRenderer extends StaticDrawingPanel {
 
         @Override

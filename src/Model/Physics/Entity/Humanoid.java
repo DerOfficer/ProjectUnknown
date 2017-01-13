@@ -10,6 +10,7 @@ import com.SSA.Parsing.AnimParser;
 import com.SSA.Parsing.AnimationList;
 
 import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
 
@@ -67,8 +68,6 @@ public class Humanoid extends Creature {
         //arm in the foreground
         g2d.drawImage(humanModel[4], (int) getX() + animationObject.arm1x, (int) getY() + headOffset, null);
 
-        //canvas.getPencil().drawImage(humanModel[0], (int) getX(), (int) getY(), null);
-
         if (sideWayVelocity < 0) {
             g2d.translate(getX() + getWidth() / 2, 0);
             g2d.scale(-1, 1);
@@ -92,7 +91,7 @@ public class Humanoid extends Creature {
 
     @Override
     public Shape getBounds() {
-        return null;
+        return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
     }
 
     private class HumanAnimationObject extends AnimationObject{

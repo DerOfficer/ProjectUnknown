@@ -1,5 +1,6 @@
 package Model.UI;
 
+import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Notification;
@@ -29,8 +30,11 @@ public class NotificationArea implements IDrawableObject{
 
     private ICanvas canvas;
 
-    public NotificationArea(){
+    private ProjectUnknownProperties properties;
+
+    public NotificationArea(ProjectUnknownProperties properties){
         notificationQueue = new LinkedList<>();
+        this.properties = properties;
         wrapper = new AnimationWrapper("animation_wrapper");
         AnimationList animationList = AnimParser.parseAnimFile(Paths.get("notification.anim"));
         showNotificationAnimation = animationList.getAnimationByName("show_notification");
@@ -46,6 +50,7 @@ public class NotificationArea implements IDrawableObject{
 
     private void showNotification(Notification notification){
         currentNotification = notification;
+        properties.getSoundManager().startSound(3);
         wrapper.animate(showNotificationAnimation);
     }
 
