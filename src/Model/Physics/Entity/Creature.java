@@ -1,10 +1,13 @@
 package Model.Physics.Entity;
 
 import Control.ProjectUnknownProperties;
+import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.ManaCast;
 import com.Physics2D.Entity;
 
+import java.awt.*;
+import java.awt.geom.Rectangle2D;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -13,12 +16,23 @@ import java.util.TimerTask;
  */
 public abstract class Creature extends Entity implements IDrawableObject {
 
-    private int maxHealth,actHealth, maxMana,actMana,counter,level,manaCoolDown;
-    protected ProjectUnknownProperties properties;
+    private static final int MANA_REGENERATION = 1;
+
+    private int maxHealth;
+    private int actHealth;
+    private int maxMana;
+    private int actMana;
+    private int counter;
+    private int level;
+    private int manaCoolDown;
+
     private boolean manaReady;
+
+    protected ProjectUnknownProperties properties;
+
     private Timer timer;
 
-    private final int MANA_REGENERATION = 1;
+    protected ICanvas canvas;
 
     /**
      * standard creature contains x position, y position, health and mana.
@@ -84,9 +98,8 @@ public abstract class Creature extends Entity implements IDrawableObject {
      * start up for different constructors
      */
     private void startUp(){
-        manaReady = true;
+        this.manaReady = true;
         this.counter = 0;
-
 
         timer = new Timer();
         TimerTask timerTask = new TimerTask() {
@@ -184,5 +197,15 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     public double getAttack() {
         return (level*20)+20;
+    }
+
+    @Override
+    public void provideCanvas(ICanvas canvas) {
+        this.canvas = canvas;
+    }
+
+    @Override
+    public Shape getBounds() {
+        return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
     }
 }

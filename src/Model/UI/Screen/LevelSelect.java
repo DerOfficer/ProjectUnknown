@@ -19,7 +19,7 @@ public class LevelSelect extends DrawingPanel {
     private BufferedImage background;
 
     private Button buttonBack;
-    private Button[]btnPlanets;
+    private Button[] btnPlanets;
 
     public LevelSelect(ProjectUnknownProperties properties){
         super(properties);
@@ -33,7 +33,6 @@ public class LevelSelect extends DrawingPanel {
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 World level = new World(Paths.get("Worlds/"+Planet.values()[finalI].toString().toLowerCase()+".world"), properties, Planet.values()[finalI]);
                 properties.getFrame().setContentPanel(level.getRenderer());
-                properties.setCurrentWorld(level);
                 if(finalI == 2){
                     InconsistentStateBlock b2 = new InconsistentStateBlock(1400, -300, BlockType.STONE_BRICK);
                     InconsistentStateBlock b3 = new InconsistentStateBlock(1400, -250, BlockType.STONE_BRICK);
@@ -71,8 +70,9 @@ public class LevelSelect extends DrawingPanel {
     }
 
     private void initImages(){
-        btnPlanets = new Button[Planet.values().length];
         Planet[] planets = Planet.values();
+        this.btnPlanets = new Button[planets.length];
+
         int offset = planets[planets.length-1].getImage().getWidth();
         for(int i = Planet.values().length - 1; i >= 0; --i){
             BufferedImage tempImg = Planet.values()[i].getImage();

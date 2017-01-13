@@ -32,7 +32,7 @@ public class Block extends AbstractBlock implements IDrawableObject {
 
     @Override
     public double getFrictionConstant() {
-        return 0.1;
+        return 0.3;
     }
 
     @Override

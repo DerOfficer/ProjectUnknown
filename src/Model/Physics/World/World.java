@@ -2,6 +2,7 @@ package Model.Physics.World;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
+import Model.Parser.WorldExtensionParser;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.Teleporter;
 import Model.Physics.Block.InconsistentStateBlock;
@@ -41,29 +42,32 @@ public class World extends SideScrollingPhysicsWorld{
 
     /**
      * constructs a new world object dependent on planet and the world file
-     * @param path - world file
+     * @param path world file
      * @param properties
-     * @param p - selected Planet
+     * @param p selected Planet
      */
     public World(Path path, ProjectUnknownProperties properties, Planet p) {
         super(p.getGravity() * PIXEL_TO_METER);
+
         this.properties = properties;
-        renderer = new LevelRenderer(properties);
+        this.renderer = new LevelRenderer(properties);
+        this.player = new Player(properties, properties.getLevel());
+        this.gui = new GraphicalUserInterface(player, properties);
+
         try {
-            List<String> lines = Files.readAllLines(path);
-            createWorld(lines);
-            player = new Player(properties,properties.getLevel());
+            createWorld(Files.readAllLines(path));
+            createEnemies(p);
         } catch (IOException e) {
             ProjectUnknownProperties.raiseException(e);
         }
+
         player.setPosition(spawnPoint.getX(), spawnPoint.getY());
-        setFocusYOffset((int)(ProjectUnknownProperties.getScreenDimension().getHeight()/2)-50);
-        setFocusXOffset((int)(ProjectUnknownProperties.getScreenDimension().getWidth()/2)-10);
-        gui = new GraphicalUserInterface(player, properties);
-        properties.getFrame().setForegroundPanel(gui);
+
         focusWithoutScrolling(player);
         addObject(player);
-        createEnemies(p);
+
+        properties.getFrame().setForegroundPanel(gui);
+
     }
 
     @Override
@@ -92,19 +96,16 @@ public class World extends SideScrollingPhysicsWorld{
         renderer.forceRepaint();
     }
 
-    public LevelRenderer getRenderer() {
-        return renderer;
-    }
-
     /**
      * interpret world file and creates the world
      * @param lines
      */
     private void createWorld(List<String> lines) {
         Teleporter tempTeleporter = null;
-        for(String line: lines){
+        for(String line : lines){
             if(line.equals("stardust .world extension")){
-
+                WorldExtensionParser.parse(lines.subList(lines.indexOf(line), lines.size()), this);
+                break;
             }else {
                 String[] values = line.split(" ");
                 if (tempTeleporter == null) {
@@ -142,31 +143,6 @@ public class World extends SideScrollingPhysicsWorld{
         }
     }
 
-    public Player getPlayer(){
-        return player;
-    }
-
-    private class LevelRenderer extends StaticDrawingPanel {
-
-        @Override
-        protected Point getRenderingOffset(){
-            return new Point(-getRendererXOffset(), -getRendererYOffset());
-        }
-
-        public LevelRenderer(ProjectUnknownProperties properties) {
-            super(properties);
-        }
-
-        @Override
-        public void keyPressed(KeyEvent event){
-            super.keyPressed(event);
-            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
-                properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
-                properties.getFrame().setForegroundPanel(new DrawingPanel(properties));
-            }
-        }
-    }
-
     private void createEnemies(Planet planet){
         switch (planet){
             case MERCURY:
@@ -196,4 +172,37 @@ public class World extends SideScrollingPhysicsWorld{
                 break;
         }
     }
+
+    public Player getPlayer(){
+        return player;
+    }
+
+    public LevelRenderer getRenderer() {
+        return renderer;
+    }
+
+    private class LevelRenderer extends StaticDrawingPanel {
+
+        @Override
+        protected Point getRenderingOffset(){
+            return new Point(-getRendererXOffset(), -getRendererYOffset());
+        }
+
+        public LevelRenderer(ProjectUnknownProperties properties) {
+            super(properties);
+
+            setFocusYOffset(screenHeight / 2 - 50);
+            setFocusXOffset(screenWidth / 2 - 10);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent event){
+            super.keyPressed(event);
+            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+                properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
+                properties.getFrame().setForegroundPanel(new DrawingPanel(properties));
+            }
+        }
+    }
+
 }

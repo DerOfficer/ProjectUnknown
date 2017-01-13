@@ -1,30 +1,31 @@
 package Model.Managing;
 
+import Control.ProjectUnknownProperties;
+
 import javax.sound.sampled.*;
 import java.io.File;
 import java.io.IOException;
-import java.nio.FloatBuffer;
 import java.nio.file.Paths;
 
 public class SoundManager {
 
+    private int volume;
+    private int runningTitle;
+
     private Mixer mixer;
     private Clip[] clips; // 0 Hintergrundmusik_Menü, 1 EasterEggButtonSound, 2 Settings_changeKeySound, 3 notificationSound, 4 DefileButtonSound, 5 StartButton
-    private FloatControl[] control;
-    private int volume;
-    int runningTitle;
+    private FloatControl[] controls;
 
     public SoundManager(){
+        this.clips = new Clip[6];
+        this.controls = new FloatControl[6];
 
         Mixer.Info[] mixerInfos = AudioSystem.getMixerInfo();
-        mixer = AudioSystem.getMixer(mixerInfos[0]);
+        this.mixer = AudioSystem.getMixer(mixerInfos[0]);
         DataLine.Info dataInfo = new DataLine.Info(Clip.class, null);
-        clips = new Clip[6];
-        control = new FloatControl[6];
 
         for(int i = 0; i < clips.length; i++) {
-            try
-            {
+            try {
                 clips[i] = (Clip) mixer.getLine(dataInfo);
             }
             catch (LineUnavailableException lue) {
@@ -43,15 +44,14 @@ public class SoundManager {
     }
 
     private void addSound(File soundUrl, int pos){
-        try
-        {
+        try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundUrl);
             clips[pos].open(audioStream);
         }
-        catch(LineUnavailableException lue) { lue.printStackTrace();}
-        catch(UnsupportedAudioFileException uafe) { uafe.printStackTrace();}
-        catch(IOException ioe){ ioe.printStackTrace();}
-        control[pos] = (FloatControl)clips[pos].getControl(FloatControl.Type.MASTER_GAIN);
+        catch(LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+            ProjectUnknownProperties.raiseException(e);
+        }
+        controls[pos] = (FloatControl)clips[pos].getControl(FloatControl.Type.MASTER_GAIN);
     }
     
     public void startSound(int pos){
@@ -63,22 +63,22 @@ public class SoundManager {
     }
 
     public void setVolume(int newVolume){
-        for(int i = 0; i < control.length; i++){
-            float kot = (control[i].getMaximum() - control[i].getMinimum()) / 10;
-            control[i].setValue(control[i].getMinimum() + newVolume*kot);
+        for(int i = 0; i < controls.length; i++){
+            float volumeStep = (controls[i].getMaximum() - controls[i].getMinimum()) / 10;
+            controls[i].setValue(controls[i].getMinimum() + newVolume*volumeStep);
         }
         volume = newVolume;
     }
 
     public void increase(){
         if(volume < 10){
-            setVolume(volume+1);
+            setVolume(volume + 1);
         }
     }
 
     public void decrease(){
         if(volume > 0){
-            setVolume(volume-1);
+            setVolume(volume - 1);
         }
     }
 
@@ -86,6 +86,7 @@ public class SoundManager {
         return this.volume;
     }
 
+    //TODO check if this is needed
     public void changeMusic(int newMusic){
         if(!clips[newMusic].isRunning()){
             clips[newMusic].start();
@@ -100,6 +101,7 @@ public class SoundManager {
         clips[pos].setFramePosition(0);
     }
 
+    //TODO check if this is needed
     public Clip getClip(int pos){
         return clips[pos];
     }

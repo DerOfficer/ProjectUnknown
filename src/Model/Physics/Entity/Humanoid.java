@@ -1,7 +1,6 @@
 package Model.Physics.Entity;
 
 import Control.ProjectUnknownProperties;
-import Model.Abstraction.ICanvas;
 import Model.SpriteSheetHandler;
 import com.SSA.Animation.Animation;
 import com.SSA.Animation.AnimationObject;
@@ -10,7 +9,6 @@ import com.SSA.Parsing.AnimParser;
 import com.SSA.Parsing.AnimationList;
 
 import java.awt.*;
-import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
 
@@ -20,22 +18,26 @@ import java.nio.file.Paths;
 
 public class Humanoid extends Creature {
     private BufferedImage[]humanModel;
-    protected ICanvas canvas;
 
-    private Animation walk;
-    private Animation armWalk;
+    private Animation legMovement;
+    private Animation armMovement;
 
     private HumanAnimationObject animationObject;
 
     public Humanoid(int x, int y, BufferedImage image, int level, ProjectUnknownProperties properties){
         super(x, y, 20, 82,level,properties);
-        humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
+
+        this.humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
+
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));
-        walk = animList.getAnimationByName("walk");
-        armWalk = animList.getAnimationByName("armWalk");
-        animationObject = new HumanAnimationObject("human");
-        animationObject.animate(armWalk);
-        animationObject.animate(walk);
+
+        this.legMovement = animList.getAnimationByName("walk");
+        this.armMovement = animList.getAnimationByName("armWalk");
+
+        this.animationObject = new HumanAnimationObject("human");
+
+        animationObject.animate(armMovement);
+        animationObject.animate(legMovement);
     }
 
     @Override
@@ -82,16 +84,6 @@ public class Humanoid extends Creature {
         }else{
             animationObject.walking = 1;
         }
-    }
-
-    @Override
-    public void provideCanvas(ICanvas canvas) {
-        this.canvas = canvas;
-    }
-
-    @Override
-    public Shape getBounds() {
-        return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());
     }
 
     private class HumanAnimationObject extends AnimationObject{

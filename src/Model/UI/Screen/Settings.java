@@ -13,31 +13,30 @@ import java.awt.event.KeyEvent;
 import java.nio.file.Paths;
 
 public class Settings extends DrawingPanel {
-    private SettingsParser settingsParser;
+
+    private boolean turned;
     private boolean[] setting;
 
-    private Button[] controlButtons;
-    private Button[] volumeButtons;
-
+    private Label lblHeadline;
     private Label[] controlLabels;
 
     private String[] controlKeyLabels;
-    private String[] controlKeyIdentifiers;
-
-    private Label lblHeadline;
 
     private Button btnVolumeMinus;
     private Button btnVolumePlus;
     private Button btnEasterEgg;
     private Button btnBack;
+    private Button[] controlButtons;
+    private Button[] volumeButtons;
 
-    private boolean turned;
+    private SettingsParser settingsParser;
 
-    private Color color;
+    private Color buttonBackgroundColor;
 
     public Settings(ProjectUnknownProperties properties){
         super(properties);
-        color = new Color(109, 115, 255);
+
+        this.buttonBackgroundColor = new Color(109, 115, 255);
 
         initGenericButtons();
         initGenericLabels();
@@ -50,7 +49,6 @@ public class Settings extends DrawingPanel {
         setting = new boolean[controlButtons.length];
 
         controlKeyLabels = new String[]{"Jump", "Left", "Right", "Interact", "Shoot"};
-        controlKeyIdentifiers = new String[]{"jump", "left", "right", "interact", "shoot"};
 
         settingsParser = new SettingsParser(Paths.get("game.settings"));
 
@@ -98,8 +96,8 @@ public class Settings extends DrawingPanel {
         btnEasterEgg.setForegroundColor(Color.white);
         btnVolumeMinus.setForegroundColor(Color.white);
         btnVolumePlus.setForegroundColor(Color.white);
-        btnVolumePlus.setBackgroundColor(color);
-        btnVolumeMinus.setBackgroundColor(color);
+        btnVolumePlus.setBackgroundColor(buttonBackgroundColor);
+        btnVolumeMinus.setBackgroundColor(buttonBackgroundColor);
 
         addObject(btnBack);
         addObject(btnEasterEgg);
@@ -143,10 +141,6 @@ public class Settings extends DrawingPanel {
         });
     }
 
-    public String getSetting(String key) {
-        return settingsParser.getSetting(key);
-    }
-
     private void createVolButtons() {
         volumeButtons = new Button[10];
         int x = screenWidth / 160;
@@ -173,9 +167,9 @@ public class Settings extends DrawingPanel {
         int y = screenHeight / 10 * 3;
         int side = screenWidth / 30;
         for (int i = 0; i < controlButtons.length; i++) {
-            controlButtons[i] = new Button(x, y, screenWidth/25, screenWidth/25, settingsParser.getSetting(controlKeyIdentifiers[i]), properties.getGameFont());
+            controlButtons[i] = new Button(x, y, screenWidth/25, screenWidth/25, settingsParser.getSetting(controlKeyLabels[i].toLowerCase()), properties.getGameFont());
             controlButtons[i].setForegroundColor(Color.white);
-            controlButtons[i].setBackgroundColor(color);
+            controlButtons[i].setBackgroundColor(buttonBackgroundColor);
             controlLabels[i] = new Label(x + screenWidth / 3, y + (side / 2), controlKeyLabels[i], properties.getGameFont().deriveFont(20F));
             y = y + side + screenHeight / 30;
             addObject(controlButtons[i]);
@@ -190,8 +184,8 @@ public class Settings extends DrawingPanel {
                 controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
                     String temp = String.valueOf((char) e.getSrcKey());
                     if (setting[button] && !temp.equals(getSetting("left")) && !temp.equals(getSetting("right")) && !temp.equals(getSetting("interact")) && !temp.equals(getSetting("shoot")) && !temp.equals(getSetting("jump"))) {
-                        settingsParser.overrideSetting(controlKeyIdentifiers[button], temp);
-                        controlButtons[button].setText(settingsParser.getSetting(controlKeyIdentifiers[button]));
+                        settingsParser.overrideSetting(controlKeyLabels[button].toLowerCase(), temp);
+                        controlButtons[button].setText(settingsParser.getSetting(controlKeyLabels[button].toLowerCase()));
                         properties.getSoundManager().startSound(2);
                         setting[button] = false;
                     }
@@ -218,5 +212,9 @@ public class Settings extends DrawingPanel {
                 volumeButtons[i].setBackgroundColor(new Color(0,255,0));
             }
         }
+    }
+
+    public String getSetting(String key) {
+        return settingsParser.getSetting(key);
     }
 }

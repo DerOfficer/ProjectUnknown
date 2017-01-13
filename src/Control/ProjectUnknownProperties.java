@@ -1,7 +1,6 @@
 package Control;
 
 import Model.Managing.SoundManager;
-import Model.Physics.World.World;
 import Model.UI.NotificationArea;
 import View.MainFrame;
 
@@ -14,23 +13,31 @@ import java.io.IOException;
 public class ProjectUnknownProperties {
 
     private NotificationArea notificationArea;
+
     private SoundManager soundManager;
+
     private MainFrame frame;
     private Font gameFont;
-    private World currentWorld;
+
     private int level;
 
-    public ProjectUnknownProperties() throws IOException {
-        soundManager = new SoundManager();
-        notificationArea = new NotificationArea(this);
-        level = 1;
-        try {
-            gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
-        } catch (IOException | FontFormatException e) {
-            e.printStackTrace();
-        }
+    public ProjectUnknownProperties() {
+        this.level = 1;
+
+        this.soundManager = new SoundManager();
+        this.notificationArea = new NotificationArea(this);
+
+        tryLoadGameFont();
 
         this.frame = new MainFrame("ProjectUnknown",0,0, Toolkit.getDefaultToolkit().getScreenSize().width,Toolkit.getDefaultToolkit().getScreenSize().height, this);
+    }
+
+    private void tryLoadGameFont(){
+        try {
+            this.gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
+        } catch (IOException | FontFormatException e) {
+            ProjectUnknownProperties.raiseException(e);
+        }
     }
 
     public MainFrame getFrame() {
@@ -43,18 +50,6 @@ public class ProjectUnknownProperties {
 
     public Font getGameFont(){
         return gameFont;
-    }
-
-    public static Dimension getScreenDimension(){
-        return Toolkit.getDefaultToolkit().getScreenSize();
-    }
-
-    public void setCurrentWorld(World world){
-        this.currentWorld = world;
-    }
-
-    public World getCurrentWorld(){
-        return currentWorld;
     }
 
     public SoundManager getSoundManager(){

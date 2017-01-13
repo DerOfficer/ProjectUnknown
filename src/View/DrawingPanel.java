@@ -13,29 +13,33 @@ import java.util.ArrayList;
 
 public class DrawingPanel extends JComponent implements ActionListener, KeyListener, MouseListener, ICanvas {
 
-    protected long lastLoop, elapsedTime;
+    protected static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    protected static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+
+    protected long lastLoop;
+    protected long elapsedTime;
+
     private boolean graphicsLock;
+
     protected ArrayList<IDrawableObject> drawableObjects;
+
     private Graphics2D graphics;
 
     protected ProjectUnknownProperties properties;
-
-    protected static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-    protected static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
     protected Timer timer;
 
     public DrawingPanel(ProjectUnknownProperties properties){
         super();
 
+        this.properties = properties;
+        this.drawableObjects = new ArrayList<>();
+        this.timer = new Timer(16, this);
+
         addMouseListener(this);
         setDoubleBuffered(true);
 
-        this.properties = properties;
-
-        drawableObjects = new ArrayList<>();
         lastLoop = System.nanoTime();
-        timer = new Timer(16, this);
         timer.start();
     }
 
@@ -93,6 +97,14 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     @Override
+    public Graphics2D getPencil() {
+        if(!canDraw()){
+            throw new UnsupportedOperationException("Graphics Context currently not available");
+        }
+        return graphics;
+    }
+
+    @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
@@ -134,19 +146,9 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     public void mouseClicked(MouseEvent e) {
-        try {
-            drawableObjects.stream()
-                    .filter(tempDO -> tempDO instanceof IInteractableObject)
-                    .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
-                    .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
-        }catch(Throwable t){}
-    }
-
-    @Override
-    public Graphics2D getPencil() {
-        if(!canDraw()){
-            throw new UnsupportedOperationException("Graphics Context currently not available");
-        }
-        return graphics;
+        drawableObjects.stream()
+                .filter(tempDO -> tempDO instanceof IInteractableObject)
+                .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
+                .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
     }
 }

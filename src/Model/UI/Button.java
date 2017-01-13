@@ -1,6 +1,5 @@
 package Model.UI;
 
-import Control.ProjectUnknownProperties;
 import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
 
@@ -9,51 +8,52 @@ import java.awt.geom.Rectangle2D;
 
 public class  Button extends AbstractEventInteractionObject{
 
-    private String s;
+    private String text;
 
     private int x;
     private int y;
-    private boolean move;
+    private int width;
+    private int height;
 
     private Rectangle2D bounds = new Rectangle2D.Double(0,0,0,0);
 
     private ICanvas canvas;
 
-    private Font font;
-
-    private Image img;
-
-    private int width;
-    private int height;
-
     private Color backgroundColor;
     private Color foregroundColor;
 
-    public Button(int x, int y, String s, Font font){
-        setLocation(x,y);
-        setText(s);
+    private Image img;
+    private Font font;
+
+    public Button(int x, int y, String text, Font font){
         this.font = font;
-        backgroundColor = new Color(0,0,0,0);
+        this.backgroundColor = new Color(0,0,0,0);
+
+        setLocation(x,y);
+        setText(text);
     }
 
-    public Button(int x, int y, int width, int height, String s, Font f){
-        this(x,y,s,f);
+    public Button(int x, int y, int width, int height, String text, Font font){
+        this(x, y, text, font);
+
         this.width = width;
         this.height = height;
     }
 
     public Button(int x, int y, Image img){
-        setLocation(x,y);
         this.img = img;
-        backgroundColor = new Color(0,0,0,0);
-        bounds = new Rectangle2D.Double(x, y, img.getWidth(null), img.getHeight(null));
+        this.backgroundColor = new Color(0,0,0,0);
+        this.bounds = new Rectangle2D.Double(x, y, img.getWidth(null), img.getHeight(null));
+
+        setLocation(x,y);
     }
 
     public Button(int x, int y, int width, int height, Color color){
-        setLocation(x,y);
         this.width = width;
         this.height = height;
         this.backgroundColor = color;
+
+        setLocation(x,y);
     }
 
 
@@ -72,12 +72,12 @@ public class  Button extends AbstractEventInteractionObject{
             realWidth = Math.max(realWidth, img.getWidth(null));
             realHeight = Math.max(realHeight, img.getHeight(null));
         }
-        if(s != null){
+        if(text != null){
             g2d.setFont(font);
             FontMetrics metrics = g2d.getFontMetrics();
-            int stringWidth = metrics.stringWidth(s);
+            int stringWidth = metrics.stringWidth(text);
             int stringHeight = metrics.getHeight();
-            g2d.drawString(s, x - stringWidth/2 + width/2, y + stringHeight/2 + yOffset + height/2);
+            g2d.drawString(text, x - stringWidth/2 + width/2, y + stringHeight/2 + yOffset + height/2);
             realWidth = Math.max(realWidth, stringWidth);
             realHeight = Math.max(realHeight, yOffset + stringHeight + metrics.getDescent());
         }
@@ -86,12 +86,7 @@ public class  Button extends AbstractEventInteractionObject{
 
     @Override
     public void update(double dt) {
-        if(move){
-            x = x + 5;
-            if(x > ProjectUnknownProperties.getScreenDimension().width){
-                x = 0;
-            }
-        }
+
     }
 
     @Override
@@ -113,9 +108,9 @@ public class  Button extends AbstractEventInteractionObject{
     }
 
     public void setText(String newS){
-        this.s = newS;
+        this.text = newS;
         if(newS.equals(" ")){
-            this.s = "Space";
+            this.text = "Space";
         }
     }
 
@@ -139,6 +134,4 @@ public class  Button extends AbstractEventInteractionObject{
     public void setImg(Image img) {
         this.img = img;
     }
-
-
 }
