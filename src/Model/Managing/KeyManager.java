@@ -12,14 +12,18 @@ public class KeyManager implements KeyListener {
 
     private static KeyManager instance;
 
-    private List<String> pressedKeys;
-
-    static{
+    static {
         instance = new KeyManager();
     }
 
-    public static boolean isKeyPressed(String key){
-        if(key != null)
+    private List<String> pressedKeys;
+
+    private KeyManager() {
+        pressedKeys = new ArrayList<>();
+    }
+
+    public static boolean isKeyPressed(String key) {
+        if (key != null)
             return instance.isKeyPressed0(key.toLowerCase());
         return false;
     }
@@ -28,22 +32,19 @@ public class KeyManager implements KeyListener {
         return instance;
     }
 
-    private KeyManager(){
-        pressedKeys = new ArrayList<>();
+    @Override
+    public void keyTyped(KeyEvent e) {
     }
 
     @Override
-    public void keyTyped(KeyEvent e) {}
-
-    @Override
     public void keyPressed(KeyEvent e) {
-        if(!pressedKeys.contains(keyCodeToString(e.getKeyCode()))){
+        if (!pressedKeys.contains(keyCodeToString(e.getKeyCode()))) {
             pressedKeys.add(keyCodeToString(e.getKeyCode()));
         }
     }
 
-    private String keyCodeToString(int keyCode){
-        return String.valueOf((char)keyCode).toLowerCase();
+    private String keyCodeToString(int keyCode) {
+        return String.valueOf((char) keyCode).toLowerCase();
     }
 
     @Override
@@ -51,7 +52,7 @@ public class KeyManager implements KeyListener {
         pressedKeys.remove(keyCodeToString(e.getKeyCode()));
     }
 
-    private boolean isKeyPressed0(String key){
+    private boolean isKeyPressed0(String key) {
         return pressedKeys.contains(key);
     }
 }

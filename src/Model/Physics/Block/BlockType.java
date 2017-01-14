@@ -18,7 +18,7 @@ public enum BlockType {
 
     private BufferedImage image;
 
-    BlockType(){
+    BlockType() {
         image = SpriteManager.SPRITES[BLOCK][ordinal()];
     }
 

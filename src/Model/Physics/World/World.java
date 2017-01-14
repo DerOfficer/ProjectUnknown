@@ -29,7 +29,7 @@ import java.util.List;
 /**
  * Created and edited by Oussama and Patrick on 03.01.2017.
  */
-public class World extends SideScrollingPhysicsWorld{
+public class World extends SideScrollingPhysicsWorld {
 
     public static final int PIXEL_TO_METER = 50;
 
@@ -46,9 +46,10 @@ public class World extends SideScrollingPhysicsWorld{
 
     /**
      * constructs a new world object dependent on planet and the world file
-     * @param path world file
+     *
+     * @param path       world file
      * @param properties
-     * @param p selected Planet
+     * @param p          selected Planet
      */
     public World(Path path, ProjectUnknownProperties properties, Planet p) {
         super(p.getGravity() * PIXEL_TO_METER);
@@ -61,7 +62,6 @@ public class World extends SideScrollingPhysicsWorld{
 
         try {
             createWorld(Files.readAllLines(path));
-            createEnemies(p);
         } catch (IOException e) {
             ProjectUnknownProperties.raiseException(e);
         }
@@ -75,11 +75,11 @@ public class World extends SideScrollingPhysicsWorld{
 
     }
 
-    public void showNotification(Notification notification){
+    public void showNotification(Notification notification) {
         properties.getNotificationArea().addNotification(notification);
     }
 
-    public AbstractBlock getBlockById(String id){
+    public AbstractBlock getBlockById(String id) {
         return identifiableBlocks.stream()
                 .filter((block) -> block.getId().equals(id))
                 .findFirst()
@@ -89,26 +89,26 @@ public class World extends SideScrollingPhysicsWorld{
     @Override
     public void addObject(PhysicsObject o) {
         super.addObject(o);
-        if(o instanceof IDrawableObject){
-            IDrawableObject drawableObject = (IDrawableObject)o;
+        if (o instanceof IDrawableObject) {
+            IDrawableObject drawableObject = (IDrawableObject) o;
             renderer.scheduleAddObject(drawableObject);
         }
-        if(o instanceof AbstractBlock){
-            if(((AbstractBlock) o).getId() != null){
-                identifiableBlocks.add((AbstractBlock)o);
+        if (o instanceof AbstractBlock) {
+            if (((AbstractBlock) o).getId() != null) {
+                identifiableBlocks.add((AbstractBlock) o);
             }
         }
         o.addMovementListener(this);
     }
 
     @Override
-    public void removeObject(PhysicsObject o){
-        if(o instanceof IDrawableObject){
-            IDrawableObject drawableObject = (IDrawableObject)o;
+    public void removeObject(PhysicsObject o) {
+        if (o instanceof IDrawableObject) {
+            IDrawableObject drawableObject = (IDrawableObject) o;
             renderer.scheduleRemoveObject(drawableObject);
         }
-        if(o instanceof AbstractBlock){
-            if(((AbstractBlock) o).getId() != null){
+        if (o instanceof AbstractBlock) {
+            if (((AbstractBlock) o).getId() != null) {
                 identifiableBlocks.remove(o);
             }
         }
@@ -117,23 +117,24 @@ public class World extends SideScrollingPhysicsWorld{
     }
 
     @Override
-    public void onMovement(MovementEvent event){
+    public void onMovement(MovementEvent event) {
         super.onMovement(event);
         renderer.forceRepaint();
     }
 
     /**
      * interpret world file and creates the world
+     *
      * @param lines
      */
     private void createWorld(List<String> lines) {
         Teleporter tempTeleporter = null;
-        for(String line : lines){
-            if(line.equals("stardust .world extension")){
+        for (String line : lines) {
+            if (line.equals("stardust .world extension")) {
                 //Lets break out of this code and skip into the dedicated parser
-                WorldExtensionParser.parse(lines.subList(lines.indexOf(line)+1, lines.size()), this);
+                WorldExtensionParser.parse(lines.subList(lines.indexOf(line) + 1, lines.size()), this);
                 break;
-            }else {
+            } else {
                 String[] values = line.split(" ");
                 if (tempTeleporter == null) {
                     switch (values[0]) {
@@ -170,37 +171,7 @@ public class World extends SideScrollingPhysicsWorld{
         }
     }
 
-    private void createEnemies(Planet planet){
-        switch (planet){
-            case MERCURY:
-                break;
-            case VENUS:
-                break;
-            case EARTH:
-                /*addObject(new Enemy(6700,-6450, Enemy.Type.ZOMBIE));
-                addObject(new Enemy(6700,-6450, Enemy.Type.MEGA_ZOMBIE));
-                addObject(new Enemy(4800,1050, Enemy.Type.ZOMBIE));
-                addObject(new Enemy(4300,-1650, Enemy.Type.ZOMBIE));
-                addObject(new Enemy(5000,-1850, Enemy.Type.ZOMBIE));
-                addObject(new Enemy(4250,-2750, Enemy.Type.ZOMBIE));
-                addObject(new Enemy(-2450,-1000, Enemy.Type.ZOMBIE));
-                addObject(new Enemy(550,-200, Enemy.Type.ZOMBIE));
-                addObject(new Enemy(1900,0, Enemy.Type.ZOMBIE));*/
-                break;
-            case MARS:
-                break;
-            case JUPITER:
-                break;
-            case SATURN:
-                break;
-            case URANUS:
-                break;
-            case NEPTUNE:
-                break;
-        }
-    }
-
-    public Player getPlayer(){
+    public Player getPlayer() {
         return player;
     }
 
@@ -210,11 +181,6 @@ public class World extends SideScrollingPhysicsWorld{
 
     private class LevelRenderer extends StaticDrawingPanel {
 
-        @Override
-        protected Point getRenderingOffset(){
-            return new Point(-getRendererXOffset(), -getRendererYOffset());
-        }
-
         public LevelRenderer(ProjectUnknownProperties properties) {
             super(properties);
 
@@ -223,9 +189,14 @@ public class World extends SideScrollingPhysicsWorld{
         }
 
         @Override
-        public void keyPressed(KeyEvent event){
+        protected Point getRenderingOffset() {
+            return new Point(-getRendererXOffset(), -getRendererYOffset());
+        }
+
+        @Override
+        public void keyPressed(KeyEvent event) {
             super.keyPressed(event);
-            if(event.getKeyCode() == KeyEvent.VK_ESCAPE){
+            if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());
                 properties.getFrame().setForegroundPanel(new DrawingPanel(properties));
             }

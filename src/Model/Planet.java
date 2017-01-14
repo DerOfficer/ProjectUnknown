@@ -28,20 +28,20 @@ public enum Planet {
         this.image = SpriteManager.SPRITES[PLANET][ordinal()];
     }
 
-    public double getGravity() {
-        return gravity;
-    }
-
-    public BufferedImage getImage(){
-        return image;
-    }
-
-    public static Planet getPlanetByName(String name){
-        for(Planet p : Planet.values()){
-            if(p.toString().toLowerCase().equals(name)){
+    public static Planet getPlanetByName(String name) {
+        for (Planet p : Planet.values()) {
+            if (p.toString().toLowerCase().equals(name)) {
                 return p;
             }
         }
         return null;
+    }
+
+    public double getGravity() {
+        return gravity;
+    }
+
+    public BufferedImage getImage() {
+        return image;
     }
 }

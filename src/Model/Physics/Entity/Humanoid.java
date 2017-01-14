@@ -16,17 +16,17 @@ import java.nio.file.Paths;
  */
 
 public class Humanoid extends Creature {
-    private BufferedImage[]humanModel;
+    private BufferedImage[] humanModel;
 
     private Animation legMovement;
     private Animation armMovement;
 
     private HumanAnimationObject animationObject;
 
-    public Humanoid(int x, int y, BufferedImage image, int level){
-        super(x, y, 20, 82,level);
+    public Humanoid(int x, int y, BufferedImage image, int level) {
+        super(x, y, 20, 82, level);
 
-        this.humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
+        this.humanModel = new SpriteSheetHandler(new int[]{ 0, 41 / 2, 38 / 2, 32 / 2, 26 / 2 }, image).getSprites();
 
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));
 
@@ -78,14 +78,14 @@ public class Humanoid extends Creature {
 
     @Override
     public void update(double dt) {
-        if(sideWayVelocity == 0){
+        if (sideWayVelocity == 0) {
             animationObject.walking = 0;
-        }else{
+        } else {
             animationObject.walking = 1;
         }
     }
 
-    private class HumanAnimationObject extends AnimationObject{
+    private class HumanAnimationObject extends AnimationObject {
 
         @Animatable
         private int leg1x;

@@ -13,19 +13,19 @@ public class InconsistentStateBlock extends Block {
         super(x, y, blockType, id);
     }
 
-    public void toggleSolidity(){
+    public void toggleSolidity() {
         state = !state;
     }
 
     @Override
-    public boolean isSolid(){
+    public boolean isSolid() {
         return state;
     }
 
     @Override
-    public void draw(){
+    public void draw() {
         super.draw();
-        if(!isSolid()) {
+        if (!isSolid()) {
             Graphics2D g = canvas.getPencil();
             g.setColor(new Color(0, 0, 0, 100));
             g.fill(getBounds());

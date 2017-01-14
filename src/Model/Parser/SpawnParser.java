@@ -11,7 +11,7 @@ import java.util.Map;
  * Created by jardu on 1/14/2017.
  */
 final class SpawnParser {
-    public static void spawnEntity(Map<String, String> parameters, World world){
+    public static void spawnEntity(Map<String, String> parameters, World world) {
         int x = ParserUtils.getX(parameters);
         int y = ParserUtils.getY(parameters);
 
@@ -20,9 +20,9 @@ final class SpawnParser {
         world.addObject(new Enemy(x, y, enemyType));
     }
 
-    private static Enemy.Type getEnemyType(String type){
-        for(Enemy.Type enemyType : Enemy.Type.values()){
-            if(enemyType.toString().toLowerCase().equals(type.toLowerCase())){
+    private static Enemy.Type getEnemyType(String type) {
+        for (Enemy.Type enemyType : Enemy.Type.values()) {
+            if (enemyType.toString().toLowerCase().equals(type.toLowerCase())) {
                 return enemyType;
             }
         }

@@ -18,7 +18,7 @@ public abstract class AbstractEventInteractionObject implements IEventInteractab
     private Map<EventType, List<IEventHandler>> eventHandlerMapping;
 
     /**
-     * Constructs a neq {@link AbstractEventInteractionObject} object
+     * Constructs a new {@link AbstractEventInteractionObject} object
      */
     protected  AbstractEventInteractionObject(){
         eventHandlerMapping = new HashMap<>();

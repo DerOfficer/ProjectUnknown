@@ -6,7 +6,7 @@ import java.io.IOException;
 
 public class MainProgram {
 
-    public static void main (String[] args){
+    public static void main(String[] args) {
         int dummy = SpriteManager.BLOCK; //some dummy access to load the class and init all the images
         SwingUtilities.invokeLater(() -> {
             try {
@@ -21,7 +21,7 @@ public class MainProgram {
         new ProjectUnknownProperties();
     }
 
-    public synchronized strictfp static final void CRASH(){
+    public synchronized strictfp static final void CRASH() {
         throw new Error("baumwolle");
     }
 }

@@ -23,17 +23,23 @@ import java.util.List;
 /**
  * Created by Oussama on 03.01.2017.
  */
-public class WorldEditor extends DrawingPanel implements KeyListener,MouseListener {
-    private int camX,camY,realX,realY;
-    private Point spawnPoint;
-    private Point pos1,pos2;
+public class WorldEditor extends DrawingPanel implements KeyListener, MouseListener {
+    private int camX;
+    private int camY;
+    private int realX;
+    private int realY;
     private int indexOfBlockType;
-    private ArrayList<Block> blocks;
 
+    private Point spawnPoint;
+    private Point pos1;
+    private Point pos2;
+
+    private List<Block> blocks;
     private List<String> extensionLines;
 
     /**
      * constructs a drawing panel which contains a grid. You can load, save and edit every .world-data.
+     *
      * @param properties
      */
     public WorldEditor(ProjectUnknownProperties properties) {
@@ -43,51 +49,96 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         realX = 0;
         realY = 0;
         indexOfBlockType = 0;
-        spawnPoint = new Point(0,0);
+        spawnPoint = new Point(0, 0);
         blocks = new ArrayList<>();
         extensionLines = new ArrayList<>();
 
         this.addMouseListener(this);
     }
 
-    @Override
-    public Point getRenderingOffset(){
-        return new Point(-camX, -camY);
+    /**
+     * work in process... because the code to load the world in WorldEditor and World is pretty similar
+     *
+     * @param lines
+     * @param properties
+     * @return
+     */
+    public static ArrayList<Block> getBlocksFromLines(List<String> lines, ProjectUnknownProperties properties) {
+
+        ArrayList<Block> blocks = new ArrayList<>();
+        Teleporter currentTpBlock = null;
+        for (String line : lines) {
+            String[] values = line.split(" ");
+            switch (values[0]) {
+                case "BLOCK":
+                    BlockType blockType = BlockType.valueOf(values[1]);
+                    int x = Integer.parseInt(values[2]);
+                    int y = Integer.parseInt(values[3]);
+                    Block temp = new Block(x, y, blockType, "");
+                    blocks.add(temp);
+                    continue;
+                case "TP1":
+                    blockType = BlockType.valueOf(values[1]);
+                    x = Integer.parseInt(values[2]);
+                    y = Integer.parseInt(values[3]);
+                    temp = new Teleporter(x, y, "");
+                    blocks.add(temp);
+                    currentTpBlock = (Teleporter) temp;
+                    continue;
+
+                case "TP2":
+                    blockType = BlockType.valueOf(values[1]);
+                    x = Integer.parseInt(values[2]);
+                    y = Integer.parseInt(values[3]);
+                    Teleporter tempTp = new Teleporter(x, y, "");
+                    tempTp.link(currentTpBlock);
+                    currentTpBlock.link(tempTp);
+                    blocks.add(tempTp);
+                    currentTpBlock = null;
+                    continue;
+            }
+        }
+        return blocks;
     }
 
     /**
      * draws grid and current world on it
+     *
      * @param g
      */
     @Override
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         g.setColor(Color.white);
-        int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
-        int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
-        g.drawString(x+"/"+y,(int)(screenWidth*0.9),(int)(screenHeight*0.05));
+        int x = (((realX + MouseInfo.getPointerInfo().getLocation().x) / 50)) * 50;
+        int y = (((realY + MouseInfo.getPointerInfo().getLocation().y) / 50)) * 50;
+        g.drawString(x + "/" + y, (int) (screenWidth * 0.9), (int) (screenHeight * 0.05));
 
-        for (int i = 0; i < screenHeight/50 +1; i++) {
+        for (int i = 0; i < screenHeight / 50 + 1; i++) {
             //g.drawLine(realX , realY+i*50 , realX+screenWidth, realY+i*50);
             g.drawLine(0, i * 50, screenWidth, i * 50);
         }
-        for (int i = 0; i < screenWidth/50 +1; i++) {
+        for (int i = 0; i < screenWidth / 50 + 1; i++) {
             //g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
             g.drawLine(i * 50, 0, i * 50, screenHeight);
         }
         //Everything before this should be drawn at absolute positions, everything after should be translated
         super.paintComponent(g);
-        g.drawString("P",(int) spawnPoint.getX()+25,(int) spawnPoint.getY()+25);
+        g.drawString("P", (int) spawnPoint.getX() + 25, (int) spawnPoint.getY() + 25);
 
-        if(pos1 != null){
+        if (pos1 != null) {
             g.setColor(Color.BLUE);
-            g.drawRect((int)pos1.getX(),(int)pos1.getY(),50,50);
+            g.drawRect((int) pos1.getX(), (int) pos1.getY(), 50, 50);
         }
-        if(pos2 != null){
+        if (pos2 != null) {
             g.setColor(Color.BLUE);
-            g.drawRect((int)pos2.getX(),(int)pos2.getY(),50,50);
+            g.drawRect((int) pos2.getX(), (int) pos2.getY(), 50, 50);
         }
     }
 
+    @Override
+    public Point getRenderingOffset() {
+        return new Point(-camX, -camY);
+    }
 
     /**
      * with arrows you can move free through the current world
@@ -99,16 +150,17 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
      * with 'p' you can set the spawn point of your player
      * with '1'&'2' you can mark two points which are getting filled with the current block by pressing 'f'
      * with 't' you can place a tp block, but you have to place two ot them
+     *
      * @param e
      */
     @Override
     public void keyPressed(KeyEvent e) {
-        int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
-        int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+        int x = (((realX + MouseInfo.getPointerInfo().getLocation().x) / 50)) * 50;
+        int y = (((realY + MouseInfo.getPointerInfo().getLocation().y) / 50)) * 50;
         int k = e.getKeyCode();
         if (k == KeyEvent.VK_LEFT) {
             camX = camX + 50;
-            realX = realX -50;
+            realX = realX - 50;
         }
         if (k == KeyEvent.VK_RIGHT) {
             camX = camX - 50;
@@ -123,141 +175,85 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             realY = realY + 50;
         }
 
-        if(k == KeyEvent.VK_SPACE){
+        if (k == KeyEvent.VK_SPACE) {
             indexOfBlockType++;
-            if(indexOfBlockType >= BlockType.values().length){
+            if (indexOfBlockType >= BlockType.values().length) {
                 indexOfBlockType = 0;
             }
         }
         if (e.getKeyChar() == 'd') {
-            removeBlock(x,y);
+            removeBlock(x, y);
         }
-        if (e.getKeyChar() == 's'){
+        if (e.getKeyChar() == 's') {
             String file = JOptionPane.showInputDialog(properties.getFrame(), "How do you want to name your world?");
-            if(file != null){
+            if (file != null) {
                 saveWorld(file);
             }
         }
         if (e.getKeyChar() == 'a') {
-            createBlock(x,y);
+            createBlock(x, y);
         }
         if (e.getKeyChar() == 'l') {
             String file = JOptionPane.showInputDialog(properties.getFrame(), "Which world do you want to load?");
-            if(file != null){
+            if (file != null) {
                 loadWorld(file);
             }
         }
-        if(e.getKeyChar() == 'p'){
-            spawnPoint.move(x,y);
+        if (e.getKeyChar() == 'p') {
+            spawnPoint.move(x, y);
         }
-        if(e.getKeyChar()=='1'){
-            pos1 = new Point(x,y);
+        if (e.getKeyChar() == '1') {
+            pos1 = new Point(x, y);
         }
-        if(e.getKeyChar()=='2'){
-            pos2 = new Point(x,y);
+        if (e.getKeyChar() == '2') {
+            pos2 = new Point(x, y);
         }
-        if(e.getKeyChar()=='f'){
+        if (e.getKeyChar() == 'f') {
             fillSpace();
         }
-        if(e.getKeyChar() == 't'){
-            createTeleporter(x,y);
+        if (e.getKeyChar() == 't') {
+            createTeleporter(x, y);
         }
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        int x = (((realX+MouseInfo.getPointerInfo().getLocation().x)/50))*50;
-        int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
+        int x = (((realX + MouseInfo.getPointerInfo().getLocation().x) / 50)) * 50;
+        int y = (((realY + MouseInfo.getPointerInfo().getLocation().y) / 50)) * 50;
 
-        if(e.getButton() == MouseEvent.BUTTON1){
+        if (e.getButton() == MouseEvent.BUTTON1) {
 
-            createBlock(x,y);
+            createBlock(x, y);
         }
-        if(e.getButton() == MouseEvent.BUTTON2){
+        if (e.getButton() == MouseEvent.BUTTON2) {
             indexOfBlockType++;
-            if(indexOfBlockType >= BlockType.values().length){
+            if (indexOfBlockType >= BlockType.values().length) {
                 indexOfBlockType = 0;
             }
         }
-        if(e.getButton() == MouseEvent.BUTTON3){
+        if (e.getButton() == MouseEvent.BUTTON3) {
             removeBlock(x, y);
         }
     }
 
     /**
      * loads the world based on the given file name
+     *
      * @param file - world name
      */
     private void loadWorld(String file) {
         try {
-            List<String> lines = Files.readAllLines(Paths.get("Worlds/"+file+".world"));
-            for (Block block:blocks) {
+            List<String> lines = Files.readAllLines(Paths.get("Worlds/" + file + ".world"));
+            for (Block block : blocks) {
                 super.removeObject(block);
             }
             blocks = new ArrayList<>();
             Teleporter currentTpBlock = null;
-            for(String line: lines){
-                if(line.equals("stardust .world extension")) {
+            for (String line : lines) {
+                if (line.equals("stardust .world extension")) {
                     extensionLines = lines.subList(lines.indexOf(line), lines.size());
                     break;
                 }
-                String[] values = line.split(" ");
-                    switch (values[0]) {
-                        case "BLOCK":
-                            BlockType blockType = BlockType.valueOf(values[1]);
-                            int x = Integer.parseInt(values[2]);
-                            int y = Integer.parseInt(values[3]);
-                            Block temp = new Block(x, y, blockType, "");
-                            blocks.add(temp);
-                            super.addObject(temp);
-                            continue;
-
-                        case "PLAYER":
-                            int xS = Integer.parseInt(values[1]);
-                            int yS = Integer.parseInt(values[2]);
-                            spawnPoint.move(xS, yS);
-                            continue;
-
-                        case "TP1":
-                            blockType = BlockType.valueOf(values[1]);
-                            x = Integer.parseInt(values[2]);
-                            y = Integer.parseInt(values[3]);
-                            temp = new Teleporter(x, y, "");
-                            blocks.add(temp);
-                            super.addObject(temp);
-                            currentTpBlock = (Teleporter) temp;
-                            continue;
-
-                        case "TP2":
-                            blockType = BlockType.valueOf(values[1]);
-                            x = Integer.parseInt(values[2]);
-                            y = Integer.parseInt(values[3]);
-                            Teleporter tempTp = new Teleporter(x, y, "");
-                            tempTp.link(currentTpBlock);
-                            currentTpBlock.link(tempTp);
-                            blocks.add(tempTp);
-                            super.addObject(tempTp);
-                            currentTpBlock = null;
-                            continue;
-                    }
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }
-
-    /**
-     * work in process... because the code to load the world in WorldEditor and World is pretty similar
-     * @param lines
-     * @param properties
-     * @return
-     */
-    public static ArrayList<Block> getBlocksFromLines(List<String> lines, ProjectUnknownProperties properties){
-
-        ArrayList<Block>blocks = new ArrayList<>();
-            Teleporter currentTpBlock = null;
-            for(String line: lines){
                 String[] values = line.split(" ");
                 switch (values[0]) {
                     case "BLOCK":
@@ -266,13 +262,22 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                         int y = Integer.parseInt(values[3]);
                         Block temp = new Block(x, y, blockType, "");
                         blocks.add(temp);
+                        super.addObject(temp);
                         continue;
+
+                    case "PLAYER":
+                        int xS = Integer.parseInt(values[1]);
+                        int yS = Integer.parseInt(values[2]);
+                        spawnPoint.move(xS, yS);
+                        continue;
+
                     case "TP1":
                         blockType = BlockType.valueOf(values[1]);
                         x = Integer.parseInt(values[2]);
                         y = Integer.parseInt(values[3]);
                         temp = new Teleporter(x, y, "");
                         blocks.add(temp);
+                        super.addObject(temp);
                         currentTpBlock = (Teleporter) temp;
                         continue;
 
@@ -284,29 +289,34 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                         tempTp.link(currentTpBlock);
                         currentTpBlock.link(tempTp);
                         blocks.add(tempTp);
+                        super.addObject(tempTp);
                         currentTpBlock = null;
                         continue;
                 }
             }
-            return blocks;
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     /**
      * creates a teleport block on the position and checks for existing block on this position
+     *
      * @param x - x position
      * @param y - y position
      */
-    private void createTeleporter(int x, int y){
+    private void createTeleporter(int x, int y) {
         boolean noBlock = true;
-        for(Block block: blocks){
-            if(block.getX() == x && block.getY() == y){
+        for (Block block : blocks) {
+            if (block.getX() == x && block.getY() == y) {
                 noBlock = false;
             }
         }
-        if(noBlock){
-            Teleporter teleporter = new Teleporter(x,y, "");
-            if(blocks.get(blocks.size()-1) instanceof Teleporter){
-                Teleporter temp = (Teleporter)blocks.get(blocks.size()-1);
+        if (noBlock) {
+            Teleporter teleporter = new Teleporter(x, y, "");
+            if (blocks.get(blocks.size() - 1) instanceof Teleporter) {
+                Teleporter temp = (Teleporter) blocks.get(blocks.size() - 1);
                 teleporter.link(temp);
                 temp.link(teleporter);
             }
@@ -318,13 +328,14 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
 
     /**
      * creates a block with the current block type on the position and checks for existing block on this position
+     *
      * @param x - x position
      * @param y - y position
      */
     private void createBlock(int x, int y) {
         boolean noBlock = true;
-        for(Block block: blocks){
-            if(block.getX() == x && block.getY() == y){
+        for (Block block : blocks) {
+            if (block.getX() == x && block.getY() == y) {
                 noBlock = false;
             }
         }
@@ -337,13 +348,14 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
 
     /**
      * removes  block if existing
+     *
      * @param x - x position
      * @param y - y position
      */
-    private void removeBlock(int x,int y){
+    private void removeBlock(int x, int y) {
         Block temp;
-        for(Block block: blocks){
-            if(block.getX() == x && block.getY() == y){
+        for (Block block : blocks) {
+            if (block.getX() == x && block.getY() == y) {
                 temp = block;
                 blocks.remove(temp);
                 super.removeObject(temp);
@@ -354,11 +366,12 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
 
     /**
      * translates the current world in a world document and saves it with the given String
+     *
      * @param text - name of world
      */
-    private void saveWorld(String text){
-        try{
-            PrintWriter writer = new PrintWriter(new File("Worlds/"+text+".world"));
+    private void saveWorld(String text) {
+        try {
+            PrintWriter writer = new PrintWriter(new File("Worlds/" + text + ".world"));
             for (int i = 0; i < blocks.size(); i++) {
                 Block block = blocks.get(i);
                 int x = (int) block.getX();
@@ -374,8 +387,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                     writer.println("BLOCK " + block.getBlockType().toString() + " " + x + " " + y);
                 }
             }
-            writer.println("PLAYER "+(int)spawnPoint.getX()+" "+(int)spawnPoint.getY());
-            for(String line : extensionLines){
+            writer.println("PLAYER " + (int) spawnPoint.getX() + " " + (int) spawnPoint.getY());
+            for (String line : extensionLines) {
                 writer.println(line);
             }
             writer.close();
@@ -388,14 +401,14 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
     /**
      * fill space between blue-marked position with current block type
      */
-    private void fillSpace(){
-        if(pos1 != null && pos2 != null){
+    private void fillSpace() {
+        if (pos1 != null && pos2 != null) {
             int width = (int) (pos2.getX() - pos1.getX());
             int height = (int) (pos2.getY() - pos1.getY());
 
-            for (int i = 0; i < 1+(height/50); i++) {
-                for (int j= 0; j < 1+(width/50); j++) {
-                    createBlock((int)pos1.getX()+j*50,(int)pos1.getY()+i*50);
+            for (int i = 0; i < 1 + (height / 50); i++) {
+                for (int j = 0; j < 1 + (width / 50); j++) {
+                    createBlock((int) pos1.getX() + j * 50, (int) pos1.getY() + i * 50);
                 }
             }
             pos1 = null;

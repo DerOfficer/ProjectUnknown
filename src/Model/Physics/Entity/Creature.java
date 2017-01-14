@@ -18,6 +18,8 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     private static final int MANA_REGENERATION = 1;
 
+    protected ICanvas canvas;
+
     private int maxHealth;
     private int actHealth;
     private int maxMana;
@@ -30,10 +32,9 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     private Timer timer;
 
-    protected ICanvas canvas;
-
     /**
      * standard creature contains x position, y position, health and mana.
+     *
      * @param x
      * @param y
      * @param width
@@ -56,6 +57,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     /**
      * standard which gets define by his level
+     *
      * @param x
      * @param y
      * @param width
@@ -72,27 +74,28 @@ public abstract class Creature extends Entity implements IDrawableObject {
     /**
      * set stats depended on the current level
      */
-    protected void setStats(){
-        this.maxHealth = level*25+75;
+    protected void setStats() {
+        this.maxHealth = level * 25 + 75;
         this.actHealth = maxHealth;
-        this.maxMana = level*25+75;
+        this.maxMana = level * 25 + 75;
         this.actMana = maxMana;
     }
 
     /**
      * interpret all stats and returns a level
+     *
      * @return level of creature
      */
-    protected int interpretStats(){
-        double temp = (double)maxHealth-75;
-        temp = temp/(double)25;
-        return (int)temp;
+    protected int interpretStats() {
+        double temp = (double) maxHealth - 75;
+        temp = temp / (double) 25;
+        return (int) temp;
     }
 
     /**
      * start up for different constructors
      */
-    private void startUp(){
+    private void startUp() {
         this.manaReady = true;
         this.counter = 0;
 
@@ -103,31 +106,32 @@ public abstract class Creature extends Entity implements IDrawableObject {
                 runEverySecond();
             }
         };
-        timer.scheduleAtFixedRate(timerTask,1000,1000);
+        timer.scheduleAtFixedRate(timerTask, 1000, 1000);
     }
 
     /**
      * is running every second
      */
     private void runEverySecond() {
-        if(!manaReady){
+        if (!manaReady) {
             counter++;
-            if(counter >= manaCoolDown){
+            if (counter >= manaCoolDown) {
                 manaReady = true;
                 counter = 0;
             }
         }
-        if(actMana <= maxMana){
+        if (actMana <= maxMana) {
             actMana = actMana + MANA_REGENERATION;
         }
     }
 
     /**
      * conjures a mana cast and subtracts the mana cost
+     *
      * @param type
      */
-    protected void conjure(ManaCast.Type type){
-        if(manaReady) {
+    protected void conjure(ManaCast.Type type) {
+        if (manaReady) {
             if (actMana >= type.getMana()) {
                 actMana = actMana - type.getMana();
                 world.addObject(new ManaCast(type, this));
@@ -152,46 +156,46 @@ public abstract class Creature extends Entity implements IDrawableObject {
     public void setActualHealth(int actHealth) {
         this.actHealth = actHealth;
     }
-    
-    public int getMaximumMana(){
+
+    public int getMaximumMana() {
         return maxMana;
     }
 
-    public int getActualMana(){
-        return actMana;
-    }
-
-    public void setMaximumMana(int maxMana){
+    public void setMaximumMana(int maxMana) {
         this.maxMana = maxMana;
     }
 
-    public void setActualMana(int actMana){
+    public int getActualMana() {
+        return actMana;
+    }
+
+    public void setActualMana(int actMana) {
         this.actMana = actMana;
     }
 
-    public double getManaInPercent(){
-        return (double) actMana/maxMana;
+    public double getManaInPercent() {
+        return (double) actMana / maxMana;
     }
 
     public double getHealthInPercent() {
 
-        return (double) actHealth/maxHealth;
+        return (double) actHealth / maxHealth;
     }
 
-    public int getDirection(){
-        if(getVelocity() >= 0){
+    public int getDirection() {
+        if (getVelocity() >= 0) {
             return 1;
-        }else{
+        } else {
             return -1;
         }
     }
 
-    protected boolean isDead(){
-        return(actHealth <= 0);
+    protected boolean isDead() {
+        return (actHealth <= 0);
     }
 
     public double getAttack() {
-        return (level*20)+20;
+        return (level * 20) + 20;
     }
 
     @Override

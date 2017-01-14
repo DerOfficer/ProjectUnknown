@@ -8,37 +8,29 @@ import com.Physics2D.Entity;
 import java.awt.*;
 import java.util.function.Consumer;
 
-import static Model.Managing.SpriteManager.BLOCK;
-import static Model.Managing.SpriteManager.BLOCK_LEVER_OFF;
-import static Model.Managing.SpriteManager.BLOCK_LEVER_ON;
+import static Model.Managing.SpriteManager.*;
 
 /**
  * Created by jardu on 1/12/2017.
  */
-public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawableObject{
+public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawableObject {
 
     private Consumer<Boolean> onToggle;
 
     private boolean on;
 
-    /**
-     * Creates a new physics object with the given position and dimensions
-     *
-     * @param x      The x-position of the physics object
-     * @param y      The y-position of the physics object
-     */
     public Lever(double x, double y, String id, boolean on) {
-        super(x, y, 50,50, id);
+        super(x, y, 50, 50, id);
         this.on = on;
     }
 
     @Override
     public void draw() {
         Graphics2D g = canvas.getPencil();
-        if(on){
-            g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_LEVER_ON], (int)getX(), (int)getY(), null);
-        }else{
-            g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_LEVER_OFF], (int)getX(), (int)getY(), null);
+        if (on) {
+            g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_LEVER_ON], (int) getX(), (int) getY(), null);
+        } else {
+            g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_LEVER_OFF], (int) getX(), (int) getY(), null);
         }
     }
 
@@ -62,11 +54,11 @@ public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawab
         onToggle.accept(on);
     }
 
-    public void setOnToggle(Consumer<Boolean> onToggle) {
-        this.onToggle = onToggle;
-    }
-
     public Consumer<Boolean> getOnToggle() {
         return onToggle;
+    }
+
+    public void setOnToggle(Consumer<Boolean> onToggle) {
+        this.onToggle = onToggle;
     }
 }

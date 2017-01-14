@@ -9,7 +9,7 @@ import java.util.Map;
  * Created by jardu on 1/14/2017.
  */
 final class LinkParser {
-    public static void performLinking(Map<String, String> parameters, World world){
+    public static void performLinking(Map<String, String> parameters, World world) {
         boolean twoWay = ParserUtils.getBoolean(parameters, "twoWay");
 
         String sourceId = parameters.get("source");
@@ -20,7 +20,7 @@ final class LinkParser {
 
         t1.link(t2);
 
-        if(twoWay){
+        if (twoWay) {
             t2.link(t1);
         }
     }

@@ -6,7 +6,7 @@ import Model.Abstraction.ICanvas;
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
 
-public class  Button extends AbstractEventInteractionObject{
+public class Button extends AbstractEventInteractionObject {
 
     private String text;
 
@@ -15,7 +15,7 @@ public class  Button extends AbstractEventInteractionObject{
     private int width;
     private int height;
 
-    private Rectangle2D bounds = new Rectangle2D.Double(0,0,0,0);
+    private Rectangle2D bounds = new Rectangle2D.Double(0, 0, 0, 0);
 
     private ICanvas canvas;
 
@@ -25,35 +25,35 @@ public class  Button extends AbstractEventInteractionObject{
     private Image img;
     private Font font;
 
-    public Button(int x, int y, String text, Font font){
+    public Button(int x, int y, String text, Font font) {
         this.font = font;
-        this.backgroundColor = new Color(0,0,0,0);
+        this.backgroundColor = new Color(0, 0, 0, 0);
 
-        setLocation(x,y);
+        setLocation(x, y);
         setText(text);
     }
 
-    public Button(int x, int y, int width, int height, String text, Font font){
+    public Button(int x, int y, int width, int height, String text, Font font) {
         this(x, y, text, font);
 
         this.width = width;
         this.height = height;
     }
 
-    public Button(int x, int y, Image img){
+    public Button(int x, int y, Image img) {
         this.img = img;
-        this.backgroundColor = new Color(0,0,0,0);
+        this.backgroundColor = new Color(0, 0, 0, 0);
         this.bounds = new Rectangle2D.Double(x, y, img.getWidth(null), img.getHeight(null));
 
-        setLocation(x,y);
+        setLocation(x, y);
     }
 
-    public Button(int x, int y, int width, int height, Color color){
+    public Button(int x, int y, int width, int height, Color color) {
         this.width = width;
         this.height = height;
         this.backgroundColor = color;
 
-        setLocation(x,y);
+        setLocation(x, y);
     }
 
 
@@ -62,26 +62,26 @@ public class  Button extends AbstractEventInteractionObject{
         Graphics2D g2d = canvas.getPencil();
         int yOffset = 0;
         g2d.setColor(backgroundColor);
-        g2d.fillRect(x,y, width,height);
+        g2d.fillRect(x, y, width, height);
         g2d.setColor(foregroundColor);
         int realWidth = width;
         int realHeight = height;
-        if(img != null){
-            g2d.drawImage(img, x - img.getWidth(null)/2 + width/2, y, null);
+        if (img != null) {
+            g2d.drawImage(img, x - img.getWidth(null) / 2 + width / 2, y, null);
             yOffset = img.getHeight(null);
             realWidth = Math.max(realWidth, img.getWidth(null));
             realHeight = Math.max(realHeight, img.getHeight(null));
         }
-        if(text != null){
+        if (text != null) {
             g2d.setFont(font);
             FontMetrics metrics = g2d.getFontMetrics();
             int stringWidth = metrics.stringWidth(text);
             int stringHeight = metrics.getHeight();
-            g2d.drawString(text, x - stringWidth/2 + width/2, y + stringHeight/2 + yOffset + height/2);
+            g2d.drawString(text, x - stringWidth / 2 + width / 2, y + stringHeight / 2 + yOffset + height / 2);
             realWidth = Math.max(realWidth, stringWidth);
             realHeight = Math.max(realHeight, yOffset + stringHeight + metrics.getDescent());
         }
-        bounds = new Rectangle2D.Double(x-realWidth/2,y,realWidth, realHeight);
+        bounds = new Rectangle2D.Double(x - realWidth / 2, y, realWidth, realHeight);
     }
 
     @Override
@@ -99,22 +99,22 @@ public class  Button extends AbstractEventInteractionObject{
         return bounds;
     }
 
-    public int getX(){
+    public int getX() {
         return x;
     }
 
-    public int getY(){
+    public int getY() {
         return y;
     }
 
-    public void setText(String newS){
+    public void setText(String newS) {
         this.text = newS;
-        if(newS.equals(" ")){
+        if (newS.equals(" ")) {
             this.text = "Space";
         }
     }
 
-    public void setLocation(int x, int y){
+    public void setLocation(int x, int y) {
         this.x = x;
         this.y = y;
     }

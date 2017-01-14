@@ -25,16 +25,16 @@ public class Start extends DrawingPanel {
 
         Font menuFont = properties.getGameFont().deriveFont(40f);
 
-        startButton = new Button(screenWidth/2,((int) (screenHeight*0.45)), "Start", menuFont);
-        settingsButton = new Button(screenWidth/2, ((int) (screenHeight*0.65)), "Settings", menuFont);
-        exitButton = new Button(screenWidth/2, ((int) (screenHeight*0.85)), "Exit", menuFont);
-        logoButton = new Button((screenWidth / 2),(int) (screenHeight*0.1), SpriteManager.SPRITES[MISC][MISC_LOGO]);
+        startButton = new Button(screenWidth / 2, ((int) (screenHeight * 0.45)), "Start", menuFont);
+        settingsButton = new Button(screenWidth / 2, ((int) (screenHeight * 0.65)), "Settings", menuFont);
+        exitButton = new Button(screenWidth / 2, ((int) (screenHeight * 0.85)), "Exit", menuFont);
+        logoButton = new Button((screenWidth / 2), (int) (screenHeight * 0.1), SpriteManager.SPRITES[MISC][MISC_LOGO]);
 
         startButton.setForegroundColor(Color.white);
         settingsButton.setForegroundColor(Color.white);
         exitButton.setForegroundColor(Color.white);
 
-        setBackground(new Color(0,0,0,0));
+        setBackground(new Color(0, 0, 0, 0));
 
         setSize(screenWidth, screenHeight);
 
@@ -66,11 +66,11 @@ public class Start extends DrawingPanel {
         });
 
         exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (event) -> {
-            if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
+            if (event.getSrcKey() == KeyEvent.VK_ESCAPE) {
                 System.exit(0);
             }
 
-            if(event.getSrcKey() == KeyEvent.VK_INSERT) {
+            if (event.getSrcKey() == KeyEvent.VK_INSERT) {
                 properties.getFrame().setContentPanel(properties.getFrame().getWorldEditor());
             }
         });

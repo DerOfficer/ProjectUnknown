@@ -15,12 +15,13 @@ public class Block extends AbstractBlock implements IDrawableObject {
 
     /**
      * constructs a solid block which can be added to a world. block type defines the texture.
+     *
      * @param x
      * @param y
      * @param blockType
      */
-    public Block(int x, int y, BlockType blockType, String id){
-        super(x,y,50,50, id);
+    public Block(int x, int y, BlockType blockType, String id) {
+        super(x, y, 50, 50, id);
         this.blockType = blockType;
         img = blockType.getImage();
     }
@@ -38,13 +39,14 @@ public class Block extends AbstractBlock implements IDrawableObject {
     @Override
     public void draw() {
         Graphics2D g = canvas.getPencil();
-        g.drawImage(img, (int)getX(), (int)getY(),null);
+        g.drawImage(img, (int) getX(), (int) getY(), null);
     }
 
     @Override
-    public void update(double dt) { }
+    public void update(double dt) {
+    }
 
-    public BlockType getBlockType(){
+    public BlockType getBlockType() {
         return blockType;
     }
 }

@@ -16,24 +16,25 @@ import java.util.Map;
  */
 public final class WorldExtensionParser {
 
-    /**
-     * Parses the given list of statements into game objects and adds them to the given world
-     * @param statements
-     * @param world
-     */
-    public static void parse(List<String> statements, World world){
-        statements.stream()
-                  .forEach((statement) -> parseStatement(statement, world));
-    }
-
-    private WorldExtensionParser(){
+    private WorldExtensionParser() {
         throw new AssertionError();
     }
 
-    private static void parseStatement(String statement, World world){
+    /**
+     * Parses the given list of statements into game objects and adds them to the given world
+     *
+     * @param statements
+     * @param world
+     */
+    public static void parse(List<String> statements, World world) {
+        statements.stream()
+                .forEach((statement) -> parseStatement(statement, world));
+    }
+
+    private static void parseStatement(String statement, World world) {
         Map<String, String> parameters = getParameters(statement);
 
-        switch(parameters.get("__name")){
+        switch (parameters.get("__name")) {
             case "define":
                 world.addObject(DefinitionParser.constructBlock(parameters));
                 break;
@@ -54,11 +55,12 @@ public final class WorldExtensionParser {
     /**
      * Parses the given Statement into a {@link Map} containing all the parameters divided into keys and values.
      * The name of the statement is saved with a {@code __name} key.
+     *
      * @param statement
      * @return
      */
 
-    private static Map<String, String> getParameters(String statement){
+    private static Map<String, String> getParameters(String statement) {
         Map<String, String> parameters = new HashMap<>();
 
         List<String> arguments = getArguments(statement);
@@ -69,8 +71,8 @@ public final class WorldExtensionParser {
         //Removes the first argument so it doesnt crash the following for loop
         arguments.remove(0);
 
-        for(String argument : arguments){
-            if(!argument.contains("=")){
+        for (String argument : arguments) {
+            if (!argument.contains("=")) {
                 ProjectUnknownProperties.raiseException(new IOException("The World files has an incorrect format!"));
             }
             String[] parts = argument.split("=");
@@ -84,10 +86,11 @@ public final class WorldExtensionParser {
     /**
      * Parses the given statement into a list of arguments. The statement is split at every whitespace, if it is not
      * enclosed in double-quotes.
+     *
      * @param statement The statement to parse
      * @return a list of strings representing the individual arguments
      */
-    private static List<String> getArguments(String statement){
+    private static List<String> getArguments(String statement) {
         List<String> arguments = new ArrayList<>();
 
         int begin = 0;
@@ -95,10 +98,10 @@ public final class WorldExtensionParser {
 
         statement.replaceAll("\\s+", " ");
 
-        for(int i = 0; i < statement.length(); ++i){
-            if(statement.charAt(i) == '"'){
+        for (int i = 0; i < statement.length(); ++i) {
+            if (statement.charAt(i) == '"') {
                 quote_count++;
-            }else if(Character.isSpaceChar(statement.charAt(i)) && quote_count % 2 == 0){
+            } else if (Character.isSpaceChar(statement.charAt(i)) && quote_count % 2 == 0) {
                 arguments.add(statement.substring(begin, i));
                 begin = i + 1;
             }

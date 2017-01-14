@@ -8,7 +8,6 @@ import Model.UI.Screen.*;
 import javax.swing.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.io.IOException;
 
 import static Model.Managing.SpriteManager.BACKGROUND;
 import static Model.Managing.SpriteManager.BACKGROUND_LEVEL_SELECT;
@@ -30,11 +29,11 @@ public class MainFrame extends JFrame implements MouseListener {
     private StaticImageBackgroundPanel levelSelectBackground;
     private WorldEditor worldEditor;
 
-    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties){
+    public MainFrame(String name, int x, int y, int width, int height, ProjectUnknownProperties properties) {
         this.properties = properties;
 
-        setLocation(x,y);
-        setSize(width,height);
+        setLocation(x, y);
+        setSize(width, height);
 
         start = new Start(properties);
         settings = new Settings(properties);
@@ -61,11 +60,11 @@ public class MainFrame extends JFrame implements MouseListener {
         setVisible(true);
     }
 
-    public void setContentPanel(DrawingPanel p){
-        if(p == null)
+    public void setContentPanel(DrawingPanel p) {
+        if (p == null)
             throw new NullPointerException();
         p.setSize(getSize());
-        if(content != null){
+        if (content != null) {
             contentPane.remove(content);
             removeKeyListener(content);
         }
@@ -77,13 +76,13 @@ public class MainFrame extends JFrame implements MouseListener {
         revalidate();
     }
 
-    public void setBackgroundPanel(DrawingPanel p){
+    public void setBackgroundPanel(DrawingPanel p) {
         p.setSize(getSize());
-        if(background != null){
+        if (background != null) {
             contentPane.remove(background);
         }
         background = p;
-        if(p != null) {
+        if (p != null) {
             contentPane.add(p);
             contentPane.setLayer(p, 0);
         }
@@ -91,16 +90,16 @@ public class MainFrame extends JFrame implements MouseListener {
         revalidate();
     }
 
-    public void setForegroundPanel(DrawingPanel p){
+    public void setForegroundPanel(DrawingPanel p) {
         p.setSize(getSize());
-        if(foreground != null){
+        if (foreground != null) {
             contentPane.remove(foreground);
             removeKeyListener(foreground);
             foreground.removeObject(properties.getNotificationArea());
             foreground.removeMouseListener(this);
         }
         foreground = p;
-        if(p != null) {
+        if (p != null) {
             contentPane.add(p);
             contentPane.setLayer(p, 2);
             p.addObject(properties.getNotificationArea());
@@ -119,13 +118,15 @@ public class MainFrame extends JFrame implements MouseListener {
         return settings;
     }
 
-    public LevelSelect getLevelSelect(){return levelSelect;}
+    public LevelSelect getLevelSelect() {
+        return levelSelect;
+    }
 
-    public DefaultBackground getDefaultBackground(){
+    public DefaultBackground getDefaultBackground() {
         return defaultBackground;
     }
 
-    public StaticImageBackgroundPanel getLevelSelectBackground(){
+    public StaticImageBackgroundPanel getLevelSelectBackground() {
         return levelSelectBackground;
     }
 

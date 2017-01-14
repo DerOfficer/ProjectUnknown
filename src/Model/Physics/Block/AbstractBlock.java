@@ -13,9 +13,8 @@ import java.awt.geom.Rectangle2D;
  */
 public abstract class AbstractBlock extends PhysicsObject implements IDrawableObject {
 
-    private String id;
-
     protected ICanvas canvas;
+    private String id;
 
     /**
      * Creates a new physics object with the given position and dimensions
@@ -32,8 +31,8 @@ public abstract class AbstractBlock extends PhysicsObject implements IDrawableOb
         this.id = id;
     }
 
-    public World getWorld(){
-        return (World)world;
+    public World getWorld() {
+        return (World) world;
     }
 
     @Override

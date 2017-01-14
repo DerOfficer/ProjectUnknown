@@ -18,18 +18,13 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
 
     protected long lastLoop;
     protected long elapsedTime;
-
-    private boolean graphicsLock;
-
     protected ArrayList<IDrawableObject> drawableObjects;
-
+    protected ProjectUnknownProperties properties;
+    protected Timer timer;
+    private boolean graphicsLock;
     private Graphics2D graphics;
 
-    protected ProjectUnknownProperties properties;
-
-    protected Timer timer;
-
-    public DrawingPanel(ProjectUnknownProperties properties){
+    public DrawingPanel(ProjectUnknownProperties properties) {
         super();
 
         this.properties = properties;
@@ -48,9 +43,9 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         super.paintComponent(g);
         elapsedTime = System.nanoTime() - lastLoop;
         lastLoop = System.nanoTime();
-        int dt = (int) ((elapsedTime / 1000000L)+0.5);
-        if ( dt == 0 ) dt = 1;
-        graphics = (Graphics2D)g;
+        int dt = (int) ((elapsedTime / 1000000L) + 0.5);
+        if (dt == 0) dt = 1;
+        graphics = (Graphics2D) g;
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.translate(getRenderingOffset().getX(), getRenderingOffset().getY());
         graphicsLock = true;
@@ -67,18 +62,26 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         graphicsLock = false;
     }
 
-    protected Point getRenderingOffset(){
-        return new Point(0,0);
+    protected Point getRenderingOffset() {
+        return new Point(0, 0);
     }
 
     @Override
-    public void addObject(IDrawableObject d){
+    public Graphics2D getPencil() {
+        if (!canDraw()) {
+            throw new UnsupportedOperationException("Graphics Context currently not available");
+        }
+        return graphics;
+    }
+
+    @Override
+    public void addObject(IDrawableObject d) {
         drawableObjects.add(d);
         d.provideCanvas(this);
     }
 
     @Override
-    public void removeObject(IDrawableObject d){
+    public void removeObject(IDrawableObject d) {
         drawableObjects.remove(d);
     }
 
@@ -98,32 +101,31 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     @Override
-    public Graphics2D getPencil() {
-        if(!canDraw()){
-            throw new UnsupportedOperationException("Graphics Context currently not available");
-        }
-        return graphics;
-    }
-
-    @Override
     public void actionPerformed(ActionEvent e) {
         repaint();
     }
 
-    public void keyTyped(KeyEvent e){
+    public void keyTyped(KeyEvent e) {
     }
 
-    public void keyPressed(KeyEvent e){
+    public void keyPressed(KeyEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .forEach(tempDO -> ((IInteractableObject) tempDO).keyPressed(e.getKeyCode()));
     }
 
-    public void keyReleased(KeyEvent e){
+    public void keyReleased(KeyEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
-                .forEach(tempDO -> ((IInteractableObject)tempDO).keyReleased(e.getKeyCode()));
+                .forEach(tempDO -> ((IInteractableObject) tempDO).keyReleased(e.getKeyCode()));
 
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        drawableObjects.stream()
+                .filter(tempDO -> tempDO instanceof IInteractableObject)
+                .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
+                .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
     }
 
     public void mousePressed(MouseEvent e) {
@@ -137,20 +139,13 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
-                .forEach(tempDO -> ((IInteractableObject)tempDO).mouseReleased(e));
+                .forEach(tempDO -> ((IInteractableObject) tempDO).mouseReleased(e));
     }
 
     public void mouseEntered(MouseEvent e) {
     }
 
     public void mouseExited(MouseEvent e) {
-    }
-
-    public void mouseClicked(MouseEvent e) {
-        drawableObjects.stream()
-                .filter(tempDO -> tempDO instanceof IInteractableObject)
-                .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
-                .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
     }
 
 }

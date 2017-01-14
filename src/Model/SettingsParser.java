@@ -15,7 +15,7 @@ public class SettingsParser {
 
     private Path path;
 
-    public SettingsParser(Path path){
+    public SettingsParser(Path path) {
         this.path = path;
         List<String> lines = null;
         try {
@@ -24,46 +24,46 @@ public class SettingsParser {
             ProjectUnknownProperties.raiseException(e);
         }
         map = new HashMap<>();
-        Runtime.getRuntime().addShutdownHook(new Thread(){
+        Runtime.getRuntime().addShutdownHook(new Thread() {
             @Override
-            public void run(){
+            public void run() {
                 writeSettings();
             }
         });
         parseLines(lines);
     }
 
-    private void parseLines(List<String> lines){
-        for(String line: lines){
-            String[]temp = line.split(":");
-            map.put(temp[0],temp[1]);
+    private void parseLines(List<String> lines) {
+        for (String line : lines) {
+            String[] temp = line.split(":");
+            map.put(temp[0], temp[1]);
         }
     }
 
-    public HashMap<String,String> getMap(){
+    public HashMap<String, String> getMap() {
         return map;
     }
 
-    public void addSetting(String key, String value){
+    public void addSetting(String key, String value) {
         map.put(key, value);
     }
 
-    public String getSetting(String key){
+    public String getSetting(String key) {
         return map.get(key);
     }
 
-    public void overrideSetting(String key, String newValue){
+    public void overrideSetting(String key, String newValue) {
         addSetting(key, newValue);
     }
 
-    public void writeSettings(){
+    public void writeSettings() {
         try {
             List<String> tempMap = new ArrayList<>();
-            for( String tempKey: map.keySet() ) {
-                tempMap.add(tempKey+":"+map.get(tempKey));
+            for (String tempKey : map.keySet()) {
+                tempMap.add(tempKey + ":" + map.get(tempKey));
             }
 
-            Files.write(path,tempMap);
+            Files.write(path, tempMap);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -13,10 +13,11 @@ import java.util.Map;
 final class DefinitionParser {
     /**
      * Constructs a block from the given parameters
+     *
      * @param parameters
      * @return a Block
      */
-    public static AbstractBlock constructBlock(Map<String, String> parameters){
+    public static AbstractBlock constructBlock(Map<String, String> parameters) {
         int x = ParserUtils.getX(parameters);
         int y = ParserUtils.getY(parameters);
 
@@ -27,7 +28,7 @@ final class DefinitionParser {
 
         AbstractBlock toReturn = null;
 
-        switch(type){
+        switch (type) {
             case "lever":
                 boolean isOn = ParserUtils.getBoolean(parameters, "on");
                 toReturn = new Lever(x, y, id, isOn);
@@ -37,9 +38,9 @@ final class DefinitionParser {
                 break;
             default:
                 BlockType blockType = getBlockType(type);
-                if(inconsistentState){
+                if (inconsistentState) {
                     toReturn = new InconsistentStateBlock(x, y, blockType, id);
-                }else{
+                } else {
                     toReturn = new Block(x, y, blockType, id);
                 }
                 break;
@@ -50,12 +51,13 @@ final class DefinitionParser {
 
     /**
      * Gets the {@link BlockType} object which has the same name as the given String
+     *
      * @param type the name to search for
      * @return the BlockType object
      */
-    private static BlockType getBlockType(String type){
-        for(BlockType blockType : BlockType.values()){
-            if(blockType.toString().toLowerCase().equals(type.toLowerCase())){
+    private static BlockType getBlockType(String type) {
+        for (BlockType blockType : BlockType.values()) {
+            if (blockType.toString().toLowerCase().equals(type.toLowerCase())) {
                 return blockType;
             }
         }

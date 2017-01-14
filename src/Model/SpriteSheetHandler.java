@@ -15,14 +15,14 @@ public class SpriteSheetHandler {
 
     private Dimension[] dimensions;
 
-    public SpriteSheetHandler(int[] gaps, BufferedImage image){
+    public SpriteSheetHandler(int[] gaps, BufferedImage image) {
         this.gaps = gaps;
         this.image = image;
 
         subSpriteImage();
     }
 
-    public SpriteSheetHandler(Dimension[] dimensions,BufferedImage image){
+    public SpriteSheetHandler(Dimension[] dimensions, BufferedImage image) {
         this.image = image;
         this.dimensions = dimensions;
 
@@ -30,28 +30,28 @@ public class SpriteSheetHandler {
     }
 
     private void subExactSpriteImage() {
-        if (image != null){
+        if (image != null) {
             sprites = new BufferedImage[dimensions.length];
             int temp = 0;
-            for (int i = 0; i < sprites.length; i++){
-                sprites[i] = image.getSubimage(temp,0,dimensions[i].width, dimensions[i].height);
+            for (int i = 0; i < sprites.length; i++) {
+                sprites[i] = image.getSubimage(temp, 0, dimensions[i].width, dimensions[i].height);
                 temp = temp + dimensions[i].width;
             }
         }
     }
 
     private void subSpriteImage() {
-        if (image != null){
+        if (image != null) {
             sprites = new BufferedImage[gaps.length];
             int temp = 0;
-            for (int i = 1; i < sprites.length; i++){
-                temp = temp + gaps[i-1];
-                sprites[i] = image.getSubimage(temp,0,gaps[i], image.getHeight());
+            for (int i = 1; i < sprites.length; i++) {
+                temp = temp + gaps[i - 1];
+                sprites[i] = image.getSubimage(temp, 0, gaps[i], image.getHeight());
             }
         }
     }
 
-    public BufferedImage[] getSprites(){
+    public BufferedImage[] getSprites() {
         return sprites;
     }
 }
