@@ -2,9 +2,6 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
-import Model.Physics.Block.BlockType;
-import Model.Physics.Block.InconsistentStateBlock;
-import Model.Physics.Block.Lever;
 import Model.Physics.World.World;
 import Model.Planet;
 import Model.UI.Button;
@@ -13,7 +10,6 @@ import View.DrawingPanel;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
-import java.util.function.Consumer;
 
 public class LevelSelect extends DrawingPanel {
 
@@ -34,7 +30,7 @@ public class LevelSelect extends DrawingPanel {
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 World level = new World(Paths.get("Worlds/"+Planet.values()[finalI].toString().toLowerCase()+".world"), properties, Planet.values()[finalI]);
                 properties.getFrame().setContentPanel(level.getRenderer());
-                if(finalI == 2){
+                /*if(finalI == 2){
                     InconsistentStateBlock b2 = new InconsistentStateBlock(1400, -300, BlockType.STONE_BRICK, "");
                     InconsistentStateBlock b3 = new InconsistentStateBlock(1400, -250, BlockType.STONE_BRICK, "");
                     InconsistentStateBlock b4 = new InconsistentStateBlock(1400, -200, BlockType.STONE_BRICK, "");
@@ -52,7 +48,7 @@ public class LevelSelect extends DrawingPanel {
                     };
 
                     level.addObject(l1);
-                }
+                }*/
             });
         }
 

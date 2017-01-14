@@ -8,10 +8,16 @@ import java.util.Map;
 import java.util.function.Consumer;
 
 /**
+ * Parses lever_action statements. Constructs the {@link Lever#onToggle} Consumer
  * Created by jardu on 1/14/2017.
  */
 final class LeverActionParser {
 
+    /**
+     * Constructs a Consumer and adds it to the lever defined by lever_id.
+     * @param parameters the parameters that define this level action
+     * @param world the world that will contain the lever and everything it interacts with
+     */
     public static void setUpLeverAction(Map<String, String> parameters, World world){
         String mode = parameters.get("mode");
 
@@ -27,6 +33,12 @@ final class LeverActionParser {
         }
     }
 
+    /**
+     * Adds a {@link Consumer} to the Lever that
+     * @param lever
+     * @param parameters
+     * @param world
+     */
     private static void addToggleAction(Lever lever, Map<String, String> parameters, World world){
         InconsistentStateBlock toToggle = (InconsistentStateBlock) world.getBlockById(parameters.get("block_id"));
 

@@ -2769,3 +2769,15 @@ BLOCK STONE_BRICK 7350 -6650
 BLOCK STONE_BRICK 7400 -6650
 BLOCK STONE_BRICK 7450 -6650
 PLAYER 1900 -500
+
+stardust .world extension
+define type=stone_brick x=1400 y=-300 id=b1 inconsistent=true
+define type=stone_brick x=1400 y=-250 id=b2 inconsistent=true
+define type=stone_brick x=1400 y=-200 id=b3 inconsistent=true
+define type=stone_brick x=1400 y=-150 id=b4 inconsistent=true
+define type=lever x=1300 y=-150 id=lever1
+lever_action lever_id=lever1 mode=toggle_block block_id=b1
+lever_action lever_id=lever1 mode=toggle_block block_id=b2
+lever_action lever_id=lever1 mode=toggle_block block_id=b3
+lever_action lever_id=lever1 mode=toggle_block block_id=b4
+
