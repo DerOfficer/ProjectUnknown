@@ -34,7 +34,7 @@ public class Player extends Humanoid implements IInteractableObject{
      * @param properties
      */
     public Player(ProjectUnknownProperties properties, int level){
-        super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER],level,properties);
+        super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER],level);
 
         this.properties = properties;
         this.level = level;

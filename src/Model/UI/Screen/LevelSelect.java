@@ -30,25 +30,6 @@ public class LevelSelect extends DrawingPanel {
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 World level = new World(Paths.get("Worlds/"+Planet.values()[finalI].toString().toLowerCase()+".world"), properties, Planet.values()[finalI]);
                 properties.getFrame().setContentPanel(level.getRenderer());
-                /*if(finalI == 2){
-                    InconsistentStateBlock b2 = new InconsistentStateBlock(1400, -300, BlockType.STONE_BRICK, "");
-                    InconsistentStateBlock b3 = new InconsistentStateBlock(1400, -250, BlockType.STONE_BRICK, "");
-                    InconsistentStateBlock b4 = new InconsistentStateBlock(1400, -200, BlockType.STONE_BRICK, "");
-                    InconsistentStateBlock b1 = new InconsistentStateBlock(1400, -150, BlockType.STONE_BRICK, "");
-                    level.addObject(b1);
-                    level.addObject(b2);
-                    level.addObject(b3);
-                    level.addObject(b4);
-                    Lever l1 = new Lever(1300, -150, "", false);
-                    Consumer<Boolean> onToggle = (on) -> {
-                        b1.toggleSolidity();
-                        b2.toggleSolidity();
-                        b3.toggleSolidity();
-                        b4.toggleSolidity();
-                    };
-
-                    level.addObject(l1);
-                }*/
             });
         }
 

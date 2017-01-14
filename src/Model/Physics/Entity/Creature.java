@@ -28,8 +28,6 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     private boolean manaReady;
 
-    protected ProjectUnknownProperties properties;
-
     private Timer timer;
 
     protected ICanvas canvas;
@@ -50,7 +48,6 @@ public abstract class Creature extends Entity implements IDrawableObject {
         this.actHealth = health;
         this.maxMana = mana;
         this.actMana = mana;
-        this.properties = properties;
         this.level = interpretStats();
 
         startUp();
@@ -64,12 +61,10 @@ public abstract class Creature extends Entity implements IDrawableObject {
      * @param width
      * @param height
      * @param level
-     * @param properties
      */
-    public Creature(int x, int y, int width, int height, int level, ProjectUnknownProperties properties) {
+    public Creature(int x, int y, int width, int height, int level) {
         super(x, y, width, height);
         this.level = level;
-        this.properties = properties;
         setStats();
         startUp();
     }

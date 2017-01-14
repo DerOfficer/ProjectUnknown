@@ -1,6 +1,5 @@
 package Model.Physics.Entity.Mobs;
 
-import Control.ProjectUnknownProperties;
 import Model.Managing.SpriteManager;
 import Model.Physics.Entity.Humanoid;
 import Model.Physics.Entity.Player;
@@ -52,8 +51,8 @@ public class Enemy extends Humanoid {
 
     private Type type;
 
-    public Enemy(int x, int y, Type type, ProjectUnknownProperties properties) {
-        super(x, y,type.getSpriteImage(), type.getLevel(), properties);
+    public Enemy(int x, int y, Type type) {
+        super(x, y,type.getSpriteImage(), type.getLevel());
         this.type = type;
     }
 

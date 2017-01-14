@@ -43,6 +43,9 @@ public final class WorldExtensionParser {
             case "lever_action":
                 LeverActionParser.setUpLeverAction(parameters, world);
                 break;
+            case "spawn":
+                SpawnParser.spawnEntity(parameters, world);
+                break;
             default:
                 break;
         }

@@ -1,6 +1,5 @@
 package Model.Physics.Entity;
 
-import Control.ProjectUnknownProperties;
 import Model.SpriteSheetHandler;
 import com.SSA.Animation.Animation;
 import com.SSA.Animation.AnimationObject;
@@ -24,8 +23,8 @@ public class Humanoid extends Creature {
 
     private HumanAnimationObject animationObject;
 
-    public Humanoid(int x, int y, BufferedImage image, int level, ProjectUnknownProperties properties){
-        super(x, y, 20, 82,level,properties);
+    public Humanoid(int x, int y, BufferedImage image, int level){
+        super(x, y, 20, 82,level);
 
         this.humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
 

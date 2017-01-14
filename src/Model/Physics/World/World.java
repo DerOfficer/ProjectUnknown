@@ -8,7 +8,6 @@ import Model.Physics.Block.AbstractBlock;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.InconsistentStateBlock;
 import Model.Physics.Block.Teleporter;
-import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
 import Model.UI.Overlay.GraphicalUserInterface;
@@ -178,15 +177,15 @@ public class World extends SideScrollingPhysicsWorld{
             case VENUS:
                 break;
             case EARTH:
-                addObject(new Enemy(6700,-6450, Enemy.Type.ZOMBIE,properties));
-                addObject(new Enemy(6700,-6450, Enemy.Type.MEGA_ZOMBIE,properties));
-                addObject(new Enemy(4800,1050, Enemy.Type.ZOMBIE,properties));
-                addObject(new Enemy(4300,-1650, Enemy.Type.ZOMBIE,properties));
-                addObject(new Enemy(5000,-1850, Enemy.Type.ZOMBIE,properties));
-                addObject(new Enemy(4250,-2750, Enemy.Type.ZOMBIE,properties));
-                addObject(new Enemy(-2450,-1000, Enemy.Type.ZOMBIE,properties));
-                addObject(new Enemy(550,-200, Enemy.Type.ZOMBIE,properties));
-                addObject(new Enemy(1900,0, Enemy.Type.ZOMBIE,properties));
+                /*addObject(new Enemy(6700,-6450, Enemy.Type.ZOMBIE));
+                addObject(new Enemy(6700,-6450, Enemy.Type.MEGA_ZOMBIE));
+                addObject(new Enemy(4800,1050, Enemy.Type.ZOMBIE));
+                addObject(new Enemy(4300,-1650, Enemy.Type.ZOMBIE));
+                addObject(new Enemy(5000,-1850, Enemy.Type.ZOMBIE));
+                addObject(new Enemy(4250,-2750, Enemy.Type.ZOMBIE));
+                addObject(new Enemy(-2450,-1000, Enemy.Type.ZOMBIE));
+                addObject(new Enemy(550,-200, Enemy.Type.ZOMBIE));
+                addObject(new Enemy(1900,0, Enemy.Type.ZOMBIE));*/
                 break;
             case MARS:
                 break;
