@@ -12,5 +12,5 @@ public interface IEventHandler {
      * Callback method that gets called everytime the event this handler got registered for is fired
      * @param eventObject an {@link InteractionEvent} object containing a subset of information about this event
      */
-    void onEvent(InteractionEvent eventObject) throws IOException;
+    void onEvent(InteractionEvent eventObject);
 }

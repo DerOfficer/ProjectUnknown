@@ -4,7 +4,6 @@ import Model.Event.IEventHandler;
 import Model.Event.InteractionEvent;
 
 import java.awt.event.MouseEvent;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,27 +28,27 @@ public abstract class AbstractEventInteractionObject implements IEventInteractab
 
     @Override
     public void keyPressed(int key) {
-        pushEvent(EventType.KEY_PRESSED, new InteractionEvent(key, null, this));
+        fireEvent(EventType.KEY_PRESSED, new InteractionEvent(key, null, this));
     }
 
     @Override
     public void keyReleased(int key){
-        pushEvent(EventType.KEY_RELEASED, new InteractionEvent(key, null, this));
+        fireEvent(EventType.KEY_RELEASED, new InteractionEvent(key, null, this));
     }
 
     @Override
     public void mouseClicked(MouseEvent e) {
-        pushEvent(EventType.MOUSE_CLICKED, new InteractionEvent(-1, e, this));
+        fireEvent(EventType.MOUSE_CLICKED, new InteractionEvent(-1, e, this));
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-        pushEvent(EventType.MOUSE_RELEASED, new InteractionEvent(-1, e, this));
+        fireEvent(EventType.MOUSE_RELEASED, new InteractionEvent(-1, e, this));
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-        pushEvent(EventType.MOUSE_PRESSED, new InteractionEvent(-1, e, this));
+        fireEvent(EventType.MOUSE_PRESSED, new InteractionEvent(-1, e, this));
     }
 
     @Override
@@ -62,13 +61,9 @@ public abstract class AbstractEventInteractionObject implements IEventInteractab
         eventHandlerMapping.get(t).remove(handler);
     }
 
-    protected void pushEvent(EventType t, InteractionEvent eventObject){
+    protected void fireEvent(EventType t, InteractionEvent eventObject){
         for(IEventHandler handler : eventHandlerMapping.get(t)){
-            try {
-                handler.onEvent(eventObject);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+            handler.onEvent(eventObject);
         }
     }
 }

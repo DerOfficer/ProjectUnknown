@@ -61,9 +61,7 @@ public class Start extends DrawingPanel {
             properties.getFrame().setContentPanel(properties.getFrame().getSettings());
         });
 
-        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            System.exit(0);
-        });
+        exitButton.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> System.exit(0));
 
         exitButton.addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (event) -> {
             if (event.getSrcKey() == KeyEvent.VK_ESCAPE) {

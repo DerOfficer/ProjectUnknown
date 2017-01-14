@@ -24,7 +24,6 @@ public class ManaCast extends Entity implements IDrawableObject {
 
     private Type type;
     private Creature creature;
-    private Timer timer;
     private ICanvas canvas;
     private BufferedImage sprite;
     /**
@@ -39,7 +38,7 @@ public class ManaCast extends Entity implements IDrawableObject {
         this.creature = creature;
         this.sprite = type.getImage();
         this.movement = type.getSpeedModifier() * creature.getDirection() * 15;
-        this.timer = new Timer();
+        Timer timer = new Timer();
 
         setGravityAffection(false);
 

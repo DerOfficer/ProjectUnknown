@@ -27,8 +27,7 @@ public final class WorldExtensionParser {
      * @param world
      */
     public static void parse(List<String> statements, World world) {
-        statements.stream()
-                .forEach((statement) -> parseStatement(statement, world));
+        statements.forEach((statement) -> parseStatement(statement, world));
     }
 
     private static void parseStatement(String statement, World world) {
@@ -96,7 +95,7 @@ public final class WorldExtensionParser {
         int begin = 0;
         int quote_count = 0;
 
-        statement.replaceAll("\\s+", " ");
+        statement = statement.replaceAll("\\s+", " ");
 
         for (int i = 0; i < statement.length(); ++i) {
             if (statement.charAt(i) == '"') {

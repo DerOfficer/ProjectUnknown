@@ -60,10 +60,9 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
      * work in process... because the code to load the world in WorldEditor and World is pretty similar
      *
      * @param lines
-     * @param properties
      * @return
      */
-    public static ArrayList<Block> getBlocksFromLines(List<String> lines, ProjectUnknownProperties properties) {
+    public static ArrayList<Block> getBlocksFromLines(List<String> lines) {
 
         ArrayList<Block> blocks = new ArrayList<>();
         Teleporter currentTpBlock = null;
@@ -76,7 +75,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                     int y = Integer.parseInt(values[3]);
                     Block temp = new Block(x, y, blockType, "");
                     blocks.add(temp);
-                    continue;
+                    break;
                 case "TP1":
                     blockType = BlockType.valueOf(values[1]);
                     x = Integer.parseInt(values[2]);
@@ -84,7 +83,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                     temp = new Teleporter(x, y, "");
                     blocks.add(temp);
                     currentTpBlock = (Teleporter) temp;
-                    continue;
+                    break;
 
                 case "TP2":
                     blockType = BlockType.valueOf(values[1]);
@@ -95,7 +94,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                     currentTpBlock.link(tempTp);
                     blocks.add(tempTp);
                     currentTpBlock = null;
-                    continue;
+                    break;
             }
         }
         return blocks;
@@ -263,13 +262,13 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                         Block temp = new Block(x, y, blockType, "");
                         blocks.add(temp);
                         super.addObject(temp);
-                        continue;
+                        break;
 
                     case "PLAYER":
                         int xS = Integer.parseInt(values[1]);
                         int yS = Integer.parseInt(values[2]);
                         spawnPoint.move(xS, yS);
-                        continue;
+                        break;
 
                     case "TP1":
                         blockType = BlockType.valueOf(values[1]);
@@ -279,7 +278,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                         blocks.add(temp);
                         super.addObject(temp);
                         currentTpBlock = (Teleporter) temp;
-                        continue;
+                        break;
 
                     case "TP2":
                         blockType = BlockType.valueOf(values[1]);
@@ -291,7 +290,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                         blocks.add(tempTp);
                         super.addObject(tempTp);
                         currentTpBlock = null;
-                        continue;
+                        break;
                 }
             }
         } catch (IOException e) {

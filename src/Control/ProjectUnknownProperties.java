@@ -56,7 +56,7 @@ public class ProjectUnknownProperties {
         return this.soundManager;
     }
 
-    public static final void raiseException(Exception e){
+    public static void raiseException(Exception e){
         String formattedStackTrace = "";
         for(StackTraceElement element : e.getStackTrace()){
             formattedStackTrace += element.toString()+"\n";

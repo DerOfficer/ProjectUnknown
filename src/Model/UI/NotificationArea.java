@@ -117,7 +117,6 @@ public class NotificationArea implements IDrawableObject {
         }
 
         private void onFinished() {
-            System.out.println(y);
             if (y == -200) {
                 currentlyAnimating = false;
                 if (notificationQueue.peek() != null) { //implicit null = false W H E N

@@ -24,12 +24,7 @@ public class SettingsParser {
             ProjectUnknownProperties.raiseException(e);
         }
         map = new HashMap<>();
-        Runtime.getRuntime().addShutdownHook(new Thread() {
-            @Override
-            public void run() {
-                writeSettings();
-            }
-        });
+        Runtime.getRuntime().addShutdownHook(new Thread(() -> writeSettings()));
         parseLines(lines);
     }
 

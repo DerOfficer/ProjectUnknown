@@ -55,7 +55,7 @@ public class MainFrame extends JFrame implements MouseListener {
 
         addKeyListener(KeyManager.getInstance());
         setTitle(name);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setUndecorated(true);
         setVisible(true);
     }

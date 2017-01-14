@@ -1,6 +1,5 @@
 package Model.Physics.Entity;
 
-import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.ManaCast;
@@ -30,20 +29,16 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     private boolean manaReady;
 
-    private Timer timer;
-
     /**
      * standard creature contains x position, y position, health and mana.
-     *
-     * @param x
+     *  @param x
      * @param y
      * @param width
      * @param height
      * @param health
      * @param mana
-     * @param properties
      */
-    public Creature(int x, int y, int width, int height, int health, int mana, ProjectUnknownProperties properties) {
+    public Creature(int x, int y, int width, int height, int health, int mana) {
         super(x, y, width, height);
         this.maxHealth = health;
         this.actHealth = health;
@@ -99,7 +94,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
         this.manaReady = true;
         this.counter = 0;
 
-        timer = new Timer();
+        Timer timer = new Timer();
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {

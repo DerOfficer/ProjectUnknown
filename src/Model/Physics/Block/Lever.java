@@ -20,7 +20,7 @@ public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawab
     private boolean on;
 
     public Lever(double x, double y, String id, boolean on) {
-        super(x, y, 50, 50, id);
+        super(x, y, id);
         this.on = on;
     }
 

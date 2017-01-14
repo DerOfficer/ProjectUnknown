@@ -18,9 +18,6 @@ import java.nio.file.Paths;
 public class Humanoid extends Creature {
     private BufferedImage[] humanModel;
 
-    private Animation legMovement;
-    private Animation armMovement;
-
     private HumanAnimationObject animationObject;
 
     public Humanoid(int x, int y, BufferedImage image, int level) {
@@ -30,8 +27,8 @@ public class Humanoid extends Creature {
 
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));
 
-        this.legMovement = animList.getAnimationByName("walk");
-        this.armMovement = animList.getAnimationByName("armWalk");
+        Animation legMovement = animList.getAnimationByName("walk");
+        Animation armMovement = animList.getAnimationByName("armWalk");
 
         this.animationObject = new HumanAnimationObject("human");
 

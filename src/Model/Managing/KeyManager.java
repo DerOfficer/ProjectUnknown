@@ -10,7 +10,7 @@ import java.util.List;
  */
 public class KeyManager implements KeyListener {
 
-    private static KeyManager instance;
+    private static final KeyManager instance;
 
     static {
         instance = new KeyManager();
@@ -23,9 +23,7 @@ public class KeyManager implements KeyListener {
     }
 
     public static boolean isKeyPressed(String key) {
-        if (key != null)
-            return instance.isKeyPressed0(key.toLowerCase());
-        return false;
+        return key != null && instance.isKeyPressed0(key.toLowerCase());
     }
 
     public static KeyManager getInstance() {

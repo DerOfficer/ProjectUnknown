@@ -18,15 +18,12 @@ public abstract class AbstractBlock extends PhysicsObject implements IDrawableOb
 
     /**
      * Creates a new physics object with the given position and dimensions
-     *
      * @param x      The x-position of the physics object
      * @param y      The y-position of the physics object
-     * @param width  the width of the physics object
-     * @param height the height of the physics object
      */
 
-    protected AbstractBlock(double x, double y, double width, double height, String id) {
-        super(x, y, width, height);
+    protected AbstractBlock(double x, double y, String id) {
+        super(x, y, 50d, 50d);
 
         this.id = id;
     }
