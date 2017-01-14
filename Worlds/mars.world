@@ -35,3 +35,13 @@ BLOCK STONE_BRICK 800 300
 BLOCK STONE_BRICK 850 300
 BLOCK STONE_BRICK 850 350
 PLAYER 400 400
+
+
+stardust .world extension
+define type=stone_brick x=850 y=400 id=block1 inconsistent=true
+define type=lever x=600 y=600 state=on id=lever1
+define type=teleporter x=850 y=500 id=tp1
+define type=teleporter x=700 y=300 id=tp2
+link source=tp1 destination=tp2
+lever_action lever_id=lever1 mode=toggle_block block_id=block1
+lever_action lever_id=lever1 mode=link_teleporter source=tp2 destination=tp1

@@ -207,7 +207,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                             BlockType blockType = BlockType.valueOf(values[1]);
                             int x = Integer.parseInt(values[2]);
                             int y = Integer.parseInt(values[3]);
-                            Block temp = new Block(x, y, blockType);
+                            Block temp = new Block(x, y, blockType, "");
                             blocks.add(temp);
                             super.addObject(temp);
                             continue;
@@ -222,7 +222,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                             blockType = BlockType.valueOf(values[1]);
                             x = Integer.parseInt(values[2]);
                             y = Integer.parseInt(values[3]);
-                            temp = new Teleporter(properties, x, y);
+                            temp = new Teleporter(x, y, "");
                             blocks.add(temp);
                             super.addObject(temp);
                             currentTpBlock = (Teleporter) temp;
@@ -232,7 +232,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                             blockType = BlockType.valueOf(values[1]);
                             x = Integer.parseInt(values[2]);
                             y = Integer.parseInt(values[3]);
-                            Teleporter tempTp = new Teleporter(properties,x, y);
+                            Teleporter tempTp = new Teleporter(x, y, "");
                             tempTp.link(currentTpBlock);
                             currentTpBlock.link(tempTp);
                             blocks.add(tempTp);
@@ -264,14 +264,14 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                         BlockType blockType = BlockType.valueOf(values[1]);
                         int x = Integer.parseInt(values[2]);
                         int y = Integer.parseInt(values[3]);
-                        Block temp = new Block(x, y, blockType);
+                        Block temp = new Block(x, y, blockType, "");
                         blocks.add(temp);
                         continue;
                     case "TP1":
                         blockType = BlockType.valueOf(values[1]);
                         x = Integer.parseInt(values[2]);
                         y = Integer.parseInt(values[3]);
-                        temp = new Teleporter(properties, x, y);
+                        temp = new Teleporter(x, y, "");
                         blocks.add(temp);
                         currentTpBlock = (Teleporter) temp;
                         continue;
@@ -280,7 +280,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                         blockType = BlockType.valueOf(values[1]);
                         x = Integer.parseInt(values[2]);
                         y = Integer.parseInt(values[3]);
-                        Teleporter tempTp = new Teleporter(properties,x, y);
+                        Teleporter tempTp = new Teleporter(x, y, "");
                         tempTp.link(currentTpBlock);
                         currentTpBlock.link(tempTp);
                         blocks.add(tempTp);
@@ -304,7 +304,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             }
         }
         if(noBlock){
-            Teleporter teleporter = new Teleporter(properties,x,y);
+            Teleporter teleporter = new Teleporter(x,y, "");
             if(blocks.get(blocks.size()-1) instanceof Teleporter){
                 Teleporter temp = (Teleporter)blocks.get(blocks.size()-1);
                 teleporter.link(temp);
@@ -329,7 +329,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             }
         }
         if (noBlock) {
-            Block temp = new Block(x, y, BlockType.values()[indexOfBlockType]);
+            Block temp = new Block(x, y, BlockType.values()[indexOfBlockType], "");
             blocks.add(temp);
             super.addObject(temp);
         }

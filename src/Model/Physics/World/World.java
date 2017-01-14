@@ -2,16 +2,16 @@ package Model.Physics.World;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
+import Model.Notification;
 import Model.Parser.WorldExtensionParser;
-import Model.Physics.Block.Block;
+import Model.Physics.Block.AbstractBlock;
 import Model.Physics.Block.BlockType;
-import Model.Physics.Block.Teleporter;
 import Model.Physics.Block.InconsistentStateBlock;
+import Model.Physics.Block.Teleporter;
 import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
 import Model.UI.Overlay.GraphicalUserInterface;
-import Model.UI.Screen.WorldEditor;
 import View.DrawingPanel;
 import View.StaticDrawingPanel;
 import com.Physics2D.PhysicsObject;
@@ -24,6 +24,7 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -35,6 +36,8 @@ public class World extends SideScrollingPhysicsWorld{
 
     private Player player;
     private Point spawnPoint;
+
+    private List<AbstractBlock> identifiableBlocks;
 
     private GraphicalUserInterface gui;
 
@@ -55,11 +58,9 @@ public class World extends SideScrollingPhysicsWorld{
         this.renderer = new LevelRenderer(properties);
         this.player = new Player(properties, properties.getLevel());
         this.gui = new GraphicalUserInterface(player, properties);
+        this.identifiableBlocks = new ArrayList<>();
 
         try {
-            //for (Block block:WorldEditor.getBlocksFromLines(Files.readAllLines(path),properties)) {
-            //    addObject(block);
-            //}
             createWorld(Files.readAllLines(path));
             createEnemies(p);
         } catch (IOException e) {
@@ -75,12 +76,28 @@ public class World extends SideScrollingPhysicsWorld{
 
     }
 
+    public void showNotification(Notification notification){
+        properties.getNotificationArea().addNotification(notification);
+    }
+
+    public AbstractBlock getBlockById(String id){
+        return identifiableBlocks.stream()
+                .filter((block) -> block.getId().equals(id))
+                .findFirst()
+                .get();
+    }
+
     @Override
     public void addObject(PhysicsObject o) {
         super.addObject(o);
         if(o instanceof IDrawableObject){
             IDrawableObject drawableObject = (IDrawableObject)o;
             renderer.scheduleAddObject(drawableObject);
+        }
+        if(o instanceof AbstractBlock){
+            if(((AbstractBlock) o).getId() != null){
+                identifiableBlocks.add((AbstractBlock)o);
+            }
         }
         o.addMovementListener(this);
     }
@@ -90,6 +107,11 @@ public class World extends SideScrollingPhysicsWorld{
         if(o instanceof IDrawableObject){
             IDrawableObject drawableObject = (IDrawableObject)o;
             renderer.scheduleRemoveObject(drawableObject);
+        }
+        if(o instanceof AbstractBlock){
+            if(((AbstractBlock) o).getId() != null){
+                identifiableBlocks.remove(o);
+            }
         }
         o.removeMovementListener(this);
         SwingUtilities.invokeLater(() -> super.removeObject(o));
@@ -109,7 +131,8 @@ public class World extends SideScrollingPhysicsWorld{
         Teleporter tempTeleporter = null;
         for(String line : lines){
             if(line.equals("stardust .world extension")){
-                WorldExtensionParser.parse(lines.subList(lines.indexOf(line), lines.size()), this);
+                //Lets break out of this code and skip into the dedicated parser
+                WorldExtensionParser.parse(lines.subList(lines.indexOf(line)+1, lines.size()), this);
                 break;
             }else {
                 String[] values = line.split(" ");
@@ -119,7 +142,7 @@ public class World extends SideScrollingPhysicsWorld{
                             BlockType blockType = BlockType.valueOf(values[1]);
                             int x = Integer.parseInt(values[2]);
                             int y = Integer.parseInt(values[3]);
-                            addObject(new InconsistentStateBlock(x, y, blockType));
+                            addObject(new InconsistentStateBlock(x, y, blockType, ""));
                             break;
                         case "PLAYER":
                             x = Integer.parseInt(values[1]);
@@ -129,7 +152,7 @@ public class World extends SideScrollingPhysicsWorld{
                         case "TP1":
                             x = Integer.parseInt(values[2]);
                             y = Integer.parseInt(values[3]);
-                            tempTeleporter = new Teleporter(properties, x, y);
+                            tempTeleporter = new Teleporter(x, y, "");
                             addObject(tempTeleporter);
                             break;
                     }
@@ -137,7 +160,7 @@ public class World extends SideScrollingPhysicsWorld{
                     if (values[0].equals("TP2")) {
                         int x = Integer.parseInt(values[2]);
                         int y = Integer.parseInt(values[3]);
-                        Teleporter temp = new Teleporter(properties, x, y);
+                        Teleporter temp = new Teleporter(x, y, "");
                         temp.link(tempTeleporter);
                         tempTeleporter.link(temp);
                         addObject(temp);

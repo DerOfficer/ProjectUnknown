@@ -19,8 +19,8 @@ public class Block extends AbstractBlock implements IDrawableObject {
      * @param y
      * @param blockType
      */
-    public Block(int x, int y, BlockType blockType){
-        super(x,y,50,50);
+    public Block(int x, int y, BlockType blockType, String id){
+        super(x,y,50,50, id);
         this.blockType = blockType;
         img = blockType.getImage();
     }

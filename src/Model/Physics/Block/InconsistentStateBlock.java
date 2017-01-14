@@ -9,8 +9,8 @@ public class InconsistentStateBlock extends Block {
 
     private boolean state = true;
 
-    public InconsistentStateBlock(int x, int y, BlockType blockType) {
-        super(x, y, blockType);
+    public InconsistentStateBlock(int x, int y, BlockType blockType, String id) {
+        super(x, y, blockType, id);
     }
 
     public void toggleSolidity(){

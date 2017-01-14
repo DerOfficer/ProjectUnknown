@@ -26,13 +26,12 @@ public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawab
      *
      * @param x      The x-position of the physics object
      * @param y      The y-position of the physics object
-     * @param width  the width of the physics object
-     * @param height the height of the physics object
      */
-    public Lever(double x, double y, double width, double height, Consumer<Boolean> onToggle) {
-        super(x, y, width, height);
-        this.onToggle = onToggle;
+    public Lever(double x, double y, String id, boolean on) {
+        super(x, y, 50,50, id);
+        this.on = on;
     }
+
     @Override
     public void draw() {
         Graphics2D g = canvas.getPencil();
@@ -45,7 +44,6 @@ public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawab
 
     @Override
     public void update(double dt) {
-
     }
 
     @Override
@@ -62,5 +60,13 @@ public class Lever extends AbstractBlock implements IPlayerInteractable, IDrawab
     public void onInteractWith(Entity actor) {
         on = !on;
         onToggle.accept(on);
+    }
+
+    public void setOnToggle(Consumer<Boolean> onToggle) {
+        this.onToggle = onToggle;
+    }
+
+    public Consumer<Boolean> getOnToggle() {
+        return onToggle;
     }
 }

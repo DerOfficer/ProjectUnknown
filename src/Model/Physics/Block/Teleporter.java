@@ -1,6 +1,5 @@
 package Model.Physics.Block;
 
-import Control.ProjectUnknownProperties;
 import Model.Abstraction.IPlayerInteractable;
 import Model.Notification;
 import com.Physics2D.Entity;
@@ -15,20 +14,17 @@ public class Teleporter extends Block implements IPlayerInteractable{
      * The Teleporter we teleport to
      */
     private Teleporter link;
-    private ProjectUnknownProperties properties;
 
     /**
      * Constructs a new Teleporter object. Linking is not done in the constructor, as 2 teleporters might want to
      * link against each other.
-     * @param properties
      * @param x
      * @param y
      *
      * @see Teleporter#link(Teleporter)
      */
-    public Teleporter(ProjectUnknownProperties properties, int x, int y) {
-        super(x, y, BlockType.CRYSTAL_STONE_BRICK);
-        this.properties = properties;
+    public Teleporter(int x, int y, String id) {
+        super(x, y, BlockType.CRYSTAL_STONE_BRICK, id);
     }
 
     /**
@@ -58,7 +54,7 @@ public class Teleporter extends Block implements IPlayerInteractable{
         if (isLinked()) {
             actor.setPosition(link.getX() + link.getWidth() / 2 - actor.getWidth() / 2, link.getY() - actor.getHeight());
         } else {
-            properties.getNotificationArea().addNotification(
+            getWorld().showNotification(
                     new Notification("This Teleporter doesnt work!", "Maybe there's something you can do about this?"));
         }
     }
