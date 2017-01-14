@@ -15,7 +15,7 @@ import static Model.Managing.SpriteManager.BLOCK_STONE_BRICK;
  */
 public class Spawner extends Block implements IDrawableObject{
 
-    private long timer = 0;
+    private double timer = 0;
     private Enemy.Type enemy;
 
 
@@ -30,8 +30,8 @@ public class Spawner extends Block implements IDrawableObject{
         g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_STONE_BRICK], (int) getX(), (int) getY(), null);
     }
 
-    //@Override
-    public void update(long dt) {
+    @Override
+    public void update(double dt) {
         timer = timer + dt;
         if(timer == 10){
            // getWorld().addObject();
