@@ -2,6 +2,9 @@ package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IEventInteractableObject;
+import Model.Physics.Block.BlockType;
+import Model.Physics.Block.InconsistentStateBlock;
+import Model.Physics.Block.Lever;
 import Model.Physics.World.World;
 import Model.Planet;
 import Model.UI.Button;
@@ -11,15 +14,12 @@ import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Paths;
 
-/**
- * Created by 204g03 on 16.12.2016.
- */
 public class LevelSelect extends DrawingPanel {
 
     private BufferedImage background;
 
     private Button buttonBack;
-    private Button[]btnPlanets;
+    private Button[] btnPlanets;
 
     public LevelSelect(ProjectUnknownProperties properties){
         super(properties);
@@ -33,16 +33,34 @@ public class LevelSelect extends DrawingPanel {
             btnPlanets[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
                 World level = new World(Paths.get("Worlds/"+Planet.values()[finalI].toString().toLowerCase()+".world"), properties, Planet.values()[finalI]);
                 properties.getFrame().setContentPanel(level.getRenderer());
-                properties.setCurrentWorld(level);
+                if(finalI == 2){
+                    InconsistentStateBlock b2 = new InconsistentStateBlock(1400, -300, BlockType.STONE_BRICK);
+                    InconsistentStateBlock b3 = new InconsistentStateBlock(1400, -250, BlockType.STONE_BRICK);
+                    InconsistentStateBlock b4 = new InconsistentStateBlock(1400, -200, BlockType.STONE_BRICK);
+                    InconsistentStateBlock b1 = new InconsistentStateBlock(1400, -150, BlockType.STONE_BRICK);
+                    level.addObject(b1);
+                    level.addObject(b2);
+                    level.addObject(b3);
+                    level.addObject(b4);
+                    Lever l1 = new Lever(1300, -150, 50, 50, (on) -> {
+                        b1.toggleSolidity();
+                        b2.toggleSolidity();
+                        b3.toggleSolidity();
+                        b4.toggleSolidity();
+                    });
+                    level.addObject(l1);
+                }
             });
         }
 
         buttonBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            properties.getSoundManager().startSound(4);
             properties.getFrame().setContentPanel(properties.getFrame().getStart());
         });
 
-        buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (event) -> {
+        buttonBack.addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (event) -> {
             if(event.getSrcKey() == KeyEvent.VK_ESCAPE) {
+                properties.getSoundManager().startSound(4);
                 properties.getFrame().setContentPanel(properties.getFrame().getStart());
                 properties.getFrame().setBackgroundPanel(properties.getFrame().getDefaultBackground());
             }
@@ -51,21 +69,10 @@ public class LevelSelect extends DrawingPanel {
         addObject(buttonBack);
     }
 
-   /* private void createLevel(Planet planet){
-            SimplePlanetWorld level = new SimplePlanetWorld(planet, properties);
-            properties.getFrame().setContentPanel(level.getRenderer());
-    }*/
-
     private void initImages(){
-        btnPlanets = new Button[Planet.values().length];
-        /*int temp = 100 + (int) (1f / Planet.values().length);
-        for (int i = 0; i < Planet.values().length; i++) {
-            BufferedImage tempImg = Planet.values()[i].getImage();
-            btnPlanets[i] = new Button(temp, (screenHeight/2)-tempImg.getHeight()/2, tempImg);
-            temp = temp + tempImg.getWidth()+50;
-            addObject(btnPlanets[i]);
-        }*/
         Planet[] planets = Planet.values();
+        this.btnPlanets = new Button[planets.length];
+
         int offset = planets[planets.length-1].getImage().getWidth();
         for(int i = Planet.values().length - 1; i >= 0; --i){
             BufferedImage tempImg = Planet.values()[i].getImage();

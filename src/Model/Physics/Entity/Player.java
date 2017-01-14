@@ -21,8 +21,12 @@ import static Model.Managing.SpriteManager.ENTITY_PLAYER;
  */
 public class Player extends Humanoid implements IInteractableObject{
 
+    private int level;
+    private int exp;
+    private int maxExp;
+
     private ProjectUnknownProperties properties;
-    private int level, exp, maxExp;
+
     private ManaCast.Type currentCast;
 
     /**
@@ -31,19 +35,13 @@ public class Player extends Humanoid implements IInteractableObject{
      */
     public Player(ProjectUnknownProperties properties, int level){
         super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER],level,properties);
+
         this.properties = properties;
-        exp = 0;
-        maxExp = 100;
         this.level = level;
-        currentCast = ManaCast.Type.LIGHT_BALL;
-    }
 
-    public void setX(int x){
-        super.setX(x);
-    }
-
-    public void setY(int y){
-        super.setY(y);
+        this.exp = 0;
+        this.maxExp = 100;
+        this.currentCast = ManaCast.Type.LIGHT_BALL;
     }
 
     /**

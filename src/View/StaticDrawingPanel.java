@@ -44,7 +44,7 @@ public class StaticDrawingPanel extends DrawingPanel {
         int dt = (int) ((elapsedTime / 1000000L)+0.5);
         if ( dt == 0 ) dt = 1;
         for (IDrawableObject drawableObject : drawableObjects) {
-            drawableObject.update((double)dt/1000);
+            drawableObject.update((double) dt / 1000);
         }
     }
 }

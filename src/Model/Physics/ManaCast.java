@@ -4,8 +4,6 @@ import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Managing.SpriteManager;
 import Model.Physics.Entity.Creature;
-import Model.Physics.Entity.Mobs.Enemy;
-import Model.Physics.Entity.Player;
 import com.Physics2D.Entity;
 import com.Physics2D.PhysicsObject;
 
@@ -31,8 +29,13 @@ public class ManaCast extends Entity implements IDrawableObject {
         METAL_BALL(0.5,2.00,40,5,6),
         RAINBOW_BALL(3.00,1.5,80,10,10);
 
-        private double speedModifier, attackModifier;
-        private int mana, timeSpell, timeCoolDown;
+        private int mana;
+        private int timeSpell;
+        private int timeCoolDown;
+
+        private double speedModifier;
+        private double attackModifier;
+
         private BufferedImage image;
 
         Type(double speedModifier, double attackModifier, int mana, int timeSpell, int timeCoolDown){
@@ -65,12 +68,14 @@ public class ManaCast extends Entity implements IDrawableObject {
         public int getSpellCoolDown(){ return timeCoolDown; }
     }
 
+    private double movement;
+
     private Type type;
     private Creature creature;
-    private ICanvas canvas;
-    private double movement;
-    private BufferedImage img;
     private Timer timer;
+
+    private ICanvas canvas;
+    private BufferedImage sprite;
 
     /**
      * constructs new mana casts and get instantly shoot from the creatures position
@@ -81,41 +86,40 @@ public class ManaCast extends Entity implements IDrawableObject {
         super(creature.getX(),creature.getY(),type.getImage().getWidth(),type.getImage().getHeight());
         this.type = type;
         this.creature = creature;
-        img = type.getImage();
-        movement = type.getSpeedModifier()*creature.getDirection()*15;
+        this.sprite = type.getImage();
+        this.movement = type.getSpeedModifier()*creature.getDirection()*15;
+        this.timer = new Timer();
+
         setGravityAffection(false);
 
-        timer = new Timer();
-        Entity entity = this;
         TimerTask timerTask = new TimerTask() {
             @Override
             public void run() {
-                world.removeObject(entity);
-                timer.cancel();
+                if(world != null) {
+                    world.removeObject(ManaCast.this);
+                }
             }
         };
 
-        timer.scheduleAtFixedRate(timerTask,type.getTimeSpell()*1000,1000);
+        timer.schedule(timerTask,type.getTimeSpell()*1000,1000);
     }
 
     @Override
     public void draw() {
         Graphics g = canvas.getPencil();
-        g.drawImage(img,(int)getX(),(int)getY(),null);
+        g.drawImage(sprite,(int)getX(),(int)getY(),null);
     }
 
     @Override
     public void update(double dt) {
         accelerate(movement);
-        if( world.getIntersecting(this) != null) {
+        if (world.getIntersecting(this) != null) {
             for (PhysicsObject object : world.getIntersecting(this)) {
-                if (object instanceof Creature && object != creature) {
+                if (object instanceof Creature && object != creature && !creature.getClass().isInstance(object)) {
+                    //We prevent mobs from killing their own kind by checking that their mana orbs cant hit instances of their own class
                     Creature enemy = (Creature) object;
-                    if (!(creature instanceof Enemy && enemy instanceof Enemy) || (creature instanceof Player)) {
-                        enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
-                        world.removeObject(this);
-                        timer.cancel();
-                    }
+                    enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
+                    world.removeObject(this);
                 }
             }
         }

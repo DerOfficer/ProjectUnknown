@@ -1,7 +1,6 @@
 package Model.Physics.Entity;
 
 import Control.ProjectUnknownProperties;
-import Model.Abstraction.ICanvas;
 import Model.SpriteSheetHandler;
 import com.SSA.Animation.Animation;
 import com.SSA.Animation.AnimationObject;
@@ -19,22 +18,26 @@ import java.nio.file.Paths;
 
 public class Humanoid extends Creature {
     private BufferedImage[]humanModel;
-    protected ICanvas canvas;
 
-    private Animation walk;
-    private Animation armWalk;
+    private Animation legMovement;
+    private Animation armMovement;
 
     private HumanAnimationObject animationObject;
 
     public Humanoid(int x, int y, BufferedImage image, int level, ProjectUnknownProperties properties){
         super(x, y, 20, 82,level,properties);
-        humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
+
+        this.humanModel = new SpriteSheetHandler(new int[]{0, 41/2, 38/2, 32/2, 26/2}, image).getSprites();
+
         AnimationList animList = AnimParser.parseAnimFile(Paths.get("player.anim"));
-        walk = animList.getAnimationByName("walk");
-        armWalk = animList.getAnimationByName("armWalk");
-        animationObject = new HumanAnimationObject("human");
-        animationObject.animate(armWalk);
-        animationObject.animate(walk);
+
+        this.legMovement = animList.getAnimationByName("walk");
+        this.armMovement = animList.getAnimationByName("armWalk");
+
+        this.animationObject = new HumanAnimationObject("human");
+
+        animationObject.animate(armMovement);
+        animationObject.animate(legMovement);
     }
 
     @Override
@@ -67,8 +70,6 @@ public class Humanoid extends Creature {
         //arm in the foreground
         g2d.drawImage(humanModel[4], (int) getX() + animationObject.arm1x, (int) getY() + headOffset, null);
 
-        //canvas.getPencil().drawImage(humanModel[0], (int) getX(), (int) getY(), null);
-
         if (sideWayVelocity < 0) {
             g2d.translate(getX() + getWidth() / 2, 0);
             g2d.scale(-1, 1);
@@ -83,16 +84,6 @@ public class Humanoid extends Creature {
         }else{
             animationObject.walking = 1;
         }
-    }
-
-    @Override
-    public void provideCanvas(ICanvas canvas) {
-        this.canvas = canvas;
-    }
-
-    @Override
-    public Shape getBounds() {
-        return null;
     }
 
     private class HumanAnimationObject extends AnimationObject{

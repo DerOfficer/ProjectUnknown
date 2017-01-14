@@ -10,27 +10,20 @@ public class Label implements IDrawableObject {
     private int x;
     private int y;
 
-    private String label;
+    private String text;
+
     private ICanvas canvas;
 
     private Font font;
 
     private Color foregroundColor;
 
-    public Label(int x, int y, String label, Font font) {
-        this.label = label;
+    public Label(int x, int y, String text, Font font) {
+        this.text = text;
         this.x = x;
         this.y = y;
         this.font = font;
-        foregroundColor = Color.white;
-    }
-
-    public void setFont(Font font) {
-        this.font = font;
-    }
-
-    public void setForegroundColor(Color foregroundColor) {
-        this.foregroundColor = foregroundColor;
+        this.foregroundColor = Color.white;
     }
 
     @Override
@@ -41,7 +34,7 @@ public class Label implements IDrawableObject {
 
         FontMetrics metrics = g2d.getFontMetrics();
 
-        g2d.drawString(label, (x - (metrics.stringWidth(label) / 2)), y);
+        g2d.drawString(text, (x - (metrics.stringWidth(text) / 2)), y);
     }
 
     @Override
@@ -56,5 +49,13 @@ public class Label implements IDrawableObject {
     @Override
     public Shape getBounds() {
         return new Rectangle2D.Double.Double.Double.Double(0, 0, 0, 0);
+    }
+
+    public void setFont(Font font) {
+        this.font = font;
+    }
+
+    public void setForegroundColor(Color foregroundColor) {
+        this.foregroundColor = foregroundColor;
     }
 }

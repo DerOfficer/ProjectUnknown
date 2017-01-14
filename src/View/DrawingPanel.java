@@ -8,33 +8,38 @@ import Model.Abstraction.IInteractableObject;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 
 public class DrawingPanel extends JComponent implements ActionListener, KeyListener, MouseListener, ICanvas {
 
-    protected long lastLoop, elapsedTime;
+    protected static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
+    protected static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
+
+    protected long lastLoop;
+    protected long elapsedTime;
+
     private boolean graphicsLock;
+
     protected ArrayList<IDrawableObject> drawableObjects;
+
     private Graphics2D graphics;
 
     protected ProjectUnknownProperties properties;
-
-    protected static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
-    protected static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
     protected Timer timer;
 
     public DrawingPanel(ProjectUnknownProperties properties){
         super();
 
+        this.properties = properties;
+        this.drawableObjects = new ArrayList<>();
+        this.timer = new Timer(16, this);
+
         addMouseListener(this);
         setDoubleBuffered(true);
 
-        this.properties = properties;
-
-        drawableObjects = new ArrayList<>();
         lastLoop = System.nanoTime();
-        timer = new Timer(30, this);
         timer.start();
     }
 
@@ -49,9 +54,15 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         graphics.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
         graphics.translate(getRenderingOffset().getX(), getRenderingOffset().getY());
         graphicsLock = true;
-        for(IDrawableObject tempDO : drawableObjects){
+        for (IDrawableObject tempDO : drawableObjects) {
+            Rectangle2D bounds = tempDO.getBounds().getBounds();
+            //Dont draw if its not on screen.
+            if (bounds.getX() + bounds.getWidth() + getRenderingOffset().getX() < 0 || bounds.getY() + bounds.getHeight() + getRenderingOffset().getY() < 0
+                    || bounds.getX() + getRenderingOffset().getX() > screenWidth || bounds.getY() + getRenderingOffset().getY() > screenHeight) {
+                continue;
+            }
             tempDO.draw();
-            tempDO.update((double)dt/1000);
+            tempDO.update((double) dt / 1000);
         }
         graphicsLock = false;
     }
@@ -84,6 +95,14 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     @Override
     public boolean canDraw() {
         return graphicsLock;
+    }
+
+    @Override
+    public Graphics2D getPencil() {
+        if(!canDraw()){
+            throw new UnsupportedOperationException("Graphics Context currently not available");
+        }
+        return graphics;
     }
 
     @Override
@@ -128,19 +147,9 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     public void mouseClicked(MouseEvent e) {
-        try {
-            drawableObjects.stream()
-                    .filter(tempDO -> tempDO instanceof IInteractableObject)
-                    .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
-                    .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
-        }catch(Throwable t){}
-    }
-
-    @Override
-    public Graphics2D getPencil() {
-        if(!canDraw()){
-            throw new UnsupportedOperationException("Graphics Context currently not available");
-        }
-        return graphics;
+        drawableObjects.stream()
+                .filter(tempDO -> tempDO instanceof IInteractableObject)
+                .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
+                .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
     }
 }

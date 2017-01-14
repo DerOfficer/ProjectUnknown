@@ -8,21 +8,24 @@ import java.awt.image.BufferedImage;
  */
 
 public class SpriteSheetHandler {
-    private BufferedImage image;
-    private BufferedImage[]sprites;
-    private int[]gaps;
-    private Dimension[]dimensions;
+    private int[] gaps;
 
-    public SpriteSheetHandler(int[]gaps, BufferedImage image){
+    private BufferedImage image;
+    private BufferedImage[] sprites;
+
+    private Dimension[] dimensions;
+
+    public SpriteSheetHandler(int[] gaps, BufferedImage image){
         this.gaps = gaps;
         this.image = image;
 
         subSpriteImage();
     }
 
-    public SpriteSheetHandler(Dimension[]dimensions,BufferedImage image){
+    public SpriteSheetHandler(Dimension[] dimensions,BufferedImage image){
         this.image = image;
         this.dimensions = dimensions;
+
         subExactSpriteImage();
     }
 

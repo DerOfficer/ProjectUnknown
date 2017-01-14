@@ -10,7 +10,9 @@ import java.util.HashMap;
 import java.util.List;
 
 public class SettingsParser {
+
     private HashMap<String, String> map;
+
     private Path path;
 
     public SettingsParser(Path path){
