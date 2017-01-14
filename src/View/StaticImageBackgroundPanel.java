@@ -1,6 +1,7 @@
 package View;
 
 import Control.ProjectUnknownProperties;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 
@@ -17,7 +18,7 @@ public class StaticImageBackgroundPanel extends StaticDrawingPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(@NotNull Graphics g) {
         g.drawImage(image, screenWidth / 2 - image.getWidth(this) / 2, screenHeight / 2 - image.getHeight(this) / 2, this);
     }
 }

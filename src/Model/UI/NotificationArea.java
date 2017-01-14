@@ -9,6 +9,8 @@ import com.SSA.Animation.AnimationObject;
 import com.SSA.Annotation.Animatable;
 import com.SSA.Parsing.AnimParser;
 import com.SSA.Parsing.AnimationList;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -23,6 +25,7 @@ public class NotificationArea implements IDrawableObject {
 
     private Queue<Notification> notificationQueue;
 
+    @Nullable
     private Notification currentNotification;
 
     private AnimationWrapper wrapper;
@@ -98,6 +101,7 @@ public class NotificationArea implements IDrawableObject {
         this.canvas = canvas;
     }
 
+    @NotNull
     @Override
     public Shape getBounds() {
         //Since we arent interactable, its doesnt matter what we return here, as long as it isnt null

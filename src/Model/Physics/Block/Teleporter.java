@@ -3,6 +3,7 @@ package Model.Physics.Block;
 import Model.Abstraction.IPlayerInteractable;
 import Model.Notification;
 import com.Physics2D.Entity;
+import org.jetbrains.annotations.NotNull;
 
 /**
  * Class representing Teleporters which allow Entities to teleport to a different Teleporter object via interaction
@@ -53,7 +54,7 @@ public class Teleporter extends Block implements IPlayerInteractable {
      * @param actor The Entity that interacted with the Teleporter
      */
     @Override
-    public void onInteractWith(Entity actor) {
+    public void onInteractWith(@NotNull Entity actor) {
         if (isLinked()) {
             actor.setPosition(link.getX() + link.getWidth() / 2 - actor.getWidth() / 2, link.getY() - actor.getHeight());
         } else {

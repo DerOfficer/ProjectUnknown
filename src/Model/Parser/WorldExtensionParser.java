@@ -2,6 +2,7 @@ package Model.Parser;
 
 import Control.ProjectUnknownProperties;
 import Model.Physics.World.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -26,11 +27,11 @@ public final class WorldExtensionParser {
      * @param statements
      * @param world
      */
-    public static void parse(List<String> statements, World world) {
+    public static void parse(@NotNull List<String> statements, @NotNull World world) {
         statements.forEach((statement) -> parseStatement(statement, world));
     }
 
-    private static void parseStatement(String statement, World world) {
+    private static void parseStatement(String statement, @NotNull World world) {
         Map<String, String> parameters = getParameters(statement);
 
         switch (parameters.get("__name")) {
@@ -59,6 +60,7 @@ public final class WorldExtensionParser {
      * @return
      */
 
+    @NotNull
     private static Map<String, String> getParameters(String statement) {
         Map<String, String> parameters = new HashMap<>();
 
@@ -89,6 +91,7 @@ public final class WorldExtensionParser {
      * @param statement The statement to parse
      * @return a list of strings representing the individual arguments
      */
+    @NotNull
     private static List<String> getArguments(String statement) {
         List<String> arguments = new ArrayList<>();
 

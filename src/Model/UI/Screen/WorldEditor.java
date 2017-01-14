@@ -5,6 +5,8 @@ import Model.Physics.Block.Block;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.Teleporter;
 import View.DrawingPanel;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,7 +33,9 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
     private int indexOfBlockType;
 
     private Point spawnPoint;
+    @Nullable
     private Point pos1;
+    @Nullable
     private Point pos2;
 
     private List<Block> blocks;
@@ -62,7 +66,8 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
      * @param lines
      * @return
      */
-    public static ArrayList<Block> getBlocksFromLines(List<String> lines) {
+    @NotNull
+    public static ArrayList<Block> getBlocksFromLines(@NotNull List<String> lines) {
 
         ArrayList<Block> blocks = new ArrayList<>();
         Teleporter currentTpBlock = null;
@@ -106,7 +111,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
      * @param g
      */
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(@NotNull Graphics g) {
         g.setColor(Color.white);
         int x = (((realX + MouseInfo.getPointerInfo().getLocation().x) / 50)) * 50;
         int y = (((realY + MouseInfo.getPointerInfo().getLocation().y) / 50)) * 50;
@@ -134,6 +139,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
         }
     }
 
+    @NotNull
     @Override
     public Point getRenderingOffset() {
         return new Point(-camX, -camY);
@@ -153,7 +159,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
      * @param e
      */
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(@NotNull KeyEvent e) {
         int x = (((realX + MouseInfo.getPointerInfo().getLocation().x) / 50)) * 50;
         int y = (((realY + MouseInfo.getPointerInfo().getLocation().y) / 50)) * 50;
         int k = e.getKeyCode();
@@ -216,7 +222,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
     }
 
     @Override
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(@NotNull MouseEvent e) {
         int x = (((realX + MouseInfo.getPointerInfo().getLocation().x) / 50)) * 50;
         int y = (((realY + MouseInfo.getPointerInfo().getLocation().y) / 50)) * 50;
 

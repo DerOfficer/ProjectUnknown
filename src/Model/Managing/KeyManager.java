@@ -1,5 +1,8 @@
 package Model.Managing;
 
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.util.ArrayList;
@@ -10,6 +13,7 @@ import java.util.List;
  */
 public class KeyManager implements KeyListener {
 
+    @NotNull
     private static final KeyManager instance;
 
     static {
@@ -22,10 +26,11 @@ public class KeyManager implements KeyListener {
         pressedKeys = new ArrayList<>();
     }
 
-    public static boolean isKeyPressed(String key) {
+    public static boolean isKeyPressed(@Nullable String key) {
         return key != null && instance.isKeyPressed0(key.toLowerCase());
     }
 
+    @NotNull
     public static KeyManager getInstance() {
         return instance;
     }
@@ -35,7 +40,7 @@ public class KeyManager implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(@NotNull KeyEvent e) {
         if (!pressedKeys.contains(keyCodeToString(e.getKeyCode()))) {
             pressedKeys.add(keyCodeToString(e.getKeyCode()));
         }
@@ -46,7 +51,7 @@ public class KeyManager implements KeyListener {
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(@NotNull KeyEvent e) {
         pressedKeys.remove(keyCodeToString(e.getKeyCode()));
     }
 

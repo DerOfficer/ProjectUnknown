@@ -1,6 +1,8 @@
 package Model.Managing;
 
 import Control.ProjectUnknownProperties;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -49,6 +51,7 @@ public class SpriteManager {
     public static final int MISC_LOGO = 0;
     public static final int MISC_STAR = 1;
 
+    @Nullable
     public static final BufferedImage[][] SPRITES = new BufferedImage[][]{
         {readImageSave(Paths.get("Images/Blocks/earth.png")), readImageSave(Paths.get("Images/Blocks/grass.png")), readImageSave(Paths.get("Images/Blocks/stone_brick.png")), readImageSave(Paths.get("Images/Blocks/crystal_stone_brick.png")), readImageSave(Paths.get("Images/Blocks/lever_on.png")), readImageSave(Paths.get("Images/Blocks/lever_off.png"))},
         {readImageSave(Paths.get("Images/Entity/player_spritesheet.png")), readImageSave(Paths.get("Images/Entity/zombie_spritesheet.png"))},
@@ -58,7 +61,7 @@ public class SpriteManager {
         {readImageSave(Paths.get("Images/logo.png")), readImageSave(Paths.get("Images/star.png"))}
     };
 
-    private static BufferedImage readImageSave(Path path){
+    private static BufferedImage readImageSave(@NotNull Path path){
         System.out.println("Reading: "+path);
         try {
             return ImageIO.read(path.toFile());

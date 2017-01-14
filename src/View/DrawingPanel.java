@@ -4,6 +4,7 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Abstraction.IInteractableObject;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -16,12 +17,17 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     protected static final int screenWidth = Toolkit.getDefaultToolkit().getScreenSize().width;
     protected static final int screenHeight = Toolkit.getDefaultToolkit().getScreenSize().height;
 
+    private boolean graphicsLock;
+
     protected long lastLoop;
     protected long elapsedTime;
+
     protected ArrayList<IDrawableObject> drawableObjects;
+
     protected ProjectUnknownProperties properties;
+
     protected Timer timer;
-    private boolean graphicsLock;
+
     private Graphics2D graphics;
 
     public DrawingPanel(ProjectUnknownProperties properties) {
@@ -75,7 +81,7 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     @Override
-    public void addObject(IDrawableObject d) {
+    public void addObject(@NotNull IDrawableObject d) {
         drawableObjects.add(d);
         d.provideCanvas(this);
     }
@@ -91,7 +97,7 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     }
 
     @Override
-    public void scheduleAddObject(IDrawableObject object) {
+    public void scheduleAddObject(@NotNull IDrawableObject object) {
         SwingUtilities.invokeLater(() -> addObject(object));
     }
 
@@ -108,34 +114,34 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
     public void keyTyped(KeyEvent e) {
     }
 
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(@NotNull KeyEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .forEach(tempDO -> ((IInteractableObject) tempDO).keyPressed(e.getKeyCode()));
     }
 
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(@NotNull KeyEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .forEach(tempDO -> ((IInteractableObject) tempDO).keyReleased(e.getKeyCode()));
 
     }
 
-    public void mouseClicked(MouseEvent e) {
+    public void mouseClicked(@NotNull MouseEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
                 .forEach(tempDO -> ((IInteractableObject) tempDO).mouseClicked(e));
     }
 
-    public void mousePressed(MouseEvent e) {
+    public void mousePressed(@NotNull MouseEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))
                 .forEach(tempDO -> ((IInteractableObject) tempDO).mousePressed(e));
     }
 
-    public void mouseReleased(MouseEvent e) {
+    public void mouseReleased(@NotNull MouseEvent e) {
         drawableObjects.stream()
                 .filter(tempDO -> tempDO instanceof IInteractableObject)
                 .filter(tempDO -> tempDO.getBounds().contains(e.getPoint()))

@@ -16,6 +16,7 @@ import View.StaticDrawingPanel;
 import com.Physics2D.PhysicsObject;
 import com.Physics2D.event.MovementEvent;
 import com.SideScroller.SideScrollingPhysicsWorld;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -51,7 +52,7 @@ public class World extends SideScrollingPhysicsWorld {
      * @param properties
      * @param p          selected Planet
      */
-    public World(Path path, ProjectUnknownProperties properties, Planet p) {
+    public World(@NotNull Path path, @NotNull ProjectUnknownProperties properties, @NotNull Planet p) {
         super(p.getGravity() * PIXEL_TO_METER);
 
         this.properties = properties;
@@ -79,6 +80,7 @@ public class World extends SideScrollingPhysicsWorld {
         properties.getNotificationArea().addNotification(notification);
     }
 
+    @NotNull
     public AbstractBlock getBlockById(String id) {
         return identifiableBlocks.stream()
                 .filter((block) -> block.getId().equals(id))
@@ -127,7 +129,7 @@ public class World extends SideScrollingPhysicsWorld {
      *
      * @param lines
      */
-    private void createWorld(List<String> lines) {
+    private void createWorld(@NotNull List<String> lines) {
         Teleporter tempTeleporter = null;
         for (String line : lines) {
             if (line.equals("stardust .world extension")) {
@@ -188,13 +190,14 @@ public class World extends SideScrollingPhysicsWorld {
             setFocusXOffset(screenWidth / 2 - 10);
         }
 
+        @NotNull
         @Override
         protected Point getRenderingOffset() {
             return new Point(-getRendererXOffset(), -getRendererYOffset());
         }
 
         @Override
-        public void keyPressed(KeyEvent event) {
+        public void keyPressed(@NotNull KeyEvent event) {
             super.keyPressed(event);
             if (event.getKeyCode() == KeyEvent.VK_ESCAPE) {
                 properties.getFrame().setContentPanel(properties.getFrame().getLevelSelect());

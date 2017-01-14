@@ -3,6 +3,7 @@ package Model.UI.Screen;
 import Control.ProjectUnknownProperties;
 import Model.Managing.SpriteManager;
 import View.StaticImageBackgroundPanel;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -19,6 +20,7 @@ public class DefaultBackground extends StaticImageBackgroundPanel {
         image = constructImage();
     }
 
+    @NotNull
     private BufferedImage constructImage() {
         BufferedImage backgroundImg = new BufferedImage(screenWidth, screenHeight, BufferedImage.TYPE_INT_ARGB);
         BufferedImage starSprite = SpriteManager.SPRITES[MISC][MISC_STAR];

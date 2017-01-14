@@ -4,6 +4,7 @@ import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.ManaCast;
 import com.Physics2D.Entity;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -125,7 +126,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
      *
      * @param type
      */
-    protected void conjure(ManaCast.Type type) {
+    protected void conjure(@NotNull ManaCast.Type type) {
         if (manaReady) {
             if (actMana >= type.getMana()) {
                 actMana = actMana - type.getMana();
@@ -198,6 +199,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
         this.canvas = canvas;
     }
 
+    @NotNull
     @Override
     public Shape getBounds() {
         return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());

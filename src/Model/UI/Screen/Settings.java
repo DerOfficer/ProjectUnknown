@@ -6,6 +6,7 @@ import Model.SettingsParser;
 import Model.UI.Button;
 import Model.UI.Label;
 import View.DrawingPanel;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,7 +34,7 @@ public class Settings extends DrawingPanel {
 
     private Color buttonBackgroundColor;
 
-    public Settings(ProjectUnknownProperties properties) {
+    public Settings(@NotNull ProjectUnknownProperties properties) {
         super(properties);
 
         this.buttonBackgroundColor = new Color(109, 115, 255);

@@ -3,6 +3,7 @@ package Model.UI.Overlay;
 import Control.ProjectUnknownProperties;
 import Model.Physics.Entity.Player;
 import View.DrawingPanel;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
@@ -32,7 +33,7 @@ public class GraphicalUserInterface extends DrawingPanel {
     }
 
     @Override
-    public void paintComponent(Graphics g) {
+    public void paintComponent(@NotNull Graphics g) {
         super.paintComponent(g);
         Graphics2D g2d = (Graphics2D) g;
         //MAIN BOARD

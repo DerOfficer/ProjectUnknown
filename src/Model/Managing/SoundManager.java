@@ -1,6 +1,7 @@
 package Model.Managing;
 
 import Control.ProjectUnknownProperties;
+import org.jetbrains.annotations.NotNull;
 
 import javax.sound.sampled.*;
 import java.io.File;
@@ -46,7 +47,7 @@ public class SoundManager {
         try {
             AudioInputStream audioStream = AudioSystem.getAudioInputStream(soundUrl);
             clips[pos].open(audioStream);
-        } catch (LineUnavailableException | UnsupportedAudioFileException | IOException e) {
+        } catch (@NotNull LineUnavailableException | UnsupportedAudioFileException | IOException e) {
             ProjectUnknownProperties.raiseException(e);
         }
         controls[pos] = (FloatControl) clips[pos].getControl(FloatControl.Type.MASTER_GAIN);
