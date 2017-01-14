@@ -30,7 +30,7 @@ public class Spawner extends Block implements IDrawableObject{
         g.drawImage(SpriteManager.SPRITES[BLOCK][BLOCK_STONE_BRICK], (int) getX(), (int) getY(), null);
     }
 
-    @Override
+    //@Override
     public void update(long dt) {
         timer = timer + dt;
         if(timer == 10){
