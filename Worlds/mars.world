@@ -35,8 +35,6 @@ BLOCK STONE_BRICK 800 300
 BLOCK STONE_BRICK 850 300
 BLOCK STONE_BRICK 850 350
 PLAYER 400 400
-
-
 stardust .world extension
 define type=stone_brick x=850 y=400 id=block1 inconsistent=true
 define type=lever x=600 y=600 state=on id=lever1

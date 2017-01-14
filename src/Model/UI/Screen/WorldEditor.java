@@ -197,7 +197,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             blocks = new ArrayList<>();
             Teleporter currentTpBlock = null;
             for(String line: lines){
-                if(line.equals("stadust .world extension")) {
+                if(line.equals("stardust .world extension")) {
                     extensionLines = lines.subList(lines.indexOf(line), lines.size());
                     break;
                 }
