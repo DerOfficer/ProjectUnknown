@@ -18,7 +18,6 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
 
     protected long lastLoop;
     protected long elapsedTime;
-    protected boolean drawJustScreeningObjects;
 
     private boolean graphicsLock;
 
@@ -36,7 +35,6 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         this.properties = properties;
         this.drawableObjects = new ArrayList<>();
         this.timer = new Timer(16, this);
-        this.drawJustScreeningObjects = true;
 
         addMouseListener(this);
         setDoubleBuffered(true);
@@ -59,11 +57,9 @@ public class DrawingPanel extends JComponent implements ActionListener, KeyListe
         for (IDrawableObject tempDO : drawableObjects) {
             Rectangle2D bounds = tempDO.getBounds().getBounds();
             //Dont draw if its not on screen.
-            if(drawJustScreeningObjects) {
-                if (bounds.getX() + bounds.getWidth() + getRenderingOffset().getX() < 0 || bounds.getY() + bounds.getHeight() + getRenderingOffset().getY() < 0
-                        || bounds.getX() + getRenderingOffset().getX() > screenWidth || bounds.getY() + getRenderingOffset().getY() > screenHeight) {
-                    continue;
-                }
+            if (bounds.getX() + bounds.getWidth() + getRenderingOffset().getX() < 0 || bounds.getY() + bounds.getHeight() + getRenderingOffset().getY() < 0
+                    || bounds.getX() + getRenderingOffset().getX() > screenWidth || bounds.getY() + getRenderingOffset().getY() > screenHeight) {
+                continue;
             }
             tempDO.draw();
             tempDO.update((double) dt / 1000);

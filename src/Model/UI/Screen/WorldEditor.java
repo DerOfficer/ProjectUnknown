@@ -1,8 +1,8 @@
 package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
-import Model.Physics.Block.BlockType;
 import Model.Physics.Block.Block;
+import Model.Physics.Block.BlockType;
 import Model.Physics.Block.Teleporter;
 import View.DrawingPanel;
 
@@ -15,7 +15,6 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -44,12 +43,16 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         realX = 0;
         realY = 0;
         indexOfBlockType = 0;
-        drawJustScreeningObjects = false;
         spawnPoint = new Point(0,0);
         blocks = new ArrayList<>();
         extensionLines = new ArrayList<>();
 
         this.addMouseListener(this);
+    }
+
+    @Override
+    public Point getRenderingOffset(){
+        return new Point(-camX, -camY);
     }
 
     /**
@@ -63,24 +66,26 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         int y = (((realY+MouseInfo.getPointerInfo().getLocation().y)/50))*50;
         g.drawString(x+"/"+y,(int)(screenWidth*0.9),(int)(screenHeight*0.05));
 
-        g.translate(camX,camY);
-            for (int i = 0; i < (int)(screenHeight/50)+1; i++) {
-                g.drawLine(realX , realY+i*50 , realX+screenWidth, realY+i*50);
-            }
-            for (int i = 0; i < (int)(screenWidth/50)+1; i++) {
-                g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
-            }
-            g.drawString("P",(int) spawnPoint.getX()+25,(int) spawnPoint.getY()+25);
+        for (int i = 0; i < screenHeight/50 +1; i++) {
+            //g.drawLine(realX , realY+i*50 , realX+screenWidth, realY+i*50);
+            g.drawLine(0, i * 50, screenWidth, i * 50);
+        }
+        for (int i = 0; i < screenWidth/50 +1; i++) {
+            //g.drawLine(realX+i*50 , realY , realX+i*50 ,realY+screenHeight);
+            g.drawLine(i * 50, 0, i * 50, screenHeight);
+        }
+        //Everything before this should be drawn at absolute positions, everything after should be translated
+        super.paintComponent(g);
+        g.drawString("P",(int) spawnPoint.getX()+25,(int) spawnPoint.getY()+25);
 
-            if(pos1 != null){
-                g.setColor(Color.BLUE);
-                g.drawRect((int)pos1.getX(),(int)pos1.getY(),50,50);
-            }
-            if(pos2 != null){
-                g.setColor(Color.BLUE);
-                g.drawRect((int)pos2.getX(),(int)pos2.getY(),50,50);
-            }
-            super.paintComponent(g);
+        if(pos1 != null){
+            g.setColor(Color.BLUE);
+            g.drawRect((int)pos1.getX(),(int)pos1.getY(),50,50);
+        }
+        if(pos2 != null){
+            g.setColor(Color.BLUE);
+            g.drawRect((int)pos2.getX(),(int)pos2.getY(),50,50);
+        }
     }
 
 
