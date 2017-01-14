@@ -1,6 +1,7 @@
 package Model;
 
 import Control.ProjectUnknownProperties;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -15,7 +16,7 @@ public class SettingsParser {
 
     private Path path;
 
-    public SettingsParser(Path path) {
+    public SettingsParser(@NotNull Path path) {
         this.path = path;
         List<String> lines = null;
         try {
@@ -28,7 +29,7 @@ public class SettingsParser {
         parseLines(lines);
     }
 
-    private void parseLines(List<String> lines) {
+    private void parseLines(@NotNull List<String> lines) {
         for (String line : lines) {
             String[] temp = line.split(":");
             map.put(temp[0], temp[1]);

@@ -3,6 +3,7 @@ package Model.Parser;
 import Model.Physics.Block.InconsistentStateBlock;
 import Model.Physics.Block.Lever;
 import Model.Physics.World.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 import java.util.function.Consumer;
@@ -19,7 +20,7 @@ final class LeverActionParser {
      * @param parameters the parameters that define this level action
      * @param world      the world that will contain the lever and everything it interacts with
      */
-    public static void setUpLeverAction(Map<String, String> parameters, World world) {
+    public static void setUpLeverAction(@NotNull Map<String, String> parameters, @NotNull World world) {
         String mode = parameters.get("mode");
 
         Lever lever = getLever(parameters, world);
@@ -41,7 +42,7 @@ final class LeverActionParser {
      * @param parameters
      * @param world
      */
-    private static void addToggleAction(Lever lever, Map<String, String> parameters, World world) {
+    private static void addToggleAction(@NotNull Lever lever, @NotNull Map<String, String> parameters, @NotNull World world) {
         InconsistentStateBlock toToggle = (InconsistentStateBlock) world.getBlockById(parameters.get("block_id"));
 
         Consumer<Boolean> newAction = (isOn) -> toToggle.toggleSolidity();
@@ -49,13 +50,13 @@ final class LeverActionParser {
         appendActionToLever(lever, newAction);
     }
 
-    private static void addLinkAction(Lever lever, Map<String, String> parameters, World world) {
+    private static void addLinkAction(@NotNull Lever lever, @NotNull Map<String, String> parameters, @NotNull World world) {
         Consumer<Boolean> newAction = (isOn) -> LinkParser.performLinking(parameters, world);
 
         appendActionToLever(lever, newAction);
     }
 
-    private static void appendActionToLever(Lever lever, Consumer<Boolean> newAction) {
+    private static void appendActionToLever(@NotNull Lever lever, @NotNull Consumer<Boolean> newAction) {
         Consumer<Boolean> currentAction = lever.getOnToggle();
 
         if (currentAction != null) {
@@ -66,7 +67,8 @@ final class LeverActionParser {
         }
     }
 
-    private static Lever getLever(Map<String, String> parameters, World world) {
+    @NotNull
+    private static Lever getLever(@NotNull Map<String, String> parameters, @NotNull World world) {
         String leverId = parameters.get("lever_id");
 
         return (Lever) world.getBlockById(leverId);

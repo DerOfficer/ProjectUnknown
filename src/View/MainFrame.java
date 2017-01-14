@@ -4,6 +4,8 @@ import Control.ProjectUnknownProperties;
 import Model.Managing.KeyManager;
 import Model.Managing.SpriteManager;
 import Model.UI.Screen.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
 import java.awt.event.MouseEvent;
@@ -19,6 +21,7 @@ public class MainFrame extends JFrame implements MouseListener {
     private JLayeredPane contentPane;
 
     private DrawingPanel background;
+    @Nullable
     private DrawingPanel content;
     private DrawingPanel foreground;
 
@@ -60,7 +63,7 @@ public class MainFrame extends JFrame implements MouseListener {
         setVisible(true);
     }
 
-    public void setContentPanel(DrawingPanel p) {
+    public void setContentPanel(@Nullable DrawingPanel p) {
         if (p == null)
             throw new NullPointerException();
         p.setSize(getSize());
@@ -76,7 +79,7 @@ public class MainFrame extends JFrame implements MouseListener {
         revalidate();
     }
 
-    public void setBackgroundPanel(DrawingPanel p) {
+    public void setBackgroundPanel(@NotNull DrawingPanel p) {
         p.setSize(getSize());
         if (background != null) {
             contentPane.remove(background);
@@ -90,7 +93,7 @@ public class MainFrame extends JFrame implements MouseListener {
         revalidate();
     }
 
-    public void setForegroundPanel(DrawingPanel p) {
+    public void setForegroundPanel(@NotNull DrawingPanel p) {
         p.setSize(getSize());
         if (foreground != null) {
             contentPane.remove(foreground);

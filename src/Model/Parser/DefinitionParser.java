@@ -2,6 +2,8 @@ package Model.Parser;
 
 import Control.ProjectUnknownProperties;
 import Model.Physics.Block.*;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.Map;
@@ -17,7 +19,8 @@ final class DefinitionParser {
      * @param parameters
      * @return a Block
      */
-    public static AbstractBlock constructBlock(Map<String, String> parameters) {
+    @Nullable
+    public static AbstractBlock constructBlock(@NotNull Map<String, String> parameters) {
         int x = ParserUtils.getX(parameters);
         int y = ParserUtils.getY(parameters);
 
@@ -55,7 +58,7 @@ final class DefinitionParser {
      * @param type the name to search for
      * @return the BlockType object
      */
-    private static BlockType getBlockType(String type) {
+    private static BlockType getBlockType(@NotNull String type) {
         for (BlockType blockType : BlockType.values()) {
             if (blockType.toString().toLowerCase().equals(type.toLowerCase())) {
                 return blockType;

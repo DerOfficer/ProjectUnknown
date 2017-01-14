@@ -2,6 +2,7 @@ package Model.UI;
 
 import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -47,6 +48,7 @@ public class Label implements IDrawableObject {
         this.canvas = canvas;
     }
 
+    @NotNull
     @Override
     public Shape getBounds() {
         return new Rectangle2D.Double.Double.Double.Double(0, 0, 0, 0);

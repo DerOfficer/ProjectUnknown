@@ -1,6 +1,7 @@
 package Model.Physics.Block;
 
 import Model.Abstraction.IDrawableObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -20,7 +21,7 @@ public class Block extends AbstractBlock implements IDrawableObject {
      * @param y
      * @param blockType
      */
-    public Block(int x, int y, BlockType blockType, String id) {
+    public Block(int x, int y, @NotNull BlockType blockType, String id) {
         super(x, y, id);
         this.blockType = blockType;
         img = blockType.getImage();

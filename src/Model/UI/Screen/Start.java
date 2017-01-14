@@ -6,6 +6,7 @@ import Model.Managing.SpriteManager;
 import Model.Notification;
 import Model.UI.Button;
 import View.DrawingPanel;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.event.KeyEvent;
@@ -20,7 +21,7 @@ public class Start extends DrawingPanel {
     private Button exitButton;
     private Button logoButton;
 
-    public Start(ProjectUnknownProperties properties) {
+    public Start(@NotNull ProjectUnknownProperties properties) {
         super(properties);
 
         Font menuFont = properties.getGameFont().deriveFont(40f);

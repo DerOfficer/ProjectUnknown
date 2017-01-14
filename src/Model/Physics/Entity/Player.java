@@ -87,7 +87,7 @@ public class Player extends Humanoid implements IInteractableObject {
         }
         for (int i = 0; i < 8; i++) {
             if (KeyManager.isKeyPressed(String.valueOf(i + 1))) {
-                if (i <= ManaCast.Type.values().length) {
+                if (i < ManaCast.Type.values().length) {
                     currentCast = ManaCast.Type.values()[i];
                 }
             }
@@ -121,17 +121,14 @@ public class Player extends Humanoid implements IInteractableObject {
 
     @Override
     public void mouseClicked(MouseEvent e) {
-
     }
 
     @Override
     public void mouseReleased(MouseEvent e) {
-
     }
 
     @Override
     public void mousePressed(MouseEvent e) {
-
     }
 
     public ManaCast.Type getCurrentCast() {

@@ -1,5 +1,7 @@
 package Model.Physics.Block;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 
 /**
@@ -9,7 +11,7 @@ public class InconsistentStateBlock extends Block {
 
     private boolean state = true;
 
-    public InconsistentStateBlock(int x, int y, BlockType blockType, String id) {
+    public InconsistentStateBlock(int x, int y, @NotNull BlockType blockType, String id) {
         super(x, y, blockType, id);
     }
 

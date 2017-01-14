@@ -2,6 +2,7 @@ package View;
 
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.event.ActionEvent;
@@ -18,7 +19,7 @@ public class StaticDrawingPanel extends DrawingPanel {
     }
 
     @Override
-    public void addObject(IDrawableObject object) {
+    public void addObject(@NotNull IDrawableObject object) {
         super.addObject(object);
         forceRepaint();
     }

@@ -5,6 +5,7 @@ import Model.Physics.Entity.Humanoid;
 import Model.Physics.Entity.Player;
 import Model.Physics.ManaCast;
 import Model.Physics.World.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.image.BufferedImage;
 
@@ -18,7 +19,7 @@ public class Enemy extends Humanoid {
 
     private Type type;
 
-    public Enemy(int x, int y, Type type) {
+    public Enemy(int x, int y, @NotNull Type type) {
         super(x, y, type.getSpriteImage(), type.getLevel());
         this.type = type;
     }

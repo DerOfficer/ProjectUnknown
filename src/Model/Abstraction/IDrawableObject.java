@@ -1,5 +1,7 @@
 package Model.Abstraction;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 
 /**
@@ -13,5 +15,5 @@ public interface IDrawableObject {
 
     void provideCanvas(ICanvas canvas);
 
-    Shape getBounds();
+    @NotNull Shape getBounds();
 }

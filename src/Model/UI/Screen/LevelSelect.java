@@ -6,6 +6,7 @@ import Model.Physics.World.World;
 import Model.Planet;
 import Model.UI.Button;
 import View.DrawingPanel;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
@@ -18,7 +19,7 @@ public class LevelSelect extends DrawingPanel {
     private Button buttonBack;
     private Button[] btnPlanets;
 
-    public LevelSelect(ProjectUnknownProperties properties) {
+    public LevelSelect(@NotNull ProjectUnknownProperties properties) {
         super(properties);
 
         buttonBack = new Button(200, 974, "← Back", properties.getGameFont());

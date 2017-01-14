@@ -3,6 +3,7 @@ package Model.Parser;
 import Control.ProjectUnknownProperties;
 import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.World.World;
+import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
 import java.util.Map;
@@ -11,7 +12,7 @@ import java.util.Map;
  * Created by jardu on 1/14/2017.
  */
 final class SpawnParser {
-    public static void spawnEntity(Map<String, String> parameters, World world) {
+    public static void spawnEntity(@NotNull Map<String, String> parameters, @NotNull World world) {
         int x = ParserUtils.getX(parameters);
         int y = ParserUtils.getY(parameters);
 
@@ -20,7 +21,7 @@ final class SpawnParser {
         world.addObject(new Enemy(x, y, enemyType));
     }
 
-    private static Enemy.Type getEnemyType(String type) {
+    private static Enemy.Type getEnemyType(@NotNull String type) {
         for (Enemy.Type enemyType : Enemy.Type.values()) {
             if (enemyType.toString().toLowerCase().equals(type.toLowerCase())) {
                 return enemyType;

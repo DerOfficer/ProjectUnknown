@@ -1,5 +1,7 @@
 package Model.Abstraction;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.awt.*;
 
 /**
@@ -16,7 +18,7 @@ public interface ICanvas {
      * Gets the bounds of this canvas. When used with subclasses of {@link java.awt.Component}, implementing this method is not necessary, as Component already defines a getBounds
      * @return the bounds of this canvas.
      */
-    Rectangle getBounds();
+    @NotNull Rectangle getBounds();
 
     /**
      * Adds the given {@link IDrawableObject} to this Canvas

@@ -2,6 +2,7 @@ package Model.UI;
 
 import Model.Abstraction.AbstractEventInteractionObject;
 import Model.Abstraction.ICanvas;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -15,6 +16,7 @@ public class Button extends AbstractEventInteractionObject {
     private int width;
     private int height;
 
+    @NotNull
     private Rectangle2D bounds = new Rectangle2D.Double(0, 0, 0, 0);
 
     private ICanvas canvas;
@@ -25,7 +27,7 @@ public class Button extends AbstractEventInteractionObject {
     private Image img;
     private Font font;
 
-    public Button(int x, int y, String text, Font font) {
+    public Button(int x, int y, @NotNull String text, Font font) {
         this.font = font;
         this.backgroundColor = new Color(0, 0, 0, 0);
 
@@ -33,14 +35,14 @@ public class Button extends AbstractEventInteractionObject {
         setText(text);
     }
 
-    public Button(int x, int y, int width, int height, String text, Font font) {
+    public Button(int x, int y, int width, int height, @NotNull String text, Font font) {
         this(x, y, text, font);
 
         this.width = width;
         this.height = height;
     }
 
-    public Button(int x, int y, Image img) {
+    public Button(int x, int y, @NotNull Image img) {
         this.img = img;
         this.backgroundColor = new Color(0, 0, 0, 0);
         this.bounds = new Rectangle2D.Double(x, y, img.getWidth(null), img.getHeight(null));
@@ -94,6 +96,7 @@ public class Button extends AbstractEventInteractionObject {
         this.canvas = canvas;
     }
 
+    @NotNull
     @Override
     public Shape getBounds() {
         return bounds;
@@ -107,7 +110,7 @@ public class Button extends AbstractEventInteractionObject {
         return y;
     }
 
-    public void setText(String newS) {
+    public void setText(@NotNull String newS) {
         this.text = newS;
         if (newS.equals(" ")) {
             this.text = "Space";

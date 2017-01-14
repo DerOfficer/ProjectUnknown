@@ -4,6 +4,7 @@ import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.ManaCast;
 import com.Physics2D.Entity;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -38,7 +39,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
      * @param health
      * @param mana
      */
-    public Creature(int x, int y, int width, int height, int health, int mana) {
+    /*public Creature(int x, int y, int width, int height, int health, int mana) {
         super(x, y, width, height);
         this.maxHealth = health;
         this.actHealth = health;
@@ -47,7 +48,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
         this.level = interpretStats();
 
         startUp();
-    }
+    }*/
 
 
     /**
@@ -81,11 +82,11 @@ public abstract class Creature extends Entity implements IDrawableObject {
      *
      * @return level of creature
      */
-    protected int interpretStats() {
+    /*protected int interpretStats() {
         double temp = (double) maxHealth - 75;
         temp = temp / (double) 25;
         return (int) temp;
-    }
+    }*/
 
     /**
      * start up for different constructors
@@ -125,7 +126,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
      *
      * @param type
      */
-    protected void conjure(ManaCast.Type type) {
+    protected void conjure(@NotNull ManaCast.Type type) {
         if (manaReady) {
             if (actMana >= type.getMana()) {
                 actMana = actMana - type.getMana();
@@ -136,13 +137,13 @@ public abstract class Creature extends Entity implements IDrawableObject {
         }
     }
 
-    public int getMaximumHealth() {
+   /* public int getMaximumHealth() {
         return maxHealth;
     }
 
     public void setMaximumHealth(int maxHealth) {
         this.maxHealth = maxHealth;
-    }
+    }*/
 
     public int getActualHealth() {
         return actHealth;
@@ -152,7 +153,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
         this.actHealth = actHealth;
     }
 
-    public int getMaximumMana() {
+    /*public int getMaximumMana() {
         return maxMana;
     }
 
@@ -166,7 +167,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     public void setActualMana(int actMana) {
         this.actMana = actMana;
-    }
+    }*/
 
     public double getManaInPercent() {
         return (double) actMana / maxMana;
@@ -198,6 +199,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
         this.canvas = canvas;
     }
 
+    @NotNull
     @Override
     public Shape getBounds() {
         return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());

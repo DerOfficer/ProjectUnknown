@@ -6,6 +6,7 @@ import Model.Managing.SpriteManager;
 import Model.Physics.Entity.Creature;
 import com.Physics2D.Entity;
 import com.Physics2D.PhysicsObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -32,7 +33,7 @@ public class ManaCast extends Entity implements IDrawableObject {
      * @param type
      * @param creature
      */
-    public ManaCast(Type type, Creature creature) {
+    public ManaCast(@NotNull Type type, @NotNull Creature creature) {
         super(creature.getX(), creature.getY(), type.getImage().getWidth(), type.getImage().getHeight());
         this.type = type;
         this.creature = creature;
@@ -80,6 +81,7 @@ public class ManaCast extends Entity implements IDrawableObject {
         this.canvas = canvas;
     }
 
+    @NotNull
     @Override
     public Shape getBounds() {
         return new Rectangle((int) getX(), (int) getY(), type.getImage().getWidth(), type.getImage().getHeight());
@@ -87,7 +89,7 @@ public class ManaCast extends Entity implements IDrawableObject {
 
     @Override
     public double getMass() {
-        return 1000;
+        return 0;
     }
 
     /**

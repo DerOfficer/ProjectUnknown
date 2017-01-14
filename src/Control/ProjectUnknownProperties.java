@@ -3,6 +3,7 @@ package Control;
 import Model.Managing.SoundManager;
 import Model.UI.NotificationArea;
 import View.MainFrame;
+import org.jetbrains.annotations.NotNull;
 
 import javax.swing.*;
 import java.awt.*;
@@ -35,7 +36,7 @@ public class ProjectUnknownProperties {
     private void tryLoadGameFont(){
         try {
             this.gameFont = Font.createFont(Font.TRUETYPE_FONT, new File("Fonts\\font_galaxy.ttf")).deriveFont(16f);
-        } catch (IOException | FontFormatException e) {
+        } catch (@NotNull IOException | FontFormatException e) {
             ProjectUnknownProperties.raiseException(e);
         }
     }
@@ -56,7 +57,7 @@ public class ProjectUnknownProperties {
         return this.soundManager;
     }
 
-    public static void raiseException(Exception e){
+    public static void raiseException(@NotNull Exception e){
         String formattedStackTrace = "";
         for(StackTraceElement element : e.getStackTrace()){
             formattedStackTrace += element.toString()+"\n";

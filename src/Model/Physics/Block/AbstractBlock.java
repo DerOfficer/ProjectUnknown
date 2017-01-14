@@ -4,6 +4,7 @@ import Model.Abstraction.ICanvas;
 import Model.Abstraction.IDrawableObject;
 import Model.Physics.World.World;
 import com.Physics2D.PhysicsObject;
+import org.jetbrains.annotations.NotNull;
 
 import java.awt.*;
 import java.awt.geom.Rectangle2D;
@@ -28,6 +29,7 @@ public abstract class AbstractBlock extends PhysicsObject implements IDrawableOb
         this.id = id;
     }
 
+    @NotNull
     public World getWorld() {
         return (World) world;
     }
@@ -37,6 +39,7 @@ public abstract class AbstractBlock extends PhysicsObject implements IDrawableOb
         this.canvas = canvas;
     }
 
+    @NotNull
     @Override
     public Shape getBounds() {
         return new Rectangle2D.Double(getX(), getY(), getWidth(), getHeight());

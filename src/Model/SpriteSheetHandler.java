@@ -22,14 +22,14 @@ public class SpriteSheetHandler {
         subSpriteImage();
     }
 
-    public SpriteSheetHandler(Dimension[] dimensions, BufferedImage image) {
+    /*public SpriteSheetHandler(Dimension[] dimensions, BufferedImage image) {
         this.image = image;
         this.dimensions = dimensions;
 
         subExactSpriteImage();
-    }
+    }*/
 
-    private void subExactSpriteImage() {
+    /*private void subExactSpriteImage() {
         if (image != null) {
             sprites = new BufferedImage[dimensions.length];
             int temp = 0;
@@ -38,7 +38,7 @@ public class SpriteSheetHandler {
                 temp = temp + dimensions[i].width;
             }
         }
-    }
+    }*/
 
     private void subSpriteImage() {
         if (image != null) {

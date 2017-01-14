@@ -1,6 +1,7 @@
 package Model.Parser;
 
 import Control.ProjectUnknownProperties;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.Map;
 
@@ -15,7 +16,7 @@ final class ParserUtils {
      * @param parameters the parameters
      * @return the x position or 0 if none is defined
      */
-    public static int getX(Map<String, String> parameters) {
+    public static int getX(@NotNull Map<String, String> parameters) {
         return getInt(parameters, "x");
     }
 
@@ -25,7 +26,7 @@ final class ParserUtils {
      * @param parameters the parameters
      * @return the y position or 0 if none is defined
      */
-    public static int getY(Map<String, String> parameters) {
+    public static int getY(@NotNull Map<String, String> parameters) {
         return getInt(parameters, "y");
     }
 
@@ -37,7 +38,7 @@ final class ParserUtils {
      * @param key        the key to search for
      * @return the value bound to the given key as an integer, or 0 if the key doesnt exist
      */
-    public static int getInt(Map<String, String> parameters, String key) {
+    public static int getInt(@NotNull Map<String, String> parameters, String key) {
         try {
             return Integer.parseInt(parameters.getOrDefault(key, "0"));
         } catch (NumberFormatException nfe) {
@@ -54,7 +55,7 @@ final class ParserUtils {
      * @param key        the key to search for
      * @return the value bound to the given key as a boolean, or false if the key doesnt exist
      */
-    public static boolean getBoolean(Map<String, String> parameters, String key) {
+    public static boolean getBoolean(@NotNull Map<String, String> parameters, String key) {
         return Boolean.parseBoolean(parameters.getOrDefault(key, "false"));
     }
 }
