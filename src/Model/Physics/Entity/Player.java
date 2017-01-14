@@ -131,4 +131,8 @@ public class Player extends Humanoid implements IInteractableObject{
     public void mousePressed(MouseEvent e) {
 
     }
+
+    public ManaCast.Type getCurrentCast(){
+        return currentCast;
+    }
 }

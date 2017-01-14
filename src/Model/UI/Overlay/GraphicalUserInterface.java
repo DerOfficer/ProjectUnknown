@@ -131,5 +131,8 @@ public class GraphicalUserInterface extends DrawingPanel {
         int stringWidthExperience = metrics.stringWidth(experience)/2;
         int stringHeightExperience = metrics.getHeight()/2;
         g2d.drawString(experience,(int)(halfWidth-stringWidthExperience),(int)(yExperience+heightExperience/2+stringHeightExperience));
+
+        //CURRENT MANA CAST
+        g2d.drawImage(player.getCurrentCast().getImage(),(int) (X_POS+WIDTH-HEIGHT/2-10),(int) (Y_POS+HEIGHT/2-10),null);
     }
 }
