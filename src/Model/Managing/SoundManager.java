@@ -84,23 +84,9 @@ public class SoundManager {
         volume = newVolume;
     }
 
-    //TODO check if this is needed
-    public void changeMusic(int newMusic) {
-        if (!clips[newMusic].isRunning()) {
-            clips[newMusic].start();
-            clips[runningTitle].stop();
-            runningTitle = newMusic;
-        }
-    }
-
     public void resetClip(int pos) {
         clips[pos].stop();
         clips[pos].flush();
         clips[pos].setFramePosition(0);
-    }
-
-    //TODO check if this is needed
-    public Clip getClip(int pos) {
-        return clips[pos];
     }
 }

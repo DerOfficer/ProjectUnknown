@@ -87,7 +87,7 @@ public class ManaCast extends Entity implements IDrawableObject {
 
     @Override
     public double getMass() {
-        return 1000;
+        return 0;
     }
 
     /**
