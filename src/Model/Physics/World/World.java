@@ -3,6 +3,7 @@ package Model.Physics.World;
 import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
 import Model.Parser.WorldExtensionParser;
+import Model.Physics.Block.Block;
 import Model.Physics.Block.BlockType;
 import Model.Physics.Block.Teleporter;
 import Model.Physics.Block.InconsistentStateBlock;
@@ -10,6 +11,7 @@ import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
 import Model.UI.Overlay.GraphicalUserInterface;
+import Model.UI.Screen.WorldEditor;
 import View.DrawingPanel;
 import View.StaticDrawingPanel;
 import com.Physics2D.PhysicsObject;
@@ -55,6 +57,9 @@ public class World extends SideScrollingPhysicsWorld{
         this.gui = new GraphicalUserInterface(player, properties);
 
         try {
+            //for (Block block:WorldEditor.getBlocksFromLines(Files.readAllLines(path),properties)) {
+            //    addObject(block);
+            //}
             createWorld(Files.readAllLines(path));
             createEnemies(p);
         } catch (IOException e) {

@@ -15,6 +15,7 @@ import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -239,6 +240,50 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
             e.printStackTrace();
         }
 
+    }
+
+    /**
+     * work in process... because the code to load the world in WorldEditor and World is pretty similar
+     * @param lines
+     * @param properties
+     * @return
+     */
+    public static ArrayList<Block> getBlocksFromLines(List<String> lines, ProjectUnknownProperties properties){
+
+        ArrayList<Block>blocks = new ArrayList<>();
+            Teleporter currentTpBlock = null;
+            for(String line: lines){
+                String[] values = line.split(" ");
+                switch (values[0]) {
+                    case "BLOCK":
+                        BlockType blockType = BlockType.valueOf(values[1]);
+                        int x = Integer.parseInt(values[2]);
+                        int y = Integer.parseInt(values[3]);
+                        Block temp = new Block(x, y, blockType);
+                        blocks.add(temp);
+                        continue;
+                    case "TP1":
+                        blockType = BlockType.valueOf(values[1]);
+                        x = Integer.parseInt(values[2]);
+                        y = Integer.parseInt(values[3]);
+                        temp = new Teleporter(properties, x, y);
+                        blocks.add(temp);
+                        currentTpBlock = (Teleporter) temp;
+                        continue;
+
+                    case "TP2":
+                        blockType = BlockType.valueOf(values[1]);
+                        x = Integer.parseInt(values[2]);
+                        y = Integer.parseInt(values[3]);
+                        Teleporter tempTp = new Teleporter(properties,x, y);
+                        tempTp.link(currentTpBlock);
+                        currentTpBlock.link(tempTp);
+                        blocks.add(tempTp);
+                        currentTpBlock = null;
+                        continue;
+                }
+            }
+            return blocks;
     }
 
     /**
