@@ -43,6 +43,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
         realX = 0;
         realY = 0;
         indexOfBlockType = 0;
+        drawJustScreeningObjects = false;
         spawnPoint = new Point(0,0);
         blocks = new ArrayList<>();
         extensionLines = new ArrayList<>();
@@ -188,14 +189,13 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                 super.removeObject(block);
             }
             blocks = new ArrayList<>();
-            boolean tpBlock = false;
+            Teleporter currentTpBlock = null;
             for(String line: lines){
                 if(line.equals("stadust .world extension")) {
                     extensionLines = lines.subList(lines.indexOf(line), lines.size());
                     break;
                 }
                 String[] values = line.split(" ");
-                if(!tpBlock) {
                     switch (values[0]) {
                         case "BLOCK":
                             BlockType blockType = BlockType.valueOf(values[1]);
@@ -204,11 +204,14 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                             Block temp = new Block(x, y, blockType);
                             blocks.add(temp);
                             super.addObject(temp);
-                            break;
+                            continue;
+
                         case "PLAYER":
                             int xS = Integer.parseInt(values[1]);
                             int yS = Integer.parseInt(values[2]);
                             spawnPoint.move(xS, yS);
+                            continue;
+
                         case "TP1":
                             blockType = BlockType.valueOf(values[1]);
                             x = Integer.parseInt(values[2]);
@@ -216,23 +219,21 @@ public class WorldEditor extends DrawingPanel implements KeyListener,MouseListen
                             temp = new Teleporter(properties, x, y);
                             blocks.add(temp);
                             super.addObject(temp);
-                            tpBlock = true;
-                            break;
-                    }
-                }else{
-                    if(values[0].equals("TP2")){
-                        BlockType blockType = BlockType.valueOf(values[1]);
-                        int x = Integer.parseInt(values[2]);
-                        int y = Integer.parseInt(values[3]);
-                        Teleporter temp = new Teleporter(properties,x, y);
-                        temp.link((Teleporter)blocks.get(blocks.size()));
-                        blocks.add(temp);
-                        super.addObject(temp);
-                        tpBlock = false;
-                        //break;
-                    }
-                }
+                            currentTpBlock = (Teleporter) temp;
+                            continue;
 
+                        case "TP2":
+                            blockType = BlockType.valueOf(values[1]);
+                            x = Integer.parseInt(values[2]);
+                            y = Integer.parseInt(values[3]);
+                            Teleporter tempTp = new Teleporter(properties,x, y);
+                            tempTp.link(currentTpBlock);
+                            currentTpBlock.link(tempTp);
+                            blocks.add(tempTp);
+                            super.addObject(tempTp);
+                            currentTpBlock = null;
+                            continue;
+                    }
             }
         } catch (IOException e) {
             e.printStackTrace();
