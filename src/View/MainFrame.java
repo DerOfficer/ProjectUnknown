@@ -28,6 +28,7 @@ public class MainFrame extends JFrame implements MouseListener {
     private Start start;
     private Settings settings;
     private LevelSelect levelSelect;
+    private GameOver gameOver;
     private DefaultBackground defaultBackground;
     private StaticImageBackgroundPanel levelSelectBackground;
     private WorldEditor worldEditor;
@@ -41,6 +42,7 @@ public class MainFrame extends JFrame implements MouseListener {
         start = new Start(properties);
         settings = new Settings(properties);
         levelSelect = new LevelSelect(properties);
+        gameOver = new GameOver(properties);
         defaultBackground = new DefaultBackground(properties);
         levelSelectBackground = new StaticImageBackgroundPanel(properties, SpriteManager.SPRITES[BACKGROUND][BACKGROUND_LEVEL_SELECT]);
         worldEditor = new WorldEditor(properties);
@@ -113,6 +115,10 @@ public class MainFrame extends JFrame implements MouseListener {
         revalidate();
     }
 
+    public void removeForegroundPanel(){
+        setForegroundPanel(new DrawingPanel(properties));
+    }
+
     public Start getStart() {
         return start;
     }
@@ -123,6 +129,10 @@ public class MainFrame extends JFrame implements MouseListener {
 
     public LevelSelect getLevelSelect() {
         return levelSelect;
+    }
+
+    public GameOver getGameOver() {
+        return gameOver;
     }
 
     public DefaultBackground getDefaultBackground() {

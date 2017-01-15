@@ -92,7 +92,12 @@ public class Player extends Humanoid implements IInteractableObject {
                 }
             }
         }
-
+        if (getHealthInPercent() <= 0){
+            properties.getFrame().setContentPanel(properties.getFrame().getGameOver());
+            properties.getFrame().setContentPanel(properties.getFrame().getGameOver());
+            properties.getFrame().removeForegroundPanel();
+            setActualHealth(100);
+        }
     }
 
     public int getLevel() {
