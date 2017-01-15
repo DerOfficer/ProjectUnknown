@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement />
+  <nodes>
+    <node x="1094.25" y="630.5">Model.Abstraction.IPlayerInteractable</node>
+    <node x="1438.0" y="2387.0">Model.UI.Screen.Start</node>
+    <node x="1819.5827991452988" y="264.0">Model.UI.NotificationArea</node>
+    <node x="1707.0" y="2387.0">Model.UI.Screen.LevelSelect</node>
+    <node x="0.0" y="2886.0">Model.Physics.World.World</node>
+    <node x="0.0" y="264.0">Model.UI.Label</node>
+    <node x="46.0" y="2767.0">Model.UI.Screen.DefaultBackground</node>
+    <node x="588.25" y="575.0">Model.Physics.Block.Block</node>
+    <node x="1566.0" y="2886.0">Model.Physics.ManaCast.Type</node>
+    <node x="511.0" y="2886.0">Control.ProjectUnknownProperties</node>
+    <node x="2251.582799145299" y="286.5">Model.Abstraction.IInteractableObject</node>
+    <node x="552.0" y="3322.0">Model.Abstraction.IEventInteractableObject.EventType</node>
+    <node x="0.0" y="2643.0">View.StaticImageBackgroundPanel</node>
+    <node x="1960.0" y="2886.0">Model.SettingsParser</node>
+    <node x="2217.0" y="3159.0">Model.Parser.SpawnParser</node>
+    <node x="2415.666132478632" y="787.0">Model.Physics.Entity.Player</node>
+    <node x="0.0" y="3322.0">Model.Managing.SpriteManager</node>
+    <node x="1146.0" y="3159.0">Model.Notification</node>
+    <node x="2035.1661324786319" y="619.5">Model.Abstraction.IEventInteractableObject</node>
+    <node x="2892.666132478632" y="875.0">Model.Physics.Entity.Mobs.Enemy</node>
+    <node x="957.25" y="864.0">Model.Physics.Block.Teleporter</node>
+    <node x="0.0" y="3159.0">Model.Event.InteractionEvent</node>
+    <node x="423.0" y="2255.0">Model.UI.Screen.WorldEditor</node>
+    <node x="1828.0" y="3159.0">Model.Parser.DefinitionParser</node>
+    <node x="2683.916132478632" y="187.0">Model.Physics.Entity.Creature</node>
+    <node x="1251.0" y="2886.0">Model.Managing.KeyManager</node>
+    <node x="2755.916132478632" y="597.0">Model.Physics.Entity.Humanoid</node>
+    <node x="2006.6661324786319" y="809.0">Model.Abstraction.AbstractEventInteractionObject</node>
+    <node x="563.25" y="864.0">Model.Physics.Block.InconsistentStateBlock</node>
+    <node x="1505.5827991452988" y="275.0">Model.Physics.ManaCast</node>
+    <node x="971.0" y="2288.0">Model.UI.Screen.Settings</node>
+    <node x="1069.5" y="1769.0">View.DrawingPanel</node>
+    <node x="2609.0" y="2886.0">Model.Parser.WorldExtensionParser</node>
+    <node x="291.0" y="3322.0">Model.Event.IEventHandler</node>
+    <node x="790.0" y="3159.0">Model.SpriteSheetHandler</node>
+    <node x="250.25" y="875.0">Model.Physics.Block.SpawnBlock</node>
+    <node x="921.0" y="2886.0">Model.Managing.SoundManager</node>
+    <node x="1554.3012820512818" y="0.0">Model.Abstraction.IDrawableObject</node>
+    <node x="2287.0" y="2886.0">Model.Physics.Entity.Mobs.Enemy.Type</node>
+    <node x="1232.0" y="1536.0">Model.Abstraction.ICanvas</node>
+    <node x="2579.0" y="3159.0">MainProgram</node>
+    <node x="475.0" y="3159.0">Model.Parser.ParserUtils</node>
+    <node x="2797.0" y="3159.0">Model.Parser.LinkParser</node>
+    <node x="2437.0" y="1536.0">View.MainFrame</node>
+    <node x="2913.0" y="2886.0">Model.Parser.LeverActionParser</node>
+    <node x="1151.5827991452988" y="286.0">Model.Physics.Block.AbstractBlock</node>
+    <node x="2010.0" y="2387.0">Model.UI.Overlay.GraphicalUserInterface</node>
+    <node x="16.0" y="2354.0">View.StaticDrawingPanel</node>
+    <node x="1645.0" y="3159.0">Model.Physics.Block.BlockType</node>
+    <node x="1225.25" y="820.0">Model.Physics.Block.Lever</node>
+    <node x="1426.0" y="3159.0">Model.Planet</node>
+    <node x="1950.6661324786319" y="1109.0">Model.UI.Button</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="View.StaticImageBackgroundPanel" target="View.StaticDrawingPanel">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="70.0" />
+    </edge>
+    <edge source="Model.UI.Button" target="Model.Abstraction.AbstractEventInteractionObject">
+      <point x="0.0" y="-191.0" />
+      <point x="0.0" y="114.0" />
+    </edge>
+    <edge source="Model.Physics.Block.Lever" target="Model.Abstraction.IDrawableObject">
+      <point x="132.66666666666663" y="-103.0" />
+      <point x="1556.9166666666665" y="762.0" />
+      <point x="1809.0827991452988" y="762.0" />
+      <point x="1809.0827991452988" y="167.0" />
+      <point x="1660.023504273504" y="167.0" />
+      <point x="19.22222222222217" y="58.5" />
+    </edge>
+    <edge source="Model.Physics.Block.SpawnBlock" target="Model.Physics.Block.Block">
+      <point x="73.25" y="-48.0" />
+      <point x="470.0" y="762.0" />
+      <point x="642.25" y="762.0" />
+      <point x="-108.0" y="81.0" />
+    </edge>
+    <edge source="Model.Physics.Entity.Creature" target="Model.Abstraction.IDrawableObject">
+      <point x="0.0" y="-169.0" />
+      <point x="2915.416132478632" y="137.0" />
+      <point x="1717.6901709401707" y="137.0" />
+      <point x="76.88888888888891" y="58.5" />
+    </edge>
+    <edge source="Model.Physics.Block.InconsistentStateBlock" target="Model.Physics.Block.Block">
+      <point x="0.0" y="-59.0" />
+      <point x="0.0" y="81.0" />
+    </edge>
+    <edge source="Model.UI.Screen.Start" target="View.DrawingPanel">
+      <point x="0.0" y="-37.0" />
+      <point x="1562.5" y="2235.0" />
+      <point x="1430.0" y="2235.0" />
+      <point x="51.5" y="213.0" />
+    </edge>
+    <edge source="View.StaticDrawingPanel" target="View.DrawingPanel">
+      <point x="0.0" y="-70.0" />
+      <point x="209.5" y="2215.0" />
+      <point x="1121.0" y="2215.0" />
+      <point x="-257.5" y="213.0" />
+    </edge>
+    <edge source="Model.Physics.Entity.Player" target="Model.Abstraction.IInteractableObject">
+      <point x="-114.25" y="-136.0" />
+      <point x="2529.916132478632" y="550.0" />
+      <point x="2430.832799145299" y="550.0" />
+      <point x="59.75" y="69.5" />
+    </edge>
+    <edge source="Model.Physics.Block.Block" target="Model.Physics.Block.AbstractBlock">
+      <point x="81.0" y="-81.0" />
+      <point x="831.25" y="550.0" />
+      <point x="1235.0827991452988" y="550.0" />
+      <point x="-83.5" y="70.0" />
+    </edge>
+    <edge source="Model.Physics.Block.SpawnBlock" target="Model.Abstraction.IDrawableObject">
+      <point x="-73.25" y="-48.0" />
+      <point x="323.5" y="147.0" />
+      <point x="1583.134615384615" y="147.0" />
+      <point x="-57.66666666666674" y="58.5" />
+    </edge>
+    <edge source="Model.Abstraction.IInteractableObject" target="Model.Abstraction.IDrawableObject">
+      <point x="0.0" y="-69.5" />
+      <point x="2371.082799145299" y="147.0" />
+      <point x="1698.4679487179485" y="147.0" />
+      <point x="57.66666666666674" y="58.5" />
+    </edge>
+    <edge source="Model.UI.Screen.LevelSelect" target="View.DrawingPanel">
+      <point x="0.0" y="-37.0" />
+      <point x="1848.5" y="2225.0" />
+      <point x="1533.0" y="2225.0" />
+      <point x="154.5" y="213.0" />
+    </edge>
+    <edge source="Model.UI.Label" target="Model.Abstraction.IDrawableObject">
+      <point x="0.0" y="-92.0" />
+      <point x="156.5" y="137.0" />
+      <point x="1563.9123931623928" y="137.0" />
+      <point x="-76.88888888888891" y="58.5" />
+    </edge>
+    <edge source="Model.UI.Screen.WorldEditor" target="View.DrawingPanel">
+      <point x="0.0" y="-169.0" />
+      <point x="687.0" y="2225.0" />
+      <point x="1224.0" y="2225.0" />
+      <point x="-154.5" y="213.0" />
+    </edge>
+    <edge source="Model.Physics.Block.Lever" target="Model.Abstraction.IPlayerInteractable">
+      <point x="-132.66666666666674" y="-103.0" />
+      <point x="1291.583333333333" y="762.0" />
+      <point x="1241.25" y="762.0" />
+      <point x="49.0" y="25.5" />
+    </edge>
+    <edge source="Model.Physics.ManaCast" target="Model.Abstraction.IDrawableObject">
+      <point x="0.0" y="-81.0" />
+      <point x="1652.0827991452988" y="167.0" />
+      <point x="1640.8012820512818" y="167.0" />
+      <point x="0.0" y="58.5" />
+    </edge>
+    <edge source="Model.Physics.Entity.Humanoid" target="Model.Physics.Entity.Creature">
+      <point x="0.0" y="-59.0" />
+      <point x="0.0" y="169.0" />
+    </edge>
+    <edge source="Model.Physics.Block.Lever" target="Model.Physics.Block.AbstractBlock">
+      <point x="-1.1368683772161603E-13" y="-103.0" />
+      <point x="1424.2499999999998" y="762.0" />
+      <point x="1402.0827991452988" y="762.0" />
+      <point x="83.5" y="70.0" />
+    </edge>
+    <edge source="View.DrawingPanel" target="Model.Abstraction.ICanvas">
+      <point x="0.0" y="-213.0" />
+      <point x="0.0" y="91.5" />
+    </edge>
+    <edge source="Model.Physics.Entity.Player" target="Model.Physics.Entity.Humanoid">
+      <point x="114.25" y="-136.0" />
+      <point x="2758.416132478632" y="762.0" />
+      <point x="2835.666132478632" y="762.0" />
+      <point x="-79.75" y="59.0" />
+    </edge>
+    <edge source="Model.Physics.Block.Teleporter" target="Model.Abstraction.IPlayerInteractable">
+      <point x="62.0" y="-59.0" />
+      <point x="-49.0" y="25.5" />
+    </edge>
+    <edge source="Model.Physics.Block.AbstractBlock" target="Model.Abstraction.IDrawableObject">
+      <point x="0.0" y="-70.0" />
+      <point x="1318.5827991452988" y="167.0" />
+      <point x="1621.5790598290596" y="167.0" />
+      <point x="-19.22222222222217" y="58.5" />
+    </edge>
+    <edge source="Model.UI.NotificationArea" target="Model.Abstraction.IDrawableObject">
+      <point x="0.0" y="-92.0" />
+      <point x="2025.5827991452988" y="157.0" />
+      <point x="1679.245726495726" y="157.0" />
+      <point x="38.44444444444434" y="58.5" />
+    </edge>
+    <edge source="Model.Physics.Block.Teleporter" target="Model.Physics.Block.Block">
+      <point x="-62.0" y="-59.0" />
+      <point x="1019.25" y="762.0" />
+      <point x="858.25" y="762.0" />
+      <point x="108.0" y="81.0" />
+    </edge>
+    <edge source="Model.Physics.Block.Block" target="Model.Abstraction.IDrawableObject">
+      <point x="-81.0" y="-81.0" />
+      <point x="669.25" y="157.0" />
+      <point x="1602.3568376068374" y="157.0" />
+      <point x="-38.44444444444434" y="58.5" />
+    </edge>
+    <edge source="Model.Abstraction.AbstractEventInteractionObject" target="Model.Abstraction.IEventInteractableObject">
+      <point x="0.0" y="-114.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="Model.UI.Screen.Settings" target="View.DrawingPanel">
+      <point x="0.0" y="-136.0" />
+      <point x="1194.5" y="2235.0" />
+      <point x="1327.0" y="2235.0" />
+      <point x="-51.5" y="213.0" />
+    </edge>
+    <edge source="Model.UI.Screen.DefaultBackground" target="View.StaticImageBackgroundPanel">
+      <point x="0.0" y="-37.0" />
+      <point x="0.0" y="37.0" />
+    </edge>
+    <edge source="Model.UI.Overlay.GraphicalUserInterface" target="View.DrawingPanel">
+      <point x="0.0" y="-37.0" />
+      <point x="2201.0" y="2215.0" />
+      <point x="1636.0" y="2215.0" />
+      <point x="257.5" y="213.0" />
+    </edge>
+    <edge source="Model.Physics.Entity.Mobs.Enemy" target="Model.Physics.Entity.Humanoid">
+      <point x="0.0" y="-48.0" />
+      <point x="79.75" y="59.0" />
+    </edge>
+    <edge source="Model.Abstraction.IEventInteractableObject" target="Model.Abstraction.IInteractableObject">
+      <point x="0.0" y="-36.5" />
+      <point x="2201.166132478632" y="550.0" />
+      <point x="2311.332799145299" y="550.0" />
+      <point x="-59.75" y="69.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.4" x="1762.0" y="2221.25" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

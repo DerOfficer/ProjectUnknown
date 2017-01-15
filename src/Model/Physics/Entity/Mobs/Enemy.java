@@ -10,7 +10,6 @@ import org.jetbrains.annotations.NotNull;
 import java.awt.image.BufferedImage;
 
 import static Model.Managing.SpriteManager.ENTITY;
-import static Model.Managing.SpriteManager.ENTITY_ZOMBIE;
 
 /**
  * Created by Oussama on 11.01.2017.
@@ -51,8 +50,9 @@ public class Enemy extends Humanoid {
     }
 
     public enum Type {
-        ZOMBIE(1, ManaCast.Type.FIRE_BALL, 0.08),
-        MEGA_ZOMBIE(4, ManaCast.Type.METAL_BALL, 0.04);
+        ZOMBIE(1, ManaCast.Type.LIGHT_BALL, 0.08,SpriteManager.ENTITY_ZOMBIE),
+        MEGA_ZOMBIE(4, ManaCast.Type.METAL_BALL, 0.04,SpriteManager.ENTITY_ZOMBIE),
+        FIRE_ZOMBIE(3, ManaCast.Type.FIRE_BALL,0.01,SpriteManager.ENTITY_FIRE_ZOMBIE);
 
         private int level;
         private double speed;
@@ -61,11 +61,11 @@ public class Enemy extends Humanoid {
 
         private BufferedImage image;
 
-        Type(int level, ManaCast.Type manaSpell, double speed) {
+        Type(int level, ManaCast.Type manaSpell, double speed,int imageIndex) {
             this.level = level;
             this.manaSpell = manaSpell;
             this.speed = speed;
-            this.image = SpriteManager.SPRITES[ENTITY][ENTITY_ZOMBIE];
+            this.image = SpriteManager.SPRITES[ENTITY][imageIndex];
         }
 
         public BufferedImage getSpriteImage() {
