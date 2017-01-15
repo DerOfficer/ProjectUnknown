@@ -173,15 +173,16 @@ public class Settings extends DrawingPanel {
         updateVolButtons();
     }
 
-
     /**
      * Erstellt die EventHandler der Lautstärkebuttons
      */
     private void volHandlers(int i) {
         volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            properties.getSoundManager().setVolume(i);
-            settingsParser.overrideSetting("volume", Integer.toString(i));
-            updateVolButtons();
+            if(!isExpectingUserInput()) {
+                properties.getSoundManager().setVolume(i);
+                settingsParser.overrideSetting("volume", Integer.toString(i));
+                updateVolButtons();
+            }
         });
     }
 
