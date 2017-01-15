@@ -69,7 +69,7 @@ public class ManaCast extends Entity implements IDrawableObject {
                 if (object instanceof Creature && object != creature && !creature.getClass().isInstance(object)) {
                     //We prevent mobs from killing their own kind by checking that their mana orbs cant hit instances of their own class
                     Creature enemy = (Creature) object;
-                    enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * enemy.getAttack()));
+                    enemy.setActualHealth(enemy.getActualHealth() - (int) (type.getAttackModifier() * creature.getAttack()));
                     world.removeObject(this);
                 }
             }

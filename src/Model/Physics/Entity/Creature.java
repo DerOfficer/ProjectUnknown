@@ -17,6 +17,7 @@ import java.util.TimerTask;
 public abstract class Creature extends Entity implements IDrawableObject {
 
     private static final int MANA_REGENERATION = 1;
+    private final int attack;
 
     protected ICanvas canvas;
 
@@ -60,9 +61,10 @@ public abstract class Creature extends Entity implements IDrawableObject {
      * @param height
      * @param level
      */
-    public Creature(int x, int y, int width, int height, int level) {
+    public Creature(int x, int y, int width, int height, int level, int attack) {
         super(x, y, width, height);
         this.level = level;
+        this.attack = attack;
         setStats();
         startUp();
     }
@@ -137,13 +139,9 @@ public abstract class Creature extends Entity implements IDrawableObject {
         }
     }
 
-   /* public int getMaximumHealth() {
+    public int getMaximumHealth() {
         return maxHealth;
     }
-
-    public void setMaximumHealth(int maxHealth) {
-        this.maxHealth = maxHealth;
-    }*/
 
     public int getActualHealth() {
         return actHealth;
@@ -191,7 +189,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
     }
 
     public double getAttack() {
-        return (level * 20) + 20;
+        return attack;
     }
 
     @Override

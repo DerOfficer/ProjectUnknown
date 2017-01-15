@@ -21,7 +21,6 @@ import static Model.Managing.SpriteManager.ENTITY_PLAYER;
  */
 public class Player extends Humanoid implements IInteractableObject {
 
-    private int level;
     private int exp;
     private int maxExp;
 
@@ -34,11 +33,10 @@ public class Player extends Humanoid implements IInteractableObject {
      *
      * @param properties
      */
-    public Player(ProjectUnknownProperties properties, int level) {
-        super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER], level);
+    public Player(ProjectUnknownProperties properties) {
+        super(0, 0, SpriteManager.SPRITES[ENTITY][ENTITY_PLAYER], properties.getFrame().getLevelSelect().getLevel(),properties.getFrame().getLevelSelect().getLevel()*30);
 
         this.properties = properties;
-        this.level = level;
 
         this.exp = 0;
         this.maxExp = 100;
@@ -55,12 +53,10 @@ public class Player extends Humanoid implements IInteractableObject {
         exp = exp + earnedExp;
 
         while (exp >= maxExp) {
+            properties.getFrame().getLevelSelect().levelUp();
             exp = exp - maxExp;
-            maxExp = 100 + (level * 10);
-            level++;
-            properties.setLevel(level);
-            properties.getNotificationArea().addNotification(new Notification("Player level up!", "Your are now on level " + level + "!"));
-            level++;
+            maxExp = 100 + (properties.getFrame().getLevelSelect().getLevel() * 10);
+            properties.getNotificationArea().addNotification(new Notification("Player level up!", "Your are now on level " + properties.getFrame().getLevelSelect().getLevel() + "!"));
         }
 
         setStats();
@@ -92,16 +88,15 @@ public class Player extends Humanoid implements IInteractableObject {
                 }
             }
         }
-        if (getHealthInPercent() <= 0){
-            properties.getFrame().setContentPanel(properties.getFrame().getGameOver());
+        if (getActualHealth() <= 0){
             properties.getFrame().setContentPanel(properties.getFrame().getGameOver());
             properties.getFrame().removeForegroundPanel();
-            setActualHealth(100);
+            setActualHealth(getMaximumHealth());
         }
     }
 
     public int getLevel() {
-        return level;
+        return properties.getFrame().getLevelSelect().getLevel();
     }
 
     public double getExperienceInPercent() {

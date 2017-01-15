@@ -55,7 +55,7 @@ public class World extends SideScrollingPhysicsWorld {
 
         this.properties = properties;
         this.renderer = new LevelRenderer(properties);
-        this.player = new Player(properties, properties.getLevel());
+        this.player = new Player(properties);
         this.gui = new GraphicalUserInterface(player, properties);
         this.identifiableBlocks = new ArrayList<>();
 

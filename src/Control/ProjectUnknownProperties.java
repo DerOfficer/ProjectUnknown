@@ -20,10 +20,7 @@ public class ProjectUnknownProperties {
     private MainFrame frame;
     private Font gameFont;
 
-    private int level;
-
     public ProjectUnknownProperties() {
-        this.level = 1;
 
         this.soundManager = new SoundManager();
         this.notificationArea = new NotificationArea(this);
@@ -67,13 +64,5 @@ public class ProjectUnknownProperties {
                 "Severe Error", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
         System.exit(-1);
-    }
-
-    public int getLevel() {
-        return level;
-    }
-
-    public void setLevel(int level) {
-        this.level = level;
     }
 }

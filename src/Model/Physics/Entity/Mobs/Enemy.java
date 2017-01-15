@@ -19,7 +19,7 @@ public class Enemy extends Humanoid {
     private Type type;
 
     public Enemy(int x, int y, @NotNull Type type) {
-        super(x, y, type.getSpriteImage(), type.getLevel());
+        super(x, y, type.getSpriteImage(), type.getLevel(),4);
         this.type = type;
     }
 

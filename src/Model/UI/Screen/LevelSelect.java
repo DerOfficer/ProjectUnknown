@@ -14,7 +14,8 @@ import java.nio.file.Paths;
 
 public class LevelSelect extends DrawingPanel {
 
-    private BufferedImage background;
+    private int level;
+
 
     private Button buttonBack;
     private Button[] btnPlanets;
@@ -23,6 +24,7 @@ public class LevelSelect extends DrawingPanel {
         super(properties);
 
         buttonBack = new Button(200, 974, "← Back", properties.getGameFont());
+        level = 1;
 
         initImages();
 
@@ -61,5 +63,13 @@ public class LevelSelect extends DrawingPanel {
             offset += tempImg.getWidth() + 10;
             addObject(btnPlanets[i]);
         }
+    }
+
+    public void levelUp(){
+        level++;
+    }
+
+    public int getLevel(){
+        return level;
     }
 }

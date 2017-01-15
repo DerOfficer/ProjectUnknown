@@ -20,8 +20,8 @@ public class Humanoid extends Creature {
 
     private HumanAnimationObject animationObject;
 
-    public Humanoid(int x, int y, BufferedImage image, int level) {
-        super(x, y, 20, 82, level);
+    public Humanoid(int x, int y, BufferedImage image, int level, int attack) {
+        super(x, y, 20, 82, level, attack);
 
         this.humanModel = new SpriteSheetHandler(new int[]{ 0, 41 / 2, 38 / 2, 32 / 2, 26 / 2 }, image).getSprites();
 
