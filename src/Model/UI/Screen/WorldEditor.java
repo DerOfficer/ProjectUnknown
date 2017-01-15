@@ -1,9 +1,8 @@
 package Model.UI.Screen;
 
 import Control.ProjectUnknownProperties;
-import Model.Physics.Block.Block;
-import Model.Physics.Block.BlockType;
-import Model.Physics.Block.Teleporter;
+import Model.Physics.Block.*;
+import Model.Physics.Entity.Mobs.Enemy;
 import View.DrawingPanel;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -164,19 +163,19 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
         int y = (((realY + MouseInfo.getPointerInfo().getLocation().y) / 50)) * 50;
         int k = e.getKeyCode();
         if (k == KeyEvent.VK_LEFT) {
-            camX = camX + 50;
+            camX = camX - 50;
             realX = realX - 50;
         }
         if (k == KeyEvent.VK_RIGHT) {
-            camX = camX - 50;
+            camX = camX + 50;
             realX = realX + 50;
         }
         if (k == KeyEvent.VK_UP) {
-            camY = camY + 50;
+            camY = camY - 50;
             realY = realY - 50;
         }
         if (k == KeyEvent.VK_DOWN) {
-            camY = camY - 50;
+            camY = camY + 50;
             realY = realY + 50;
         }
 
@@ -186,6 +185,11 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                 indexOfBlockType = 0;
             }
         }
+        if (e.getKeyChar() == 'o'){
+
+            createSpawnBlock(x,y);
+        }
+
         if (e.getKeyChar() == 'd') {
             removeBlock(x, y);
         }
@@ -219,6 +223,16 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
         if (e.getKeyChar() == 't') {
             createTeleporter(x, y);
         }
+
+    }
+
+    private void createSpawnBlock(int x, int y) {
+        System.out.println("bbbb");
+        String details = JOptionPane.showInputDialog(properties.getFrame(), "Which entity should be spawned");
+        Enemy.Type type = Enemy.Type.valueOf(details);
+        SpawnBlock temp = new SpawnBlock(x,y, BlockType.values()[indexOfBlockType], type);
+        blocks.add(temp);
+        super.addObject(temp);
     }
 
     @Override
@@ -297,6 +311,17 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                         super.addObject(tempTp);
                         currentTpBlock = null;
                         break;
+                    case "SPAWN":
+                        Enemy.Type enemyType = Enemy.Type.valueOf(values[1]);
+                        blockType = BlockType.valueOf(values[2]);
+                        x = Integer.parseInt(values[3]);
+                        y = Integer.parseInt(values[4]);
+                        SpawnBlock tempSpawnBlock = new SpawnBlock(x, y, blockType, enemyType);
+                        blocks.add(tempSpawnBlock);
+                        super.addObject(tempSpawnBlock);
+                        break;
+
+
                 }
             }
         } catch (IOException e) {
@@ -338,13 +363,7 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
      * @param y - y position
      */
     private void createBlock(int x, int y) {
-        boolean noBlock = true;
-        for (Block block : blocks) {
-            if (block.getX() == x && block.getY() == y) {
-                noBlock = false;
-            }
-        }
-        if (noBlock) {
+        if (blockDetected(x,y)) {
             Block temp = new Block(x, y, BlockType.values()[indexOfBlockType], "");
             blocks.add(temp);
             super.addObject(temp);
@@ -388,7 +407,10 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
                     x = (int) block.getX();
                     y = (int) block.getY();
                     writer.println("TP2 " + block.getBlockType().toString() + " " + x + " " + y);
-                } else {
+                } else if(block instanceof SpawnBlock) {
+                    SpawnBlock spawnBlock = (SpawnBlock) block;
+                    writer.println("SPAWN "+ spawnBlock.getEnemyType().toString()+" "+spawnBlock.getBlockType().toString()+" "+x+" "+y);
+                }else{
                     writer.println("BLOCK " + block.getBlockType().toString() + " " + x + " " + y);
                 }
             }
@@ -419,5 +441,21 @@ public class WorldEditor extends DrawingPanel implements KeyListener, MouseListe
             pos1 = null;
             pos2 = null;
         }
+    }
+
+
+    /**
+     * checks if a block is on the location
+     * @param x - x location
+     * @param y - y location
+     * @return returns true when there is no block
+     */
+    private boolean blockDetected(int x,int y){
+        for (AbstractBlock block : blocks) {
+            if (block.getX() == x && block.getY() == y) {
+                return false;
+            }
+        }
+        return true;
     }
 }

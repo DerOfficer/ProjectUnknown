@@ -1610,7 +1610,6 @@ BLOCK GRASS 600 -100
 BLOCK GRASS 650 -100
 BLOCK GRASS 700 -100
 BLOCK GRASS 750 -100
-BLOCK GRASS 800 -100
 BLOCK GRASS 850 -100
 BLOCK GRASS 900 -100
 BLOCK GRASS 950 -100
@@ -2768,8 +2767,8 @@ BLOCK STONE_BRICK 7300 -6650
 BLOCK STONE_BRICK 7350 -6650
 BLOCK STONE_BRICK 7400 -6650
 BLOCK STONE_BRICK 7450 -6650
+SPAWN ZOMBIE EARTH 800 -100
 PLAYER -1900 -500
-
 stardust .world extension
 define type=stone_brick x=1400 y=-300 id=b1 inconsistent=true
 define type=stone_brick x=1400 y=-250 id=b2 inconsistent=true
@@ -2780,12 +2779,3 @@ lever_action lever_id=lever1 mode=toggle_block block_id=b1
 lever_action lever_id=lever1 mode=toggle_block block_id=b2
 lever_action lever_id=lever1 mode=toggle_block block_id=b3
 lever_action lever_id=lever1 mode=toggle_block block_id=b4
-spawn type=zombie x=1900 y=0
-spawn type=zombie x=6700 y=-6450
-spawn type=mega_zombie x=6700 y=-6450
-spawn type=zombie x=4800 y=1050
-spawn type=zombie x=4300 y=-1650
-spawn type=zombie x=5000 y=-1850
-spawn type=zombie x=4250 y=-2750
-spawn type=zombie x=-2450 y=-1000
-spawn type=zombie x=550 y=-200

@@ -4,7 +4,6 @@ import Control.ProjectUnknownProperties;
 import Model.Physics.Entity.Player;
 import View.DrawingPanel;
 import org.jetbrains.annotations.NotNull;
-
 import java.awt.*;
 import java.awt.geom.RoundRectangle2D;
 

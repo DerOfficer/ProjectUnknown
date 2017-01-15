@@ -4,10 +4,8 @@ import Control.ProjectUnknownProperties;
 import Model.Abstraction.IDrawableObject;
 import Model.Notification;
 import Model.Parser.WorldExtensionParser;
-import Model.Physics.Block.AbstractBlock;
-import Model.Physics.Block.BlockType;
-import Model.Physics.Block.InconsistentStateBlock;
-import Model.Physics.Block.Teleporter;
+import Model.Physics.Block.*;
+import Model.Physics.Entity.Mobs.Enemy;
 import Model.Physics.Entity.Player;
 import Model.Planet;
 import Model.UI.Overlay.GraphicalUserInterface;
@@ -156,6 +154,13 @@ public class World extends SideScrollingPhysicsWorld {
                             y = Integer.parseInt(values[3]);
                             tempTeleporter = new Teleporter(x, y, "");
                             addObject(tempTeleporter);
+                            break;
+                        case "SPAWN":
+                            Enemy.Type enemyType = Enemy.Type.valueOf(values[1]);
+                            blockType = BlockType.valueOf(values[2]);
+                            x = Integer.parseInt(values[3]);
+                            y = Integer.parseInt(values[4]);
+                            addObject(new SpawnBlock(x, y, blockType, enemyType));
                             break;
                     }
                 } else {
