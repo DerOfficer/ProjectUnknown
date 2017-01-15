@@ -58,6 +58,10 @@ public class Label implements IDrawableObject {
         this.font = font;
     }
 
+    public void setText(String text){
+        this.text = text;
+    }
+
     public void setForegroundColor(Color foregroundColor) {
         this.foregroundColor = foregroundColor;
     }
