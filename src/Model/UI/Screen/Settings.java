@@ -29,54 +29,34 @@ public class Settings extends DrawingPanel {
     private Button btnBack;
     private Button[] controlButtons;
     private Button[] volumeButtons;
+    private Button settingButton;
 
     private SettingsParser settingsParser;
 
     private Color buttonBackgroundColor;
+    private Color noColor;
 
     public Settings(@NotNull ProjectUnknownProperties properties) {
         super(properties);
 
-        this.buttonBackgroundColor = new Color(109, 115, 255);
-
-        initGenericButtons();
-        initGenericLabels();
-
-        initGenericEventHandlers();
+        buttonBackgroundColor = new Color(109, 115, 255);
+        noColor = new Color(0,0,0,0);
 
         controlButtons = new Button[5];
         controlLabels = new Label[controlButtons.length];
-
         setting = new boolean[controlButtons.length];
-
         controlKeyLabels = new String[]{ "Jump", "Left", "Right", "Interact", "Shoot" };
-
         settingsParser = new SettingsParser(Paths.get("game.settings"));
-
-        createVolButtons();
-        createConSettings();
-
-        btnEasterEgg.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
-            if (!isExpectingUserInput()) {
-                properties.getSoundManager().startSound(1);
-                SwingUtilities.invokeLater(() -> {
-                    if (!turned) {
-                        removeObject(lblHeadline);
-                        lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "IF-SCHLEIFE", properties.getGameFont().deriveFont(50f));
-                        addObject(lblHeadline);
-                    } else {
-                        removeObject(lblHeadline);
-                        lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "SETTINGS", properties.getGameFont().deriveFont(50f));
-                        addObject(lblHeadline);
-                    }
-                    turned = !turned;
-                });
-            }
-        });
 
         for (int i = 0; i < volumeButtons.length; i++) {
             volHandlers(i);
         }
+
+        initGenericEventHandlers();
+        createVolButtons();
+        createConSettings();
+        initGenericLabels();
+        initGenericButtons();
 
         changeListener(0);
         changeListener(1);
@@ -85,13 +65,18 @@ public class Settings extends DrawingPanel {
         changeListener(4);
         properties.getSoundManager().setVolume(Integer.parseInt(settingsParser.getSetting("volume")));
         updateVolButtons();
+
     }
 
+    /**
+     * Erstellt die Buttons: Back, EasterEgg, settingButton und die Plus-/Minus-Buttons zum Ändern der Lautstärke
+     */
     private void initGenericButtons() {
-        btnBack = new Button(screenWidth / 14, screenHeight / 10 * 9, "← Back", properties.getGameFont());
+        btnBack = new Button(screenWidth / 14, screenHeight / 10 * 9, "Back", properties.getGameFont());
         btnEasterEgg = new Button(screenWidth - 125, screenHeight / 10 * 5, "Easter Egg", properties.getGameFont());
-        btnVolumeMinus = new Button(screenWidth / 8 * 6 - screenWidth / 25, screenHeight / 10 * 9, screenWidth / 25, screenWidth / 25, "-", properties.getGameFont());
-        btnVolumePlus = new Button(screenWidth / 8 * 7 + (screenWidth / 8 / 20), screenHeight / 10 * 9, screenWidth / 25, screenWidth / 25, "+", properties.getGameFont());
+        btnVolumeMinus = new Button(screenWidth / 8 * 6 - screenWidth / 25, screenHeight / 10 * 9, screenWidth / 25, screenWidth / 25, "-", properties.getGameFont().deriveFont(25f));
+        btnVolumePlus = new Button(screenWidth / 8 * 7 + (screenWidth / 8 / 20), screenHeight / 10 * 9, screenWidth / 25, screenWidth / 25, "+", properties.getGameFont().deriveFont(25f));
+        settingButton = new Button(0,0,screenWidth,screenHeight," ",properties.getGameFont().deriveFont(25f));
 
         btnBack.setForegroundColor(Color.white);
         btnEasterEgg.setForegroundColor(Color.white);
@@ -99,19 +84,18 @@ public class Settings extends DrawingPanel {
         btnVolumePlus.setForegroundColor(Color.white);
         btnVolumePlus.setBackgroundColor(buttonBackgroundColor);
         btnVolumeMinus.setBackgroundColor(buttonBackgroundColor);
+        changeSettingButton(noColor,noColor," ");
 
         addObject(btnBack);
         addObject(btnEasterEgg);
         addObject(btnVolumeMinus);
         addObject(btnVolumePlus);
+        addObject(settingButton);
     }
 
-    private void initGenericLabels() {
-        lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "SETTINGS", properties.getGameFont().deriveFont(50f));
-
-        addObject(lblHeadline);
-    }
-
+    /**
+     * Erstellt die EventHandler für die Buttons Back, EasterEgg, settingButton und die Plus-/Minus-Buttons
+     */
     private void initGenericEventHandlers() {
         btnBack.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if (!isExpectingUserInput()) {
@@ -140,8 +124,34 @@ public class Settings extends DrawingPanel {
                 updateVolButtons();
             }
         });
+
+        btnEasterEgg.addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
+            if (!isExpectingUserInput()) {
+                properties.getSoundManager().startSound(1);
+                SwingUtilities.invokeLater(() -> {
+                    if (!turned) {
+                        lblHeadline.setText("IF-SCHLEIFE");
+                    } else {
+                        lblHeadline.setText("SETTINGS");
+                    }
+                    turned = !turned;
+                });
+            }
+        });
     }
 
+    /**
+     * Erstellt die Überschrift
+     */
+    private void initGenericLabels() {
+        lblHeadline = new Label(screenWidth / 2, screenHeight / 10 * 2, "SETTINGS", properties.getGameFont().deriveFont(50f));
+
+        addObject(lblHeadline);
+    }
+
+    /**
+     * Erstellt die einzelnen Lautstärkebuttons
+     */
     private void createVolButtons() {
         volumeButtons = new Button[10];
         int x = screenWidth / 160;
@@ -155,6 +165,10 @@ public class Settings extends DrawingPanel {
         updateVolButtons();
     }
 
+
+    /**
+     * Erstellt die EventHandler der Lautstärkebuttons
+     */
     private void volHandlers(int i) {
         volumeButtons[i].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             properties.getSoundManager().setVolume(i);
@@ -163,6 +177,9 @@ public class Settings extends DrawingPanel {
         });
     }
 
+    /**
+     * Erstellt die Buttons zum Ändern der Steuerung
+     */
     private void createConSettings() {
         int x = screenWidth / 5;
         int y = screenHeight / 10 * 3;
@@ -178,16 +195,30 @@ public class Settings extends DrawingPanel {
         }
     }
 
+    /**
+     * Erstellt die EventHandler für die einzelnen Knöpfe, welche die Steuerung ändern
+     */
     private void changeListener(int button) {
         controlButtons[button].addEventHandler(IEventInteractableObject.EventType.MOUSE_RELEASED, (event) -> {
             if (!isExpectingUserInput()) {
                 setting[button] = true;
-                controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e) -> {
-                    String temp = String.valueOf((char) e.getSrcKey());
-                    if (setting[button] && !temp.equals(getSetting("left")) && !temp.equals(getSetting("right")) && !temp.equals(getSetting("interact")) && !temp.equals(getSetting("shoot")) && !temp.equals(getSetting("jump"))) {
+
+                changeSettingButton(Color.white, new Color(0,0,0,200), "Currently setting Button");
+
+                settingButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (e2) -> {
+                    if(e2.getSrcKey() == KeyEvent.VK_ESCAPE) {
+                        changeSettingButton(noColor,noColor," ");
+                        setting[button] = false;
+                    }
+                });
+
+                controlButtons[button].addEventHandler(IEventInteractableObject.EventType.KEY_PRESSED, (e3) -> {
+                    String temp = String.valueOf((char) e3.getSrcKey());
+                    if (setting[button] && !temp.equals(getSetting("left")) && !temp.equals(getSetting("right")) && !temp.equals(getSetting("interact")) && !temp.equals(getSetting("shoot")) && !temp.equals(getSetting("jump")) && e3.getSrcKey() != KeyEvent.VK_ESCAPE) {
                         settingsParser.overrideSetting(controlKeyLabels[button].toLowerCase(), temp);
                         controlButtons[button].setText(settingsParser.getSetting(controlKeyLabels[button].toLowerCase()));
                         properties.getSoundManager().startSound(2);
+                        changeSettingButton(noColor,noColor," ");
                         setting[button] = false;
                     }
                 });
@@ -195,6 +226,9 @@ public class Settings extends DrawingPanel {
         });
     }
 
+    /**
+     * Prüft, ob gerade ein Button geändert wird.
+     */
     private boolean isExpectingUserInput() {
         for (int i = 0; i < setting.length; i++) {
             if (setting[i]) {
@@ -204,6 +238,9 @@ public class Settings extends DrawingPanel {
         return false;
     }
 
+    /**
+     * Ändert die Farbe der einzelnen Lautstärkebalken
+     */
     public void updateVolButtons() {
         for (int i = 0; i < volumeButtons.length; i++) {
             if (properties.getSoundManager().getVolume() < i) {
@@ -214,6 +251,19 @@ public class Settings extends DrawingPanel {
         }
     }
 
+    /**
+     * Ändert die Parameter des 'settingButton', welcher auf dem Bildschirm erscheint, wenn gerade ein Button zum Steuern geändert wird
+     */
+    public void changeSettingButton(Color color1, Color color2, String text){
+        settingButton.setForegroundColor(color1);
+        settingButton.setBackgroundColor(color2);
+        settingButton.setText(text);
+    }
+
+    /**
+     * Beim Ändern eines Steuerung-Knopfes muss abgefragt werden, welche Funktion dieser jeweilige Knopf hat. Diese Methode liefert
+     * es zurück.
+     */
     public String getSetting(String key) {
         return settingsParser.getSetting(key);
     }
