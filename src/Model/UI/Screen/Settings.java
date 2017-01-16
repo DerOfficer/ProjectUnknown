@@ -132,12 +132,14 @@ public class Settings extends DrawingPanel {
                     if (!turned) {
                         lblHeadline.setText("IF-SCHLEIFE");
                         btnBack.setText("IF-SCHLEIFE");
+                        btnEasterEgg.setText("IF-SCHLEIFE");
                         for(int i = 0; i < controlLabels.length; i++){
                             controlLabels[i].setText("IF-SCHLEIFE");
                         }
                     } else {
                         lblHeadline.setText("SETTINGS");
                         btnBack.setText("Back");
+                        btnEasterEgg.setText("Easter Egg");
                         for(int i = 0; i < controlLabels.length; i++){
                             controlLabels[i].setText(controlKeyLabels[i]);
                         }
