@@ -109,6 +109,7 @@ public abstract class Creature extends Entity implements IDrawableObject {
 
     /**
      * is running every second
+     * I woulcn't have guessed!
      */
     private void runEverySecond() {
         if (!manaReady) {

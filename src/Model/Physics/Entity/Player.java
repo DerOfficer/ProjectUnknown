@@ -93,6 +93,12 @@ public class Player extends Humanoid implements IInteractableObject {
             properties.getFrame().removeForegroundPanel();
             setActualHealth(getMaximumHealth());
         }
+        if(getY() > 10000){
+            ((World)world).unfocus();
+            if(getY() > 11000) {
+                setActualHealth(0);
+            }
+        }
     }
 
     public int getLevel() {

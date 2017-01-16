@@ -11,7 +11,6 @@ import java.nio.file.Paths;
 public class SoundManager {
 
     private int volume;
-    private int runningTitle;
 
     private Mixer mixer;
     private Clip[] clips; // 0 Hintergrundmusik_Menü, 1 EasterEggButtonSound, 2 Settings_changeKeySound, 3 notificationSound, 4 DefileButtonSound, 5 StartButton
@@ -57,7 +56,6 @@ public class SoundManager {
         if (!clips[pos].isRunning()) {
             resetClip(pos);
             clips[pos].start();
-            runningTitle = pos;
         }
     }
 

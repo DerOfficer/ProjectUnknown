@@ -36,7 +36,7 @@ public class Label implements IDrawableObject {
 
         FontMetrics metrics = g2d.getFontMetrics();
 
-        g2d.drawString(text, (x - (metrics.stringWidth(text) / 2)), y);
+        g2d.drawString(text, x - metrics.stringWidth(text) / 2, y);
     }
 
     @Override

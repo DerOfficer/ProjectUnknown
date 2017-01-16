@@ -22,6 +22,7 @@ public class Settings extends DrawingPanel {
     private Label[] controlLabels;
 
     private String[] controlKeyLabels;
+    private String currentlySetting;
 
     private Button btnVolumeMinus;
     private Button btnVolumePlus;
@@ -46,6 +47,7 @@ public class Settings extends DrawingPanel {
         controlLabels = new Label[controlButtons.length];
         setting = new boolean[controlButtons.length];
         controlKeyLabels = new String[]{ "Jump", "Left", "Right", "Interact", "Shoot" };
+        currentlySetting = "Currently Setting Button";
         settingsParser = new SettingsParser(Paths.get("game.settings"));
 
         createVolButtons();
@@ -133,6 +135,7 @@ public class Settings extends DrawingPanel {
                         lblHeadline.setText("IF-SCHLEIFE");
                         btnBack.setText("IF-SCHLEIFE");
                         btnEasterEgg.setText("IF-SCHLEIFE");
+                        currentlySetting = "IF-SCHLEIFE";
                         for(int i = 0; i < controlLabels.length; i++){
                             controlLabels[i].setText("IF-SCHLEIFE");
                         }
@@ -140,6 +143,7 @@ public class Settings extends DrawingPanel {
                         lblHeadline.setText("SETTINGS");
                         btnBack.setText("Back");
                         btnEasterEgg.setText("Easter Egg");
+                        currentlySetting = "Currently setting button";
                         for(int i = 0; i < controlLabels.length; i++){
                             controlLabels[i].setText(controlKeyLabels[i]);
                         }
@@ -214,7 +218,7 @@ public class Settings extends DrawingPanel {
             if (!isExpectingUserInput()) {
                 setting[button] = true;
 
-                changeSettingButton(Color.white, new Color(0,0,0,200), "Currently setting Button");
+                changeSettingButton(Color.white, new Color(0,0,0,200), currentlySetting);
 
                 settingButton.addEventHandler(IEventInteractableObject.EventType.KEY_RELEASED, (e2) -> {
                     if(e2.getSrcKey() == KeyEvent.VK_ESCAPE) {

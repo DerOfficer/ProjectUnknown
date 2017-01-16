@@ -7,7 +7,7 @@ animation walk target object
         leg1x +3 200
         concurrent leg2x -3 200
     cond end
-    block 10
+    block 20
     call walk
 animation end
 
@@ -20,6 +20,6 @@ animation armWalk target object
         arm1x -3 200
         concurrent arm2x +3 200
     cond end
-    block 10
+    block 20
     call armWalk
 animation end
